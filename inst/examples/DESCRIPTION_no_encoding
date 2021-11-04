@@ -1,0 +1,17 @@
+Package: idonthavencoding
+Type: Package
+Title: No Encoding
+Version: 0.1.6
+Authors@R:
+    person(given = "Marc",
+             family = "Basic",
+             role = c("aut", "cre", "cph"),
+             email = "marcbasic@gmail.com",
+             comment = c(ORCID = "0000-0000-0000-001X"))
+Description: I don't have Encoding field. Should parse without problems. Maybe
+        some warning, but because the missing Encoding field.
+License: GPL-3
+URL: https://github.com/idonthavencoding/package, https://idonthavencoding.github.io/package
+BugReports: https://github.com/idonthavencoding/package/issues
+LazyData: true
+RoxygenNote: 6.0.1.9000
