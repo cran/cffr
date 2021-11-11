@@ -5,12 +5,15 @@
 
 <!-- badges: start -->
 
+[![CRAN-status](https://www.r-pkg.org/badges/version/cffr)](https://CRAN.R-project.org/package=cffr)
+[![CRAN-results](https://cranchecks.info/badges/worst/cffr)](https://cran.r-project.org/web/checks/check_results_cffr.html)
+[![Downloads](http://cranlogs.r-pkg.org/badges/grand-total/cffr?color=blue)](https://cran.r-project.org/package=cffr)
 [![R-CMD-check](https://github.com/ropensci/cffr/actions/workflows/check-full.yaml/badge.svg)](https://github.com/ropensci/cffr/actions/workflows/check-full.yaml)
 [![codecov](https://codecov.io/gh/ropensci/cffr/branch/main/graph/badge.svg?token=YRO3XL8RWK)](https://app.codecov.io/gh/ropensci/cffr)
 [![r-universe](https://ropensci.r-universe.dev/badges/cffr)](https://ropensci.r-universe.dev/)
 [![CITATION-cff](https://github.com/ropensci/cffr/actions/workflows/cff-validator.yml/badge.svg)](https://github.com/ropensci/cffr/actions/workflows/cff-validator.yml)
-[![DOI](https://img.shields.io/badge/DOI-10.5281/zenodo.5509765-blue)](https://doi.org/10.5281/zenodo.5509765)
-[![Project Status: Active – The project has reached a stable, usable
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.03900/status.svg)](https://doi.org/10.21105/joss.03900)
+[![Project Status: Active - The project has reached a stable, usable
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 ![GitHub code size in
@@ -19,9 +22,13 @@ bytes](https://img.shields.io/github/languages/code-size/ropensci/cffr)
 
 <!-- badges: end -->
 
+**cffr** provides utilities to generate, parse, modify and validate
+`CITATION.cff` files automatically for **R** packages, as well as tools
+and examples for working with .cff more generally.
+
 ## What is a `CITATION.cff` file?
 
-[Citation File Format (CFF)](https://citation-file-format.github.io/)
+[Citation File Format (CFF](https://citation-file-format.github.io/))
 (Druskat et al. 2021) (v1.2.0) are plain text files with human- and
 machine-readable citation information for software (and datasets). Code
 developers can include them in their repositories to let others know how
@@ -35,15 +42,14 @@ Recently
 included full support of this citation format (Druskat 2021). GitHub
 support is of special interest:
 
-*See [Customize your repository/About CITATION
-files](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-citation-files)*
+<img src="vignettes/tweet-1.png" title="GitHub-link" alt="GitHub-link" width="400" style="display: block; margin: auto;" />
 
-> When you add a CITATION.cff file to the default branch of your
-> repository, it is automatically linked from the repository landing
-> page. This makes it easy for other users to cite your software
-> project, using the information you’ve provided.
+*— Nat Friedman (@natfriedman) [July 27,
+2021](https://twitter.com/natfriedman/status/1420122675813441540?ref_src=twsrc%5Etfw)*
 
-<img src="vignettes/citation-link.png" title="citation-link" alt="citation-link" width="80%" style="display: block; margin: auto;" />
+See [Enhanced support for citations on
+GitHub](https://github.blog/2021-08-19-enhanced-support-citations-github/)
+(Smith 2021) for more info.
 
 ### Related projects
 
@@ -60,20 +66,14 @@ generate `codemeta.json` files from R packages metadata.
 
 ## The cffr package
 
-**cffr** provides utilities to generate, parse, modify and validate
-`CITATION.cff` files automatically for **R** packages, as well as tools
-and examples for working with .cff more generally.
-
 **cffr** maximizes the data extraction by using both the `DESCRIPTION`
 file and the `CITATION` file (if present) of your package. Note that
-**cffr** works best if your package pass
-`R CMD check/devtools::check()`.
+**cffr** works best if your package pass `R CMD
+check/devtools::check()`.
 
 ### Installation
 
-Install **cffr** from CRAN:
-
-<!-- Aspirational, not yet released -->
+Install **cffr** from [CRAN](https://CRAN.R-project.org/package=cffr):
 
 ``` r
 install.packages("cffr")
@@ -89,6 +89,7 @@ Alternatively, you can install **cffr** using the
 [r-universe](https://ropensci.r-universe.dev/ui#builds):
 
 ``` r
+
 # Enable this universe
 options(repos = c(
   ropensci = "https://ropensci.r-universe.dev",
@@ -103,7 +104,20 @@ install.packages("cffr")
 
 By default most often from within your package folder you’ll simply run
 `cff_write()`, that creates a `cff` object, write it on a `CITATION.cff`
-file and validates it on a single command.
+file and validates it on a single command:
+
+``` r
+
+library(cffr)
+
+# For in-development packages
+cff_write()
+#>
+#> CITATION.cff generated
+#>
+#> cff_validate results-----
+#> Congratulations! This .cff file is valid
+```
 
 However, **cffr** provides also custom print methods and mechanisms that
 allows you to customize the `CITATION.cff` and integrate them in your
@@ -121,8 +135,11 @@ test <- cff_create("rmarkdown")
 ```
 
 <details>
+
 <summary>
+
 <code>CITATION.cff</code> for <strong>rmarkdown</strong>
+
 </summary>
 
     cff-version: 1.2.0
@@ -200,6 +217,13 @@ test <- cff_create("rmarkdown")
       given-names: Yihui
       email: xie@yihui.name
       orcid: https://orcid.org/0000-0003-0645-5666
+    keywords:
+    - literate-programming
+    - markdown
+    - pandoc
+    - r
+    - r-package
+    - rmarkdown
     references:
     - type: book
       title: 'R Markdown: The Definitive Guide'
@@ -229,13 +253,17 @@ test <- cff_create("rmarkdown")
       url: https://bookdown.org/yihui/rmarkdown-cookbook
 
 </details>
+
 <p>
+
 <p>
+
 <p>
 
 We can validate the result using `cff_validate()`:
 
 ``` r
+
 cff_validate(test)
 #> 
 #> cff_validate results-----
@@ -248,14 +276,16 @@ objects.
 
 ### Keep your `CITATION.cff` file up-to-date
 
-The easiest way for keeping you `CITATION.cff` file up-tp-date is using
+The easiest way for keeping you `CITATION.cff` file up-to-date is using
 GitHub Actions. Use `cff_gha_update()`function to install a GitHub
 Action that would update your `CITATION.cff` file on the following
 events:
 
--   When you publish a new release of the package on your GitHub repo.
--   Each time that you modify your DESCRIPTION or inst/CITATION files.
--   The action can be run also manually.
+  - When you publish a new release of the package on your GitHub repo.
+  - Each time that you modify your DESCRIPTION or inst/CITATION files.
+  - The action can be run also manually.
+
+<!-- end list -->
 
 ``` r
 cff_gha_update()
@@ -269,39 +299,40 @@ See the example workflow file
 
 ## Related packages
 
--   [**citation**](https://github.com/pik-piam/citation/): The
+  - [**citation**](https://github.com/pik-piam/citation/): The
     development version (at the time of this writing) includes a new
     function `r2cff` that creates a `CITATION.cff` file (v1.1.0) using
     the information of your `DESCRIPTION` file. It also provide minimal
     validity checks.
--   [**handlr**](https://github.com/ropensci/handlr): Tool for
+  - [**handlr**](https://github.com/ropensci/handlr): Tool for
     converting among citation formats, including `*.cff` files. At the
     time of this writing only CFF v1.1.0 was supported (see
-    [#24](https://github.com/ropensci/handlr/issues/24)).
--   [**codemeta**](https://github.com/cboettig/codemeta)/
+    [\#24](https://github.com/ropensci/handlr/issues/24)).
+  - [**codemeta**](https://github.com/cboettig/codemeta)/
     [**codemetar**](https://github.com/ropensci/codemetar) provides
     similar solutions for creating `codemeta.json` file, another format
     for storing and sharing software metadata.
 
 ## Citation
 
-To cite the ‘cffr’ package in publications use:
-
-Hernangómez D (2021). *cffr: Generate Citation File Format (‘cff’)
-Metadata for R Packages*. doi: 10.5281/zenodo.5509765 (URL:
-<https://doi.org/10.5281/zenodo.5509765>), R package version 0.1.0,
-\<URL: <https://docs.ropensci.org/cffr/>\>.
+Hernangómez D (2021). “cffr: Generate Citation File Format Metadata for
+R Packages.” *Journal of Open Source Software*, *6*(67), 3900. doi:
+10.21105/joss.03900 (URL: <https://doi.org/10.21105/joss.03900>), \<URL:
+<https://doi.org/10.21105/joss.03900>\>.
 
 A BibTeX entry for LaTeX users is
 
-    #> @Manual{,
-    #>   title = {cffr: Generate Citation File Format ('cff') Metadata for R Packages},
+    #> @Article{,
+    #>   doi = {10.21105/joss.03900},
+    #>   url = {https://doi.org/10.21105/joss.03900},
     #>   year = {2021},
-    #>   note = {R package version 0.1.0},
-    #>   version = {0.1.0},
+    #>   publisher = {The Open Journal},
+    #>   volume = {6},
+    #>   number = {67},
+    #>   pages = {3900},
     #>   author = {Diego Hernangómez},
-    #>   doi = {10.5281/zenodo.5509765},
-    #>   url = {https://docs.ropensci.org/cffr/},
+    #>   title = {cffr: Generate Citation File Format Metadata for R Packages},
+    #>   journal = {Journal of Open Source Software},
     #> }
 
 You can also use the [citation provided by
@@ -313,39 +344,46 @@ for more info.
 
 ## References
 
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references">
 
-<div id="ref-making_software" class="csl-entry">
+<div id="ref-druskat2021a">
 
-Druskat, Stephan. 2021. “<span class="nocase">Making software citation
-easi(er) - The Citation File Format and its integrations</span>.”
-Zenodo. <https://doi.org/10.5281/zenodo.5529914>.
+Druskat, Stephan. 2021. “Making Software Citation Easi(er) - the
+Citation File Format and Its Integrations,” September.
+<https://doi.org/10.5281/zenodo.5529914>.
 
 </div>
 
-<div id="ref-Druskat_Citation_File_Format_2021" class="csl-entry">
+<div id="ref-druskat2021">
 
 Druskat, Stephan, Jurriaan H. Spaaks, Neil Chue Hong, Robert Haines,
 James Baker, Spencer Bliven, Egon Willighagen, David Pérez-Suárez, and
-Alexander Konovalov. 2021. “Citation File Format.”
+Alexander Konovalov. 2021. “Citation File Format,” August.
 <https://doi.org/10.5281/zenodo.5171937>.
 
 </div>
 
-<div id="ref-aligning_codemeta" class="csl-entry">
+<div id="ref-fenner2021">
 
-Fenner, Martin. 2021. “Aligning the CodeMeta Vocabulary for Scientific
-Software with <span class="nocase">schema.org</span>.”
-<https://doi.org/10.5438/a49j-x692>.
+Fenner, Martin. 2021. “We Need Your Feedback: Aligning the Codemeta
+Vocabulary for Scientific Software with Schema.org.”
+<https://blog.datacite.org/codemeta-we-need-your-feedback/>.
 
 </div>
 
-<div id="ref-codemeta_2_0" class="csl-entry">
+<div id="ref-jones2017">
 
-Jones, Matthew B., Carl Boettiger, Abby Cabunoc Mayes, Arfon Smith,
-Peter Slaughter, Kyle Niemeyer, Yolanda Gil, et al. 2017. “CodeMeta: An
-Exchange Schema for Software Metadata.”
-<https://doi.org/10.5063/schema/codemeta-2.0>.
+Jones, Matthew B, Carl Boettiger, Abby Cabunoc Mayes, Arfon Smith, Peter
+Slaughter, Kyle Niemeyer, Yolanda Gil, et al. 2017. *CodeMeta: An
+Exchange Schema for Software Metadata*. KNB Data Repository.
+<https://doi.org/10.5063/SCHEMA/CODEMETA-2.0>.
+
+</div>
+
+<div id="ref-smith2021">
+
+Smith, Arfon. 2021. “Enhanced Support for Citations on Github.”
+<https://github.blog/2021-08-19-enhanced-support-citations-github/>.
 
 </div>
 

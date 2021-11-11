@@ -172,6 +172,22 @@ desc::desc_set("X-schema.org-keywords", "keyword1, keyword2, keyword3", file = t
 
 cat(cff_create(tmp2)$keywords)
 
+## ----ghkeyword----------------------------------------------------------------
+
+# Get cff object from jsonvalidate
+
+jsonval <- cff_create("jsonvalidate")
+
+# Keywords are retrieved from the GitHub repo
+
+jsonval
+
+# Check keywords
+jsonval$keywords
+
+# The repo
+jsonval$`repository-code`
+
 ## ----license------------------------------------------------------------------
 
 cff_obj <- cff_create("yaml")

@@ -1,13 +1,13 @@
 ---
-title: "Crosswalk"
-subtitle: "From R to CFF"
+title: "From R to CFF"
+subtitle: "Crosswalk"
 author: Diego Hernangómez
 bibliography: bibtex.bib
 output: 
   rmarkdown::html_vignette:
     toc: true
 vignette: >
-  %\VignetteIndexEntry{Crosswalk}
+  %\VignetteIndexEntry{From R to CFF}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -33,7 +33,7 @@ We summarize here the fields that **cffr** can parse and the original source of
 information for each one of them. The details on each key are presented on the
 next section of the document. The assessment of fields are based on the [Guide
 to Citation File Format schema version
-1.2.0](https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#valid-keys) [@Druskat_Citation_File_Format_2021].
+1.2.0](https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#valid-keys) [@druskat2021].
 
 ```{r summary , echo=FALSE}
 
@@ -333,6 +333,31 @@ cat(cff_create(tmp2)$keywords)
 
 </details>
 
+Additionally, if the source code of the package is hosted on GitHub, **cffr**
+can retrieve the topics of your repo via the 
+[GitHub API](https://docs.github.com/en/rest) and include those topics as 
+keywords. This option is controlled via the `gh_keywords` parameter:
+
+<details><summary><strong>Example</strong></summary>
+
+```{r ghkeyword}
+
+# Get cff object from jsonvalidate
+
+jsonval <- cff_create("jsonvalidate")
+
+# Keywords are retrieved from the GitHub repo
+
+jsonval
+
+# Check keywords
+jsonval$keywords
+
+# The repo
+jsonval$`repository-code`
+```
+
+</details>
 
 [Back to summary](#summary).
 

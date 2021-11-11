@@ -8,8 +8,8 @@ knitr::opts_chunk$set(
 
 library(cffr)
 
-## ----echo=FALSE, out.width="80%", fig.align='center', fig.alt="citation-link"----
-knitr::include_graphics("citation-link.png")
+## ----echo=FALSE, out.width="400", fig.align='center', fig.alt="GitHub-link"----
+knitr::include_graphics("tweet-1.png")
 
 ## ----setup, eval=FALSE--------------------------------------------------------
 #  
