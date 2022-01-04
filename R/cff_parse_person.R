@@ -1,6 +1,9 @@
 #' Parse a person to `cff`
 #'
-#' Parse a person or string to a valid format for a `CITATION.cff` file.
+#' @description
+#' Parse a person or string to a valid format for a `CITATION.cff` file. This
+#' is a helper function designed to help on adding or replacing the
+#' auto-generated authors of the package.
 #'
 #' @seealso [cff_create()], `vignette("cffr", "cffr")`, [utils::person()]
 #'
@@ -8,14 +11,29 @@
 #'
 #' @family parsers
 #'
-#' @param person A `person` object or a character coercible to `person`. See
-#'   [utils::person()].
+#' @param person A `person` object created with [person()] or a character string.
+#'   See **Details**.
 #'
 #' @return A [`cff`] object ready to be used on [cff_create()].
 #'
 #' @details
-#' This is a helper function designed to help on adding or
-#' replacing the auto-generated authors of the package. See **Examples**.
+#' The `person` parameter of the function could be:
+#'
+#' * For `cff_parse_person()`: A `person` object or a character coercible to
+#'  `person`. See [person()] for details.
+#' * For `cff_parse_person_bibtex()`: A string with the definition of an author
+#'  or several authors, using the standard BibTeX notation. See Markey (2007)
+#'  for a full explanation.
+#'
+#' See **Examples** for more information.
+#'
+#' @references
+#' - Patashnik, Oren. "BIBTEXTING" February 1988.
+#'   <https://osl.ugr.es/CTAN/biblio/bibtex/base/btxdoc.pdf>.
+#'
+#' - Markey, Nicolas. "Tame the BeaST."
+#'   *The B to X of BibTeX, Version 1.4* (October 2007).
+#'   <https://osl.ugr.es/CTAN/info/bibtex/tamethebeast/ttb_en.pdf>.
 #'
 #' @examples
 #' # Parse a person object
@@ -51,6 +69,22 @@ cff_parse_person <- function(person) {
   # Special case for Bioconductor
 
   if (is.substring(person$given, "Bioconductor")) {
+    person <- person(
+      given = paste(
+        clean_str(person$given),
+        clean_str(person$family)
+      ),
+      email = person$email,
+      role = person$role,
+      comment = person$comment
+    )
+  }
+
+  # Special case for R Core Team
+
+
+  if (is.substring(clean_str(person$given), "R Core") &
+    is.substring(person$family, "Team")) {
     person <- person(
       given = paste(
         clean_str(person$given),
@@ -126,4 +160,74 @@ cff_parse_person <- function(person) {
 
   parsed_person <- as.cff(parsed_person)
   parsed_person
+}
+
+#' @rdname cff_parse_person
+#'
+#' @export
+#'
+#' @examples
+#'
+#' # Or you can use BibTeX style if you prefer
+#'
+#' x <- "Frank Sinatra and Dean Martin and Davis, Jr., Sammy and Joey Bishop"
+#'
+#' cff_parse_person_bibtex(x)
+#'
+#' cff_parse_person_bibtex("Herbert von Karajan")
+cff_parse_person_bibtex <- function(person) {
+  person <- trimws(person)
+
+  # Protect and on brackets
+  # Lower
+  protected <- gsub("(and)(?![^\\}]*(\\{|$))", "@nd@",
+    person,
+    perl = TRUE
+  )
+
+  # upper
+  protected <- gsub("AND(?![^\\}]*(\\{|$))", "@ND@",
+    protected,
+    perl = TRUE
+  )
+
+
+  auths <- unlist(strsplit(protected, " and | AND "))
+
+  # Unprotec
+  auths_un <- gsub("@nd@", "and", auths)
+  auths_un <- gsub("@ND@", "AND", auths_un)
+
+
+  bibtex_auths <- lapply(auths_un, as_person_bibtex)
+
+
+  end <- lapply(bibtex_auths, function(x) {
+    if (is.null(x$given)) {
+      ent <- c(x$von, x$family, x$jr)
+      ent <- clean_str(paste(ent, collapse = " "))
+
+      l <- list(name = ent)
+      l <- as.cff(l)
+    } else {
+      l <- list(
+        "family-names" = x$family,
+        "given-names" = x$given,
+        "name-particle" = x$von,
+        "name-suffix" = x$jr
+      )
+
+      l <- as.cff(l)
+    }
+  })
+
+  # Handle single author
+  if (length(end) == 1) {
+    end <- end[[1]]
+  } else {
+    # Need the class
+    class(end) <- "cff"
+  }
+
+  return(end)
 }

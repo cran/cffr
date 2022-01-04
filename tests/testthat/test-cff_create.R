@@ -5,8 +5,16 @@ test_that("Error if file not exists", {
 })
 
 test_that("Test installed packages", {
+  skip_on_cran()
   expect_silent(cff_create("jsonlite"))
   expect_silent(cff_create("yaml"))
+})
+
+test_that("Test dependencies extraction", {
+  yes <- cff_create("jsonlite")
+  no <- cff_create("jsonlite", dependencies = FALSE)
+
+  expect_true(length(yes$references) > length(no$references))
 })
 
 test_that("Test error formats on inputs", {
@@ -44,12 +52,19 @@ test_that("Auto generate preferred citations", {
   rgeos <- system.file("examples/DESCRIPTION_rgeos",
     package = "cffr"
   )
-  expect_snapshot_output(cff_create(rgeos, gh_keywords = FALSE))
+
+  expect_snapshot_output(cff_create(rgeos,
+    gh_keywords = FALSE,
+    keys = list(references = NULL)
+  ))
 
   basicdate <- system.file("examples/DESCRIPTION_basicdate",
     package = "cffr"
   )
-  expect_snapshot_output(cff_create(basicdate, gh_keywords = FALSE))
+  expect_snapshot_output(cff_create(basicdate,
+    gh_keywords = FALSE,
+    keys = list(references = NULL)
+  ))
 })
 
 test_that("Fuzzy match on cff_create", {

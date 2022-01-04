@@ -25,7 +25,8 @@
 #'   `CITATION.cff` file adheres to for providing the citation metadata.
 #' @param gh_keywords Logical `TRUE/FALSE`. If the package is hosted on
 #'   GitHub, would you like to add the repo topics as keywords?
-#'
+#' @param dependencies Logical `TRUE/FALSE`. Would you like to add the
+#'   of your package to the `reference` key?
 #' @seealso
 #' ```{r, echo=FALSE, results='asis'}
 #'
@@ -101,7 +102,8 @@
 cff_create <- function(x,
                        keys = list(),
                        cff_version = "1.2.0",
-                       gh_keywords = TRUE) {
+                       gh_keywords = TRUE,
+                       dependencies = TRUE) {
   if (missing(x)) x <- getwd()
 
 
@@ -115,6 +117,7 @@ cff_create <- function(x,
 
   # Set initially citobj to NULL
   citobj <- NULL
+  desc_path <- NULL
 
   # Paths
   if (is.cff(x)) {
@@ -171,6 +174,15 @@ cff_create <- function(x,
 
   cffobjend <- merge_desc_cit(cffobj, citobj)
 
+  # Add software dependencies
+  if (dependencies) {
+    deps <- parse_dependencies(desc_path, instpack)
+
+    cffobjend$references <- unique(c(
+      cffobjend$references,
+      deps
+    ))
+  }
 
   # Additional keys
   if (!is.null(keys)) {
@@ -183,6 +195,9 @@ cff_create <- function(x,
 
   # Order
   cffobjend <- cffobjend[cff_schema_keys()]
+
+  # Enhance authors info
+  cffobjend$`preferred-citation`$authors <- enhance_pref_authors(cffobjend)
 
   cffobjend <- as.cff(cffobjend)
   cffobjend
@@ -220,4 +235,143 @@ merge_desc_cit <- function(cffobj, citobj) {
   }
 
   return(cffobjend)
+}
+
+#' Enhance authors info from preferred-citation using metadata from DESCRIPTION
+#' @noRd
+enhance_pref_authors <- function(cffobjend) {
+
+  # Create index of authors extracted from DESCRIPTION (First cff level)
+  auth_desc <- cffobjend$authors
+  key_aut_desc <- lapply(auth_desc, function(x) {
+    l <- list(x["family-names"], x["given-names"], x["name"])
+    l <- unlist(drop_null(l))
+    tolower(paste0(l, collapse = ""))
+  })
+  names(auth_desc) <- unlist(key_aut_desc)
+
+  # Create index of authors from preferred-citation
+  auth_pref <- cffobjend$`preferred-citation`$authors
+  key_aut_cit <- lapply(auth_pref, function(x) {
+    l <- list(x["family-names"], x["given-names"], x["name"])
+    l <- unlist(drop_null(l))
+    tolower(paste0(l, collapse = ""))
+  })
+  names(auth_pref) <- unlist(key_aut_cit)
+
+  # Add missing keys to authors
+  enhancedauth <- lapply(names(auth_pref), function(x) {
+    newdata <- auth_desc[x]
+    olddata <- auth_pref[x]
+
+    # New fields only
+    oldkeys <- names(olddata[[1]])
+    newkeys <- names(newdata[[1]])
+    fieldstoadd <- newdata[[1]][!newkeys %in% oldkeys]
+
+    newinfo <- c(olddata[[1]], fieldstoadd)
+
+    newinfo
+  })
+
+  enhancedauth
+}
+
+
+parse_dependencies <- function(desc_path,
+                               instpack = as.character(
+                                 installed.packages()[, "Package"]
+                               )) {
+  # nocov start
+  if (!is.character(desc_path)) {
+    return(NULL)
+  }
+  if (!file.exists(desc_path)) {
+    return(NULL)
+  }
+  # nocov end
+
+  getdeps <- desc::desc(desc_path)
+
+  deps <- getdeps$get_deps()
+
+  # Adapt version
+
+  deps$version_clean <- gsub("*", "", deps$version, fixed = TRUE)
+
+  # Save copy for later
+  origdeps <- deps
+
+  # Dedupe rows
+  deps <- unique(deps[, c("package", "version_clean")])
+
+
+  # Get dependency type and add to scope
+  scope <- vapply(deps$package,
+    FUN.VALUE = character(1),
+    function(x) {
+      y <- origdeps[origdeps$package == x, "type"]
+
+      y[1]
+    }
+  )
+  deps$scope <- scope
+
+  av_deps <- deps[deps$package %in% c("R", instpack), ]
+
+
+
+
+
+
+  # Get references from DESCRIPTION of dependencies
+  cff_deps <- lapply(seq_len(nrow(av_deps)), function(y) {
+    n <- av_deps[y, ]
+
+    if (n$package == "R") {
+      mod <- cff_parse_citation(citation()[1])
+      mod$year <- format(Sys.Date(), "%Y")
+    } else {
+      mod <- try(cff_parse_citation(citation(n$package, auto = TRUE)[1]),
+        silent = TRUE
+      )
+
+      if (inherits(mod, "try-error")) {
+        return(NULL)
+      }
+
+      # Simplified version of the cff obj
+      # Avoid cluttering the output
+    }
+
+    mod$type <- "software"
+    mod$version <- ifelse(is.na(n$version_clean),
+      NULL,
+      paste(n$version_clean)
+    )
+
+    mod <- drop_null(mod)
+
+    # Get year
+    date_rel <- mod[["date-released"]]
+
+    if (is.null(date_rel)) {
+      year <- format(Sys.Date(), "%Y")
+    } else {
+      year <- format(as.Date(date_rel), "%Y")
+    }
+
+    mod$year <- year
+    mod$notes <- clean_str(n$scope)
+
+    mod <- as.cff(mod)
+  })
+
+  cff_deps <- drop_null(cff_deps)
+
+  cff_deps <- unique(cff_deps)
+
+  class(cff_deps) <- "cff"
+
+  return(cff_deps)
 }

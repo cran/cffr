@@ -1,0 +1,2681 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Diego Hernangómez" />
+
+
+<title>BibTeX and CFF</title>
+
+<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+<style type="text/css">
+  p.abstract{
+    text-align: center;
+    font-weight: bold;
+  }
+  div.abstract{
+    margin: auto;
+    width: 90%;
+  }
+</style>
+
+
+<style type="text/css">
+/* for pandoc --citeproc since 2.11 */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">BibTeX and CFF</h1>
+<h3 class="subtitle">A potential crosswalk</h3>
+<h4 class="author">Diego Hernangómez</h4>
+<div class="abstract">
+<p class="abstract">Abstract</p>
+This article presents a crosswalk between BibTeX and Citation File Format <span class="citation">(<a href="#ref-druskat_citation_2021" role="doc-biblioref">Druskat et al. 2021</a>)</span>, as it is performed by the cffr package <span class="citation">(<a href="#ref-hernangomez2021" role="doc-biblioref">Hernangómez 2021</a>)</span>. Several crosswalk models specific for each BibTeX entry type <span class="citation">(<a href="#ref-patashnik1988" role="doc-biblioref">Patashnik 1988</a>)</span> are proposed. The article also provide examples using real BibTeX entries and tips for developers that would like to implement the crosswalk on different programming languages.
+</div>
+
+
+<div id="TOC">
+<ul>
+<li><a href="#citation">Citation</a></li>
+<li><a href="#bibtex-and-r">BibTeX and R</a></li>
+<li><a href="#bibtex-definitions">BibTeX definitions</a>
+<ul>
+<li><a href="#entries">Entries</a></li>
+<li><a href="#fields">Fields</a></li>
+</ul></li>
+<li><a href="#citation-file-format">Citation File Format</a></li>
+<li><a href="#proposed-crosswalk">Proposed crosswalk</a>
+<ul>
+<li><a href="#entrytype-crosswalk">Entry/Type crosswalk</a></li>
+<li><a href="#fieldskey-crosswalk">Fields/Key crosswalk</a></li>
+</ul></li>
+<li><a href="#entry-models">Entry Models</a>
+<ul>
+<li><a href="#article">article</a></li>
+<li><a href="#bookinbook">book/inbook</a></li>
+<li><a href="#booklet">booklet</a></li>
+<li><a href="#conferenceinproceedings">conference/inproceedings</a></li>
+<li><a href="#incollection">incollection</a></li>
+<li><a href="#manual">manual</a></li>
+<li><a href="#mastersthesisphdthesis">mastersthesis/phdthesis</a></li>
+<li><a href="#misc">misc</a></li>
+<li><a href="#proceedings">proceedings</a></li>
+<li><a href="#techreport">techreport</a></li>
+<li><a href="#unpublished">unpublished</a></li>
+</ul></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+<div id="citation" class="section level2">
+<h2>Citation</h2>
+<p>Please cite this article as:</p>
+<p>Hernangómez D (2022). “BibTeX and CFF, a potential crosswalk.” <em>The cffr package</em>, <em>Vignettes</em>.</p>
+<p>A BibTeX entry for LaTeX users:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">@article</span>{<span class="ot">hernangomez2022</span>,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {{BibTeX} and {CFF}, a potential crosswalk},</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {Diego Hernangómez},</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">year</span>         = 2022,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">journal</span>      = {The {cffr} package},</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">volume</span>       = {Vignettes}</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="bibtex-and-r" class="section level2">
+<h2>BibTeX and R</h2>
+<p><a href="https://en.wikipedia.org/wiki/BibTeX">BibTeX</a> is a well-known format for storing references created by <a href="https://en.wikipedia.org/wiki/Oren_Patashnik" title="Oren Patashnik">Oren Patashnik</a> and <a href="https://en.wikipedia.org/wiki/Leslie_Lamport" title="Leslie Lamport">Leslie Lamport</a> back in 1985. BibTeX that may be reused by another software, like <a href="https://en.wikipedia.org/wiki/LaTeX">LaTeX</a>, for adding references to a work. An example structure of a BibTeX entry would be:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">@book</span>{<span class="ot">einstein1921</span>,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {Relativity: The Special and the General Theory},</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {Einstein, A.},</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">year</span>         = 1920,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">publisher</span>    = {Henry Holt and Company},</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">address</span>      = {London, United Kingdom},</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">isbn</span>         = 9781587340925</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>On this case, the entry (identified as <code>einstein1921</code>) would refer to a book. This entry then can be used on a document and include references to it.</p>
+<p>On <strong>R</strong> <span class="citation">(<a href="#ref-R_2021" role="doc-biblioref">R Core Team 2021</a>)</span>, we can replicate this structure using the <code>bibentry()</code> and <code>toBibtex()</code> functions:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>entry <span class="ot">&lt;-</span> <span class="fu">bibentry</span>(<span class="st">&quot;book&quot;</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">key =</span> <span class="st">&quot;einstein1921&quot;</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">&quot;Relativity: The Special and the General Theory&quot;</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">author =</span> <span class="fu">person</span>(<span class="st">&quot;A.&quot;</span>, <span class="st">&quot;Einstein&quot;</span>),</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">year =</span> <span class="dv">1920</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">publisher =</span> <span class="st">&quot;Henry Holt and Company&quot;</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">address =</span> <span class="st">&quot;London, United Kingdom&quot;</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">isbn =</span> <span class="dv">9781587340925</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">toBibtex</span>(entry)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; @Book{einstein1921,</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   title = {Relativity: The Special and the General Theory},</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   author = {A. Einstein},</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   year = {1920},</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   publisher = {Henry Holt and Company},</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   address = {London, United Kingdom},</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   isbn = {9781587340925},</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; }</span></span></code></pre></div>
+<p>The final results of the entry as a text string would be parsed as<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>:</p>
+<p>Einstein A (1920). <em>Relativity: The Special and the General Theory</em>. Henry Holt and Company, London, United Kingdom. ISBN 9781587340925.</p>
+</div>
+<div id="bibtex-definitions" class="section level2">
+<h2>BibTeX definitions</h2>
+<p><span class="citation"><a href="#ref-patashnik1988" role="doc-biblioref">Patashnik</a> (<a href="#ref-patashnik1988" role="doc-biblioref">1988</a>)</span> provides a comprehensive explanation of the BibTeX formats. We can distinguish between <strong>Entries</strong> and <strong>Fields</strong>.</p>
+<div id="entries" class="section level3">
+<h3>Entries</h3>
+<p>Each entry type defines a different type of work. The 14 entry types defined on BibTeX<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> are:</p>
+<ul>
+<li><strong>@article</strong>: An article from a journal or magazine.</li>
+<li><strong>@book</strong>: A book with an explicit publisher.</li>
+<li><strong>@booklet</strong>: A work that is printed and bound, but without a named publisher or sponsoring institution.</li>
+<li><strong>@conference</strong>: The same as <strong>@inproceedings</strong>, included for Scribe compatibility.</li>
+<li><strong>@inbook</strong>: A part of a book, which may be a chapter (or section or whatever) and/or a range of pages.</li>
+<li><strong>@incollection</strong>: A part of a book having its own title.</li>
+<li><strong>@inproceedings</strong>: An article in a conference proceedings.</li>
+<li><strong>@manual</strong>: Technical documentation.</li>
+<li><strong>@mastersthesis</strong>: A Master’s thesis.</li>
+<li><strong>@misc</strong>: Use this type when nothing else fits.</li>
+<li><strong>@phdthesis</strong>: A PhD thesis.</li>
+<li><strong>@proceedings</strong>: The proceedings of a conference.</li>
+<li><strong>@techreport</strong>: A report published by a school or other institution, usually numbered within a series.</li>
+<li><strong>@unpublished</strong>: A document having an author and title, but not formally published.</li>
+</ul>
+<p>Regarding the entries, <code>bibentry()</code> <strong>R</strong> function does not implement <strong>@conference</strong> . However, we can replace that key by <strong>@inproceedings</strong> given that the definition is identical.</p>
+</div>
+<div id="fields" class="section level3">
+<h3>Fields</h3>
+<p>As in the case of Entries, <span class="citation"><a href="#ref-patashnik1988" role="doc-biblioref">Patashnik</a> (<a href="#ref-patashnik1988" role="doc-biblioref">1988</a>)</span> provides also a definition for each of the possible standard BibTeX fields<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>. An entry can include other fields that would be ignored on the raw implementation of BibTeX:</p>
+<ul>
+<li><strong>address</strong>: Usually the address of the <strong>publisher</strong> or other of <strong>institution</strong>.</li>
+<li><strong>annote</strong>: An annotation. It is not used by the standard bibliography styles, but may be used by others that produce an annotated bibliography.</li>
+<li><strong>author</strong>: The name(s) of the author(s), in the format described in the LaTeX book <span class="citation">(<a href="#ref-lamport86latex" role="doc-biblioref">Lamport 1986</a>)</span>.</li>
+<li><strong>booktitle</strong>: Title of a book, part of which is being cited. For <strong>@book</strong> entries, use the <strong>title</strong> field instead.</li>
+<li><strong>chapter</strong>: A chapter (or section or whatever) number.</li>
+<li><strong>crossref</strong>: The database key of the entry being cross referenced.</li>
+<li><strong>edition</strong>: The edition of a <strong>@book</strong> - for example, “Second.” This should be an ordinal, and should have the first letter capitalized, the standard styles convert to lower case when necessary.</li>
+<li><strong>editor</strong>: Name(s) of editor(s), typed as indicated in the LaTeX book <span class="citation">(<a href="#ref-lamport86latex" role="doc-biblioref">Lamport 1986</a>)</span>. If there is also an <strong>author</strong> field, then the editor field gives the editor of the book or collection in which the reference appears.</li>
+<li><strong>howpublished</strong>: How something strange has been published. The first word should be capitalized.</li>
+<li><strong>institution</strong>: The sponsoring institution of a technical report.</li>
+<li><strong>journal</strong>: A journal name.</li>
+<li><strong>key</strong>: Used for alphabetizing, cross referencing, and creating a label when the <strong>author</strong> information is missing.</li>
+<li><strong>month</strong>: The month in which the work was published or, for an unpublished work, in which it was written. You should use the standard three-letter abbreviation, as described in Appendix B.1.3 of the LaTeX book <span class="citation">(<a href="#ref-lamport86latex" role="doc-biblioref">Lamport 1986</a>)</span> (i.e. <code>jan, feb, mar</code>).</li>
+<li><strong>note</strong>: Any additional information that can help the reader. The first word should be capitalized.</li>
+<li><strong>number</strong>: The number of a journal, magazine, technical report, or of a work in a series. An issue of a journal or magazine is usually identified by its <strong>volume</strong>: and number; the organization that issues a technical report usually gives it a number; and sometimes books are given numbers in a named series.</li>
+<li><strong>organization</strong>: The organization that sponsors a <strong>@conference</strong> or that publishes a manual.</li>
+<li><strong>pages</strong>: One or more page numbers or range of numbers, such as <code>42--111</code> or <code>7,41,73--97</code> or <code>43+</code>.</li>
+<li><strong>publisher</strong>: The publisher’s name.</li>
+<li><strong>school</strong>: The name of the school where a thesis was written.</li>
+<li><strong>series</strong>: The name of a series or set of books. When citing an entire book, the <strong>title</strong> field gives its title and an optional <strong>series</strong> field gives the name of a series or multi-volume set in which the book is published.</li>
+<li><strong>title</strong>: The work’s title.</li>
+<li><strong>type</strong>: The type of a technical report—for example, “Research Note.”</li>
+<li><strong>volume</strong>: The volume of a journal or multivolume book.</li>
+<li><strong>year</strong>: The year of publication or, for an unpublished work, the year it was written. Generally it should consist of four numerals, such as <code>1984</code>.</li>
+</ul>
+<p>There is a strict relation between Entries and Fields on BibTeX. Depending on the type of entries, some fields are required while others are optional or even ignored. On the following table, required field are flagged as <strong>*</strong> and optional fields are flagged as <strong>-</strong>. Fields on parenthesis <strong>()</strong> denotes that there are some degree of flexibility on the requirement of the field, see <span class="citation"><a href="#ref-patashnik1988" role="doc-biblioref">Patashnik</a> (<a href="#ref-patashnik1988" role="doc-biblioref">1988</a>)</span> for more information.</p>
+<table>
+<caption>BibTeX, required fields by entry</caption>
+<thead>
+<tr class="header">
+<th align="left">field</th>
+<th align="center">article</th>
+<th align="center">book</th>
+<th align="center">booklet</th>
+<th align="center">inbook</th>
+<th align="center">incollection</th>
+<th align="center">conference,inproceedings</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">title</td>
+<td align="center">x</td>
+<td align="center">x</td>
+<td align="center">x</td>
+<td align="center">x</td>
+<td align="center">x</td>
+<td align="center">x</td>
+</tr>
+<tr class="even">
+<td align="left">year</td>
+<td align="center">x</td>
+<td align="center">x</td>
+<td align="center">o</td>
+<td align="center">x</td>
+<td align="center">x</td>
+<td align="center">x</td>
+</tr>
+<tr class="odd">
+<td align="left">author</td>
+<td align="center">x</td>
+<td align="center">(x)</td>
+<td align="center">o</td>
+<td align="center">(x)</td>
+<td align="center">x</td>
+<td align="center">x</td>
+</tr>
+<tr class="even">
+<td align="left">note</td>
+<td align="center">o</td>
+<td align="center">o</td>
+<td align="center">o</td>
+<td align="center">o</td>
+<td align="center">o</td>
+<td align="center">o</td>
+</tr>
+<tr class="odd">
+<td align="left">month</td>
+<td align="center">o</td>
+<td align="center">o</td>
+<td align="center">o</td>
+<td align="center">o</td>
+<td align="center">o</td>
+<td align="center">o</td>
+</tr>
+<tr class="even">
+<td align="left">address</td>
+<td align="center"></td>
+<td align="center">o</td>
+<td align="center">o</td>
+<td align="center">o</td>
+<td align="center">o</td>
+<td align="center">o</td>
+</tr>
+<tr class="odd">
+<td align="left">publisher</td>
+<td align="center"></td>
+<td align="center">x</td>
+<td align="center"></td>
+<td align="center">x</td>
+<td align="center">x</td>
+<td align="center">o</td>
+</tr>
+<tr class="even">
+<td align="left">editor</td>
+<td align="center"></td>
+<td align="center">(x)</td>
+<td align="center"></td>
+<td align="center">(x)</td>
+<td align="center">o</td>
+<td align="center">o</td>
+</tr>
+<tr class="odd">
+<td align="left">number</td>
+<td align="center">o</td>
+<td align="center">(o)</td>
+<td align="center"></td>
+<td align="center">(o)</td>
+<td align="center">(o)</td>
+<td align="center">(o)</td>
+</tr>
+<tr class="even">
+<td align="left">volume</td>
+<td align="center">o</td>
+<td align="center">(o)</td>
+<td align="center"></td>
+<td align="center">(o)</td>
+<td align="center">(o)</td>
+<td align="center">(o)</td>
+</tr>
+<tr class="odd">
+<td align="left">pages</td>
+<td align="center">o</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">(x)</td>
+<td align="center">o</td>
+<td align="center">o</td>
+</tr>
+<tr class="even">
+<td align="left">series</td>
+<td align="center"></td>
+<td align="center">o</td>
+<td align="center"></td>
+<td align="center">o</td>
+<td align="center">o</td>
+<td align="center">o</td>
+</tr>
+<tr class="odd">
+<td align="left">booktitle</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">x</td>
+<td align="center">x</td>
+</tr>
+<tr class="even">
+<td align="left">edition</td>
+<td align="center"></td>
+<td align="center">o</td>
+<td align="center"></td>
+<td align="center">o</td>
+<td align="center">o</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="left">type</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">o</td>
+<td align="center">o</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="left">chapter</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">(x)</td>
+<td align="center">o</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="left">organization</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">o</td>
+</tr>
+<tr class="even">
+<td align="left">howpublished</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">o</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="left">institution</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="left">journal</td>
+<td align="center">x</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="left">school</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="left">annote</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="left">crossref</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="left">key</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>(cont) BibTeX, required fields by entry</caption>
+<thead>
+<tr class="header">
+<th align="left">field</th>
+<th align="center">manual</th>
+<th align="center">mastersthesis,phdthesis</th>
+<th align="center">misc</th>
+<th align="center">proceedings</th>
+<th align="center">techreport</th>
+<th align="center">unpublished</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">title</td>
+<td align="center">x</td>
+<td align="center">x</td>
+<td align="center">o</td>
+<td align="center">x</td>
+<td align="center">x</td>
+<td align="center">x</td>
+</tr>
+<tr class="even">
+<td align="left">year</td>
+<td align="center">o</td>
+<td align="center">x</td>
+<td align="center">o</td>
+<td align="center">x</td>
+<td align="center">x</td>
+<td align="center">o</td>
+</tr>
+<tr class="odd">
+<td align="left">author</td>
+<td align="center">o</td>
+<td align="center">x</td>
+<td align="center">o</td>
+<td align="center"></td>
+<td align="center">x</td>
+<td align="center">x</td>
+</tr>
+<tr class="even">
+<td align="left">note</td>
+<td align="center">o</td>
+<td align="center">o</td>
+<td align="center">o</td>
+<td align="center">o</td>
+<td align="center">o</td>
+<td align="center">x</td>
+</tr>
+<tr class="odd">
+<td align="left">month</td>
+<td align="center">o</td>
+<td align="center">o</td>
+<td align="center">o</td>
+<td align="center">o</td>
+<td align="center">o</td>
+<td align="center">o</td>
+</tr>
+<tr class="even">
+<td align="left">address</td>
+<td align="center">o</td>
+<td align="center">o</td>
+<td align="center"></td>
+<td align="center">o</td>
+<td align="center">o</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="left">publisher</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">o</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="left">editor</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">o</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="left">number</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">(o)</td>
+<td align="center">o</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="left">volume</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">(o)</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="left">pages</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="left">series</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">o</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="left">booktitle</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="left">edition</td>
+<td align="center">o</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="left">type</td>
+<td align="center"></td>
+<td align="center">o</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">o</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="left">chapter</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="left">organization</td>
+<td align="center">o</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">o</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="left">howpublished</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">o</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="left">institution</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">x</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="left">journal</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="left">school</td>
+<td align="center"></td>
+<td align="center">x</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="left">annote</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="left">crossref</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="left">key</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<p>It can be observed that just a subset of fields is required in any of the Entries. For example, <strong>title</strong>, <strong>year</strong> and <strong>author</strong> are either required or optional on almost every entry, while <strong>crossref</strong>, <strong>annote</strong> or <strong>key</strong> are never required.</p>
+</div>
+</div>
+<div id="citation-file-format" class="section level2">
+<h2>Citation File Format</h2>
+<p><a href="https://citation-file-format.github.io/">Citation File Format (CFF</a>) <span class="citation">(<a href="#ref-druskat_citation_2021" role="doc-biblioref">Druskat et al. 2021</a>)</span> are plain text files with human- and machine-readable citation information for software (and datasets). Among the <a href="https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#valid-keys">valid keys of CFF</a> there are two keys, <code>preferred-citation</code> and <code>references</code> of special interest for citing and referring to related works<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>:</p>
+<ul>
+<li><p><strong><code>preferred-citation</code></strong>: A reference to another work that should be cited instead of the software or dataset itself.</p></li>
+<li><p><strong><code>references</code></strong>: Reference(s) to other creative works. Similar to a list of references in a paper, references of the software or dataset may include other software (dependencies), or other research products that the software or dataset builds on, but not work describing the software or dataset.</p></li>
+</ul>
+<p>These two keys are expected to be <a href="https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#definitionsreference"><code>definition.reference</code></a> objects, therefore they may contain the following keys:</p>
+<table>
+<caption>Valid keys on CFF <code>definition-reference</code> objects</caption>
+<tbody>
+<tr class="odd">
+<td align="left">abbreviation</td>
+<td align="left">abstract</td>
+<td align="left">authors</td>
+<td align="left">collection-doi</td>
+<td align="left">collection-title</td>
+</tr>
+<tr class="even">
+<td align="left">collection-type</td>
+<td align="left">commit</td>
+<td align="left">conference</td>
+<td align="left">contact</td>
+<td align="left">copyright</td>
+</tr>
+<tr class="odd">
+<td align="left">data-type</td>
+<td align="left">database-provider</td>
+<td align="left">database</td>
+<td align="left">date-accessed</td>
+<td align="left">date-downloaded</td>
+</tr>
+<tr class="even">
+<td align="left">date-published</td>
+<td align="left">date-released</td>
+<td align="left">department</td>
+<td align="left">doi</td>
+<td align="left">edition</td>
+</tr>
+<tr class="odd">
+<td align="left">editors</td>
+<td align="left">editors-series</td>
+<td align="left">end</td>
+<td align="left">entry</td>
+<td align="left">filename</td>
+</tr>
+<tr class="even">
+<td align="left">format</td>
+<td align="left">identifiers</td>
+<td align="left">institution</td>
+<td align="left">isbn</td>
+<td align="left">issn</td>
+</tr>
+<tr class="odd">
+<td align="left">issue</td>
+<td align="left">issue-date</td>
+<td align="left">issue-title</td>
+<td align="left">journal</td>
+<td align="left">keywords</td>
+</tr>
+<tr class="even">
+<td align="left">languages</td>
+<td align="left">license</td>
+<td align="left">license-url</td>
+<td align="left">loc-end</td>
+<td align="left">loc-start</td>
+</tr>
+<tr class="odd">
+<td align="left">location</td>
+<td align="left">medium</td>
+<td align="left">month</td>
+<td align="left">nihmsid</td>
+<td align="left">notes</td>
+</tr>
+<tr class="even">
+<td align="left">number</td>
+<td align="left">number-volumes</td>
+<td align="left">pages</td>
+<td align="left">patent-states</td>
+<td align="left">pmcid</td>
+</tr>
+<tr class="odd">
+<td align="left">publisher</td>
+<td align="left">recipients</td>
+<td align="left">repository</td>
+<td align="left">repository-artifact</td>
+<td align="left">repository-code</td>
+</tr>
+<tr class="even">
+<td align="left">scope</td>
+<td align="left">section</td>
+<td align="left">senders</td>
+<td align="left">start</td>
+<td align="left">status</td>
+</tr>
+<tr class="odd">
+<td align="left">term</td>
+<td align="left">thesis-type</td>
+<td align="left">title</td>
+<td align="left">translators</td>
+<td align="left">type</td>
+</tr>
+<tr class="even">
+<td align="left">url</td>
+<td align="left">version</td>
+<td align="left">volume</td>
+<td align="left">volume-title</td>
+<td align="left">year</td>
+</tr>
+<tr class="odd">
+<td align="left">year-original</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<p>These keys are the equivalent to the fields of BibTeX (see <a href="#fields">Fields</a>), with the exception of the key <strong>type</strong>. On CFF, this key defines the type of work<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>, therefore this is the equivalent to the BibTeX entries (see <a href="#entries">Entries</a>).</p>
+</div>
+<div id="proposed-crosswalk" class="section level2">
+<h2>Proposed crosswalk</h2>
+<p>The <strong>cffr</strong> package <span class="citation">(<a href="#ref-hernangomez2021" role="doc-biblioref">Hernangómez 2021</a>)</span> provides utilities from converting BibTeX entries (via the <strong>R</strong> base function <code>bibentry()</code>) to CFF files and vice-versa. This section describes how the conversion between both formats have been implemented. This crosswalk is based partially on <span class="citation"><a href="#ref-Haines_Ruby_CFF_Library_2021" role="doc-biblioref">Haines and The Ruby Citation File Format Developers</a> (<a href="#ref-Haines_Ruby_CFF_Library_2021" role="doc-biblioref">2021</a>)</span><a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>.</p>
+<p>On the following two section I present an overview of the proposed mapping between the Entries and Fields of BibTeX and the CFF keys. After this initial mapping, I propose further transformations to improve the compatibility between both systems using different <a href="#entry-models">Entry Models</a>.</p>
+<div id="entrytype-crosswalk" class="section level3">
+<h3>Entry/Type crosswalk</h3>
+<p>For converting general BibTeX entries to CFF types, the following crosswalk is proposed:</p>
+<table>
+<caption>Entry/Type crosswalk: From BibTeX to CFF</caption>
+<thead>
+<tr class="header">
+<th>BibTeX Entry</th>
+<th>Value of CFF key: type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>@article</strong></td>
+<td>article</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>@book</strong></td>
+<td>book</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>@booklet</strong></td>
+<td>pamphlet</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>@conference</strong></td>
+<td>conference-paper</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>@inbook</strong></td>
+<td>book</td>
+<td>See <a href="#entry-models">Entry Models</a></td>
+</tr>
+<tr class="even">
+<td><strong>@incollection</strong></td>
+<td>generic</td>
+<td>See <a href="#entry-models">Entry Models</a></td>
+</tr>
+<tr class="odd">
+<td><strong>@inproceedings</strong></td>
+<td>conference-paper</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>@manual</strong></td>
+<td>manual</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>@mastersthesis</strong></td>
+<td>thesis</td>
+<td>See <a href="#entry-models">Entry Models</a></td>
+</tr>
+<tr class="even">
+<td><strong>@misc</strong></td>
+<td>generic</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>@phdthesis</strong></td>
+<td>thesis</td>
+<td>See <a href="#entry-models">Entry Models</a></td>
+</tr>
+<tr class="even">
+<td><strong>@proceedings</strong></td>
+<td>proceedings</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>@techreport</strong></td>
+<td>report</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>@unpublished</strong></td>
+<td>unpublished</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Also, given that CFF provides with a <a href="https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#definitionsreferencetype">wide range of allowed values</a> on type, the following conversion would be performed from CFF to BibTeX:</p>
+<table>
+<caption>Entry/Type crosswalk: From CFF to BibTeX</caption>
+<colgroup>
+<col width="28%" />
+<col width="34%" />
+<col width="37%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Value of CFF key: type</th>
+<th>BibTeX Entry</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>book</td>
+<td><strong>@book</strong> <strong>/ @inbook</strong></td>
+<td>See <a href="#entry-models">Entry Models</a></td>
+</tr>
+<tr class="even">
+<td>conference</td>
+<td><strong>@inproceedings</strong></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>conference-paper</td>
+<td><strong>@inproceedings</strong></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>magazine-article</td>
+<td><strong>@article</strong></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>manual</td>
+<td><strong>@manual</strong></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>newspaper-article</td>
+<td><strong>@article</strong></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>pamphlet</td>
+<td><strong>@booklet</strong></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>proceedings</td>
+<td><strong>@proceedings</strong></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>report</td>
+<td><strong>@techreport</strong></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>thesis</td>
+<td><strong>@mastersthesis / @phdthesis</strong></td>
+<td>See <a href="#entry-models">Entry Models</a></td>
+</tr>
+<tr class="odd">
+<td>unpublished</td>
+<td><strong>@unpublished</strong></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>generic</td>
+<td><strong>@misc / @incollection</strong></td>
+<td>Under specific conditions, see <a href="#entry-models">Entry Models</a></td>
+</tr>
+<tr class="odd">
+<td>&lt;any other value&gt;</td>
+<td><strong>@misc</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="fieldskey-crosswalk" class="section level3">
+<h3>Fields/Key crosswalk</h3>
+<p>There is a large degree of similarity between the definition and names of some BibTeX fields and CFF keys<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>. On the following cases, the equivalence is almost straightforward:</p>
+<table>
+<caption>BibTeX - CFF Field/Key crosswalk</caption>
+<thead>
+<tr class="header">
+<th>BibTeX Field</th>
+<th>CFF key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>address</strong></td>
+<td>See <a href="#entry-models">Entry Models</a></td>
+</tr>
+<tr class="even">
+<td><strong><em>annote</em></strong></td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td><strong>author</strong></td>
+<td><u>authors</u></td>
+</tr>
+<tr class="even">
+<td><strong>booktitle</strong></td>
+<td><u>collection-title</u></td>
+</tr>
+<tr class="odd">
+<td><strong>chapter</strong></td>
+<td><u>section</u></td>
+</tr>
+<tr class="even">
+<td><strong><em>crossref</em></strong></td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td><strong>edition</strong></td>
+<td><u>edition</u></td>
+</tr>
+<tr class="even">
+<td><strong>editor</strong></td>
+<td><u>editors</u></td>
+</tr>
+<tr class="odd">
+<td><strong>howpublished</strong></td>
+<td><u>medium</u></td>
+</tr>
+<tr class="even">
+<td><strong>institution</strong></td>
+<td>See <a href="#entry-models">Entry Models</a></td>
+</tr>
+<tr class="odd">
+<td><strong>journal</strong></td>
+<td><u>journal</u></td>
+</tr>
+<tr class="even">
+<td><strong><em>key</em></strong></td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td><strong>month</strong></td>
+<td><u>month</u></td>
+</tr>
+<tr class="even">
+<td><strong>note</strong></td>
+<td><u>notes</u></td>
+</tr>
+<tr class="odd">
+<td><strong>number</strong></td>
+<td><u>issue</u></td>
+</tr>
+<tr class="even">
+<td><strong>organization</strong></td>
+<td>See <a href="#entry-models">Entry Models</a></td>
+</tr>
+<tr class="odd">
+<td><strong>pages</strong></td>
+<td><u>start</u> &amp; <u>end</u></td>
+</tr>
+<tr class="even">
+<td><strong>publisher</strong></td>
+<td><u>publisher</u></td>
+</tr>
+<tr class="odd">
+<td><strong>school</strong></td>
+<td>See <a href="#entry-models">Entry Models</a></td>
+</tr>
+<tr class="even">
+<td><strong>series</strong></td>
+<td>See <a href="#entry-models">Entry Models</a></td>
+</tr>
+<tr class="odd">
+<td><strong>title</strong></td>
+<td><u>title</u></td>
+</tr>
+<tr class="even">
+<td><strong><em>type</em></strong></td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td><strong>volume</strong></td>
+<td><u>volume</u></td>
+</tr>
+<tr class="even">
+<td><strong>year</strong></td>
+<td><u>year</u></td>
+</tr>
+</tbody>
+</table>
+<p>Additionally, there are other additional CFF keys that have a correspondence with BibLaTeX fields. We propose also to include these fields on the crosswalk<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a>, although they are not part of the core BibTeX fields definition.</p>
+<table>
+<caption>BibLaTeX - CFF Field/Key crosswalk</caption>
+<thead>
+<tr class="header">
+<th>BibLaTeX Field</th>
+<th>CFF key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>abstract</strong></td>
+<td><u>abstract</u></td>
+</tr>
+<tr class="even">
+<td><strong>date</strong></td>
+<td><u>date-published</u></td>
+</tr>
+<tr class="odd">
+<td><strong>doi</strong></td>
+<td><u>doi</u></td>
+</tr>
+<tr class="even">
+<td><strong>file</strong></td>
+<td><u>filename</u></td>
+</tr>
+<tr class="odd">
+<td><strong>isbn</strong></td>
+<td><u>isbn</u></td>
+</tr>
+<tr class="even">
+<td><strong>issn</strong></td>
+<td><u>issn</u></td>
+</tr>
+<tr class="odd">
+<td><strong>issuetitle</strong></td>
+<td><u>issue-title</u></td>
+</tr>
+<tr class="even">
+<td><strong>pagetotal</strong></td>
+<td><u>pages</u></td>
+</tr>
+<tr class="odd">
+<td><strong>translator</strong></td>
+<td><u>translators</u></td>
+</tr>
+<tr class="even">
+<td><strong>url</strong></td>
+<td><u>url</u></td>
+</tr>
+<tr class="odd">
+<td><strong>urldate</strong></td>
+<td><u>date-accessed</u></td>
+</tr>
+<tr class="even">
+<td><strong>version</strong></td>
+<td><u>version</u></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="entry-models" class="section level2">
+<h2>Entry Models</h2>
+<p>This section presents the specific mapping proposed for each of the BibTeX entries, providing further information on how each field is treated. Examples are adapted from the <a href="https://tug.org/texmf-docs/bibtex/xampl.bib">xampl.bib</a> file provided with the bibtex package <span class="citation">(<a href="#ref-patashnik" role="doc-biblioref">Patashnik and Berry 2010</a>)</span>.</p>
+<div id="article" class="section level3">
+<h3>article</h3>
+<p>The crosswalk of <strong>@article</strong> does not require any special treatment.</p>
+<table>
+<caption><strong>@article</strong> Model</caption>
+<colgroup>
+<col width="24%" />
+<col width="29%" />
+<col width="46%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>BibTeX</th>
+<th>CFF</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>@article</strong></td>
+<td><u>type: article</u></td>
+<td>When converting CFF to BibTeX, <u>type magazine-article</u> and <u>newspaper-article</u> are converted to <strong>@article</strong>.</td>
+</tr>
+<tr class="even">
+<td><strong>author*</strong></td>
+<td><u>authors</u></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>title*</strong></td>
+<td><u>title</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>journal*</strong></td>
+<td><u>journal</u></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>year*</strong></td>
+<td><u>year</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>volume</strong></td>
+<td><u>volume</u></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>number</strong></td>
+<td><u>issue</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>pages</strong></td>
+<td><u>start</u> and <u>end</u></td>
+<td><p>Separated by <code>--</code>, i.e,</p>
+<p><strong>pages</strong> = {3–5}</p>
+<p>would be parsed as</p>
+<p><u>start</u>: 3</p>
+<p><u>end</u>: 5</p></td>
+</tr>
+<tr class="odd">
+<td><strong>month</strong></td>
+<td><u>month</u></td>
+<td>As a fallback, <strong>month</strong> could be extracted also from <strong>date</strong> (BibLaTeX field)/ <u>date-published</u></td>
+</tr>
+<tr class="even">
+<td><strong>note</strong></td>
+<td><u>notes</u></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<p><u><em>BibTeX entry</em></u></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="va">@article</span>{<span class="ot">article</span>-<span class="ot">full</span>,</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {The Gnats and Gnus Document Preparation System},</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {Leslie A. Aamport},</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">year</span>         = 1986,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span>        = <span class="st">jul</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">journal</span>      = {{G-Animal&#39;s} Journal},</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">volume</span>       = 41,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">number</span>       = 7,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">pages</span>        = {73+},</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">note</span>         = {This is a full ARTICLE entry}</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><u><em>CFF entry</em></u></p>
+<pre><code>type: article
+title: The Gnats and Gnus Document Preparation System
+authors:
+- family-names: Aamport
+  given-names: Leslie A.
+year: &#39;1986&#39;
+month: &#39;7&#39;
+journal: G-Animal&#39;s Journal
+volume: &#39;41&#39;
+issue: &#39;7&#39;
+notes: This is a full ARTICLE entry
+start: 73+</code></pre>
+<p><u><em>From CFF to BibTeX</em></u></p>
+<pre><code>@Article{aamport:1986,
+  title = {The Gnats and Gnus Document Preparation System},
+  author = {Leslie A. Aamport},
+  year = {1986},
+  month = {jul},
+  journal = {G-Animal&#39;s Journal},
+  volume = {41},
+  number = {7},
+  pages = {73+},
+  note = {This is a full ARTICLE entry},
+}</code></pre>
+</div>
+<div id="bookinbook" class="section level3">
+<h3>book/inbook</h3>
+<p>In terms of field required on BibTeX, the only difference between <strong>@book</strong> and <strong>@inbook</strong> is that the latter requires also a <strong>chapter</strong> or <strong>pages</strong>, while for <strong>@book</strong> these fields are not even optional. So we propose here to identify an <strong>@inbook</strong> on CFF as a <u>book</u> with <u>section</u> and <u>start</u>-<u>end</u> fields (CFF).</p>
+<p>Another specificity is that <strong>series</strong> field is mapped to <u>collection-title</u> and <strong>address</strong> is mapped as the <u>address</u> of the <u>publisher</u> (CFF).</p>
+<table>
+<caption><strong>@book/@inbook</strong> Model</caption>
+<colgroup>
+<col width="31%" />
+<col width="34%" />
+<col width="34%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>BibTeX</th>
+<th>CFF</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>@book</strong></td>
+<td><u>type: book</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>@inbook</strong></td>
+<td><u>type: book</u></td>
+<td>For identifying an <strong>@inbook</strong> in CFF, assess if <u>section</u> or <u>start</u>-<u>end</u> information is available</td>
+</tr>
+<tr class="odd">
+<td><strong>author*</strong></td>
+<td><u>authors</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>editor*</strong></td>
+<td><u>editors</u></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>title*</strong></td>
+<td><u>title</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>publisher*</strong></td>
+<td><u>publisher</u></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>year*</strong></td>
+<td><u>year</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>chapter*</strong></td>
+<td><u>section</u></td>
+<td>Only required on <strong>@inbook</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>pages*</strong></td>
+<td><u>start</u> and <u>end</u></td>
+<td>Only required on <strong>@inbook</strong></td>
+</tr>
+<tr class="even">
+<td><strong>volume</strong></td>
+<td><u>volume</u></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>number</strong></td>
+<td><u>issue</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>series</strong></td>
+<td><u>collection-title</u></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>address</strong></td>
+<td><u>address</u> property of <u>publisher</u></td>
+<td>As a fallback, the field <u>location</u> can be used</td>
+</tr>
+<tr class="even">
+<td><strong>edition</strong></td>
+<td><u>edition</u></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>month</strong></td>
+<td><u>month</u></td>
+<td>See <strong>Note</strong> on <a href="#article">article</a></td>
+</tr>
+<tr class="even">
+<td><strong>note</strong></td>
+<td><u>notes</u></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples: book</strong></p>
+<p><u><em>BibTeX entry</em></u></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="va">@book</span>{<span class="ot">book</span>-<span class="ot">full</span>,</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {Seminumerical Algorithms},</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {Donald E. Knuth},</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">year</span>         = 1981,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span>        = 10,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">publisher</span>    = {Addison-Wesley},</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">address</span>      = {Reading, Massachusetts},</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">series</span>       = {The Art of Computer Programming},</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">volume</span>       = 2,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">note</span>         = {This is a full BOOK entry},</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">edition</span>      = {Second}</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><u><em>CFF entry</em></u></p>
+<pre><code>type: book
+title: Seminumerical Algorithms
+authors:
+- family-names: Knuth
+  given-names: Donald E.
+year: &#39;1981&#39;
+month: &#39;10&#39;
+publisher:
+  name: Addison-Wesley
+  address: Reading, Massachusetts
+volume: &#39;2&#39;
+notes: This is a full BOOK entry
+edition: Second
+collection-title: The Art of Computer Programming</code></pre>
+<p><u><em>From CFF to BibTeX</em></u></p>
+<pre><code>@Book{knuth:1981,
+  title = {Seminumerical Algorithms},
+  author = {Donald E. Knuth},
+  year = {1981},
+  month = {oct},
+  publisher = {Addison-Wesley},
+  address = {Reading, Massachusetts},
+  series = {The Art of Computer Programming},
+  volume = {2},
+  note = {This is a full BOOK entry},
+  edition = {Second},
+}</code></pre>
+<p><strong>Examples: inbook</strong></p>
+<p><u><em>BibTeX entry</em></u></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="va">@inbook</span>{<span class="ot">inbook</span>-<span class="ot">full</span>,</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {Fundamental Algorithms},</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {Donald E. Knuth},</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">year</span>         = 1973,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span>        = 10,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">publisher</span>    = {Addison-Wesley},</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">address</span>      = {Reading, Massachusetts},</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">series</span>       = {The Art of Computer Programming},</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">volume</span>       = 1,</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">pages</span>        = {10--119},</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">note</span>         = {This is a full INBOOK entry},</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">edition</span>      = {Second},</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">type</span>         = {Section},</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">chapter</span>      = {1.2}</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><u><em>CFF entry</em></u></p>
+<pre><code>type: book
+title: Fundamental Algorithms
+authors:
+- family-names: Knuth
+  given-names: Donald E.
+year: &#39;1973&#39;
+month: &#39;10&#39;
+publisher:
+  name: Addison-Wesley
+  address: Reading, Massachusetts
+volume: &#39;1&#39;
+notes: This is a full INBOOK entry
+edition: Second
+section: &#39;1.2&#39;
+start: &#39;10&#39;
+end: &#39;119&#39;
+collection-title: The Art of Computer Programming</code></pre>
+<p><u><em>From CFF to BibTeX</em></u></p>
+<pre><code>@InBook{knuth:1973,
+  title = {Fundamental Algorithms},
+  author = {Donald E. Knuth},
+  year = {1973},
+  month = {oct},
+  publisher = {Addison-Wesley},
+  address = {Reading, Massachusetts},
+  series = {The Art of Computer Programming},
+  volume = {1},
+  pages = {10--119},
+  note = {This is a full INBOOK entry},
+  chapter = {1.2},
+  edition = {Second},
+}</code></pre>
+</div>
+<div id="booklet" class="section level3">
+<h3>booklet</h3>
+<p>In <strong>@booklet</strong> <strong>address</strong> is mapped to <u>location</u>.</p>
+<table>
+<caption><strong>@booklet</strong> Model</caption>
+<colgroup>
+<col width="38%" />
+<col width="24%" />
+<col width="37%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>BibTeX</th>
+<th>CFF</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>@booklet</strong></td>
+<td><u>type: pamphlet</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>title*</strong></td>
+<td><u>title</u></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>author*</strong></td>
+<td><u>authors</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>howpublished</strong></td>
+<td><u>medium</u></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>address</strong></td>
+<td><u>location</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>month</strong></td>
+<td><u>month</u></td>
+<td>See <strong>Note</strong> on <a href="#article">article</a></td>
+</tr>
+<tr class="odd">
+<td><strong>year</strong></td>
+<td><u>year</u></td>
+<td>As a fallback, <strong>year</strong> could be extracted also from <strong>date</strong> (BibLaTeX field)/ <u>date-published</u></td>
+</tr>
+<tr class="even">
+<td><strong>note</strong></td>
+<td><u>notes</u></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<p><u><em>BibTeX entry</em></u></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="va">@booklet</span>{<span class="ot">booklet</span>-<span class="ot">full</span>,</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {The Programming of Computer Art},</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {Jill C. Knvth},</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">date</span>         = {1988-03-14},</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span>        = <span class="st">feb</span>,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">address</span>      = {Stanford, California},</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">note</span>         = {This is a full BOOKLET entry},</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">howpublished</span> = {Vernier Art Center}</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><u><em>CFF entry</em></u></p>
+<pre><code>type: pamphlet
+title: The Programming of Computer Art
+authors:
+- family-names: Knvth
+  given-names: Jill C.
+date-published: &#39;1988-03-14&#39;
+month: &#39;2&#39;
+location:
+  name: Stanford, California
+notes: This is a full BOOKLET entry
+medium: Vernier Art Center
+year: &#39;1988&#39;</code></pre>
+<p><u><em>From CFF to BibTeX</em></u></p>
+<pre><code>@Booklet{knvth:1988,
+  title = {The Programming of Computer Art},
+  author = {Jill C. Knvth},
+  year = {1988},
+  month = {feb},
+  address = {Stanford, California},
+  note = {This is a full BOOKLET entry},
+  howpublished = {Vernier Art Center},
+  date = {1988-03-14},
+}</code></pre>
+</div>
+<div id="conferenceinproceedings" class="section level3">
+<h3>conference/inproceedings</h3>
+<p>Note that in this case, <strong>organization</strong> is mapped to <u>institution</u>, as BibTeX does not prescribe the use of <strong>institution</strong> on these entries.</p>
+<table>
+<caption><strong>@conference/@inproceedings</strong> Model</caption>
+<colgroup>
+<col width="33%" />
+<col width="35%" />
+<col width="30%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>BibTeX</th>
+<th>CFF</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>@conference / @inproceedings</strong></td>
+<td><u>type: conference-paper</u></td>
+<td>CFF entries with <u>type</u> =conference are mapped back to <strong>@inproceedings</strong>.</td>
+</tr>
+<tr class="even">
+<td><strong>author*</strong></td>
+<td><u>authors</u></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>title*</strong></td>
+<td><u>title</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>booktitle*</strong></td>
+<td><u>collection-title</u></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>year*</strong></td>
+<td><u>year</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>editor</strong></td>
+<td><u>editors</u></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>volume</strong></td>
+<td><u>volume</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>number</strong></td>
+<td><u>issue</u></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>series</strong></td>
+<td><u>conference</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>pages</strong></td>
+<td><u>start</u> and <u>end</u></td>
+<td>See <strong>Note</strong> on <a href="#article">article</a></td>
+</tr>
+<tr class="odd">
+<td><strong>address</strong></td>
+<td><u>location</u></td>
+<td>As a fallback, <u>address</u> property of <u>conference</u> can be used</td>
+</tr>
+<tr class="even">
+<td><strong>month</strong></td>
+<td><u>month</u></td>
+<td>See <strong>Note</strong> on <a href="#article">article</a></td>
+</tr>
+<tr class="odd">
+<td><strong>organization</strong></td>
+<td><u>institution</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>publisher</strong></td>
+<td><u>publisher</u></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>note</strong></td>
+<td><u>notes</u></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<p><u><em>BibTeX entry</em></u></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="va">@inproceedings</span>{<span class="ot">inproceedings</span>-<span class="ot">full</span>,</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {On Notions of Information Transfer in {VLSI} Circuits},</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {Alfred V. Oaho and Jeffrey D. Ullman and Mihalis Yannakakis},</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">year</span>         = 1983,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span>        = <span class="st">mar</span>,</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">booktitle</span>    = {Proc. Fifteenth Annual ACM Symposium on the Theory of Computing},</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">publisher</span>    = {Academic Press},</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">address</span>      = {Boston},</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">series</span>       = {All ACM Conferences},</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">number</span>       = 17,</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">pages</span>        = {133--139},</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">editor</span>       = {Wizard V. Oz and Mihalis Yannakakis},</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">organization</span> = {The OX Association for Computing Machinery}</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><u><em>CFF entry</em></u></p>
+<pre><code>type: conference-paper
+title: On Notions of Information Transfer in VLSI Circuits
+authors:
+- family-names: Oaho
+  given-names: Alfred V.
+- family-names: Ullman
+  given-names: Jeffrey D.
+- family-names: Yannakakis
+  given-names: Mihalis
+year: &#39;1983&#39;
+month: &#39;3&#39;
+collection-title: Proc. Fifteenth Annual ACM Symposium on the Theory of Computing
+publisher:
+  name: Academic Press
+location:
+  name: Boston
+issue: &#39;17&#39;
+editors:
+- family-names: Oz
+  given-names: Wizard V.
+- family-names: Yannakakis
+  given-names: Mihalis
+start: &#39;133&#39;
+end: &#39;139&#39;
+conference:
+  name: All ACM Conferences
+  address: Boston
+institution:
+  name: The OX Association for Computing Machinery</code></pre>
+<p><u><em>From CFF to BibTeX</em></u></p>
+<pre><code>@InProceedings{oahoullman:1983,
+  title = {On Notions of Information Transfer in VLSI Circuits},
+  author = {Alfred V. Oaho and Jeffrey D. Ullman and Mihalis Yannakakis},
+  year = {1983},
+  month = {mar},
+  booktitle = {Proc. Fifteenth Annual ACM Symposium on the Theory of Computing},
+  publisher = {Academic Press},
+  address = {Boston},
+  editor = {Wizard V. Oz and Mihalis Yannakakis},
+  series = {All ACM Conferences},
+  number = {17},
+  pages = {133--139},
+  organization = {The OX Association for Computing Machinery},
+}</code></pre>
+</div>
+<div id="incollection" class="section level3">
+<h3>incollection</h3>
+<p>As <strong>booktitle</strong> is a required field, we propose to map that field to <u>collection-title</u> and the <u>type</u> to <u>generic</u>. Therefore, an <strong>@incollection</strong> is a <u>type: generic</u> with a <u>collection-title</u> key.</p>
+<table>
+<caption><strong>@incollection</strong> Model</caption>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>BibTeX</strong></th>
+<th>CFF</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>@incollection</strong></td>
+<td><u>type: generic</u></td>
+<td>Including a <u>collection-title</u> value</td>
+</tr>
+<tr class="even">
+<td><strong>author*</strong></td>
+<td><u>authors</u></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>title*</strong></td>
+<td><u>title</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>booktitle*</strong></td>
+<td><u>collection-title</u></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>publisher*</strong></td>
+<td><u>publisher</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>year*</strong></td>
+<td><u>year</u></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>editor</strong></td>
+<td><u>editors</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>volume</strong></td>
+<td><u>volume</u></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>number</strong></td>
+<td><u>issue</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>series</strong></td>
+<td><u>series</u></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>type</strong></td>
+<td>-</td>
+<td>Ignored</td>
+</tr>
+<tr class="even">
+<td><strong>chapter</strong></td>
+<td><u>section</u></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>pages</strong></td>
+<td><u>start</u> and <u>end</u></td>
+<td>See <strong>Note</strong> on <a href="#article">article</a></td>
+</tr>
+<tr class="even">
+<td><strong>address</strong></td>
+<td><u>address</u> property of <u>publisher</u></td>
+<td>See <strong>Note</strong> on <a href="#bookinbook">book/inbook</a></td>
+</tr>
+<tr class="odd">
+<td><strong>edition</strong></td>
+<td><u>edition</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>month</strong></td>
+<td><u>month</u></td>
+<td>See <strong>Note</strong> on <a href="#article">article</a></td>
+</tr>
+<tr class="odd">
+<td><strong>note</strong></td>
+<td><u>notes</u></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<p><u><em>BibTeX entry</em></u></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="va">@incollection</span>{<span class="ot">incollection</span>-<span class="ot">full</span>,</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {Semigroups of Recurrences},</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {Daniel D. Lincoll},</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">year</span>         = 1977,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span>        = <span class="st">sep</span>,</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">booktitle</span>    = {High Speed Computer and Algorithm Organization},</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">publisher</span>    = {Academic Press},</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">address</span>      = {New York},</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">series</span>       = {Fast Computers},</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">number</span>       = 23,</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">pages</span>        = {179--183},</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">note</span>         = {This is a full INCOLLECTION entry},</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">editor</span>       = {David J. Lipcoll and D. H. Lawrie and A. H. Sameh},</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">chapter</span>      = 3,</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>    <span class="dt">type</span>         = {Part},</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>    <span class="dt">edition</span>      = {Third}</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><u><em>CFF entry</em></u></p>
+<pre><code>type: generic
+title: Semigroups of Recurrences
+authors:
+- family-names: Lincoll
+  given-names: Daniel D.
+year: &#39;1977&#39;
+month: &#39;9&#39;
+collection-title: High Speed Computer and Algorithm Organization
+publisher:
+  name: Academic Press
+  address: New York
+issue: &#39;23&#39;
+notes: This is a full INCOLLECTION entry
+editors:
+- family-names: Lipcoll
+  given-names: David J.
+- family-names: Lawrie
+  given-names: D. H.
+- family-names: Sameh
+  given-names: A. H.
+section: &#39;3&#39;
+edition: Third
+start: &#39;179&#39;
+end: &#39;183&#39;</code></pre>
+<p><u><em>From CFF to BibTeX</em></u></p>
+<pre><code>@InCollection{lincoll:1977,
+  title = {Semigroups of Recurrences},
+  author = {Daniel D. Lincoll},
+  year = {1977},
+  month = {sep},
+  booktitle = {High Speed Computer and Algorithm Organization},
+  publisher = {Academic Press},
+  address = {New York},
+  editor = {David J. Lipcoll and D. H. Lawrie and A. H. Sameh},
+  number = {23},
+  pages = {179--183},
+  note = {This is a full INCOLLECTION entry},
+  chapter = {3},
+  edition = {Third},
+}</code></pre>
+</div>
+<div id="manual" class="section level3">
+<h3>manual</h3>
+<p>As in the case of <a href="#conferenceinproceedings">conference/inproceedings</a>, <strong>organization</strong> is mapped to <u>institution</u>.</p>
+<table>
+<caption><strong>@manual</strong> Model</caption>
+<colgroup>
+<col width="34%" />
+<col width="37%" />
+<col width="27%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>BibTeX</strong></th>
+<th>CFF</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>@manual</strong></td>
+<td><u>type: manual</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>title*</strong></td>
+<td><u>title</u></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>author</strong></td>
+<td><u>authors</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>organization</strong></td>
+<td><u>institution</u></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>address</strong></td>
+<td><u>location</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>edition</strong></td>
+<td><u>edition</u></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>month</strong></td>
+<td><u>month</u></td>
+<td>See <strong>Note</strong> on <a href="#article">article</a></td>
+</tr>
+<tr class="even">
+<td><strong>year</strong></td>
+<td><u>year</u></td>
+<td>See <strong>Note</strong> on <a href="#booklet">booklet</a></td>
+</tr>
+<tr class="odd">
+<td><strong>note</strong></td>
+<td><u>notes</u></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<p><u><em>BibTeX entry</em></u></p>
+<p>Note that <strong>month</strong> can’t be parsed to a single integer in the range <code>1--12</code> as required on CFF, so it is not parsed to avoid validation errors.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="va">@manual</span>{<span class="ot">manual</span>-<span class="ot">full</span>,</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>        = {The Definitive Computer Manual},</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {Larry Manmaker},</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">year</span>         = 1986,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span>        = {apr-may},</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">address</span>      = {Silicon Valley},</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">note</span>         = {This is a full MANUAL entry},</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">organization</span> = {Chips-R-Us},</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">edition</span>      = {Silver}</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><u><em>CFF entry</em></u></p>
+<pre><code>type: manual
+title: The Definitive Computer Manual
+authors:
+- family-names: Manmaker
+  given-names: Larry
+year: &#39;1986&#39;
+location:
+  name: Silicon Valley
+notes: This is a full MANUAL entry
+edition: Silver
+institution:
+  name: Chips-R-Us</code></pre>
+<p><u><em>From CFF to BibTeX</em></u></p>
+<pre><code>@Manual{manmaker:1986,
+  title = {The Definitive Computer Manual},
+  author = {Larry Manmaker},
+  year = {1986},
+  address = {Silicon Valley},
+  note = {This is a full MANUAL entry},
+  edition = {Silver},
+  organization = {Chips-R-Us},
+}</code></pre>
+</div>
+<div id="mastersthesisphdthesis" class="section level3">
+<h3>mastersthesis/phdthesis</h3>
+<p>In terms of field required on BibTeX, it is identical for both <strong>@mastersthesis</strong> and <strong>@phdthesis.</strong></p>
+<p>We propose here to identify each type of thesis using the field <u>thesis-type</u> (CFF). So if <u>thesis-type</u> contains a <a href="https://regex101.com/r/mBWfbs/1">regex pattern</a> <code>(?i)(phd)</code> it would be recognized as <strong>@phdthesis</strong>.</p>
+<table>
+<caption><strong>@mastersthesis/phdthesis</strong> Model</caption>
+<colgroup>
+<col width="35%" />
+<col width="29%" />
+<col width="35%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>BibTeX</th>
+<th>CFF</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>@mastersthesis</strong></td>
+<td><u>type: thesis</u></td>
+<td>Use also <u>thesis-type</u> for identifying the thesis type.</td>
+</tr>
+<tr class="even">
+<td><strong>@phdthesis</strong></td>
+<td><u>type: thesis</u></td>
+<td>Use also <u>thesis-type</u> for identifying the thesis type.</td>
+</tr>
+<tr class="odd">
+<td><strong>author*</strong></td>
+<td><u>authors</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>title*</strong></td>
+<td><u>title</u></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>school*</strong></td>
+<td><u>institution</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>year*</strong></td>
+<td><u>year</u></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>type</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>address</strong></td>
+<td><u>address</u> property of <u>institution</u></td>
+<td>See <strong>Note</strong> on <a href="#bookinbook">book/inbook</a></td>
+</tr>
+<tr class="odd">
+<td><strong>month</strong></td>
+<td><u>month</u></td>
+<td>See <strong>Note</strong> on <a href="#article">article</a></td>
+</tr>
+<tr class="even">
+<td><strong>note</strong></td>
+<td><u>notes</u></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples: mastersthesis</strong></p>
+<p><u><em>BibTeX entry</em></u></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="va">@mastersthesis</span>{<span class="ot">mastersthesis</span>-<span class="ot">full</span>,</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {Mastering Thesis Writing},</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {Edouard Masterly},</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">year</span>         = 1988,</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span>        = <span class="st">jun</span>,</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">address</span>      = {English Department},</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">note</span>         = {This is a full MASTERSTHESIS entry},</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">school</span>       = {Stanford University},</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">type</span>         = {Master&#39;s project}</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><u><em>CFF entry</em></u></p>
+<pre><code>type: thesis
+title: Mastering Thesis Writing
+authors:
+- family-names: Masterly
+  given-names: Edouard
+year: &#39;1988&#39;
+month: &#39;6&#39;
+notes: This is a full MASTERSTHESIS entry
+institution:
+  name: Stanford University
+  address: English Department
+thesis-type: Master&#39;s Thesis</code></pre>
+<p><u><em>From CFF to BibTeX</em></u></p>
+<pre><code>@MastersThesis{masterly:1988,
+  title = {Mastering Thesis Writing},
+  author = {Edouard Masterly},
+  year = {1988},
+  month = {jun},
+  note = {This is a full MASTERSTHESIS entry},
+  school = {Stanford University},
+}</code></pre>
+<p><strong>Examples: phdthesis</strong></p>
+<p><u><em>BibTeX entry</em></u></p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="va">@phdthesis</span>{<span class="ot">phdthesis</span>-<span class="ot">full</span>,</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {Fighting Fire with Fire: Festooning {F}rench Phrases},</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {F. Phidias Phony-Baloney},</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">year</span>         = 1988,</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span>        = <span class="st">jun</span>,</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">address</span>      = {Department of French},</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">note</span>         = {This is a full PHDTHESIS entry},</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">school</span>       = {Fanstord University},</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">type</span>         = {{PhD} Dissertation}</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><u><em>CFF entry</em></u></p>
+<pre><code>type: thesis
+title: &#39;Fighting Fire with Fire: Festooning French Phrases&#39;
+authors:
+- family-names: Phony-Baloney
+  given-names: F. Phidias
+year: &#39;1988&#39;
+month: &#39;6&#39;
+notes: This is a full PHDTHESIS entry
+institution:
+  name: Fanstord University
+  address: Department of French
+thesis-type: PhD Thesis</code></pre>
+<p><u><em>From CFF to BibTeX</em></u></p>
+<pre><code>@PhdThesis{phony?baloney:1988,
+  title = {Fighting Fire with Fire: Festooning French Phrases},
+  author = {F. Phidias Phony-Baloney},
+  year = {1988},
+  month = {jun},
+  note = {This is a full PHDTHESIS entry},
+  school = {Fanstord University},
+}</code></pre>
+</div>
+<div id="misc" class="section level3">
+<h3>misc</h3>
+<p>The crosswalk of <strong>@misc</strong> does not require any special treatment. This entry does not require any field.</p>
+<p>Note als that it is mapped to <u>type: generic</u> as <a href="#incollection">incollection</a>, but in this case <strong>booktitle</strong> is not even an option, so the proposed definition should cover both <strong>@misc</strong> and <strong>@incollection</strong> without problems.</p>
+<table>
+<caption><strong>@misc</strong> Model</caption>
+<colgroup>
+<col width="34%" />
+<col width="37%" />
+<col width="27%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>BibTeX</strong></th>
+<th>CFF</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>@misc</strong></td>
+<td><u>type: generic</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>author</strong></td>
+<td><u>authors</u></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>title</strong></td>
+<td><u>title</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>howpublished</strong></td>
+<td><u>medium</u></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>month</strong></td>
+<td><u>month</u></td>
+<td>See <strong>Note</strong> on <a href="#article">article</a></td>
+</tr>
+<tr class="even">
+<td><strong>year</strong></td>
+<td><u>year</u></td>
+<td>See <strong>Note</strong> on <a href="#booklet">booklet</a></td>
+</tr>
+<tr class="odd">
+<td><strong>note</strong></td>
+<td><u>notes</u></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<p><u><em>BibTeX entry</em></u></p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="va">@misc</span>{<span class="ot">misc</span>-<span class="ot">full</span>,</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {Handing out random pamphlets in airports},</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {Joe-Bob Missilany},</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">year</span>         = 1984,</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span>        = <span class="st">oct</span>,</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">note</span>         = {This is a full MISC entry},</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">howpublished</span> = {Handed out at O&#39;Hare}</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><u><em>CFF entry</em></u></p>
+<pre><code>type: generic
+title: Handing out random pamphlets in airports
+authors:
+- name: anonymous
+year: &#39;1984&#39;
+month: &#39;10&#39;
+notes: This is a MISC entry
+medium: Handed out at O&#39;Hare</code></pre>
+<p><u><em>From CFF to BibTeX</em></u></p>
+<pre><code>@Misc{anonymous:1984,
+  title = {Handing out random pamphlets in airports},
+  year = {1984},
+  month = {oct},
+  note = {This is a MISC entry},
+  howpublished = {Handed out at O&#39;Hare},
+}</code></pre>
+</div>
+<div id="proceedings" class="section level3">
+<h3>proceedings</h3>
+<p>The proposed model is similar to <a href="#conferenceinproceedings">conference/inproceedings</a>. Note that <strong>@proceedings</strong> does not prescribe a <strong>author</strong> field. On this cases, as <u>authors</u> is required on CFF, we would use <em>anonymous</em><a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a> when converting to CFF and omit it on the conversion back to CFF.</p>
+<table>
+<caption><strong>@conference/@inproceedings</strong> Model</caption>
+<colgroup>
+<col width="33%" />
+<col width="35%" />
+<col width="30%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>BibTeX</th>
+<th>CFF</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>@proceedings</strong></td>
+<td><u>type: proceedings</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>title*</strong></td>
+<td><u>title</u></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>year*</strong></td>
+<td><u>year</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>editor</strong></td>
+<td><u>editors</u></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>volume</strong></td>
+<td><u>volume</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>number</strong></td>
+<td><u>issue</u></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>series</strong></td>
+<td><u>conference</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>address</strong></td>
+<td><u>location</u></td>
+<td>As a fallback, <u>address</u> property of <u>conference</u> can be used</td>
+</tr>
+<tr class="odd">
+<td><strong>month</strong></td>
+<td><u>month</u></td>
+<td>See <strong>Note</strong> on <a href="#article">article</a></td>
+</tr>
+<tr class="even">
+<td><strong>organization</strong></td>
+<td><u>institution</u></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>publisher</strong></td>
+<td><u>publisher</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>note</strong></td>
+<td><u>notes</u></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<p><u><em>BibTeX entry</em></u></p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="va">@proceedings</span>{<span class="ot">proceedings</span>-<span class="ot">full</span>,</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {Proc. Fifteenth Annual ACM Symposium on the Theory of Computing},</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">year</span>         = 1983,</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span>        = <span class="st">mar</span>,</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">publisher</span>    = {Academic Press},</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">address</span>      = {Boston},</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">series</span>       = {All ACM Conferences},</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">number</span>       = 17,</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">note</span>         = {This is a full PROCEEDINGS entry},</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">editor</span>       = {Wizard V. Oz and Mihalis Yannakakis},</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">organization</span> = {The OX Association for Computing Machinery}</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><u><em>CFF entry</em></u></p>
+<pre><code>type: proceedings
+title: Proc. Fifteenth Annual ACM Symposium on the Theory of Computing
+authors:
+- name: anonymous
+year: &#39;1983&#39;
+month: &#39;3&#39;
+publisher:
+  name: Academic Press
+location:
+  name: Boston
+issue: &#39;17&#39;
+notes: This is a full PROCEEDINGS entry
+editors:
+- family-names: Oz
+  given-names: Wizard V.
+- family-names: Yannakakis
+  given-names: Mihalis
+conference:
+  name: All ACM Conferences
+  address: Boston
+institution:
+  name: The OX Association for Computing Machinery</code></pre>
+<p><u><em>From CFF to BibTeX</em></u></p>
+<pre><code>@Proceedings{anonymous:1983,
+  title = {Proc. Fifteenth Annual ACM Symposium on the Theory of Computing},
+  year = {1983},
+  month = {mar},
+  publisher = {Academic Press},
+  address = {Boston},
+  editor = {Wizard V. Oz and Mihalis Yannakakis},
+  series = {All ACM Conferences},
+  number = {17},
+  note = {This is a full PROCEEDINGS entry},
+  organization = {The OX Association for Computing Machinery},
+}</code></pre>
+</div>
+<div id="techreport" class="section level3">
+<h3>techreport</h3>
+<table>
+<caption><strong>@techreport</strong> Model</caption>
+<colgroup>
+<col width="34%" />
+<col width="37%" />
+<col width="27%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>BibTeX</strong></th>
+<th>CFF</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>@techreport</strong></td>
+<td><u>type: report</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>author*</strong></td>
+<td><u>authors</u></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>title*</strong></td>
+<td><u>title</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>institution*</strong></td>
+<td><u>institution</u></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>year*</strong></td>
+<td><u>year</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>type</strong></td>
+<td>-</td>
+<td>Ignored</td>
+</tr>
+<tr class="odd">
+<td><strong>number</strong></td>
+<td><u>issue</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>address</strong></td>
+<td><u>address</u> property of <u>institution</u></td>
+<td>See <strong>Note</strong> on <a href="#bookinbook">book/inbook</a></td>
+</tr>
+<tr class="odd">
+<td><strong>month</strong></td>
+<td><u>month</u></td>
+<td>See <strong>Note</strong> on <a href="#article">article</a></td>
+</tr>
+<tr class="even">
+<td><strong>note</strong></td>
+<td><u>notes</u></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<p><u><em>BibTeX entry</em></u></p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="va">@techreport</span>{<span class="ot">techreport</span>-<span class="ot">full</span>,</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {A Sorting Algorithm},</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {Tom Terrific},</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">year</span>         = 1988,</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span>        = <span class="st">oct</span>,</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">address</span>      = {Computer Science Department, Fanstord, California},</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">number</span>       = 7,</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">note</span>         = {This is a full TECHREPORT entry},</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">institution</span>  = {Fanstord University},</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">type</span>         = {Wishful Research Result}</span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><u><em>CFF entry</em></u></p>
+<pre><code>type: report
+title: A Sorting Algorithm
+authors:
+- family-names: Terrific
+  given-names: Tom
+year: &#39;1988&#39;
+month: &#39;10&#39;
+issue: &#39;7&#39;
+notes: This is a full TECHREPORT entry
+institution:
+  name: Fanstord University
+  address: Computer Science Department, Fanstord, California</code></pre>
+<p><u><em>From CFF to BibTeX</em></u></p>
+<pre><code>@TechReport{terrific:1988,
+  title = {A Sorting Algorithm},
+  author = {Tom Terrific},
+  year = {1988},
+  month = {oct},
+  address = {Computer Science Department, Fanstord, California},
+  number = {7},
+  note = {This is a full TECHREPORT entry},
+  institution = {Fanstord University},
+}</code></pre>
+</div>
+<div id="unpublished" class="section level3">
+<h3>unpublished</h3>
+<table>
+<caption><strong>@unpublished</strong> Model</caption>
+<colgroup>
+<col width="34%" />
+<col width="37%" />
+<col width="27%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>BibTeX</strong></th>
+<th>CFF</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>@unpublished</strong></td>
+<td><u>type: unpublished</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>author*</strong></td>
+<td><u>authors</u></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>title*</strong></td>
+<td><u>title</u></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>note*</strong></td>
+<td><u>notes</u></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>month</strong></td>
+<td><u>month</u></td>
+<td>See <strong>Note</strong> on <a href="#article">article</a></td>
+</tr>
+<tr class="even">
+<td><strong>year</strong></td>
+<td><u>year</u></td>
+<td>See <strong>Note</strong> on <a href="#booklet">booklet</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<p><u><em>BibTeX entry</em></u></p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="va">@unpublished</span>{<span class="ot">unpublished</span>-<span class="ot">minimal</span>,</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {Lower Bounds for Wishful Research Results},</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {Ulrich Underwood and Ned Net and Paul Pot},</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">note</span>         = {Talk at Fanstord University (this is a minimal UNPUBLISHED entry)}</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><u><em>CFF entry</em></u></p>
+<pre><code>type: unpublished
+title: Lower Bounds for Wishful Research Results
+authors:
+- family-names: Underwood
+  given-names: Ulrich
+- family-names: Net
+  given-names: Ned
+- family-names: Pot
+  given-names: Paul
+notes: Talk at Fanstord University (this is a minimal UNPUBLISHED entry)</code></pre>
+<p><u><em>From CFF to BibTeX</em></u></p>
+<pre><code>@Unpublished{underwoodnet,
+  title = {Lower Bounds for Wishful Research Results},
+  author = {Ulrich Underwood and Ned Net and Paul Pot},
+  note = {Talk at Fanstord University (this is a minimal UNPUBLISHED entry)},
+}</code></pre>
+</div>
+</div>
+<div id="references" class="section level2 unnumbered">
+<h2 class="unnumbered">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-druskat_citation_2021" class="csl-entry">
+Druskat, Stephan, Jurriaan H. Spaaks, Neil Chue Hong, Robert Haines, James Baker, Spencer Bliven, Egon Willighagen, David Pérez-Suárez, and Alexander Konovalov. 2021. <span>“Citation <span>File</span> <span>Format</span>.”</span> <a href="https://doi.org/10.5281/zenodo.5171937">https://doi.org/10.5281/zenodo.5171937</a>.
+</div>
+<div id="ref-Haines_Ruby_CFF_Library_2021" class="csl-entry">
+Haines, Robert, and The Ruby Citation File Format Developers. 2021. <span>“Ruby <span>CFF</span> Library.”</span> Zenodo. <a href="https://doi.org/10.5281/ZENODO.1184077">https://doi.org/10.5281/ZENODO.1184077</a>.
+</div>
+<div id="ref-hernangomez2021" class="csl-entry">
+Hernangómez, Diego. 2021. <span>“<span class="nocase">cffr</span>: Generate <span>Citation</span> <span>File</span> <span>Format</span> Metadata for <span>R</span> Packages.”</span> <em>Journal of Open Source Software</em> 6 (67): 3900. <a href="https://doi.org/10.21105/joss.03900">https://doi.org/10.21105/joss.03900</a>.
+</div>
+<div id="ref-lamport86latex" class="csl-entry">
+Lamport, Leslie. 1986. <em><span>LaTeX</span>: A Document Preparation System</em>. Reading, Mass: Addison-Wesley Pub. Co.
+</div>
+<div id="ref-patashnik1988" class="csl-entry">
+Patashnik, Oren. 1988. <span>“<span>BIBTEXTING</span>.”</span> <a href="https://osl.ugr.es/CTAN/biblio/bibtex/base/btxdoc.pdf">https://osl.ugr.es/CTAN/biblio/bibtex/base/btxdoc.pdf</a>.
+</div>
+<div id="ref-patashnik" class="csl-entry">
+Patashnik, Oren, and Karl Berry. 2010. <span>“CTAN: Package Bibtex.”</span> <a href="https://ctan.org/pkg/bibtex">https://ctan.org/pkg/bibtex</a>.
+</div>
+<div id="ref-R_2021" class="csl-entry">
+R Core Team. 2021. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing; R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
+</div>
+<div id="ref-biblatexcheatsheet" class="csl-entry">
+Rees, Clea F. 2017. <span>“<span>BibLaTeX</span> <span>Cheat</span> <span>Sheet</span>.”</span> <a href="https://osl.ugr.es/CTAN/info/biblatex-cheatsheet/biblatex-cheatsheet.pdf">https://osl.ugr.es/CTAN/info/biblatex-cheatsheet/biblatex-cheatsheet.pdf</a>.
+</div>
+<div id="ref-rmarkdowncookbook2020" class="csl-entry">
+Xie, Yihui, Christophe Dervieux, and Emily Riederer. 2020. <span>“Bibliographies and Citations.”</span> In <em><span>R</span> Markdown Cookbook</em>. The <span>R</span> Series. Boca Raton, Florida: Chapman; Hall/CRC. <a href="https://bookdown.org/yihui/rmarkdown-cookbook">https://bookdown.org/yihui/rmarkdown-cookbook</a>.
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>By default R Pandoc would generate the cite on the Chicago author-date format <span class="citation">(<a href="#ref-rmarkdowncookbook2020" role="doc-biblioref">Xie, Dervieux, and Riederer 2020</a>)</span><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>Other implementations similar to BibTeX, as <a href="https://www.ctan.org/pkg/biblatex">BibLaTeX</a>, expand the definitions of entries including other types as <strong>online</strong>, <strong>software</strong> or <strong>dataset</strong>. On BibTeX these entries should be reclassified to <strong>misc</strong>.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>As in the case of the entries, other implementations based on BibTeX may recognize additional fields.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>See <a href="https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#preferred-citation">Guide to Citation File Format schema version 1.2.0</a>.<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p>See a complete list of possible values of CFF type on the <a href="https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#definitionsreferencetype">Guide to Citation File Format schema version 1.2.0</a>.<a href="#fnref5" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p>Note that this software performs only the conversion from CFF to BibTeX, however <strong>cffr</strong> can perform the conversion in both directions.<a href="#fnref6" class="footnote-back">↩︎</a></p></li>
+<li id="fn7"><p>To avoid errors on the interpretation, names in <strong>bold</strong> correspond to BibTeX fields while the same number on <u>underscore</u> would refer to CFF.<a href="#fnref7" class="footnote-back">↩︎</a></p></li>
+<li id="fn8"><p>See <span class="citation"><a href="#ref-biblatexcheatsheet" role="doc-biblioref">Rees</a> (<a href="#ref-biblatexcheatsheet" role="doc-biblioref">2017</a>)</span> for a preview of the accepted BibLaTeX fields.<a href="#fnref8" class="footnote-back">↩︎</a></p></li>
+<li id="fn9"><p>As proposed on <a href="https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#how-to-deal-with-unknown-individual-authors"><em>How to deal with unknown individual authors?</em></a>, <strong>(Guide to Citation File Format schema version 1.2.0)</strong><a href="#fnref9" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -2,23 +2,36 @@
 % Please edit documentation in R/cff_parse_person.R
 \name{cff_parse_person}
 \alias{cff_parse_person}
+\alias{cff_parse_person_bibtex}
 \title{Parse a person to \code{cff}}
 \usage{
 cff_parse_person(person)
+
+cff_parse_person_bibtex(person)
 }
 \arguments{
-\item{person}{A \code{person} object or a character coercible to \code{person}. See
-\code{\link[utils:person]{utils::person()}}.}
+\item{person}{A \code{person} object created with \code{\link[=person]{person()}} or a character string.
+See \strong{Details}.}
 }
 \value{
 A \code{\link{cff}} object ready to be used on \code{\link[=cff_create]{cff_create()}}.
 }
 \description{
-Parse a person or string to a valid format for a \code{CITATION.cff} file.
+Parse a person or string to a valid format for a \code{CITATION.cff} file. This
+is a helper function designed to help on adding or replacing the
+auto-generated authors of the package.
 }
 \details{
-This is a helper function designed to help on adding or
-replacing the auto-generated authors of the package. See \strong{Examples}.
+The \code{person} parameter of the function could be:
+\itemize{
+\item For \code{cff_parse_person()}: A \code{person} object or a character coercible to
+\code{person}. See \code{\link[=person]{person()}} for details.
+\item For \code{cff_parse_person_bibtex()}: A string with the definition of an author
+or several authors, using the standard BibTeX notation. See Markey (2007)
+for a full explanation.
+}
+
+See \strong{Examples} for more information.
 }
 \examples{
 # Parse a person object
@@ -42,6 +55,23 @@ cff_parse_person("Julio Iglesias <fake@email.com>")
 persons <- c(person("Clark", "Kent"), person("Lois", "Lane"))
 
 cff_parse_person(persons)
+
+# Or you can use BibTeX style if you prefer
+
+x <- "Frank Sinatra and Dean Martin and Davis, Jr., Sammy and Joey Bishop"
+
+cff_parse_person_bibtex(x)
+
+cff_parse_person_bibtex("Herbert von Karajan")
+}
+\references{
+\itemize{
+\item Patashnik, Oren. "BIBTEXTING" February 1988.
+\url{https://osl.ugr.es/CTAN/biblio/bibtex/base/btxdoc.pdf}.
+\item Markey, Nicolas. "Tame the BeaST."
+\emph{The B to X of BibTeX, Version 1.4} (October 2007).
+\url{https://osl.ugr.es/CTAN/info/bibtex/tamethebeast/ttb_en.pdf}.
+}
 }
 \seealso{
 \code{\link[=cff_create]{cff_create()}}, \code{vignette("cffr", "cffr")}, \code{\link[utils:person]{utils::person()}}

@@ -94,6 +94,7 @@
       - family-names: Rundel
         given-names: Colin
       year: '2020'
+      notes: R package version 0.5-7
       url: https://CRAN.R-project.org/package=rgeos
     - type: article
       title: 'RNeXML: A Package for Reading and Writing Richly Annotated Phylogenetic,
@@ -110,8 +111,9 @@
       journal: Methods in Ecology and Evolution
       year: '2016'
       volume: '7'
-      pages: 352--357
       doi: 10.1111/2041-210X.12469
+      start: '352'
+      end: '357'
     - type: book
       title: 'ggplot2: Elegant Graphics for Data Analysis'
       authors:
@@ -138,6 +140,7 @@
       - family-names: Rundel
         given-names: Colin
       year: '2020'
+      notes: R package version 0.5-7
       url: https://CRAN.R-project.org/package=rgeos
     - type: article
       title: 'RNeXML: A Package for Reading and Writing Richly Annotated Phylogenetic,
@@ -154,8 +157,9 @@
       journal: Methods in Ecology and Evolution
       year: '2016'
       volume: '7'
-      pages: 352--357
       doi: 10.1111/2041-210X.12469
+      start: '352'
+      end: '357'
     - type: book
       title: 'ggplot2: Elegant Graphics for Data Analysis'
       authors:
@@ -181,7 +185,7 @@
       authors:
       - family-names: Doe
         given-names: John
-      year: '2021'
+      year: '2022'
     references:
     - type: manual
       title: favoritefood is not valid on cff schema
@@ -203,7 +207,7 @@
       authors:
       - family-names: Doe
         given-names: John
-      year: '2021'
+      year: '2022'
     references:
     - type: manual
       title: Wrong orcid fixed by cffr
@@ -226,7 +230,7 @@
       authors:
       - family-names: Doe
         given-names: John
-      year: '2021'
+      year: '2022'
     references:
     - type: manual
       title: A Language and Environment for Statistical Computing
@@ -257,7 +261,7 @@
       authors:
       - family-names: Doe
         given-names: John
-      year: '2021'
+      year: '2022'
     references:
     - type: manual
       title: A Language and Environment for Statistical Computing
@@ -274,112 +278,6 @@
       - type: url
         value: https://google.com/
 
-# Article
-
-    type: article
-    title: A Language and Environment for Statistical Computing
-    authors:
-    - name: R Core Team
-    year: '2021'
-    journal: JOSS
-
-# Book
-
-    type: book
-    title: A Language and Environment for Statistical Computing
-    authors:
-    - name: R Core Team
-    year: '2021'
-    month: '8'
-    publisher:
-      name: Graham Hill
-
-# InBook
-
-    type: book
-    title: A Language and Environment for Statistical Computing
-    authors:
-    - name: R Core Team
-    year: '2021'
-    month: '8'
-    publisher:
-      name: Graham Hill
-
-# InCollection
-
-    type: generic
-    title: A Language and Environment for Statistical Computing
-    authors:
-    - name: R Core Team
-    year: '2021'
-    month: '8'
-    publisher:
-      name: Graham Hill
-
-# InProceedings
-
-    type: proceedings
-    title: A Language and Environment for Statistical Computing
-    authors:
-    - name: R Core Team
-    year: '2021'
-    month: '8'
-
-# Manual
-
-    type: manual
-    title: A Language and Environment for Statistical Computing
-    authors:
-    - name: R Core Team
-    year: '2021'
-    month: '8'
-
-# MastersThesis
-
-    type: thesis
-    title: A Language and Environment for Statistical Computing
-    authors:
-    - name: R Core Team
-    year: '2021'
-    month: '8'
-
-# PhdThesis
-
-    type: thesis
-    title: A Language and Environment for Statistical Computing
-    authors:
-    - name: R Core Team
-    year: '2021'
-    month: '8'
-
-# Proceedings
-
-    type: proceedings
-    title: A Language and Environment for Statistical Computing
-    authors:
-    - name: R Core Team
-    year: '2021'
-    month: '8'
-
-# TechReport
-
-    type: report
-    title: A Language and Environment for Statistical Computing
-    authors:
-    - name: R Core Team
-    year: '2021'
-    institution:
-      name: MIT
-    month: '8'
-
-# Unpublished
-
-    type: unpublished
-    title: A Language and Environment for Statistical Computing
-    authors:
-    - name: R Core Team
-    year: '2021'
-
 # Parse persons on CITATION
 
     type: manual
@@ -390,6 +288,8 @@
     contact:
     - family-names: name
       given-names: A
+    - family-names: contact
+      given-names: A
     conference:
       name: A conference
     database-provider:
@@ -397,21 +297,21 @@
     editors:
     - family-names: editor
       given-names: A
+    - name: Ben and Jerry
     editors-series:
-    - family-names: series
-      given-names: A editor
-    institution:
-      name: A institution
-    location:
-      name: A location
+    - family-names: editor series
+      given-names: An
+    - name: Another
     publisher:
       name: A publisher
+      address: A location
     recipients:
     - family-names: recipient
       given-names: A
     senders:
-    - family-names: sender
-      given-names: A
+    - name: A Sender
+    - family-names: Sender
+      given-names: Another
     translators:
     - family-names: one
       given-names: Translator

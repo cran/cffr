@@ -34,8 +34,9 @@
       journal: Methods in Ecology and Evolution
       year: '2016'
       volume: '7'
-      pages: 352--357
       doi: 10.1111/2041-210X.12469
+      start: '352'
+      end: '357'
     references:
     - type: book
       title: 'ggplot2: Elegant Graphics for Data Analysis'
@@ -84,8 +85,9 @@
       journal: Methods in Ecology and Evolution
       year: '2016'
       volume: '7'
-      pages: 352--357
       doi: 10.1111/2041-210X.12469
+      start: '352'
+      end: '357'
     references:
     - type: book
       title: 'ggplot2: Elegant Graphics for Data Analysis'
@@ -135,8 +137,9 @@
       journal: Methods in Ecology and Evolution
       year: '2016'
       volume: '7'
-      pages: 352--357
       doi: 10.1111/2041-210X.12469
+      start: '352'
+      end: '357'
     references:
     - type: book
       title: 'ggplot2: Elegant Graphics for Data Analysis'
@@ -198,8 +201,9 @@
       journal: Methods in Ecology and Evolution
       year: '2016'
       volume: '7'
-      pages: 352--357
       doi: 10.1111/2041-210X.12469
+      start: '352'
+      end: '357'
     references:
     - type: book
       title: 'ggplot2: Elegant Graphics for Data Analysis'
@@ -263,8 +267,9 @@
       journal: Methods in Ecology and Evolution
       year: '2016'
       volume: '7'
-      pages: 352--357
       doi: 10.1111/2041-210X.12469
+      start: '352'
+      end: '357'
     references:
     - type: book
       title: 'ggplot2: Elegant Graphics for Data Analysis'
@@ -335,8 +340,9 @@
       journal: Methods in Ecology and Evolution
       year: '2016'
       volume: '7'
-      pages: 352--357
       doi: 10.1111/2041-210X.12469
+      start: '352'
+      end: '357'
     references:
     - type: book
       title: 'ggplot2: Elegant Graphics for Data Analysis'
@@ -394,8 +400,9 @@
       journal: Methods in Ecology and Evolution
       year: '2016'
       volume: '7'
-      pages: 352--357
       doi: 10.1111/2041-210X.12469
+      start: '352'
+      end: '357'
     references:
     - type: book
       title: 'ggplot2: Elegant Graphics for Data Analysis'
@@ -457,8 +464,9 @@
       journal: Methods in Ecology and Evolution
       year: '2016'
       volume: '7'
-      pages: 352--357
       doi: 10.1111/2041-210X.12469
+      start: '352'
+      end: '357'
     references:
     - type: book
       title: 'ggplot2: Elegant Graphics for Data Analysis'
@@ -510,8 +518,9 @@
       journal: Methods in Ecology and Evolution
       year: '2016'
       volume: '7'
-      pages: 352--357
       doi: 10.1111/2041-210X.12469
+      start: '352'
+      end: '357'
     references:
     - type: book
       title: 'ggplot2: Elegant Graphics for Data Analysis'
@@ -576,8 +585,9 @@
       journal: Methods in Ecology and Evolution
       year: '2016'
       volume: '7'
-      pages: 352--357
       doi: 10.1111/2041-210X.12469
+      start: '352'
+      end: '357'
     references:
     - type: book
       title: 'ggplot2: Elegant Graphics for Data Analysis'
@@ -652,8 +662,9 @@
       journal: Methods in Ecology and Evolution
       year: '2016'
       volume: '7'
-      pages: 352--357
       doi: 10.1111/2041-210X.12469
+      start: '352'
+      end: '357'
     references:
     - type: book
       title: 'ggplot2: Elegant Graphics for Data Analysis'
@@ -735,8 +746,9 @@
       journal: Methods in Ecology and Evolution
       year: '2016'
       volume: '7'
-      pages: 352--357
       doi: 10.1111/2041-210X.12469
+      start: '352'
+      end: '357'
     references:
     - type: book
       title: 'ggplot2: Elegant Graphics for Data Analysis'
@@ -796,8 +808,9 @@
       journal: Methods in Ecology and Evolution
       year: '2016'
       volume: '7'
-      pages: 352--357
       doi: 10.1111/2041-210X.12469
+      start: '352'
+      end: '357'
     references:
     - type: book
       title: 'ggplot2: Elegant Graphics for Data Analysis'
@@ -861,8 +874,9 @@
       journal: Methods in Ecology and Evolution
       year: '2016'
       volume: '7'
-      pages: 352--357
       doi: 10.1111/2041-210X.12469
+      start: '352'
+      end: '357'
     references:
     - type: book
       title: 'ggplot2: Elegant Graphics for Data Analysis'

@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ---- include = FALSE-------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -11,7 +11,7 @@ library(cffr)
 ## ----echo=FALSE, out.width="400", fig.align='center', fig.alt="GitHub-link"----
 knitr::include_graphics("tweet-1.png")
 
-## ----setup, eval=FALSE--------------------------------------------------------
+## ----setup, eval=FALSE------------------------------------
 #  
 #  library(cffr)
 #  
@@ -19,7 +19,7 @@ knitr::include_graphics("tweet-1.png")
 #  
 #  # You are done!
 
-## ----newfields----------------------------------------------------------------
+## ----newfields--------------------------------------------
 
 newobject <- cff_create(cff())
 
@@ -28,11 +28,11 @@ newobject <- cff_create(cff())
 
 newobject
 
-## ----validkeys----------------------------------------------------------------
+## ----validkeys--------------------------------------------
 
 cff_schema_keys()
 
-## ----modify-------------------------------------------------------------------
+## ----modify-----------------------------------------------
 
 newkeys <- list(
   "url" = "https://ropensci.org/",
@@ -50,7 +50,7 @@ modobject
 
 cff_validate(modobject)
 
-## ----includeauthor------------------------------------------------------------
+## ----includeauthor----------------------------------------
 
 # Valid person keys
 
@@ -88,7 +88,7 @@ newauthorobject
 
 cff_validate(newauthorobject)
 
-## ----parsingcits--------------------------------------------------------------
+## ----parsingcits------------------------------------------
 # Valid reference keys
 
 cff_schema_definitions_refs()
@@ -115,7 +115,7 @@ bookparsed <- cff_parse_citation(bib)
 
 bookparsed
 
-## ----references---------------------------------------------------------------
+## ----references-------------------------------------------
 
 refkeys <- list(references = c(list(base_r), list(bookparsed)))
 
@@ -127,7 +127,7 @@ finalobject
 
 cff_validate(finalobject)
 
-## ----write--------------------------------------------------------------------
+## ----write------------------------------------------------
 
 # For example
 tmp <- tempfile(fileext = ".cff")
@@ -136,13 +136,13 @@ see_res <- cff_write(finalobject, outfile = tmp)
 
 see_res
 
-## ----read---------------------------------------------------------------------
+## ----read-------------------------------------------------
 
 reading <- cff(tmp)
 
 reading
 
-## -----------------------------------------------------------------------------
+## ---------------------------------------------------------
 
 allkeys <- list(
   "url" = "https://ropensci.org/",

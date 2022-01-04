@@ -118,9 +118,27 @@ building_doi <- function(parse_cit) {
 #' BB for month
 #' @noRd
 building_month <- function(parse_cit) {
+  mnt <- parse_cit$month
 
+  if (is.null(mnt) || is.na(mnt)) {
+    return(NULL)
+  }
+
+  # Guess if a valid integer is provided and output
+  mnt_num <- tryCatch(as.numeric(mnt),
+    warning = function(e) {
+      return(FALSE)
+    }
+  )
+
+  if (is.numeric(mnt_num) && mnt_num > 0 && mnt_num <= 12) {
+    res <- clean_str(mnt_num)
+    return(res)
+  }
+
+  # else transform
   # Get month, everything in lowercase
-  month <- clean_str(tolower(parse_cit$month))
+  month <- clean_str(tolower(mnt))
 
   # Index on abbreviation
   res <- clean_str(which(tolower(month.abb) == month))
@@ -139,8 +157,7 @@ building_url <- function(parse_cit) {
   ## Parse url: see bug with cff_create("rgeos")
   if (is.character(parse_cit$url)) {
     allurls <- as.character(parse_cit[names(parse_cit) == "url"])
-    allurls <- unlist(strsplit(allurls, " "))
-    allurls <- unlist(strsplit(allurls, ","))
+    allurls <- unlist(strsplit(allurls, " |,|\\n"))
   } else {
     allurls <- parse_cit$url
   }
@@ -168,24 +185,67 @@ building_url <- function(parse_cit) {
 
 #' BB for other persons
 #' @noRd
-building_other_persons <- function(parse_cit) {
-  others <- drop_null(parse_cit[other_persons()])
+building_other_persons <- function(parsed_fields) {
+  others <- drop_null(parsed_fields[other_persons()])
+
+  # If any is person type (example, editors) then paste and collapse
+
+  others <- lapply(others, function(x) {
+    if (inherits(x, "person")) {
+      x <- paste(x, collapse = " and ")
+    } else {
+      return(x)
+    }
+  })
+
+
+
+  # Select subsets
+  all_pers <- other_persons()
+  toent <- other_persons_entity()
+  toent_pers <- entity_person()
+
+  toauto_end <- all_pers[!all_pers %in% c(toent, toent_pers)]
+  toent_end <- toent[!toent %in% toent_pers]
 
   # Parse as entity
-  toentity <- others[names(others) %in% other_persons_entity()]
+  toentity <- others[names(others) %in% toent_end]
   toentity <- lapply(toentity, function(x) {
     list(name = clean_str(x))
   })
-  toperson <- others[!names(others) %in% other_persons_entity()]
-  toperson <- lapply(toperson, as.person)
 
-  toperson <- lapply(toperson, function(x) {
-    lapply(x, cff_parse_person)
+  # As persons or entities using bibtex
+  toentity_pers <- others[names(others) %in% toent_pers]
+  toentity_pers <- lapply(toentity_pers, function(x) {
+    bibtex <- paste(x, collapse = " and ")
+
+    end <- cff_parse_person_bibtex(bibtex)
+
+    # If has names then it should be moved to a lower level on a list
+    if (!is.null(names(end))) end <- list(end)
+
+    return(end)
   })
 
+
+  toperson <- others[names(others) %in% toauto_end]
+  toperson <- lapply(toperson, cff_parse_person_bibtex)
+  # This should be vectors, so include on lists
+  toperson <- lapply(toperson, function(x) {
+    if (!is.null(names(x))) {
+      x <- list(x)
+    } else {
+      x
+    }
+  })
+
+
+
   # Bind and reorder
-  parsedothers <- c(toentity, toperson)
+  parsedothers <- c(toentity, toperson, toentity_pers)
   parsedothers <- parsedothers[names(others)]
+
+  return(parsedothers)
 }
 
 
@@ -194,19 +254,20 @@ building_other_persons <- function(parse_cit) {
 other_persons <- function() {
   pers_ent <- c(
     "contact",
-    "conference",
-    "database-provider",
     "editors",
     "editors-series",
-    "institution",
-    "location",
-    "publisher",
     "recipients",
     "senders",
     "translators"
   )
 
-  pers_ent
+  pers_ent <- sort(unique(c(
+    pers_ent,
+    other_persons_entity(),
+    entity_person()
+  )))
+
+  return(pers_ent)
 }
 
 #' Vector other persons to be parsed as entities
@@ -221,4 +282,14 @@ other_persons_entity <- function() {
   )
 
   entities
+}
+
+#' This may be entities or persons
+#' @noRd
+entity_person <- function() {
+  forced <- c(
+    "editors",
+    "editors-series"
+  )
+  forced
 }
