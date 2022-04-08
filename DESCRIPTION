@@ -1,6 +1,6 @@
 Package: cffr
 Title: Generate Citation File Format ('cff') Metadata for R Packages
-Version: 0.2.1
+Version: 0.2.2
 Authors@R: c(
     person("Diego", "Hernangómez", , "diego.hernangomezherrero@gmail.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0001-8457-4658")),
@@ -29,11 +29,11 @@ X-schema.org-isPartOf: https://ropensci.org
 X-schema.org-keywords: attribution, citation, credit, citation-files,
         cff, metadata
 NeedsCompilation: no
-Packaged: 2022-01-16 15:28:35 UTC; diego
+Packaged: 2022-04-08 13:50:33 UTC; diego
 Author: Diego Hernangómez [aut, cre, cph]
     (<https://orcid.org/0000-0001-8457-4658>),
   João Martins [rev] (<https://orcid.org/0000-0001-7961-4280>),
   Scott Chamberlain [rev] (<https://orcid.org/0000-0003-1444-9135>)
 Maintainer: Diego Hernangómez <diego.hernangomezherrero@gmail.com>
 Repository: CRAN
-Date/Publication: 2022-01-16 15:42:42 UTC
+Date/Publication: 2022-04-08 14:12:36 UTC
