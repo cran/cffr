@@ -19,8 +19,6 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 ![GitHub code size in
 bytes](https://img.shields.io/github/languages/code-size/ropensci/cffr)
 [![peer-review](https://badges.ropensci.org/463_status.svg)](https://github.com/ropensci/software-review/issues/463)
-[![pkgcheck](https://github.com/ropensci/cffr/workflows/pkgcheck/badge.svg)](https://github.com/ropensci/cffr/actions?query=workflow%3Apkgcheck)
-
 <!-- badges: end -->
 
 **cffr** provides utilities to generate, parse, modify and validate
@@ -73,7 +71,7 @@ file and the `CITATION` file (if present) of your package. Note that
 **cffr** works best if your package pass
 `R CMD check/devtools::check()`.
 
-As per 2022-04-08 there are at least 115 repos on GitHub using **cffr**.
+As per 2022-08-13 there are at least 204 repos on GitHub using **cffr**.
 [Check them out
 here](https://github.com/search?l=&o=desc&q=cffr+extension%3Acff+filename%3ACITATION&s=indexed&type=Code).
 
@@ -136,8 +134,6 @@ library(cffr)
 
 # Example with an installed package
 test <- cff_create("rmarkdown")
-#> Warning in citation(n$package, auto = TRUE): no date field in DESCRIPTION file
-#> of package 'testthat'
 ```
 
 <details>
@@ -150,7 +146,7 @@ test <- cff_create("rmarkdown")
     type: software
     license: GPL-3.0-only
     title: 'rmarkdown: Dynamic Documents for R'
-    version: '2.13'
+    version: '2.14'
     abstract: Convert R Markdown documents into a variety of formats.
     authors:
     - family-names: Allaire
@@ -222,12 +218,12 @@ test <- cff_create("rmarkdown")
         email: rich@rstudio.com
         orcid: https://orcid.org/0000-0003-3925-190X
       year: '2022'
-      notes: R package version 2.13
+      notes: R package version 2.14
       url: https://github.com/rstudio/rmarkdown
     repository: https://CRAN.R-project.org/package=rmarkdown
     repository-code: https://github.com/rstudio/rmarkdown
     url: https://pkgs.rstudio.com/rmarkdown/
-    date-released: '2022-03-10'
+    date-released: '2022-04-25'
     contact:
     - family-names: Xie
       given-names: Yihui
@@ -539,6 +535,24 @@ test <- cff_create("rmarkdown")
       year: '2022'
       url: https://CRAN.R-project.org/package=digest
     - type: software
+      title: dygraphs
+      abstract: 'dygraphs: Interface to ''Dygraphs'' Interactive Time Series Charting
+        Library'
+      notes: Suggests
+      authors:
+      - family-names: Vanderkam
+        given-names: Dan
+      - family-names: Allaire
+        given-names: JJ
+      - family-names: Owen
+        given-names: Jonathan
+      - family-names: Gromer
+        given-names: Daniel
+      - family-names: Thieurmel
+        given-names: Benoit
+      year: '2022'
+      url: https://CRAN.R-project.org/package=dygraphs
+    - type: software
       title: fs
       abstract: 'fs: Cross-Platform File System Operations Based on ''libuv'''
       notes: Suggests
@@ -579,6 +593,18 @@ test <- cff_create("rmarkdown")
       year: '2022'
       url: https://CRAN.R-project.org/package=downlit
       version: '>= 0.4.0'
+    - type: software
+      title: katex
+      abstract: 'katex: Rendering Math to HTML, ''MathML'', or R-Documentation Format'
+      notes: Suggests
+      authors:
+      - family-names: Ooms
+        given-names: Jeroen
+        email: jeroen@berkeley.edu
+        orcid: https://orcid.org/0000-0002-4035-0289
+      year: '2022'
+      url: https://CRAN.R-project.org/package=katex
+      version: '>= 1.4.0'
     - type: software
       title: sass
       abstract: 'sass: Syntactically Awesome Style Sheets (''Sass'')'
@@ -653,6 +679,7 @@ test <- cff_create("rmarkdown")
         given-names: Hadley
         email: hadley@rstudio.com
       year: '2022'
+      url: https://CRAN.R-project.org/package=testthat
       version: '>= 3.0.3'
     - type: software
       title: tibble
@@ -667,6 +694,19 @@ test <- cff_create("rmarkdown")
         email: hadley@rstudio.com
       year: '2022'
       url: https://CRAN.R-project.org/package=tibble
+    - type: software
+      title: tufte
+      abstract: 'tufte: Tufte''s Styles for R Markdown Documents'
+      notes: Suggests
+      authors:
+      - family-names: Xie
+        given-names: Yihui
+        email: xie@yihui.name
+        orcid: https://orcid.org/0000-0003-0645-5666
+      - family-names: Allaire
+        given-names: JJ
+      year: '2022'
+      url: https://CRAN.R-project.org/package=tufte
     - type: software
       title: vctrs
       abstract: 'vctrs: Vector Helpers'
@@ -790,10 +830,9 @@ Check the following articles to learn more about **cffr**:
 
 ## Citation
 
-Hernangómez D (2021). “cffr: Generate Citation File Format Metadata for
-R Packages.” *Journal of Open Source Software*, *6*(67), 3900. doi:
-10.21105/joss.03900 (URL: <https://doi.org/10.21105/joss.03900>), \<URL:
-<https://doi.org/10.21105/joss.03900>\>.
+Hernangómez, D., (2021). cffr: Generate Citation File Format Metadata
+for R Packages. Journal of Open Source Software, 6(67), 3900,
+<https://doi.org/10.21105/joss.03900>
 
 A BibTeX entry for LaTeX users is
 
