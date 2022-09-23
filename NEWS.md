@@ -1,3 +1,11 @@
+# cffr 0.3.0
+
+-   `preferred-citation` is only produced when a CITATION (**R**) file has been
+    provided with the package (#37).
+-   Improve email handling on authors.
+-   Add `cff_read()` function. This functionality was already implemented on
+    `cff()` but new function added in order to provide clarity.
+
 # cffr 0.2.3
 
 -   Fix HTML5 issue as per CRAN request
