@@ -30,23 +30,23 @@ document.addEventListener('DOMContentLoaded', function(e) {
 </script>
 
 <style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
 
 
 
 <style type="text/css">
-  code {
-    white-space: pre;
-  }
-  .sourceCode {
-    overflow: visible;
-  }
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
 </style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
@@ -64,55 +64,54 @@ pre > code.sourceCode { white-space: pre-wrap; }
 pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
-  { counter-reset: source-line 0; }
+{ counter-reset: source-line 0; }
 pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
+{ position: relative; left: -4em; counter-increment: source-line; }
 pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
 div.sourceCode
-  {   }
+{ }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
 </style>
 <script>
 // apply pandoc div.sourceCode style to pre.sourceCode instead
@@ -144,37 +143,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </script>
 
 <style type="text/css">
-  p.abstract{
-    text-align: center;
-    font-weight: bold;
-  }
-  div.abstract{
-    margin: auto;
-    width: 90%;
-  }
+p.abstract{
+text-align: center;
+font-weight: bold;
+}
+div.abstract{
+margin: auto;
+width: 90%;
+}
 </style>
 
 
 <style type="text/css">
-/* for pandoc --citeproc since 2.11 */
+
 div.csl-bib-body { }
 div.csl-entry {
-  clear: both;
+clear: both;
 }
 .hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
+margin-left:2em;
+text-indent:-2em;
 }
 div.csl-left-margin {
-  min-width:2em;
-  float:left;
+min-width:2em;
+float:left;
 }
 div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
+margin-left:2em;
+padding-left:1em;
 }
 div.csl-indent {
-  margin-left: 2em;
+margin-left: 2em;
 }
 </style>
 
@@ -388,34 +387,36 @@ programming languages.
 
 <div id="TOC">
 <ul>
-<li><a href="#citation">Citation</a></li>
-<li><a href="#bibtex-and-r">BibTeX and R</a></li>
-<li><a href="#bibtex-definitions">BibTeX definitions</a>
+<li><a href="#citation" id="toc-citation">Citation</a></li>
+<li><a href="#bibtex-and-r" id="toc-bibtex-and-r">BibTeX and R</a></li>
+<li><a href="#bibtex-definitions" id="toc-bibtex-definitions">BibTeX
+definitions</a>
 <ul>
-<li><a href="#entries">Entries</a></li>
-<li><a href="#fields">Fields</a></li>
+<li><a href="#entries" id="toc-entries">Entries</a></li>
+<li><a href="#fields" id="toc-fields">Fields</a></li>
 </ul></li>
-<li><a href="#citation-file-format">Citation File Format</a></li>
-<li><a href="#proposed-crosswalk">Proposed crosswalk</a>
+<li><a href="#citation-file-format" id="toc-citation-file-format">Citation File Format</a></li>
+<li><a href="#proposed-crosswalk" id="toc-proposed-crosswalk">Proposed
+crosswalk</a>
 <ul>
-<li><a href="#entrytype-crosswalk">Entry/Type crosswalk</a></li>
-<li><a href="#fieldskey-crosswalk">Fields/Key crosswalk</a></li>
+<li><a href="#entrytype-crosswalk" id="toc-entrytype-crosswalk">Entry/Type crosswalk</a></li>
+<li><a href="#fieldskey-crosswalk" id="toc-fieldskey-crosswalk">Fields/Key crosswalk</a></li>
 </ul></li>
-<li><a href="#entry-models">Entry Models</a>
+<li><a href="#entry-models" id="toc-entry-models">Entry Models</a>
 <ul>
-<li><a href="#article">article</a></li>
-<li><a href="#bookinbook">book/inbook</a></li>
-<li><a href="#booklet">booklet</a></li>
-<li><a href="#conferenceinproceedings">conference/inproceedings</a></li>
-<li><a href="#incollection">incollection</a></li>
-<li><a href="#manual">manual</a></li>
-<li><a href="#mastersthesisphdthesis">mastersthesis/phdthesis</a></li>
-<li><a href="#misc">misc</a></li>
-<li><a href="#proceedings">proceedings</a></li>
-<li><a href="#techreport">techreport</a></li>
-<li><a href="#unpublished">unpublished</a></li>
+<li><a href="#article" id="toc-article">article</a></li>
+<li><a href="#bookinbook" id="toc-bookinbook">book/inbook</a></li>
+<li><a href="#booklet" id="toc-booklet">booklet</a></li>
+<li><a href="#conferenceinproceedings" id="toc-conferenceinproceedings">conference/inproceedings</a></li>
+<li><a href="#incollection" id="toc-incollection">incollection</a></li>
+<li><a href="#manual" id="toc-manual">manual</a></li>
+<li><a href="#mastersthesisphdthesis" id="toc-mastersthesisphdthesis">mastersthesis/phdthesis</a></li>
+<li><a href="#misc" id="toc-misc">misc</a></li>
+<li><a href="#proceedings" id="toc-proceedings">proceedings</a></li>
+<li><a href="#techreport" id="toc-techreport">techreport</a></li>
+<li><a href="#unpublished" id="toc-unpublished">unpublished</a></li>
 </ul></li>
-<li><a href="#references">References</a></li>
+<li><a href="#references" id="toc-references">References</a></li>
 </ul>
 </div>
 
@@ -478,6 +479,53 @@ functions:</p>
 <p>Einstein A (1920). <em>Relativity: The Special and the General
 Theory</em>. Henry Holt and Company, London, United Kingdom. ISBN
 9781587340925.</p>
+<p>Additionally, <strong>cffr</strong> <span class="citation">(<a href="#ref-hernangomez2021" role="doc-biblioref">Hernangómez
+2021</a>)</span> incorporates a function <code>cff_from_bibtex()</code>
+than can be used to read and transform BibTeX strings into different
+formats:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>string <span class="ot">&lt;-</span> <span class="st">&quot;@book{einstein1921,</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="st">    title        = {Relativity: The Special and the General Theory},</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="st">    author       = {Einstein, A.},</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="st">    year         = 1920,</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="st">    publisher    = {Henry Holt and Company},</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="st">    address      = {London, United Kingdom},</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="st">    isbn         = 9781587340925}&quot;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># To cff</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cffr)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>cff_format <span class="ot">&lt;-</span> <span class="fu">cff_from_bibtex</span>(string)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>cff_format</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; type: book</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; title: &#39;Relativity: The Special and the General Theory&#39;</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; authors:</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - family-names: Einstein</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   given-names: A.</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; year: &#39;1920&#39;</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; publisher:</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   name: Henry Holt and Company</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   address: London, United Kingdom</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; isbn: &#39;9781587340925&#39;</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="co"># To citation R format and bibtex</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>citation_format <span class="ot">&lt;-</span> <span class="fu">cff_to_bibtex</span>(cff_format)</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(citation_format)</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;bibentry&quot;</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>citation_format</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Einstein A (1920). _Relativity: The Special and the</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; General Theory_. Henry Holt and Company, London,</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; United Kingdom. ISBN 9781587340925.</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="fu">toBibtex</span>(citation_format)</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; @Book{einstein:1920,</span></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   title = {Relativity: The Special and the General Theory},</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   author = {A. Einstein},</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   year = {1920},</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   publisher = {Henry Holt and Company},</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   address = {London, United Kingdom},</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   isbn = {9781587340925},</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; }</span></span></code></pre></div>
 </div>
 <div id="bibtex-definitions" class="section level2">
 <h2>BibTeX definitions</h2>
@@ -1331,12 +1379,12 @@ crosswalk is proposed:</p>
 <p>Also, given that CFF provides with a <a href="https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#definitionsreferencetype">wide
 range of allowed values</a> on type, the following conversion would be
 performed from CFF to BibTeX:</p>
-<table>
+<table style="width:99%;">
 <caption>Entry/Type crosswalk: From CFF to BibTeX</caption>
 <colgroup>
-<col width="28%" />
+<col width="27%" />
 <col width="34%" />
-<col width="37%" />
+<col width="36%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1603,12 +1651,12 @@ provided with the bibtex package <span class="citation">(<a href="#ref-patashnik
 <h3>article</h3>
 <p>The crosswalk of <strong>@article</strong> does not require any
 special treatment.</p>
-<table>
+<table style="width:99%;">
 <caption><strong>@article</strong> Model</caption>
 <colgroup>
 <col width="24%" />
 <col width="29%" />
-<col width="46%" />
+<col width="45%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1679,17 +1727,17 @@ special treatment.</p>
 </table>
 <p><strong>Examples</strong></p>
 <p><u><em>BibTeX entry</em></u></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="va">@article</span>{<span class="ot">article</span>-<span class="ot">full</span>,</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {The Gnats and Gnus Document Preparation System},</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {Leslie A. Aamport},</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">year</span>         = 1986,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span>        = <span class="st">jul</span>,</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">journal</span>      = {{G-Animal&#39;s} Journal},</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">volume</span>       = 41,</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">number</span>       = 7,</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">pages</span>        = {73+},</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">note</span>         = {This is a full ARTICLE entry}</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="va">@article</span>{<span class="ot">article</span>-<span class="ot">full</span>,</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {The Gnats and Gnus Document Preparation System},</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {Leslie A. Aamport},</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">year</span>         = 1986,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span>        = <span class="st">jul</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">journal</span>      = {{G-Animal&#39;s} Journal},</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">volume</span>       = 41,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">number</span>       = 7,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">pages</span>        = {73+},</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">note</span>         = {This is a full ARTICLE entry}</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p><u><em>CFF entry</em></u></p>
 <pre><code>type: article
 title: The Gnats and Gnus Document Preparation System
@@ -1728,12 +1776,12 @@ we propose here to identify an <strong>@inbook</strong> on CFF as a
 <p>Another specificity is that <strong>series</strong> field is mapped
 to <u>collection-title</u> and <strong>address</strong> is mapped as the
 <u>address</u> of the <u>publisher</u> (CFF).</p>
-<table>
+<table style="width:99%;">
 <caption><strong>@book/@inbook</strong> Model</caption>
 <colgroup>
 <col width="31%" />
-<col width="34%" />
-<col width="34%" />
+<col width="33%" />
+<col width="33%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1752,7 +1800,8 @@ to <u>collection-title</u> and <strong>address</strong> is mapped as the
 <td><strong>@inbook</strong></td>
 <td><u>type: book</u></td>
 <td>For identifying an <strong>@inbook</strong> in CFF, assess if
-<u>section</u> or <u>start</u>-<u>end</u> information is available</td>
+<u>section</u> or [start]{.unde rline}-<u>end</u> information is
+available</td>
 </tr>
 <tr class="odd">
 <td><strong>author*</strong></td>
@@ -1801,7 +1850,7 @@ to <u>collection-title</u> and <strong>address</strong> is mapped as the
 </tr>
 <tr class="even">
 <td><strong>series</strong></td>
-<td><u>collection-title</u></td>
+<td><u>colle ction-title</u></td>
 <td></td>
 </tr>
 <tr class="odd">
@@ -1828,18 +1877,18 @@ to <u>collection-title</u> and <strong>address</strong> is mapped as the
 </table>
 <p><strong>Examples: book</strong></p>
 <p><u><em>BibTeX entry</em></u></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="va">@book</span>{<span class="ot">book</span>-<span class="ot">full</span>,</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {Seminumerical Algorithms},</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {Donald E. Knuth},</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">year</span>         = 1981,</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span>        = 10,</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">publisher</span>    = {Addison-Wesley},</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">address</span>      = {Reading, Massachusetts},</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">series</span>       = {The Art of Computer Programming},</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">volume</span>       = 2,</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">note</span>         = {This is a full BOOK entry},</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">edition</span>      = {Second}</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="va">@book</span>{<span class="ot">book</span>-<span class="ot">full</span>,</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {Seminumerical Algorithms},</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {Donald E. Knuth},</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">year</span>         = 1981,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span>        = 10,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">publisher</span>    = {Addison-Wesley},</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">address</span>      = {Reading, Massachusetts},</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">series</span>       = {The Art of Computer Programming},</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">volume</span>       = 2,</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">note</span>         = {This is a full BOOK entry},</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">edition</span>      = {Second}</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p><u><em>CFF entry</em></u></p>
 <pre><code>type: book
 title: Seminumerical Algorithms
@@ -1870,21 +1919,21 @@ collection-title: The Art of Computer Programming</code></pre>
 }</code></pre>
 <p><strong>Examples: inbook</strong></p>
 <p><u><em>BibTeX entry</em></u></p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="va">@inbook</span>{<span class="ot">inbook</span>-<span class="ot">full</span>,</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {Fundamental Algorithms},</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {Donald E. Knuth},</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">year</span>         = 1973,</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span>        = 10,</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">publisher</span>    = {Addison-Wesley},</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">address</span>      = {Reading, Massachusetts},</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">series</span>       = {The Art of Computer Programming},</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">volume</span>       = 1,</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">pages</span>        = {10--119},</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">note</span>         = {This is a full INBOOK entry},</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">edition</span>      = {Second},</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">type</span>         = {Section},</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">chapter</span>      = {1.2}</span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="va">@inbook</span>{<span class="ot">inbook</span>-<span class="ot">full</span>,</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {Fundamental Algorithms},</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {Donald E. Knuth},</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">year</span>         = 1973,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span>        = 10,</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">publisher</span>    = {Addison-Wesley},</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">address</span>      = {Reading, Massachusetts},</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">series</span>       = {The Art of Computer Programming},</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">volume</span>       = 1,</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">pages</span>        = {10--119},</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">note</span>         = {This is a full INBOOK entry},</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">edition</span>      = {Second},</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">type</span>         = {Section},</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">chapter</span>      = {1.2}</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p><u><em>CFF entry</em></u></p>
 <pre><code>type: book
 title: Fundamental Algorithms
@@ -1923,12 +1972,12 @@ collection-title: The Art of Computer Programming</code></pre>
 <h3>booklet</h3>
 <p>In <strong>@booklet</strong> <strong>address</strong> is mapped to
 <u>location</u>.</p>
-<table>
+<table style="width:99%;">
 <caption><strong>@booklet</strong> Model</caption>
 <colgroup>
-<col width="38%" />
-<col width="24%" />
 <col width="37%" />
+<col width="24%" />
+<col width="36%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1940,58 +1989,58 @@ collection-title: The Art of Computer Programming</code></pre>
 <tbody>
 <tr class="odd">
 <td><strong>@booklet</strong></td>
-<td><u>type: pamphlet</u></td>
+<td><u>type: pamph let</u></td>
 <td></td>
 </tr>
 <tr class="even">
 <td><strong>title*</strong></td>
-<td><u>title</u></td>
+<td><u>ti tle</u></td>
 <td></td>
 </tr>
 <tr class="odd">
 <td><strong>author*</strong></td>
-<td><u>authors</u></td>
+<td><u>auth ors</u></td>
 <td></td>
 </tr>
 <tr class="even">
 <td><strong>howpublished</strong></td>
-<td><u>medium</u></td>
+<td><u>med ium</u></td>
 <td></td>
 </tr>
 <tr class="odd">
 <td><strong>address</strong></td>
-<td><u>location</u></td>
+<td><u>locat ion</u></td>
 <td></td>
 </tr>
 <tr class="even">
 <td><strong>month</strong></td>
-<td><u>month</u></td>
+<td><u>mo nth</u></td>
 <td>See <strong>Note</strong> on <a href="#article">article</a></td>
 </tr>
 <tr class="odd">
 <td><strong>year</strong></td>
-<td><u>year</u></td>
+<td><u>y ear</u></td>
 <td>As a fallback, <strong>year</strong> could be extracted also from
-<strong>date</strong> (BibLaTeX field)/ <u>date-published</u></td>
+<strong>date</strong> (BibLaTeX field)/ <u>d ate-published</u></td>
 </tr>
 <tr class="even">
 <td><strong>note</strong></td>
-<td><u>notes</u></td>
+<td><u>no tes</u></td>
 <td></td>
 </tr>
 </tbody>
 </table>
 <p><strong>Examples</strong></p>
 <p><u><em>BibTeX entry</em></u></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="va">@booklet</span>{<span class="ot">booklet</span>-<span class="ot">full</span>,</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {The Programming of Computer Art},</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {Jill C. Knvth},</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">date</span>         = {1988-03-14},</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span>        = <span class="st">feb</span>,</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">address</span>      = {Stanford, California},</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">note</span>         = {This is a full BOOKLET entry},</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">howpublished</span> = {Vernier Art Center}</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="va">@booklet</span>{<span class="ot">booklet</span>-<span class="ot">full</span>,</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {The Programming of Computer Art},</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {Jill C. Knvth},</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">date</span>         = {1988-03-14},</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span>        = <span class="st">feb</span>,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">address</span>      = {Stanford, California},</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">note</span>         = {This is a full BOOKLET entry},</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">howpublished</span> = {Vernier Art Center}</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p><u><em>CFF entry</em></u></p>
 <pre><code>type: pamphlet
 title: The Programming of Computer Art
@@ -2022,10 +2071,10 @@ year: &#39;1988&#39;</code></pre>
 <p>Note that in this case, <strong>organization</strong> is mapped to
 <u>institution</u>, as BibTeX does not prescribe the use of
 <strong>institution</strong> on these entries.</p>
-<table>
+<table style="width:99%;">
 <caption><strong>@conference/@inproceedings</strong> Model</caption>
 <colgroup>
-<col width="33%" />
+<col width="32%" />
 <col width="35%" />
 <col width="30%" />
 </colgroup>
@@ -2039,7 +2088,7 @@ year: &#39;1988&#39;</code></pre>
 <tbody>
 <tr class="odd">
 <td><strong>@conference / @inproceedings</strong></td>
-<td><u>type: conference-paper</u></td>
+<td><u>type: conf erence-paper</u></td>
 <td>CFF entries with <u>type</u> =conference are mapped back to
 <strong>@inproceedings</strong>.</td>
 </tr>
@@ -2055,7 +2104,7 @@ year: &#39;1988&#39;</code></pre>
 </tr>
 <tr class="even">
 <td><strong>booktitle*</strong></td>
-<td><u>collection-title</u></td>
+<td><u>coll ection-title</u></td>
 <td></td>
 </tr>
 <tr class="odd">
@@ -2091,7 +2140,7 @@ year: &#39;1988&#39;</code></pre>
 <tr class="odd">
 <td><strong>address</strong></td>
 <td><u>location</u></td>
-<td>As a fallback, <u>address</u> property of <u>conference</u> can be
+<td>As a fallback, <u>address</u> property of <u>co nference</u> can be
 used</td>
 </tr>
 <tr class="even">
@@ -2118,20 +2167,20 @@ used</td>
 </table>
 <p><strong>Examples</strong></p>
 <p><u><em>BibTeX entry</em></u></p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="va">@inproceedings</span>{<span class="ot">inproceedings</span>-<span class="ot">full</span>,</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {On Notions of Information Transfer in {VLSI} Circuits},</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {Alfred V. Oaho and Jeffrey D. Ullman and Mihalis Yannakakis},</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">year</span>         = 1983,</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span>        = <span class="st">mar</span>,</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">booktitle</span>    = {Proc. Fifteenth Annual ACM Symposium on the Theory of Computing},</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">publisher</span>    = {Academic Press},</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">address</span>      = {Boston},</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">series</span>       = {All ACM Conferences},</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">number</span>       = 17,</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">pages</span>        = {133--139},</span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">editor</span>       = {Wizard V. Oz and Mihalis Yannakakis},</span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">organization</span> = {The OX Association for Computing Machinery}</span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="va">@inproceedings</span>{<span class="ot">inproceedings</span>-<span class="ot">full</span>,</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {On Notions of Information Transfer in {VLSI} Circuits},</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {Alfred V. Oaho and Jeffrey D. Ullman and Mihalis Yannakakis},</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">year</span>         = 1983,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span>        = <span class="st">mar</span>,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">booktitle</span>    = {Proc. Fifteenth Annual ACM Symposium on the Theory of Computing},</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">publisher</span>    = {Academic Press},</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">address</span>      = {Boston},</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">series</span>       = {All ACM Conferences},</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">number</span>       = 17,</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">pages</span>        = {133--139},</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">editor</span>       = {Wizard V. Oz and Mihalis Yannakakis},</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">organization</span> = {The OX Association for Computing Machinery}</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p><u><em>CFF entry</em></u></p>
 <pre><code>type: conference-paper
 title: On Notions of Information Transfer in VLSI Circuits
@@ -2184,12 +2233,12 @@ institution:
 that field to <u>collection-title</u> and the <u>type</u> to
 <u>generic</u>. Therefore, an <strong>@incollection</strong> is a
 <u>type: generic</u> with a <u>collection-title</u> key.</p>
-<table>
+<table style="width:99%;">
 <caption><strong>@incollection</strong> Model</caption>
 <colgroup>
-<col width="33%" />
-<col width="33%" />
-<col width="33%" />
+<col width="32%" />
+<col width="32%" />
+<col width="32%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -2202,7 +2251,7 @@ that field to <u>collection-title</u> and the <u>type</u> to
 <tr class="odd">
 <td><strong>@incollection</strong></td>
 <td><u>type: generic</u></td>
-<td>Including a <u>collection-title</u> value</td>
+<td>Including a <u>collec tion-title</u> value</td>
 </tr>
 <tr class="even">
 <td><strong>author*</strong></td>
@@ -2216,7 +2265,7 @@ that field to <u>collection-title</u> and the <u>type</u> to
 </tr>
 <tr class="even">
 <td><strong>booktitle*</strong></td>
-<td><u>collection-title</u></td>
+<td><u>collec tion-title</u></td>
 <td></td>
 </tr>
 <tr class="odd">
@@ -2288,23 +2337,23 @@ that field to <u>collection-title</u> and the <u>type</u> to
 </table>
 <p><strong>Examples</strong></p>
 <p><u><em>BibTeX entry</em></u></p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="va">@incollection</span>{<span class="ot">incollection</span>-<span class="ot">full</span>,</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {Semigroups of Recurrences},</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {Daniel D. Lincoll},</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">year</span>         = 1977,</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span>        = <span class="st">sep</span>,</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">booktitle</span>    = {High Speed Computer and Algorithm Organization},</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">publisher</span>    = {Academic Press},</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">address</span>      = {New York},</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">series</span>       = {Fast Computers},</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">number</span>       = 23,</span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">pages</span>        = {179--183},</span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">note</span>         = {This is a full INCOLLECTION entry},</span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">editor</span>       = {David J. Lipcoll and D. H. Lawrie and A. H. Sameh},</span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">chapter</span>      = 3,</span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>    <span class="dt">type</span>         = {Part},</span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>    <span class="dt">edition</span>      = {Third}</span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="va">@incollection</span>{<span class="ot">incollection</span>-<span class="ot">full</span>,</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {Semigroups of Recurrences},</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {Daniel D. Lincoll},</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">year</span>         = 1977,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span>        = <span class="st">sep</span>,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">booktitle</span>    = {High Speed Computer and Algorithm Organization},</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">publisher</span>    = {Academic Press},</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">address</span>      = {New York},</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">series</span>       = {Fast Computers},</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">number</span>       = 23,</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">pages</span>        = {179--183},</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">note</span>         = {This is a full INCOLLECTION entry},</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">editor</span>       = {David J. Lipcoll and D. H. Lawrie and A. H. Sameh},</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">chapter</span>      = 3,</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    <span class="dt">type</span>         = {Part},</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    <span class="dt">edition</span>      = {Third}</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p><u><em>CFF entry</em></u></p>
 <pre><code>type: generic
 title: Semigroups of Recurrences
@@ -2351,10 +2400,10 @@ end: &#39;183&#39;</code></pre>
 <h3>manual</h3>
 <p>As in the case of <a href="#conferenceinproceedings">conference/inproceedings</a>,
 <strong>organization</strong> is mapped to <u>institution</u>.</p>
-<table>
+<table style="width:99%;">
 <caption><strong>@manual</strong> Model</caption>
 <colgroup>
-<col width="34%" />
+<col width="33%" />
 <col width="37%" />
 <col width="27%" />
 </colgroup>
@@ -2418,16 +2467,16 @@ end: &#39;183&#39;</code></pre>
 <p>Note that <strong>month</strong> can’t be parsed to a single integer
 in the range <code>1--12</code> as required on CFF, so it is not parsed
 to avoid validation errors.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="va">@manual</span>{<span class="ot">manual</span>-<span class="ot">full</span>,</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>        = {The Definitive Computer Manual},</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {Larry Manmaker},</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">year</span>         = 1986,</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span>        = {apr-may},</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">address</span>      = {Silicon Valley},</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">note</span>         = {This is a full MANUAL entry},</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">organization</span> = {Chips-R-Us},</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">edition</span>      = {Silver}</span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="va">@manual</span>{<span class="ot">manual</span>-<span class="ot">full</span>,</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>        = {The Definitive Computer Manual},</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {Larry Manmaker},</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">year</span>         = 1986,</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span>        = {apr-may},</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">address</span>      = {Silicon Valley},</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">note</span>         = {This is a full MANUAL entry},</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">organization</span> = {Chips-R-Us},</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">edition</span>      = {Silver}</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p><u><em>CFF entry</em></u></p>
 <pre><code>type: manual
 title: The Definitive Computer Manual
@@ -2460,11 +2509,11 @@ institution:
 <u>thesis-type</u> (CFF). So if <u>thesis-type</u> contains a <a href="https://regex101.com/r/mBWfbs/1">regex pattern</a>
 <code>(?i)(phd)</code> it would be recognized as
 <strong>@phdthesis</strong>.</p>
-<table>
+<table style="width:99%;">
 <caption><strong>@mastersthesis/phdthesis</strong> Model</caption>
 <colgroup>
 <col width="35%" />
-<col width="29%" />
+<col width="28%" />
 <col width="35%" />
 </colgroup>
 <thead>
@@ -2497,7 +2546,7 @@ institution:
 </tr>
 <tr class="odd">
 <td><strong>school*</strong></td>
-<td><u>institution</u></td>
+<td><u>inst itution</u></td>
 <td></td>
 </tr>
 <tr class="even">
@@ -2512,7 +2561,7 @@ institution:
 </tr>
 <tr class="even">
 <td><strong>address</strong></td>
-<td><u>address</u> property of <u>institution</u></td>
+<td><u>address</u> property of <u>inst itution</u></td>
 <td>See <strong>Note</strong> on <a href="#bookinbook">book/inbook</a></td>
 </tr>
 <tr class="odd">
@@ -2529,16 +2578,16 @@ institution:
 </table>
 <p><strong>Examples: mastersthesis</strong></p>
 <p><u><em>BibTeX entry</em></u></p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="va">@mastersthesis</span>{<span class="ot">mastersthesis</span>-<span class="ot">full</span>,</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {Mastering Thesis Writing},</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {Edouard Masterly},</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">year</span>         = 1988,</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span>        = <span class="st">jun</span>,</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">address</span>      = {English Department},</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">note</span>         = {This is a full MASTERSTHESIS entry},</span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">school</span>       = {Stanford University},</span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">type</span>         = {Master&#39;s project}</span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="va">@mastersthesis</span>{<span class="ot">mastersthesis</span>-<span class="ot">full</span>,</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {Mastering Thesis Writing},</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {Edouard Masterly},</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">year</span>         = 1988,</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span>        = <span class="st">jun</span>,</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">address</span>      = {English Department},</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">note</span>         = {This is a full MASTERSTHESIS entry},</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">school</span>       = {Stanford University},</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">type</span>         = {Master&#39;s project}</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p><u><em>CFF entry</em></u></p>
 <pre><code>type: thesis
 title: Mastering Thesis Writing
@@ -2563,16 +2612,16 @@ thesis-type: Master&#39;s Thesis</code></pre>
 }</code></pre>
 <p><strong>Examples: phdthesis</strong></p>
 <p><u><em>BibTeX entry</em></u></p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="va">@phdthesis</span>{<span class="ot">phdthesis</span>-<span class="ot">full</span>,</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {Fighting Fire with Fire: Festooning {F}rench Phrases},</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {F. Phidias Phony-Baloney},</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">year</span>         = 1988,</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span>        = <span class="st">jun</span>,</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">address</span>      = {Department of French},</span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">note</span>         = {This is a full PHDTHESIS entry},</span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">school</span>       = {Fanstord University},</span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">type</span>         = {{PhD} Dissertation}</span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="va">@phdthesis</span>{<span class="ot">phdthesis</span>-<span class="ot">full</span>,</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {Fighting Fire with Fire: Festooning {F}rench Phrases},</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {F. Phidias Phony-Baloney},</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">year</span>         = 1988,</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span>        = <span class="st">jun</span>,</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">address</span>      = {Department of French},</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">note</span>         = {This is a full PHDTHESIS entry},</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">school</span>       = {Fanstord University},</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">type</span>         = {{PhD} Dissertation}</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p><u><em>CFF entry</em></u></p>
 <pre><code>type: thesis
 title: &#39;Fighting Fire with Fire: Festooning French Phrases&#39;
@@ -2604,10 +2653,10 @@ treatment. This entry does not require any field.</p>
 <strong>booktitle</strong> is not even an option, so the proposed
 definition should cover both <strong>@misc</strong> and
 <strong>@incollection</strong> without problems.</p>
-<table>
+<table style="width:99%;">
 <caption><strong>@misc</strong> Model</caption>
 <colgroup>
-<col width="34%" />
+<col width="33%" />
 <col width="37%" />
 <col width="27%" />
 </colgroup>
@@ -2658,29 +2707,31 @@ definition should cover both <strong>@misc</strong> and
 </table>
 <p><strong>Examples</strong></p>
 <p><u><em>BibTeX entry</em></u></p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="va">@misc</span>{<span class="ot">misc</span>-<span class="ot">full</span>,</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {Handing out random pamphlets in airports},</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {Joe-Bob Missilany},</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">year</span>         = 1984,</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span>        = <span class="st">oct</span>,</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">note</span>         = {This is a full MISC entry},</span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">howpublished</span> = {Handed out at O&#39;Hare}</span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="va">@misc</span>{<span class="ot">misc</span>-<span class="ot">full</span>,</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {Handing out random pamphlets in airports},</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {Joe-Bob Missilany},</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">year</span>         = 1984,</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span>        = <span class="st">oct</span>,</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">note</span>         = {This is a full MISC entry},</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">howpublished</span> = {Handed out at O&#39;Hare}</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p><u><em>CFF entry</em></u></p>
 <pre><code>type: generic
 title: Handing out random pamphlets in airports
 authors:
-- name: anonymous
+- family-names: Missilany
+  given-names: Joe-Bob
 year: &#39;1984&#39;
 month: &#39;10&#39;
-notes: This is a MISC entry
+notes: This is a full MISC entry
 medium: Handed out at O&#39;Hare</code></pre>
 <p><u><em>From CFF to BibTeX</em></u></p>
-<pre><code>@Misc{anonymous:1984,
+<pre><code>@Misc{missilany:1984,
   title = {Handing out random pamphlets in airports},
+  author = {Joe-Bob Missilany},
   year = {1984},
   month = {oct},
-  note = {This is a MISC entry},
+  note = {This is a full MISC entry},
   howpublished = {Handed out at O&#39;Hare},
 }</code></pre>
 </div>
@@ -2691,10 +2742,10 @@ medium: Handed out at O&#39;Hare</code></pre>
 <strong>author</strong> field. On this cases, as <u>authors</u> is
 required on CFF, we would use <em>anonymous</em><a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a> when converting to CFF
 and omit it on the conversion back to CFF.</p>
-<table>
+<table style="width:99%;">
 <caption><strong>@conference/@inproceedings</strong> Model</caption>
 <colgroup>
-<col width="33%" />
+<col width="32%" />
 <col width="35%" />
 <col width="30%" />
 </colgroup>
@@ -2744,7 +2795,7 @@ and omit it on the conversion back to CFF.</p>
 <tr class="even">
 <td><strong>address</strong></td>
 <td><u>location</u></td>
-<td>As a fallback, <u>address</u> property of <u>conference</u> can be
+<td>As a fallback, <u>address</u> property of <u>co nference</u> can be
 used</td>
 </tr>
 <tr class="odd">
@@ -2771,18 +2822,18 @@ used</td>
 </table>
 <p><strong>Examples</strong></p>
 <p><u><em>BibTeX entry</em></u></p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="va">@proceedings</span>{<span class="ot">proceedings</span>-<span class="ot">full</span>,</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {Proc. Fifteenth Annual ACM Symposium on the Theory of Computing},</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">year</span>         = 1983,</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span>        = <span class="st">mar</span>,</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">publisher</span>    = {Academic Press},</span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">address</span>      = {Boston},</span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">series</span>       = {All ACM Conferences},</span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">number</span>       = 17,</span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">note</span>         = {This is a full PROCEEDINGS entry},</span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">editor</span>       = {Wizard V. Oz and Mihalis Yannakakis},</span>
-<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">organization</span> = {The OX Association for Computing Machinery}</span>
-<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="va">@proceedings</span>{<span class="ot">proceedings</span>-<span class="ot">full</span>,</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {Proc. Fifteenth Annual ACM Symposium on the Theory of Computing},</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">year</span>         = 1983,</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span>        = <span class="st">mar</span>,</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">publisher</span>    = {Academic Press},</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">address</span>      = {Boston},</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">series</span>       = {All ACM Conferences},</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">number</span>       = 17,</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">note</span>         = {This is a full PROCEEDINGS entry},</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">editor</span>       = {Wizard V. Oz and Mihalis Yannakakis},</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">organization</span> = {The OX Association for Computing Machinery}</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p><u><em>CFF entry</em></u></p>
 <pre><code>type: proceedings
 title: Proc. Fifteenth Annual ACM Symposium on the Theory of Computing
@@ -2822,10 +2873,10 @@ institution:
 </div>
 <div id="techreport" class="section level3">
 <h3>techreport</h3>
-<table>
+<table style="width:99%;">
 <caption><strong>@techreport</strong> Model</caption>
 <colgroup>
-<col width="34%" />
+<col width="33%" />
 <col width="37%" />
 <col width="27%" />
 </colgroup>
@@ -2891,17 +2942,17 @@ institution:
 </table>
 <p><strong>Examples</strong></p>
 <p><u><em>BibTeX entry</em></u></p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="va">@techreport</span>{<span class="ot">techreport</span>-<span class="ot">full</span>,</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {A Sorting Algorithm},</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {Tom Terrific},</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">year</span>         = 1988,</span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span>        = <span class="st">oct</span>,</span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">address</span>      = {Computer Science Department, Fanstord, California},</span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">number</span>       = 7,</span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">note</span>         = {This is a full TECHREPORT entry},</span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">institution</span>  = {Fanstord University},</span>
-<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">type</span>         = {Wishful Research Result}</span>
-<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="va">@techreport</span>{<span class="ot">techreport</span>-<span class="ot">full</span>,</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {A Sorting Algorithm},</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {Tom Terrific},</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">year</span>         = 1988,</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span>        = <span class="st">oct</span>,</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">address</span>      = {Computer Science Department, Fanstord, California},</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">number</span>       = 7,</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">note</span>         = {This is a full TECHREPORT entry},</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">institution</span>  = {Fanstord University},</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">type</span>         = {Wishful Research Result}</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p><u><em>CFF entry</em></u></p>
 <pre><code>type: report
 title: A Sorting Algorithm
@@ -2929,10 +2980,10 @@ institution:
 </div>
 <div id="unpublished" class="section level3">
 <h3>unpublished</h3>
-<table>
+<table style="width:99%;">
 <caption><strong>@unpublished</strong> Model</caption>
 <colgroup>
-<col width="34%" />
+<col width="33%" />
 <col width="37%" />
 <col width="27%" />
 </colgroup>
@@ -2978,11 +3029,11 @@ institution:
 </table>
 <p><strong>Examples</strong></p>
 <p><u><em>BibTeX entry</em></u></p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="va">@unpublished</span>{<span class="ot">unpublished</span>-<span class="ot">minimal</span>,</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {Lower Bounds for Wishful Research Results},</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {Ulrich Underwood and Ned Net and Paul Pot},</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">note</span>         = {Talk at Fanstord University (this is a minimal UNPUBLISHED entry)}</span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="va">@unpublished</span>{<span class="ot">unpublished</span>-<span class="ot">minimal</span>,</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span>        = {Lower Bounds for Wishful Research Results},</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">author</span>       = {Ulrich Underwood and Ned Net and Paul Pot},</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">note</span>         = {Talk at Fanstord University (this is a minimal UNPUBLISHED entry)}</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p><u><em>CFF entry</em></u></p>
 <pre><code>type: unpublished
 title: Lower Bounds for Wishful Research Results

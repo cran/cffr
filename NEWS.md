@@ -1,3 +1,10 @@
+# cffr 0.4.0
+
+-   Fix typo (#40) by @dpprdan
+-   Add new function `cff_from_bibtex()`.
+-   Consistent behavior on dependency urls when RSPM is the default repo (i.e.
+    on GitHub Actions or RStudio Cloud).
+
 # cffr 0.3.0
 
 -   `preferred-citation` is only produced when a CITATION (**R**) file has been
