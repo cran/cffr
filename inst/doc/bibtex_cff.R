@@ -19,7 +19,6 @@ cat("  \n")
 thisart
 
 ## ----bibentry, comment="#>"-------------------------------
-
 entry <- bibentry("book",
   key = "einstein1921",
   title = "Relativity: The Special and the General Theory",
@@ -33,11 +32,9 @@ entry <- bibentry("book",
 toBibtex(entry)
 
 ## ----echo=FALSE, results='asis'---------------------------
-
 entry
 
 ## ----cffbibread,comment="#>"------------------------------
-
 string <- "@book{einstein1921,
     title        = {Relativity: The Special and the General Theory},
     author       = {Einstein, A.},
@@ -60,7 +57,6 @@ citation_format
 toBibtex(citation_format)
 
 ## ----entry_fields1, echo=FALSE----------------------------
-
 bibtex_field_entry <- read.csv(
   system.file("extdata/bibtex_field_entry.csv",
     package = "cffr"
@@ -99,7 +95,6 @@ knitr::kable(refkeys,
 )
 
 ## ----echo=FALSE-------------------------------------------
-
 bib <- "@article{article-full,
     title        = {The Gnats and Gnus Document Preparation System},
     author       = {Leslie A. Aamport},
@@ -117,7 +112,6 @@ cff_from_bibtex(bib)
 toBibtex(cff_to_bibtex(cff_from_bibtex(bib)))
 
 ## ----echo=FALSE-------------------------------------------
-
 bib <- "@book{book-full,
     title        = {Seminumerical Algorithms},
     author       = {Donald E. Knuth},
@@ -137,7 +131,6 @@ cff_from_bibtex(bib)
 toBibtex(cff_to_bibtex(cff_from_bibtex(bib)))
 
 ## ----echo=FALSE-------------------------------------------
-
 bib <- "@inbook{inbook-full,
     title        = {Fundamental Algorithms},
     author       = {Donald E. Knuth},
@@ -160,7 +153,6 @@ cff_from_bibtex(bib)
 toBibtex(cff_to_bibtex(cff_from_bibtex(bib)))
 
 ## ----echo=FALSE-------------------------------------------
-
 bib <- "@booklet{booklet-full,
     title        = {The Programming of Computer Art},
     author       = {Jill C. Knvth},
@@ -177,7 +169,6 @@ cff_from_bibtex(bib)
 toBibtex(cff_to_bibtex(cff_from_bibtex(bib)))
 
 ## ----echo=FALSE-------------------------------------------
-
 bib <- "@inproceedings{inproceedings-full,
     title        = {On Notions of Information Transfer in {VLSI} Circuits},
     author       = {Alfred V. Oaho and Jeffrey D. Ullman and Mihalis Yannakakis},
@@ -199,7 +190,6 @@ cff_from_bibtex(bib)
 toBibtex(cff_to_bibtex(cff_from_bibtex(bib)))
 
 ## ----echo=FALSE-------------------------------------------
-
 bib <- "@incollection{incollection-full,
     title        = {Semigroups of Recurrences},
     author       = {Daniel D. Lincoll},
@@ -224,7 +214,6 @@ cff_from_bibtex(bib)
 toBibtex(cff_to_bibtex(cff_from_bibtex(bib)))
 
 ## ----echo=FALSE-------------------------------------------
-
 bib <- "@manual{manual-full,
   title        = {The Definitive Computer Manual},
     author       = {Larry Manmaker},
@@ -242,7 +231,6 @@ cff_from_bibtex(bib)
 toBibtex(cff_to_bibtex(cff_from_bibtex(bib)))
 
 ## ----echo=FALSE-------------------------------------------
-
 bib <- "@mastersthesis{mastersthesis-full,
     title        = {Mastering Thesis Writing},
     author       = {Edouard Masterly},
@@ -260,7 +248,6 @@ cff_from_bibtex(bib)
 toBibtex(cff_to_bibtex(cff_from_bibtex(bib)))
 
 ## ----echo=FALSE-------------------------------------------
-
 bib <- "@phdthesis{phdthesis-full,
     title        = {Fighting Fire with Fire: Festooning {F}rench Phrases},
     author       = {F. Phidias Phony-Baloney},
@@ -278,7 +265,6 @@ cff_from_bibtex(bib)
 toBibtex(cff_to_bibtex(cff_from_bibtex(bib)))
 
 ## ----echo=FALSE-------------------------------------------
-
 bib <- "@misc{misc-full,
     title        = {Handing out random pamphlets in airports},
     author       = {Joe-Bob Missilany},
@@ -294,7 +280,6 @@ cff_from_bibtex(bib)
 toBibtex(cff_to_bibtex(cff_from_bibtex(bib)))
 
 ## ----echo=FALSE-------------------------------------------
-
 bib <- "@proceedings{proceedings-full,
     title        = {Proc. Fifteenth Annual ACM Symposium on the Theory of Computing},
     year         = 1983,
@@ -314,7 +299,6 @@ cff_from_bibtex(bib)
 toBibtex(cff_to_bibtex(cff_from_bibtex(bib)))
 
 ## ----echo=FALSE-------------------------------------------
-
 bib <- "@techreport{techreport-full,
     title        = {A Sorting Algorithm},
     author       = {Tom Terrific},
@@ -333,7 +317,6 @@ cff_from_bibtex(bib)
 toBibtex(cff_to_bibtex(cff_from_bibtex(bib)))
 
 ## ----echo=FALSE-------------------------------------------
-
 bib <- "@unpublished{unpublished-minimal,
     title        = {Lower Bounds for Wishful Research Results},
     author       = {Ulrich Underwood and Ned Net and Paul Pot},

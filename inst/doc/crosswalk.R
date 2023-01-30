@@ -7,7 +7,6 @@ knitr::opts_chunk$set(
 library(cffr)
 
 ## ----summary , echo=FALSE---------------------------------
-
 keys <- cff_schema_keys(sorted = TRUE)
 origin <- vector(length = length(keys))
 origin[keys == "cff-version"] <- "parameter on function"
@@ -47,7 +46,6 @@ df <- data.frame(
 knitr::kable(df, escape = FALSE)
 
 ## ----abstract---------------------------------------------
-
 library(cffr)
 
 # Create cffr for yaml
@@ -63,7 +61,6 @@ cat(cff_obj$abstract)
 cat(pkg$get("Description"))
 
 ## ----authors----------------------------------------------
-
 cff_obj <- cff_create("rmarkdown")
 pkg <- desc::desc(file.path(find.package("rmarkdown"), "DESCRIPTION"))
 
@@ -76,13 +73,11 @@ authors[vapply(authors, function(x) {
 }, logical(1))]
 
 ## ----cffversion-------------------------------------------
-
 cff_objv110 <- cff_create("jsonlite", cff_version = "v1.1.0")
 
 cat(cff_objv110$`cff-version`)
 
 ## ----contact----------------------------------------------
-
 cff_obj <- cff_create("rmarkdown")
 pkg <- desc::desc(file.path(find.package("rmarkdown"), "DESCRIPTION"))
 
@@ -91,7 +86,6 @@ cff_obj$contact
 pkg$get_author()
 
 ## ----date-released----------------------------------------
-
 # From an installed package
 
 cff_obj <- cff_create("rmarkdown")
@@ -128,7 +122,6 @@ desc::desc_set("Date", "1999-01-01", file = tmp)
 cat(cff_create(tmp)$`date-released`)
 
 ## ----doi--------------------------------------------------
-
 cff_doi <- cff_create("cffr")
 
 cat(cff_doi$doi)
@@ -149,7 +142,6 @@ cat(cff_create(file)$`repository-code`)
 cff_create(file)$identifiers
 
 ## ----keyword----------------------------------------------
-
 # A DESCRIPTION file without keywords
 nokeywords <- system.file("examples/DESCRIPTION_basic", package = "cffr")
 tmp2 <- tempfile("DESCRIPTION")
@@ -175,7 +167,6 @@ desc::desc_set("X-schema.org-keywords", "keyword1, keyword2, keyword3",
 cat(cff_create(tmp2)$keywords)
 
 ## ----ghkeyword--------------------------------------------
-
 # Get cff object from jsonvalidate
 
 jsonval <- cff_create("jsonvalidate")
@@ -191,7 +182,6 @@ jsonval$keywords
 jsonval$`repository-code`
 
 ## ----license----------------------------------------------
-
 cff_obj <- cff_create("yaml")
 
 cat(cff_obj$license)
@@ -208,11 +198,9 @@ cat(pkg$get("License"))
 #  )
 
 ## ----message----------------------------------------------
-
 cat(cff_create("jsonlite")$message)
 
 ## ----preferred-citation-----------------------------------
-
 cffobj <- cff_create("rmarkdown")
 
 cffobj$`preferred-citation`
@@ -220,7 +208,6 @@ cffobj$`preferred-citation`
 citation("rmarkdown")[1]
 
 ## ----references-------------------------------------------
-
 cffobj <- cff_create("rmarkdown")
 
 cffobj$references
@@ -228,7 +215,6 @@ cffobj$references
 citation("rmarkdown")[-1]
 
 ## ----repository-------------------------------------------
-
 # Installed package
 
 inst <- cff_create("jsonlite")
@@ -292,7 +278,6 @@ options(orig_options)
 getOption("repos")
 
 ## ----repository-code--------------------------------------
-
 # Installed package on GitHub
 
 cff_create("jsonlite")$`repository-code`
@@ -318,13 +303,11 @@ desc::desc(gitlab)
 #  )
 
 ## ----title------------------------------------------------
-
 # Installed package
 
 cat(cff_create("testthat")$title)
 
 ## ----url--------------------------------------------------
-
 # Many urls
 manyurls <- system.file("examples/DESCRIPTION_many_urls", package = "cffr")
 
@@ -335,7 +318,6 @@ cat(cff_create(manyurls)$url)
 desc::desc(manyurls)
 
 ## ----version----------------------------------------------
-
 # Should be (>= 3.0.0)
 cat(cff_create("testthat")$version)
 

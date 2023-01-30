@@ -12,7 +12,6 @@ library(cffr)
 knitr::include_graphics("tweet-1.png")
 
 ## ----setup, eval=FALSE------------------------------------
-#  
 #  library(cffr)
 #  
 #  cff_write()
@@ -20,7 +19,6 @@ knitr::include_graphics("tweet-1.png")
 #  # You are done!
 
 ## ----newfields--------------------------------------------
-
 newobject <- cff_create(cff())
 
 # For modifying your auto-generated object, run this line instead:
@@ -29,15 +27,13 @@ newobject <- cff_create(cff())
 newobject
 
 ## ----validkeys--------------------------------------------
-
 cff_schema_keys()
 
 ## ----modify-----------------------------------------------
-
 newkeys <- list(
   "url" = "https://ropensci.org/",
   "version" = "0.0.1",
-  "repository" = "https://github.com/user/repo",
+  "repository" = "https://github.com/ropensci/cffr",
   # If the field is already present, it would be overridden
   title = "Modifying a 'cff' object"
 )
@@ -51,7 +47,6 @@ modobject
 cff_validate(modobject)
 
 ## ----includeauthor----------------------------------------
-
 # Valid person keys
 
 cff_schema_definitions_person()
@@ -116,7 +111,6 @@ bookparsed <- cff_parse_citation(bib)
 bookparsed
 
 ## ----references-------------------------------------------
-
 refkeys <- list(references = c(list(base_r), list(bookparsed)))
 
 refkeys
@@ -128,7 +122,6 @@ finalobject
 cff_validate(finalobject)
 
 ## ----write------------------------------------------------
-
 # For example
 tmp <- tempfile(fileext = ".cff")
 
@@ -137,13 +130,11 @@ see_res <- cff_write(finalobject, outfile = tmp)
 see_res
 
 ## ----read-------------------------------------------------
-
 reading <- cff(tmp)
 
 reading
 
 ## ---------------------------------------------------------
-
 allkeys <- list(
   "url" = "https://ropensci.org/",
   "version" = "0.0.1",

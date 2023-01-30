@@ -1,3 +1,8 @@
+# cffr 0.4.1
+
+-   Replace **crayon** dependency for **cli** (#46).
+-   Improvements on the performance of `cff_validate()`.
+
 # cffr 0.4.0
 
 -   Fix typo (#40) by @dpprdan

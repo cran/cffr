@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![CRAN-status](https://www.r-pkg.org/badges/version/cffr)](https://CRAN.R-project.org/package=cffr)
-[![CRAN-results](https://cranchecks.info/badges/worst/cffr)](https://cran.r-project.org/web/checks/check_results_cffr.html)
+[![CRAN-results](https://badges.cranchecks.info/worst/cffr.svg)](https://cran.r-project.org/web/checks/check_results_cffr.html)
 [![Downloads](http://cranlogs.r-pkg.org/badges/grand-total/cffr?color=blue)](https://cran.r-project.org/package=cffr)
 [![R-CMD-check](https://github.com/ropensci/cffr/actions/workflows/check-full.yaml/badge.svg)](https://github.com/ropensci/cffr/actions/workflows/check-full.yaml)
 [![codecov](https://codecov.io/gh/ropensci/cffr/branch/main/graph/badge.svg?token=YRO3XL8RWK)](https://app.codecov.io/gh/ropensci/cffr)
@@ -71,7 +71,7 @@ file and the `CITATION` file (if present) of your package. Note that
 **cffr** works best if your package pass
 `R CMD check/devtools::check()`.
 
-As per 2022-11-17 there are at least 220 repos on GitHub using **cffr**.
+As per 2023-01-30 there are at least 221 repos on GitHub using **cffr**.
 [Check them out
 here](https://github.com/search?l=&o=desc&q=cffr+extension%3Acff+filename%3ACITATION&s=indexed&type=Code).
 
@@ -90,10 +90,9 @@ devtools::install_github("ropensci/cffr")
 ```
 
 Alternatively, you can install **cffr** using the
-[r-universe](https://ropensci.r-universe.dev/ui#builds):
+[r-universe](https://ropensci.r-universe.dev/):
 
 ``` r
-
 # Enable this universe
 options(repos = c(
   ropensci = "https://ropensci.r-universe.dev",
@@ -111,7 +110,6 @@ By default most often from within your package folder you’ll simply run
 file and validates it on a single command:
 
 ``` r
-
 library(cffr)
 
 # For in-development packages
@@ -148,7 +146,7 @@ test <- cff_create("rmarkdown")
     type: software
     license: GPL-3.0-only
     title: 'rmarkdown: Dynamic Documents for R'
-    version: '2.18'
+    version: '2.20'
     abstract: Convert R Markdown documents into a variety of formats.
     authors:
     - family-names: Allaire
@@ -219,13 +217,13 @@ test <- cff_create("rmarkdown")
         given-names: Richard
         email: rich@rstudio.com
         orcid: https://orcid.org/0000-0003-3925-190X
-      year: '2022'
-      notes: R package version 2.18
+      year: '2023'
+      notes: R package version 2.20
       url: https://github.com/rstudio/rmarkdown
     repository: https://CRAN.R-project.org/package=rmarkdown
     repository-code: https://github.com/rstudio/rmarkdown
     url: https://pkgs.rstudio.com/rmarkdown/
-    date-released: '2022-11-09'
+    date-released: '2023-01-19'
     contact:
     - family-names: Xie
       given-names: Yihui
@@ -277,7 +275,7 @@ test <- cff_create("rmarkdown")
       - name: R Core Team
       location:
         name: Vienna, Austria
-      year: '2022'
+      year: '2023'
       institution:
         name: R Foundation for Statistical Computing
       version: '>= 3.0'
@@ -295,7 +293,7 @@ test <- cff_create("rmarkdown")
       - family-names: Cheng
         given-names: Joe
         email: joe@rstudio.com
-      year: '2022'
+      year: '2023'
       version: '>= 0.2.5.1'
     - type: software
       title: evaluate
@@ -311,13 +309,13 @@ test <- cff_create("rmarkdown")
         given-names: Yihui
         email: xie@yihui.name
         orcid: https://orcid.org/0000-0003-0645-5666
-      year: '2022'
+      year: '2023'
       version: '>= 0.13'
     - type: software
       title: htmltools
       abstract: 'htmltools: Tools for HTML'
       notes: Imports
-      url: https://github.com/rstudio/htmltools
+      url: https://rstudio.github.io/htmltools/
       repository: https://CRAN.R-project.org/package=htmltools
       authors:
       - family-names: Cheng
@@ -341,7 +339,7 @@ test <- cff_create("rmarkdown")
       - family-names: Allen
         given-names: Jeff
         email: jeff@rstudio.com
-      year: '2022'
+      year: '2023'
       version: '>= 0.5.1'
     - type: software
       title: jquerylib
@@ -356,7 +354,7 @@ test <- cff_create("rmarkdown")
       - family-names: Cheng
         given-names: Joe
         email: joe@rstudio.com
-      year: '2022'
+      year: '2023'
     - type: software
       title: jsonlite
       abstract: 'jsonlite: A Simple and Robust JSON Parser and Generator for R'
@@ -368,7 +366,7 @@ test <- cff_create("rmarkdown")
         given-names: Jeroen
         email: jeroen@berkeley.edu
         orcid: https://orcid.org/0000-0002-4035-0289
-      year: '2022'
+      year: '2023'
     - type: software
       title: knitr
       abstract: 'knitr: A General-Purpose Package for Dynamic Report Generation in R'
@@ -380,7 +378,7 @@ test <- cff_create("rmarkdown")
         given-names: Yihui
         email: xie@yihui.name
         orcid: https://orcid.org/0000-0003-0645-5666
-      year: '2022'
+      year: '2023'
       version: '>= 1.22'
     - type: software
       title: methods
@@ -390,7 +388,7 @@ test <- cff_create("rmarkdown")
       - name: R Core Team
       location:
         name: Vienna, Austria
-      year: '2022'
+      year: '2023'
       institution:
         name: R Foundation for Statistical Computing
     - type: software
@@ -403,7 +401,7 @@ test <- cff_create("rmarkdown")
       - family-names: Wickham
         given-names: Hadley
         email: hadley@rstudio.com
-      year: '2022'
+      year: '2023'
       version: '>= 1.2.0'
     - type: software
       title: tinytex
@@ -417,7 +415,7 @@ test <- cff_create("rmarkdown")
         given-names: Yihui
         email: xie@yihui.name
         orcid: https://orcid.org/0000-0003-0645-5666
-      year: '2022'
+      year: '2023'
       version: '>= 0.31'
     - type: software
       title: tools
@@ -427,7 +425,7 @@ test <- cff_create("rmarkdown")
       - name: R Core Team
       location:
         name: Vienna, Austria
-      year: '2022'
+      year: '2023'
       institution:
         name: R Foundation for Statistical Computing
     - type: software
@@ -438,7 +436,7 @@ test <- cff_create("rmarkdown")
       - name: R Core Team
       location:
         name: Vienna, Austria
-      year: '2022'
+      year: '2023'
       institution:
         name: R Foundation for Statistical Computing
     - type: software
@@ -452,8 +450,8 @@ test <- cff_create("rmarkdown")
         given-names: Yihui
         email: xie@yihui.name
         orcid: https://orcid.org/0000-0003-0645-5666
-      year: '2022'
-      version: '>= 0.30'
+      year: '2023'
+      version: '>= 0.36'
     - type: software
       title: yaml
       abstract: 'yaml: Methods to Convert R Data to YAML and Back'
@@ -486,7 +484,7 @@ test <- cff_create("rmarkdown")
         given-names: Michael
       - family-names: Kamvar
         given-names: Zhian N.
-      year: '2022'
+      year: '2023'
       version: '>= 2.1.19'
     - type: software
       title: digest
@@ -542,7 +540,7 @@ test <- cff_create("rmarkdown")
         given-names: Dirk
       - family-names: Chang.
         given-names: and Winston
-      year: '2022'
+      year: '2023'
     - type: software
       title: dygraphs
       abstract: 'dygraphs: Interface to ''Dygraphs'' Interactive Time Series Charting
@@ -561,7 +559,7 @@ test <- cff_create("rmarkdown")
         given-names: Daniel
       - family-names: Thieurmel
         given-names: Benoit
-      year: '2022'
+      year: '2023'
     - type: software
       title: fs
       abstract: 'fs: Cross-Platform File System Operations Based on ''libuv'''
@@ -577,7 +575,7 @@ test <- cff_create("rmarkdown")
       - family-names: Csárdi
         given-names: Gábor
         email: csardi.gabor@gmail.com
-      year: '2022'
+      year: '2023'
     - type: software
       title: rsconnect
       abstract: 'rsconnect: Deployment Interface for R Markdown Documents and Shiny Applications'
@@ -587,13 +585,13 @@ test <- cff_create("rmarkdown")
       authors:
       - family-names: Atkins
         given-names: Aron
-        email: aron@rstudio.com
+        email: aron@posit.co
       - family-names: McPherson
         given-names: Jonathan
-        email: jonathan@rstudio.com
+        email: jonathan@posit.co
       - family-names: Allaire
         given-names: JJ
-      year: '2022'
+      year: '2023'
     - type: software
       title: downlit
       abstract: 'downlit: Syntax Highlighting and Automatic Linking'
@@ -604,7 +602,7 @@ test <- cff_create("rmarkdown")
       - family-names: Wickham
         given-names: Hadley
         email: hadley@rstudio.com
-      year: '2022'
+      year: '2023'
       version: '>= 0.4.0'
     - type: software
       title: katex
@@ -617,7 +615,7 @@ test <- cff_create("rmarkdown")
         given-names: Jeroen
         email: jeroen@berkeley.edu
         orcid: https://orcid.org/0000-0002-4035-0289
-      year: '2022'
+      year: '2023'
       version: '>= 1.4.0'
     - type: software
       title: sass
@@ -644,7 +642,7 @@ test <- cff_create("rmarkdown")
         given-names: Carson
         email: carson@rstudio.com
         orcid: https://orcid.org/0000-0002-4958-2844
-      year: '2022'
+      year: '2023'
       version: '>= 0.4.0'
     - type: software
       title: shiny
@@ -684,7 +682,7 @@ test <- cff_create("rmarkdown")
         given-names: Alan
       - family-names: Borges
         given-names: Barbara
-      year: '2022'
+      year: '2023'
       version: '>= 1.6.0'
     - type: software
       title: testthat
@@ -696,7 +694,7 @@ test <- cff_create("rmarkdown")
       - family-names: Wickham
         given-names: Hadley
         email: hadley@rstudio.com
-      year: '2022'
+      year: '2023'
       version: '>= 3.0.3'
     - type: software
       title: tibble
@@ -711,21 +709,7 @@ test <- cff_create("rmarkdown")
       - family-names: Wickham
         given-names: Hadley
         email: hadley@rstudio.com
-      year: '2022'
-    - type: software
-      title: tufte
-      abstract: 'tufte: Tufte''s Styles for R Markdown Documents'
-      notes: Suggests
-      url: https://github.com/rstudio/tufte
-      repository: https://CRAN.R-project.org/package=tufte
-      authors:
-      - family-names: Xie
-        given-names: Yihui
-        email: xie@yihui.name
-        orcid: https://orcid.org/0000-0003-0645-5666
-      - family-names: Allaire
-        given-names: JJ
-      year: '2022'
+      year: '2023'
     - type: software
       title: vctrs
       abstract: 'vctrs: Vector Helpers'
@@ -742,7 +726,7 @@ test <- cff_create("rmarkdown")
       - family-names: Vaughan
         given-names: Davis
         email: davis@rstudio.com
-      year: '2022'
+      year: '2023'
     - type: software
       title: withr
       abstract: 'withr: Run Code ''With'' Temporarily Modified Global State'
@@ -766,7 +750,7 @@ test <- cff_create("rmarkdown")
         email: hadley@rstudio.com
       - family-names: Chang
         given-names: Winston
-      year: '2022'
+      year: '2023'
       version: '>= 2.4.2'
 
 </details>
@@ -775,7 +759,6 @@ test <- cff_create("rmarkdown")
 We can validate the result using `cff_validate()`:
 
 ``` r
-
 cff_validate(test)
 #> 
 #> cff_validate results-----
