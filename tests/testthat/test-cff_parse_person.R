@@ -1,6 +1,6 @@
 test_that("Parse one person", {
   p <- person("one", "person")
-  expect_snapshot_output(cff_parse_person(p))
+  expect_snapshot(cff_parse_person(p))
 })
 
 test_that("Parse several persons", {
@@ -8,36 +8,36 @@ test_that("Parse several persons", {
     person("one", "person"), person("another", "human"),
     person("and one", "more")
   )
-  expect_snapshot_output(cff_parse_person(p))
+  expect_snapshot(cff_parse_person(p))
 })
 
 
 test_that("Parse bibtex persons", {
   s <- "Wright, III, Frank Edwin"
 
-  expect_snapshot_output(cff_parse_person_bibtex(s))
+  expect_snapshot(cff_parse_person_bibtex(s))
 
   s <- "A person and another and Another one"
 
-  expect_snapshot_output(cff_parse_person_bibtex(s))
+  expect_snapshot(cff_parse_person_bibtex(s))
 })
 
 test_that("Parse bibtex persons with masks", {
   s <- "Elephant and Castle"
 
-  expect_snapshot_output(cff_parse_person_bibtex(s))
+  expect_snapshot(cff_parse_person_bibtex(s))
 
   s <- "{Elephant and Castle}"
 
-  expect_snapshot_output(cff_parse_person_bibtex(s))
+  expect_snapshot(cff_parse_person_bibtex(s))
 
   s <- "{Elephant and Castle} and this AND Ltd."
 
-  expect_snapshot_output(cff_parse_person_bibtex(s))
+  expect_snapshot(cff_parse_person_bibtex(s))
 
   s <- "{Elephant and Castle} and {this AND Ltd.}"
 
-  expect_snapshot_output(cff_parse_person_bibtex(s))
+  expect_snapshot(cff_parse_person_bibtex(s))
 })
 
 
@@ -80,6 +80,23 @@ test_that("R Core Team", {
   expect_equal(p$name, "R Core Team")
 })
 
+test_that("Bioconductor", {
+  # Several tastes of Bioconductor
+  bio <- person("Bioconductor Package Maintainer",
+    role = "cre",
+    email = "maintainer@bioconductor.org"
+  )
+  p <- cff_parse_person(bio)
+
+  expect_equal(p$name, "Bioconductor Package Maintainer")
+
+  p <- cff_parse_person("Bioconductor Package Maintainer")
+
+  expect_equal(p$name, "Bioconductor Package Maintainer")
+
+  p <- cff_parse_person(person("The Bioconductor", "Package Maintainer"))
+  expect_equal(p$name, "The Bioconductor Package Maintainer")
+})
 
 test_that("Several emails, select first", {
   pp <- person(

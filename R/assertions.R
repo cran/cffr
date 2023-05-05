@@ -47,11 +47,27 @@ is.substring <- function(x, sub) {
 #' @param x object to be evaluated
 #' @noRd
 is.cff <- function(x) {
-  if (unique("cff" %in% class(x))) {
+  if (inherits(x, "cff")) {
     return(TRUE)
   } else {
     return(FALSE)
   }
+}
+
+#' Check if a object is cff file
+#' @param x object to be evaluated
+#' @noRd
+is.cff.file <- function(x) {
+  if (!inherits(x, "character")) {
+    return(FALSE)
+  }
+
+  if (tools::file_ext(x) != "cff") {
+    return(FALSE)
+  }
+
+  stopifnotexists(x)
+  return(TRUE)
 }
 
 #' Check if a object is cff
@@ -74,9 +90,16 @@ stopifnotcff <- function(x) {
     return(invisible())
   }
 
+  # x should be character at least
+  if (!inherits(x, "character")) {
+    cli::cli_abort(
+      "{.var x} is an object of class {.cls {class(x)}}, not {.cls cff}."
+    )
+  }
+
   if (tools::file_ext(x) != "cff") {
-    stop(x, " is not a .cff file or a 'cff' object",
-      call. = FALSE
+    cli::cli_abort(
+      "{.var x} is not a {.file *.cff} file"
     )
   }
 }
@@ -86,8 +109,7 @@ stopifnotcff <- function(x) {
 #' @noRd
 stopifnotexists <- function(x) {
   if (!file.exists(x)) {
-    stop("File ", x, " doesn't exists",
-      call. = FALSE
-    )
+    cli::cli_abort("{.file {x}} doesn't exist")
   }
+  return(invisible(NULL))
 }

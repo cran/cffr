@@ -27,6 +27,9 @@
 #'   GitHub, would you like to add the repo topics as keywords?
 #' @param dependencies Logical `TRUE/FALSE`. Would you like to add the
 #'   of your package to the `reference` key?
+#' @param authors_roles Roles to be considered as authors of the package when
+#'   generating the `CITATION.cff` file. See **Details**.
+#'
 #' @seealso
 #' ```{r, echo=FALSE, results='asis'}
 #'
@@ -58,7 +61,13 @@
 #'
 #' If `x` is a path to a DESCRIPTION file or `inst/CITATION`, is not present on
 #' your package, **cffr** would auto-generate a `preferred-citation` key using
-#' the information provided on that file. On
+#' the information provided on that file.
+#'
+#' By default, only persons whose role in the DESCRIPTION file of the package
+#' is author (`"aut"`) or maintainer (`"cre"`) are considered to be authors
+#' of the package. The default setting can be controlled via the `authors_roles`
+#' parameter. See **Details** on [utils::person()] to get additional insights
+#' on person roles.
 #'
 #'
 #' @examples
@@ -103,14 +112,14 @@ cff_create <- function(x,
                        keys = list(),
                        cff_version = "1.2.0",
                        gh_keywords = TRUE,
-                       dependencies = TRUE) {
+                       dependencies = TRUE,
+                       authors_roles = c("aut", "cre")) {
   # On missing use package root
   if (missing(x)) x <- getwd()
 
   if (!is.cff(x) && !is.character(x)) {
-    stop("x should be a cff or a character",
-      call. = FALSE
-    )
+    msg <- "{.arg x} should be a {.cls cff} or {.cls character} object."
+    cli::cli_abort(msg)
   }
 
   instpack <- as.character(installed.packages()[, "Package"])
@@ -151,18 +160,20 @@ cff_create <- function(x,
         citobj <- drop_null(citobj)
       }
     } else {
-      stop("object x: '", x, "' not valid. If it is a package ",
-        "you may need to install it.",
-        call. = FALSE
+      msg <- paste0(
+        "{.arg x} ({x}) not valid. If it is a package ",
+        "you may need to install it with ",
+        "{.fun install.packages}"
       )
+      cli::cli_abort(msg)
     }
 
     if (!file.exists(desc_path)) {
-      stop("No DESCRIPTION file found with ", x, call. = FALSE)
+      cli::cli_abort("No {.file DESCRIPTION} file found with {.arg x}")
     }
 
     cffobj <- cff_description(desc_path, cff_version,
-      gh_keywords = gh_keywords
+      gh_keywords = gh_keywords, authors_roles = authors_roles
     )
   }
 

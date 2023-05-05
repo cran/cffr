@@ -61,16 +61,22 @@ cat(cff_obj$abstract)
 cat(pkg$get("Description"))
 
 ## ----authors----------------------------------------------
-cff_obj <- cff_create("rmarkdown")
-pkg <- desc::desc(file.path(find.package("rmarkdown"), "DESCRIPTION"))
+# An example DESCRIPTION
+path <- system.file("examples/DESCRIPTION_many_persons", package = "cffr")
+pkg <- desc::desc(path)
 
+# See persons listed
+pkg$get_authors()
+
+
+# Default behaviour, use authors and creators (maintainers)
+cff_obj <- cff_create(path)
 cff_obj$authors
 
-authors <- pkg$get_authors()
 
-authors[vapply(authors, function(x) {
-  "aut" %in% x$role || "cre" %in% x$role
-}, logical(1))]
+# Use now Copyright holders and maintainers
+cff_obj_alt <- cff_create(path, authors_roles = c("cre", "cph"))
+cff_obj_alt$authors
 
 ## ----cffversion-------------------------------------------
 cff_objv110 <- cff_create("jsonlite", cff_version = "v1.1.0")

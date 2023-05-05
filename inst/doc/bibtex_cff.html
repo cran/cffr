@@ -586,7 +586,7 @@ cited. For <strong>@book</strong> entries, use the
 number.</li>
 <li><strong>crossref</strong>: The database key of the entry being cross
 referenced.</li>
-<li><strong>edition</strong>: The edition of a <strong>@book</strong> -
+<li><strong>edition</strong>: The edition of a <strong>@book</strong>,
 for example, “Second”. This should be an ordinal, and should have the
 first letter capitalized, the standard styles convert to lower case when
 necessary.</li>
@@ -627,7 +627,7 @@ citing an entire book, the <strong>title</strong> field gives its title
 and an optional <strong>series</strong> field gives the name of a series
 or multi-volume set in which the book is published.</li>
 <li><strong>title</strong>: The work’s title.</li>
-<li><strong>type</strong>: The type of a technical report—for example,
+<li><strong>type</strong>: The type of a technical report, for example,
 “Research Note”.</li>
 <li><strong>volume</strong>: The volume of a journal or multivolume
 book.</li>
@@ -638,10 +638,10 @@ of four numerals, such as <code>1984</code>.</li>
 <p>There is a strict relation between Entries and Fields on BibTeX.
 Depending on the type of entries, some fields are required while others
 are optional or even ignored. On the following table, required field are
-flagged as <strong>*</strong> and optional fields are flagged as
-<strong>-</strong>. Fields on parenthesis <strong>()</strong> denotes
-that there are some degree of flexibility on the requirement of the
-field, see <span class="citation">Patashnik (<a href="#ref-patashnik1988" role="doc-biblioref">1988</a>)</span> for more
+flagged as <strong>x</strong> and optional fields are flagged as
+<strong>o</strong>. Fields on parenthesis (<strong>(x), (o)</strong>)
+denotes that there are some degree of flexibility on the requirement of
+the field, see <span class="citation">Patashnik (<a href="#ref-patashnik1988" role="doc-biblioref">1988</a>)</span> for more
 information.</p>
 <table>
 <caption>BibTeX, required fields by entry</caption>
@@ -1288,167 +1288,180 @@ Developers (<a href="#ref-Haines_Ruby_CFF_Library_2021" role="doc-biblioref">202
 mapping between the Entries and Fields of BibTeX and the CFF keys. After
 this initial mapping, I propose further transformations to improve the
 compatibility between both systems using different <a href="#entry-models">Entry Models</a>.</p>
+<p>For a better understanding of this paper, when a field is in
+<strong>bold</strong> (i.e. <strong>@book</strong>,
+<strong>edition</strong>) the field correspond to
+<strong>BibTex</strong> and when the field is <u>underlined</u>
+(i.e. <u>book</u>, <u>edition</u>) the field correspond to
+<u>CFF</u>.</p>
 <div id="entrytype-crosswalk" class="section level3">
 <h3>Entry/Type crosswalk</h3>
-<p>For converting general BibTeX entries to CFF types, the following
-crosswalk is proposed:</p>
-<table>
-<caption>Entry/Type crosswalk: From BibTeX to CFF</caption>
+<p>For converting general <strong>BibTeX</strong> entries to <u>CFF</u>
+types, the following crosswalk is proposed:</p>
+<table style="width:100%;">
+<caption>Entry/Type crosswalk: From <strong>BibTeX</strong> to
+<u>CFF</u></caption>
+<colgroup>
+<col width="25%" />
+<col width="50%" />
+<col width="24%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th>BibTeX Entry</th>
-<th>Value of CFF key: type</th>
+<th><u><strong>Value of CFF key: type</strong></u></th>
 <th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td><strong>@article</strong></td>
-<td>article</td>
+<td><u>article</u></td>
 <td></td>
 </tr>
 <tr class="even">
 <td><strong>@book</strong></td>
-<td>book</td>
+<td><u>book</u></td>
 <td></td>
 </tr>
 <tr class="odd">
 <td><strong>@booklet</strong></td>
-<td>pamphlet</td>
+<td><u>pamphlet</u></td>
 <td></td>
 </tr>
 <tr class="even">
 <td><strong>@conference</strong></td>
-<td>conference-paper</td>
+<td><u>conference-paper</u></td>
 <td></td>
 </tr>
 <tr class="odd">
 <td><strong>@inbook</strong></td>
-<td>book</td>
+<td><u>book</u></td>
 <td>See <a href="#entry-models">Entry Models</a></td>
 </tr>
 <tr class="even">
 <td><strong>@incollection</strong></td>
-<td>generic</td>
+<td><u>generic</u></td>
 <td>See <a href="#entry-models">Entry Models</a></td>
 </tr>
 <tr class="odd">
 <td><strong>@inproceedings</strong></td>
-<td>conference-paper</td>
+<td><u>conference-paper</u></td>
 <td></td>
 </tr>
 <tr class="even">
 <td><strong>@manual</strong></td>
-<td>manual</td>
+<td><u>manual</u></td>
 <td></td>
 </tr>
 <tr class="odd">
 <td><strong>@mastersthesis</strong></td>
-<td>thesis</td>
+<td><u>thesis</u></td>
 <td>See <a href="#entry-models">Entry Models</a></td>
 </tr>
 <tr class="even">
 <td><strong>@misc</strong></td>
-<td>generic</td>
+<td><u>generic</u></td>
 <td></td>
 </tr>
 <tr class="odd">
 <td><strong>@phdthesis</strong></td>
-<td>thesis</td>
+<td><u>thesis</u></td>
 <td>See <a href="#entry-models">Entry Models</a></td>
 </tr>
 <tr class="even">
 <td><strong>@proceedings</strong></td>
-<td>proceedings</td>
+<td><u>proceedings</u></td>
 <td></td>
 </tr>
 <tr class="odd">
 <td><strong>@techreport</strong></td>
-<td>report</td>
+<td><u>report</u></td>
 <td></td>
 </tr>
 <tr class="even">
 <td><strong>@unpublished</strong></td>
-<td>unpublished</td>
+<td><u>unpublished</u></td>
 <td></td>
 </tr>
 </tbody>
 </table>
 <p>Also, given that CFF provides with a <a href="https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#definitionsreferencetype">wide
 range of allowed values</a> on type, the following conversion would be
-performed from CFF to BibTeX:</p>
-<table style="width:99%;">
-<caption>Entry/Type crosswalk: From CFF to BibTeX</caption>
+performed from <u>CFF</u> to <strong>BibTeX</strong>:</p>
+<table>
+<caption>Entry/Type crosswalk: From <u>CFF</u> to
+<strong>BibTeX</strong></caption>
 <colgroup>
-<col width="27%" />
-<col width="34%" />
-<col width="36%" />
+<col width="31%" />
+<col width="29%" />
+<col width="39%" />
 </colgroup>
 <thead>
 <tr class="header">
-<th>Value of CFF key: type</th>
+<th><u>Value of CFF key: type</u></th>
 <th>BibTeX Entry</th>
 <th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>book</td>
+<td><u>book</u></td>
 <td><strong>@book</strong> <strong>/ @inbook</strong></td>
 <td>See <a href="#entry-models">Entry Models</a></td>
 </tr>
 <tr class="even">
-<td>conference</td>
+<td><u>conference</u></td>
 <td><strong>@inproceedings</strong></td>
 <td></td>
 </tr>
 <tr class="odd">
-<td>conference-paper</td>
+<td><u>conference-paper</u></td>
 <td><strong>@inproceedings</strong></td>
 <td></td>
 </tr>
 <tr class="even">
-<td>magazine-article</td>
+<td><u>magazine-article</u></td>
 <td><strong>@article</strong></td>
 <td></td>
 </tr>
 <tr class="odd">
-<td>manual</td>
+<td><u>manual</u></td>
 <td><strong>@manual</strong></td>
 <td></td>
 </tr>
 <tr class="even">
-<td>newspaper-article</td>
+<td><u>newspaper-article</u></td>
 <td><strong>@article</strong></td>
 <td></td>
 </tr>
 <tr class="odd">
-<td>pamphlet</td>
+<td><u>pamphlet</u></td>
 <td><strong>@booklet</strong></td>
 <td></td>
 </tr>
 <tr class="even">
-<td>proceedings</td>
+<td><u>proceedings</u></td>
 <td><strong>@proceedings</strong></td>
 <td></td>
 </tr>
 <tr class="odd">
-<td>report</td>
+<td><u>report</u></td>
 <td><strong>@techreport</strong></td>
 <td></td>
 </tr>
 <tr class="even">
-<td>thesis</td>
+<td><u>thesis</u></td>
 <td><strong>@mastersthesis / @phdthesis</strong></td>
 <td>See <a href="#entry-models">Entry Models</a></td>
 </tr>
 <tr class="odd">
-<td>unpublished</td>
+<td><u>unpublished</u></td>
 <td><strong>@unpublished</strong></td>
 <td></td>
 </tr>
 <tr class="even">
-<td>generic</td>
+<td><u>generic</u></td>
 <td><strong>@misc / @incollection</strong></td>
 <td>Under specific conditions, see <a href="#entry-models">Entry
 Models</a></td>
@@ -1464,14 +1477,14 @@ Models</a></td>
 <div id="fieldskey-crosswalk" class="section level3">
 <h3>Fields/Key crosswalk</h3>
 <p>There is a large degree of similarity between the definition and
-names of some BibTeX fields and CFF keys<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>. On the following
-cases, the equivalence is almost straightforward:</p>
+names of some <strong>BibTeX</strong> fields and <u>CFF</u> keys. On the
+following cases, the equivalence is almost straightforward:</p>
 <table>
 <caption>BibTeX - CFF Field/Key crosswalk</caption>
 <thead>
 <tr class="header">
 <th>BibTeX Field</th>
-<th>CFF key</th>
+<th><u>CFF key</u></th>
 </tr>
 </thead>
 <tbody>
@@ -1575,14 +1588,14 @@ cases, the equivalence is almost straightforward:</p>
 </table>
 <p>Additionally, there are other additional CFF keys that have a
 correspondence with BibLaTeX fields. We propose also to include these
-fields on the crosswalk<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a>, although they are not part of the core
+fields on the crosswalk<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>, although they are not part of the core
 BibTeX fields definition.</p>
 <table>
 <caption>BibLaTeX - CFF Field/Key crosswalk</caption>
 <thead>
 <tr class="header">
 <th>BibLaTeX Field</th>
-<th>CFF key</th>
+<th><u>CFF key</u></th>
 </tr>
 </thead>
 <tbody>
@@ -1652,14 +1665,14 @@ special treatment.</p>
 <table style="width:99%;">
 <caption><strong>@article</strong> Model</caption>
 <colgroup>
-<col width="24%" />
-<col width="29%" />
+<col width="14%" />
+<col width="39%" />
 <col width="45%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th>BibTeX</th>
-<th>CFF</th>
+<th><u>CFF</u></th>
 <th>Note</th>
 </tr>
 </thead>
@@ -1704,17 +1717,18 @@ special treatment.</p>
 <tr class="even">
 <td><strong>pages</strong></td>
 <td><u>start</u> and <u>end</u></td>
-<td><p>Separated by <code>--</code>, i.e,</p>
-<p><strong>pages</strong> = {3–5}</p>
-<p>would be parsed as</p>
-<p><u>start</u>: 3</p>
-<p><u>end</u>: 5</p></td>
+<td><p>Separated by <code>--</code>, i.e, <strong>pages =
+{3--5}</strong> would be parsed as:</p>
+<ul>
+<li><p><u>start: 3</u></p></li>
+<li><p><u>end: 5</u></p></li>
+</ul></td>
 </tr>
 <tr class="odd">
 <td><strong>month</strong></td>
 <td><u>month</u></td>
 <td>As a fallback, <strong>month</strong> could be extracted also from
-<strong>date</strong> (BibLaTeX field)/ <u>date-published</u></td>
+<strong>date</strong> (BibLaTeX field) or <u>date-published</u></td>
 </tr>
 <tr class="even">
 <td><strong>note</strong></td>
@@ -1774,17 +1788,17 @@ we propose here to identify an <strong>@inbook</strong> on CFF as a
 <p>Another specificity is that <strong>series</strong> field is mapped
 to <u>collection-title</u> and <strong>address</strong> is mapped as the
 <u>address</u> of the <u>publisher</u> (CFF).</p>
-<table style="width:99%;">
+<table>
 <caption><strong>@book/@inbook</strong> Model</caption>
 <colgroup>
-<col width="31%" />
-<col width="33%" />
-<col width="33%" />
+<col width="8%" />
+<col width="29%" />
+<col width="62%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th>BibTeX</th>
-<th>CFF</th>
+<th><u>CFF</u></th>
 <th>Note</th>
 </tr>
 </thead>
@@ -1798,8 +1812,7 @@ to <u>collection-title</u> and <strong>address</strong> is mapped as the
 <td><strong>@inbook</strong></td>
 <td><u>type: book</u></td>
 <td>For identifying an <strong>@inbook</strong> in CFF, assess if
-<u>section</u> or [start]{.unde rline}-<u>end</u> information is
-available</td>
+<u>section</u> or <u>start/end</u> information is available</td>
 </tr>
 <tr class="odd">
 <td><strong>author*</strong></td>
@@ -1848,7 +1861,7 @@ available</td>
 </tr>
 <tr class="even">
 <td><strong>series</strong></td>
-<td><u>colle ction-title</u></td>
+<td><u>collection-title</u></td>
 <td></td>
 </tr>
 <tr class="odd">
@@ -1970,60 +1983,60 @@ collection-title: The Art of Computer Programming</code></pre>
 <h3>booklet</h3>
 <p>In <strong>@booklet</strong> <strong>address</strong> is mapped to
 <u>location</u>.</p>
-<table style="width:99%;">
+<table>
 <caption><strong>@booklet</strong> Model</caption>
 <colgroup>
-<col width="37%" />
-<col width="24%" />
-<col width="36%" />
+<col width="11%" />
+<col width="18%" />
+<col width="69%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th>BibTeX</th>
-<th>CFF</th>
+<th><u>CFF</u></th>
 <th>Note</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td><strong>@booklet</strong></td>
-<td><u>type: pamph let</u></td>
+<td><u>type: pamphlet</u></td>
 <td></td>
 </tr>
 <tr class="even">
 <td><strong>title*</strong></td>
-<td><u>ti tle</u></td>
+<td><u>title</u></td>
 <td></td>
 </tr>
 <tr class="odd">
 <td><strong>author*</strong></td>
-<td><u>auth ors</u></td>
+<td><u>authors</u></td>
 <td></td>
 </tr>
 <tr class="even">
 <td><strong>howpublished</strong></td>
-<td><u>med ium</u></td>
+<td><u>medium</u></td>
 <td></td>
 </tr>
 <tr class="odd">
 <td><strong>address</strong></td>
-<td><u>locat ion</u></td>
+<td><u>location</u></td>
 <td></td>
 </tr>
 <tr class="even">
 <td><strong>month</strong></td>
-<td><u>mo nth</u></td>
+<td><u>month</u></td>
 <td>See <strong>Note</strong> on <a href="#article">article</a></td>
 </tr>
 <tr class="odd">
 <td><strong>year</strong></td>
-<td><u>y ear</u></td>
+<td><u>year</u></td>
 <td>As a fallback, <strong>year</strong> could be extracted also from
-<strong>date</strong> (BibLaTeX field)/ <u>d ate-published</u></td>
+<strong>date</strong> (BibLaTeX field)/ <u>date-published</u></td>
 </tr>
 <tr class="even">
 <td><strong>note</strong></td>
-<td><u>no tes</u></td>
+<td><u>notes</u></td>
 <td></td>
 </tr>
 </tbody>
@@ -2069,12 +2082,12 @@ year: &#39;1988&#39;</code></pre>
 <p>Note that in this case, <strong>organization</strong> is mapped to
 <u>institution</u>, as BibTeX does not prescribe the use of
 <strong>institution</strong> on these entries.</p>
-<table style="width:99%;">
+<table>
 <caption><strong>@conference/@inproceedings</strong> Model</caption>
 <colgroup>
-<col width="32%" />
-<col width="35%" />
-<col width="30%" />
+<col width="21%" />
+<col width="25%" />
+<col width="52%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -2086,8 +2099,8 @@ year: &#39;1988&#39;</code></pre>
 <tbody>
 <tr class="odd">
 <td><strong>@conference / @inproceedings</strong></td>
-<td><u>type: conf erence-paper</u></td>
-<td>CFF entries with <u>type</u> =conference are mapped back to
+<td><u>type: conference-paper</u></td>
+<td>CFF entries with <u>type; conference</u> are mapped back to
 <strong>@inproceedings</strong>.</td>
 </tr>
 <tr class="even">
@@ -2102,7 +2115,7 @@ year: &#39;1988&#39;</code></pre>
 </tr>
 <tr class="even">
 <td><strong>booktitle*</strong></td>
-<td><u>coll ection-title</u></td>
+<td><u>collection-title</u></td>
 <td></td>
 </tr>
 <tr class="odd">
@@ -2138,7 +2151,7 @@ year: &#39;1988&#39;</code></pre>
 <tr class="odd">
 <td><strong>address</strong></td>
 <td><u>location</u></td>
-<td>As a fallback, <u>address</u> property of <u>co nference</u> can be
+<td>As a fallback, <u>address</u> property of <u>conference</u> can be
 used</td>
 </tr>
 <tr class="even">
@@ -2231,17 +2244,17 @@ institution:
 that field to <u>collection-title</u> and the <u>type</u> to
 <u>generic</u>. Therefore, an <strong>@incollection</strong> is a
 <u>type: generic</u> with a <u>collection-title</u> key.</p>
-<table style="width:99%;">
+<table>
 <caption><strong>@incollection</strong> Model</caption>
 <colgroup>
-<col width="32%" />
-<col width="32%" />
-<col width="32%" />
+<col width="15%" />
+<col width="45%" />
+<col width="38%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th><strong>BibTeX</strong></th>
-<th>CFF</th>
+<th><u>CFF</u></th>
 <th>Note</th>
 </tr>
 </thead>
@@ -2249,7 +2262,7 @@ that field to <u>collection-title</u> and the <u>type</u> to
 <tr class="odd">
 <td><strong>@incollection</strong></td>
 <td><u>type: generic</u></td>
-<td>Including a <u>collec tion-title</u> value</td>
+<td>Including a <u>collection-title</u> value</td>
 </tr>
 <tr class="even">
 <td><strong>author*</strong></td>
@@ -2263,7 +2276,7 @@ that field to <u>collection-title</u> and the <u>type</u> to
 </tr>
 <tr class="even">
 <td><strong>booktitle*</strong></td>
-<td><u>collec tion-title</u></td>
+<td><u>collection-title</u></td>
 <td></td>
 </tr>
 <tr class="odd">
@@ -2398,17 +2411,17 @@ end: &#39;183&#39;</code></pre>
 <h3>manual</h3>
 <p>As in the case of <a href="#conferenceinproceedings">conference/inproceedings</a>,
 <strong>organization</strong> is mapped to <u>institution</u>.</p>
-<table style="width:99%;">
+<table>
 <caption><strong>@manual</strong> Model</caption>
 <colgroup>
-<col width="33%" />
-<col width="37%" />
-<col width="27%" />
+<col width="24%" />
+<col width="38%" />
+<col width="36%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th><strong>BibTeX</strong></th>
-<th>CFF</th>
+<th><u>CFF</u></th>
 <th>Note</th>
 </tr>
 </thead>
@@ -2507,17 +2520,17 @@ institution:
 <u>thesis-type</u> (CFF). So if <u>thesis-type</u> contains a <a href="https://regex101.com/r/mBWfbs/1">regex pattern</a>
 <code>(?i)(phd)</code> it would be recognized as
 <strong>@phdthesis</strong>.</p>
-<table style="width:99%;">
+<table>
 <caption><strong>@mastersthesis/phdthesis</strong> Model</caption>
 <colgroup>
-<col width="35%" />
-<col width="28%" />
-<col width="35%" />
+<col width="13%" />
+<col width="40%" />
+<col width="45%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th>BibTeX</th>
-<th>CFF</th>
+<th><u>CFF</u></th>
 <th>Note</th>
 </tr>
 </thead>
@@ -2544,7 +2557,7 @@ institution:
 </tr>
 <tr class="odd">
 <td><strong>school*</strong></td>
-<td><u>inst itution</u></td>
+<td><u>institution</u></td>
 <td></td>
 </tr>
 <tr class="even">
@@ -2559,7 +2572,7 @@ institution:
 </tr>
 <tr class="even">
 <td><strong>address</strong></td>
-<td><u>address</u> property of <u>inst itution</u></td>
+<td><u>address</u> property of <u>institution</u></td>
 <td>See <strong>Note</strong> on <a href="#bookinbook">book/inbook</a></td>
 </tr>
 <tr class="odd">
@@ -2634,7 +2647,7 @@ institution:
   address: Department of French
 thesis-type: PhD Thesis</code></pre>
 <p><u><em>From CFF to BibTeX</em></u></p>
-<pre><code>@PhdThesis{phony?baloney:1988,
+<pre><code>@PhdThesis{phonybaloney:1988,
   title = {Fighting Fire with Fire: Festooning French Phrases},
   author = {F. Phidias Phony-Baloney},
   year = {1988},
@@ -2647,21 +2660,21 @@ thesis-type: PhD Thesis</code></pre>
 <h3>misc</h3>
 <p>The crosswalk of <strong>@misc</strong> does not require any special
 treatment. This entry does not require any field.</p>
-<p>Note als that it is mapped to <u>type: generic</u> as <a href="#incollection">incollection</a>, but in this case
+<p>Note also that it is mapped to <u>type: generic</u> as <a href="#incollection">incollection</a>, but in this case
 <strong>booktitle</strong> is not even an option, so the proposed
 definition should cover both <strong>@misc</strong> and
 <strong>@incollection</strong> without problems.</p>
-<table style="width:99%;">
+<table>
 <caption><strong>@misc</strong> Model</caption>
 <colgroup>
-<col width="33%" />
-<col width="37%" />
-<col width="27%" />
+<col width="24%" />
+<col width="39%" />
+<col width="36%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th><strong>BibTeX</strong></th>
-<th>CFF</th>
+<th><u>CFF</u></th>
 <th>Note</th>
 </tr>
 </thead>
@@ -2738,19 +2751,19 @@ medium: Handed out at O&#39;Hare</code></pre>
 <p>The proposed model is similar to <a href="#conferenceinproceedings">conference/inproceedings</a>. Note that
 <strong>@proceedings</strong> does not prescribe a
 <strong>author</strong> field. On this cases, as <u>authors</u> is
-required on CFF, we would use <em>anonymous</em><a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a> when converting to CFF
+required on CFF, we would use <em>anonymous</em><a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a> when converting to CFF
 and omit it on the conversion back to CFF.</p>
-<table style="width:99%;">
+<table>
 <caption><strong>@conference/@inproceedings</strong> Model</caption>
 <colgroup>
-<col width="32%" />
-<col width="35%" />
-<col width="30%" />
+<col width="13%" />
+<col width="23%" />
+<col width="62%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th>BibTeX</th>
-<th>CFF</th>
+<th><u>CFF</u></th>
 <th>Note</th>
 </tr>
 </thead>
@@ -2793,7 +2806,7 @@ and omit it on the conversion back to CFF.</p>
 <tr class="even">
 <td><strong>address</strong></td>
 <td><u>location</u></td>
-<td>As a fallback, <u>address</u> property of <u>co nference</u> can be
+<td>As a fallback, <u>address</u> property of <u>conference</u> can be
 used</td>
 </tr>
 <tr class="odd">
@@ -2871,17 +2884,17 @@ institution:
 </div>
 <div id="techreport" class="section level3">
 <h3>techreport</h3>
-<table style="width:99%;">
+<table>
 <caption><strong>@techreport</strong> Model</caption>
 <colgroup>
-<col width="33%" />
-<col width="37%" />
+<col width="17%" />
+<col width="54%" />
 <col width="27%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th><strong>BibTeX</strong></th>
-<th>CFF</th>
+<th><u>CFF</u></th>
 <th>Note</th>
 </tr>
 </thead>
@@ -2978,17 +2991,17 @@ institution:
 </div>
 <div id="unpublished" class="section level3">
 <h3>unpublished</h3>
-<table style="width:99%;">
+<table>
 <caption><strong>@unpublished</strong> Model</caption>
 <colgroup>
-<col width="33%" />
-<col width="37%" />
-<col width="27%" />
+<col width="24%" />
+<col width="41%" />
+<col width="34%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th><strong>BibTeX</strong></th>
-<th>CFF</th>
+<th><u>CFF</u></th>
 <th>Note</th>
 </tr>
 </thead>
@@ -3044,7 +3057,8 @@ authors:
   given-names: Paul
 notes: Talk at Fanstord University (this is a minimal UNPUBLISHED entry)</code></pre>
 <p><u><em>From CFF to BibTeX</em></u></p>
-<pre><code>@Unpublished{underwoodnet,
+<pre><code>ℹ Entry &quot;underwoodnet&quot; does not have year 
+@Unpublished{underwoodnet,
   title = {Lower Bounds for Wishful Research Results},
   author = {Ulrich Underwood and Ned Net and Paul Pot},
   note = {Talk at Fanstord University (this is a minimal UNPUBLISHED entry)},
@@ -3118,14 +3132,11 @@ to Citation File Format schema version 1.2.0</a>.<a href="#fnref5" class="footno
 <li id="fn6"><p>Note that this software performs only the conversion
 from CFF to BibTeX, however <strong>cffr</strong> can perform the
 conversion in both directions.<a href="#fnref6" class="footnote-back">↩︎</a></p></li>
-<li id="fn7"><p>To avoid errors on the interpretation, names in
-<strong>bold</strong> correspond to BibTeX fields while the same number
-on <u>underscore</u> would refer to CFF.<a href="#fnref7" class="footnote-back">↩︎</a></p></li>
-<li id="fn8"><p>See <span class="citation">Rees (<a href="#ref-biblatexcheatsheet" role="doc-biblioref">2017</a>)</span> for
-a preview of the accepted BibLaTeX fields.<a href="#fnref8" class="footnote-back">↩︎</a></p></li>
-<li id="fn9"><p>As proposed on <a href="https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#how-to-deal-with-unknown-individual-authors"><em>How
+<li id="fn7"><p>See <span class="citation">Rees (<a href="#ref-biblatexcheatsheet" role="doc-biblioref">2017</a>)</span> for
+a preview of the accepted BibLaTeX fields.<a href="#fnref7" class="footnote-back">↩︎</a></p></li>
+<li id="fn8"><p>As proposed on <a href="https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#how-to-deal-with-unknown-individual-authors"><em>How
 to deal with unknown individual authors?</em></a>, <strong>(Guide to
-Citation File Format schema version 1.2.0)</strong><a href="#fnref9" class="footnote-back">↩︎</a></p></li>
+Citation File Format schema version 1.2.0)</strong><a href="#fnref8" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 

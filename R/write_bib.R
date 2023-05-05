@@ -3,7 +3,7 @@
 #' Creates a .bib file from a `bibentry` object(s)
 #'
 #' @param x A `bibentry` object created with:
-#'    - [cff_extract_to_bibtex()], [cff_to_bibtex()]
+#'    - [cff_to_bibtex()]
 #'    - [citation()] or [bibentry()]
 #'
 #' @param file Name of the file. If `NULL` it would display the lines to be
@@ -16,7 +16,8 @@
 #' @family bibtex
 #'
 #' @return Writes an `.bib` file specified on `file` parameter and the
-#' equivalent `Bibtex` object created with [utils::toBibtex()].
+#' equivalent `Bibtex` object created with [utils::toBibtex()]. It also
+#' (invisibly) returns the `bibentry` object that has been written to the file.
 #'
 #' @details
 #'
@@ -44,8 +45,8 @@ write_bib <- function(x,
                       append = FALSE,
                       verbose = TRUE,
                       ascii = FALSE) {
-  if (!"bibentry" %in% class(x)) {
-    stop("bibentry should be a class 'bibentry' object")
+  if (!inherits(x, "bibentry")) {
+    cli::cli_abort("{.arg x} should be a {.cls bibentry} object")
   }
 
   btex <- toBibtex(x)
@@ -66,6 +67,14 @@ write_bib <- function(x,
 
   if (tools::file_ext(file) != "bib") file <- paste0(file, ".bib")
 
+  # Check that the directory exists, if not create
+  dir <- dirname(path.expand(file))
+  if (!dir.exists(dir)) {
+    if (verbose) cli::cli_alert_info("Creating directory {.path {dir}}")
+    dir.create(dir, recursive = TRUE)
+  }
+
+
   # If exists creates a backup
   if (file.exists(file)) {
     for (i in seq(1, 100)) {
@@ -74,9 +83,8 @@ write_bib <- function(x,
     }
 
     if (verbose) {
-      message(
-        "Creating a backup of ",
-        file, " in ", f
+      cli::cli_alert_info(
+        "Creating a backup of {.file {file}} in {.file {f}}"
       )
     }
     file.copy(file, f)
@@ -90,16 +98,11 @@ write_bib <- function(x,
   })
   on.exit(if (isOpen(fh)) close(fh))
   if (verbose) {
-    message("Writing ", length(bibentry), " Bibtex entries ... ",
-      appendLF = FALSE
-    )
+    cli::cli_alert_info("Writing {length(x)} BibTeX entr{?y/ies} ...")
   }
   writeLines(btex, fh)
   if (verbose) {
-    message(
-      "OK\nResults written to file '", file,
-      "'"
-    )
+    cli::cli_alert_success("Results written to {.file {file}}")
   }
   invisible(btex)
 }

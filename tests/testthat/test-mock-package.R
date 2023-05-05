@@ -1,7 +1,6 @@
 test_that("Test in mock package", {
   current_dir <- getwd()
 
-
   name <- paste0("mock-pack", runif(1) * 10)
   new_dir <- file.path(tempdir(), name)
 
@@ -10,34 +9,39 @@ test_that("Test in mock package", {
   expect_true(dir.exists(new_dir))
 
   setwd(new_dir)
-  dir.create(file.path(new_dir, "inst"), recursive = TRUE)
-
 
   # Move files
-
   file.copy(system.file("examples/DESCRIPTION_many_urls", package = "cffr"),
     to = "DESCRIPTION"
   )
-  file.copy(system.file("examples/CITATION_basic", package = "cffr"),
-    to = file.path("inst", "CITATION")
+
+  # Create citation
+  cit <- utils::readCitationFile(
+    system.file("examples/CITATION_basic",
+      package = "cffr"
+    ),
+    meta = list(Encoding = "UTF-8")
   )
 
-  # Create Rbuildignore
 
+  expect_silent(write_citation(cit, verbose = FALSE))
+  expect_true(file.exists("./inst/CITATION"))
+
+  # Create Rbuildignore
   file.create(".Rbuildignore", showWarnings = FALSE)
   expect_true(file.exists(".Rbuildignore"))
 
   # Add action
-  cff_gha_update()
-
   expect_message(
-    cff_gha_update(),
-    paste(
-      "File update-citation-cff.yaml already installed.",
-      "Use overwrite = TRUE for overwrite"
-    )
+    expect_message(
+      expect_message(cff_gha_update(), "Creating directory"),
+      "Installing"
+    ),
+    "Adding"
   )
-  cff_gha_update(overwrite = TRUE)
+
+  expect_message(cff_gha_update(), "already installed")
+  expect_message(cff_gha_update(overwrite = TRUE), "Installing")
 
   expect_true(file.exists(file.path(
     ".github",
@@ -49,16 +53,26 @@ test_that("Test in mock package", {
   cffobj <- cff_create()
 
 
-  expect_message(cff_write(), "Congratulations! This .cff file is valid")
+  expect_output(cff_write())
 
   expect_true(file.exists("CITATION.cff"))
+
+  expect_true(cff_validate("CITATION.cff", verbose = FALSE))
 
   ignore <- readLines(".Rbuildignore")
 
   expect_true(("^CITATION\\.cff$" %in% ignore))
   expect_true(("^\\.github$" %in% ignore))
+
+
+  # Check citation from package
+  cit <- utils::readCitationFile("./inst/CITATION",
+    meta = list(Encoding = "UTF-8")
+  )
+
   # Revert to initial wd
   setwd(current_dir)
 
-  expect_snapshot_output(cffobj)
+  expect_snapshot(cffobj)
+  expect_snapshot(toBibtex(cit))
 })

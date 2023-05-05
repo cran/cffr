@@ -30,6 +30,9 @@
 #' @param verbose Logical `TRUE/FALSE`. On `TRUE` the function would display
 #'   informative messages.
 #'
+#' @param authors_roles Roles to be considered as authors of the package when
+#'   generating the `CITATION.cff` file. See **Details** on [cff_create()].
+#'
 #' @export
 #'
 #' @inheritParams cff_create
@@ -66,7 +69,8 @@ cff_write <- function(x,
                       gh_keywords = TRUE,
                       dependencies = TRUE,
                       validate = TRUE,
-                      verbose = TRUE) {
+                      verbose = TRUE,
+                      authors_roles = c("aut", "cre")) {
   # On missing use package root
   if (missing(x)) x <- getwd()
 
@@ -74,7 +78,8 @@ cff_write <- function(x,
     keys = keys,
     cff_version = cff_version,
     gh_keywords = gh_keywords,
-    dependencies = dependencies
+    dependencies = dependencies,
+    authors_roles = authors_roles
   )
 
 
@@ -112,7 +117,9 @@ cff_write <- function(x,
   )
 
   writeLines(addcomment, outfile)
-  if (verbose) message(cli::col_green(outfile, " generated"))
+  if (verbose) {
+    cli::cli_alert_success("{.file {outfile}} generated")
+  }
 
   # Add CITATION.cff to .Rbuildignore
   if (!is.cff(x) && x == getwd() && file.exists(".Rbuildignore")) {
@@ -124,10 +131,7 @@ cff_write <- function(x,
       ignore <- unique(ignore)
 
       if (verbose) {
-        message(cli::col_blue(
-          "Adding ",
-          outfile, " to .Rbuildignore"
-        ))
+        cli::cli_alert_info("Adding {.val {outfile}} to {.file .Rbuildignore}")
       }
       writeLines(ignore, ".Rbuildignore")
     }
