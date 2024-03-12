@@ -1,0 +1,13 @@
+```{r include=FALSE}
+library(cffr)
+```
+
+```{r comment=""}
+# Don't do
+entity <- "Elephant and Castle"
+as_cff_person(entity)
+
+# Do
+entity_protect <- "{Elephant and Castle}"
+as_cff_person(entity_protect)
+```

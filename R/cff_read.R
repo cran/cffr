@@ -1,203 +1,288 @@
-#' Read and manipulate `cff` objects
+#' Read an external file as a [`cff`] object
 #'
-#' A class and utility methods for reading, creating and holding CFF
-#' information.
+#' @description
+#' Read files and convert them to [`cff`] objects. Files supported
+#' are:
+#' - `CITATION.cff` files.
+#' - `DESCRIPTION` files.
+#' - **R** citation files (usually located in `inst/CITATION`).
+#' - BibTeX files (with extension `*.bib`).
 #'
-#' @name cff_read
-#' @aliases cff
+#' [cff_read()] would try to guess the type of file provided in `path`. However
+#' we provide a series of alias for each specific type of file:
+#' - [cff_read_cff_citation()], that uses [yaml::read_yaml()].
+#' - [cff_read_description()], using [desc::desc()].
+#' - [cff_read_citation()] uses [utils::readCitationFile()].
+#' - [cff_read_bib()]  requires \CRANpkg{bibtex} (>= 0.5.0) and uses
+#'   [bibtex::read.bib()].
+#'
+#' @export
+#' @rdname cff_read
+#' @family reading
+#' @seealso
+#'
+#' The underlying functions used for reading external files:
+#' - [yaml::read_yaml()] for `CITATION.cff` files.
+#' - [desc::desc()] for `DESCRIPTION` files.
+#' - [utils::readCitationFile()] for **R** citation files.
+#' - [bibtex::read.bib()] for BibTeX files (extension `*.bib`).
+#'
+#'
+#' @param path Path to a file.
+#' @param encoding Encoding to be assumed for `path`. See [readLines()].
+#' @param meta A list of package metadata as obtained by
+#'   [utils::packageDescription()] or `NULL` (the default). See **Details**.
+#' @param ... Arguments to be passed to other functions (i.e. to
+#'   [yaml::read_yaml()], [bibtex::read.bib()], etc.).
+#'
+#' @inheritParams cff_create
+#'
 #' @return
-#' A `cff` object. Under the hood, a `cff` object is a regular [`list`] object
-#' with a special [print()] method.
 #'
-#' @family core functions
+#' * `cff_read_cff_citation()` and `cff_read_description()` returns a object
+#'   with class `cff`.
+#' * `cff_read_citation()` and `cff_read_bib()` returns an object of classes
+#'   [`cff_ref_lst, cff`][cff_ref_lst] according to the `definitions.references`
+#'   specified in the
+#' ```{r, echo=FALSE, results='asis'}
 #'
-#' @param path The path to a `CITATION.cff` file.
-#' @param ... Named arguments to be used for creating a [`cff`] object. See
-#' **Details**.
-#'
-#' @details
-#'
-#' This object can be manipulated using [cff_create()].
-#'
-#' **Note that** this function reads `CITATION.cff` files. If you want to
-#' create `cff` objects from DESCRIPTION files use [cff_create()].
-#'
-#' If no additional `...` parameters are supplied (the default behavior),
-#' a minimal valid `cff` object is created. Valid parameters are those
-#' specified on [cff_schema_keys()]:
-#'
-#'
-#'
-#' ```{r, echo=FALSE}
-#'
-#'
-#' valid_keys <- cff_schema_keys()
-#'
-#' knitr::kable(valid_keys, col.names = "**valid cff keys**")
+#' cat(paste0(" [Citation File Format schema]",
+#'            "(https://github.com/citation-file-format/",
+#'            "citation-file-format/blob/main/schema-guide.md)."))
 #'
 #'
 #' ```
-#' @export
+#'
+#' Learn more about the \CRANpkg{cffr} class system in [cff_class].
+#'
+#' @references
+#'
+#' - R Core Team (2023). _Writing R Extensions_.
+#'   <https://cran.r-project.org/doc/manuals/r-release/R-exts.html>
+#'
+#' - Hernangomez D (2022). "BibTeX and CFF, a potential crosswalk."
+#'   *The cffr package, Vignettes*. \doi{10.21105/joss.03900},
+#'   <https://docs.ropensci.org/cffr/articles/bibtex_cff.html>.
+#'
+#' @details
+#'
+#' For details of `cff_read_description()` see [cff_create()].
+#'
+#' ## The `meta` object
+#'
+#' Section 1.9 CITATION files of *Writing R Extensions* (R Core Team 2023)
+#' specifies how to create dynamic `CITATION` files using `meta` object, hence
+#' the `meta` argument in [cff_read_citation()] may be needed for reading
+#' some files correctly.
+#'
 #' @examples
 #'
-#' # Blank cff
-#' cff()
+#' # Create cff object from cff file
 #'
-#' # From file
-#' cff_read(system.file("examples/CITATION_basic.cff",
+#' from_cff_file <- cff_read(system.file("examples/CITATION_basic.cff",
 #'   package = "cffr"
 #' ))
 #'
-#' # Use custom params
-#' test <- cff(
-#'   title = "Manipulating files",
-#'   keywords = c("A", "new", "list", "of", "keywords"),
-#'   authors = list(cff_parse_person("New author"))
-#' )
-#' test
-#' \donttest{
-#' # Would fail
-#' cff_validate(test)
+#' head(from_cff_file, 7)
 #'
-#'
-#' # Modify with cff_create
-#' new <- cff_create(test, keys = list(
-#'   "cff-version" = "1.2.0",
-#'   message = "A blank file"
+#' # Create cff object from DESCRIPTION
+#' from_desc <- cff_read(system.file("examples/DESCRIPTION_basic",
+#'   package = "cffr"
 #' ))
-#' new
 #'
-#' # Would pass
-#' cff_validate(new)
+#' from_desc
+#'
+#' # Create cff object from BibTex
+#'
+#' if (requireNamespace("bibtex", quietly = TRUE)) {
+#'   from_bib <- cff_read(system.file("examples/example.bib",
+#'     package = "cffr"
+#'   ))
+#'
+#'   # First item only
+#'   from_bib[[1]]
 #' }
-cff_read <- function(path) {
-  cffobj <- cff(path = path)
-
-  return(cffobj)
-}
-
-#' @rdname cff_read
-#' @export
-cff <- function(path, ...) {
-  if (!missing(path) && is.cff(path)) {
-    return(path)
-  }
-
-  # Capture args
-  cffobj <- list(...)
-
-  if (!missing(path)) {
-    stopifnotexists(path)
-    stopifnotcff(path)
-    cffobj <- yaml::read_yaml(path)
-  } else if (length(cffobj) != 0) {
-    cffobj <- fuzzy_keys(cffobj)
-
-    cffobj <- cffobj
-  } else {
-    # If nothing is provided use a minimal cff
-    path <- system.file("examples/CITATION_skeleton.cff",
-      package = "cffr"
+#' # Create cff object from CITATION
+#' from_citation <- cff_read(system.file("CITATION", package = "cffr"))
+#'
+#' # First item only
+#' from_citation[[1]]
+#'
+cff_read <- function(path, ...) {
+  if (length(path) > 1) {
+    cli::cli_abort(
+      "Use a single value, {.arg path} has length {.val {length(path)}}"
     )
-    cffobj <- yaml::read_yaml(path)
-  }
-  cffobj <- drop_null(cffobj)
-
-  cffobj <- as.cff(cffobj)
-
-  return(cffobj)
-}
-
-
-
-
-#' @rdname cff_read
-#'
-#' @param x a character string for the [`as.cff`] default method
-#'
-#' @export
-#'
-#' @examples
-#'
-#'
-#' # Convert a list to "cff" object
-#' cffobj <- as.cff(list(
-#'   "cff-version" = "1.2.0",
-#'   title = "Manipulating files"
-#' ))
-#'
-#' class(cffobj)
-#'
-#' # Nice display thanks to yaml package
-#' cffobj
-as.cff <- function(x) {
-  if (is.cff(x)) {
-    return(x)
   }
 
-  # Clean all strings recursively
+  file_exist_abort(path, abort = TRUE)
+  filetype <- detect_x_source(path)
 
-  x <- rapply(x, function(x) {
-    if (is.list(x) || length(x) > 1) {
-      return(x)
-    }
-    return(clean_str(x))
-  },
-  how = "list"
+  if (filetype == "dontknow") {
+    cli::cli_abort(
+      paste0(
+        "Don't recognize the file type of {.file {path}}.",
+        " Use a specific function (e.g. {.fn cffr:cff_read_description}"
+      )
+    )
+  }
+
+  endobj <- switch(filetype,
+    "cff_citation" = cff_read_cff_citation(path, ...),
+    "description" = cff_read_description(path, ...),
+    "bib" = cff_read_bib(path, ...),
+    "citation" = cff_read_citation(path, ...),
+    cli::cli_abort("Don't know how to read {.val {x}}.")
   )
 
-  # Remove NULLs
-  x <- drop_null(x)
-
-  # Remove duplicated names
-  x <- x[!duplicated(names(x))]
-
-  # Now apply cff class to nested lists
-  x <- lapply(x, rapply_cff)
-
-  class(x) <- "cff"
-  x
+  endobj
 }
 
-
-# Print method
-
 #' @export
-print.cff <- function(x, ...) {
-  cat(yaml::as.yaml(x))
+#' @rdname cff_read
+cff_read_cff_citation <- function(path, ...) {
+  file_exist_abort(path, abort = TRUE)
+
+  cffobj <- yaml::read_yaml(path, ...)
+  new_cff(cffobj)
 }
 
-# c method
-# Based on c.person (utils package)
-# https://github.com/wch/r-source/blob/trunk/src/library/utils/R/citation.R
-
 #' @export
-c.cff <-
-  function(..., recursive = FALSE) {
-    args <- list(...)
-    args <- lapply(args, unclass)
-    rval <- do.call("c", args)
-    class(rval) <- "cff"
-    rval
+#' @rdname cff_read
+cff_read_description <- function(path, cff_version = "1.2.0",
+                                 gh_keywords = TRUE,
+                                 authors_roles = c("aut", "cre"), ...) {
+  file_exist_abort(path, abort = TRUE)
+
+  pkg <- desc::desc(path)
+  pkg$coerce_authors_at_r()
+
+  msg <- paste0(
+    'To cite package "', pkg$get("Package"),
+    '" in publications use:'
+  )
+
+
+  field_list <- list(
+    "cff-version" = cff_version,
+    message = msg,
+    type = "software",
+    title = get_desc_title(pkg),
+    version = get_desc_version(pkg),
+    authors = get_desc_authors(pkg, authors_roles = authors_roles),
+    abstract = get_desc_abstract(pkg),
+    repository = get_desc_repository(pkg),
+    "repository-code" = get_desc_urls(pkg)$repo,
+    url = get_desc_urls(pkg)$url,
+    identifiers = get_desc_urls(pkg)$identifiers,
+    "date-released" = get_desc_date_released(pkg),
+    contact = get_desc_contacts(pkg),
+    keywords = get_desc_keywords(pkg),
+    license = unlist(get_desc_license(pkg))
+  )
+
+  if (gh_keywords) {
+    ghtopics <- get_gh_topics(field_list)
+    field_list$keywords <- unique(c(field_list$keywords, ghtopics))
   }
 
-# Helper----
+  new_cff(field_list)
+}
 
-#' Recursively clean lists and assign cff classes
-#' to all nested lists
-#'
-#'
+#' @export
+#' @rdname cff_read
+cff_read_citation <- function(path, meta = NULL, ...) {
+  file_exist_abort(path, abort = TRUE)
+
+  if (!any(is.null(meta), inherits(meta, "packageDescription"))) {
+    # nolint start
+    # Object for cli only
+    ex <- packageDescription("cffr")
+    # nolint end
+
+    cli::cli_alert_warning(
+      paste0(
+        "{.arg meta} should be {.val NULL} or {.obj_type_friendly {ex}}",
+        " not {.obj_type_friendly {meta}}. Using {.arg meta = NULL}"
+      )
+    )
+    meta <- NULL
+  }
+
+  new_meta <- clean_package_meta(meta)
+  the_cit <- try(utils::readCitationFile(path, meta = new_meta), silent = TRUE)
+
+  # If error then new try
+  if (inherits(the_cit, "try-error")) {
+    cli::cli_alert_warning(
+      paste0(
+        "It was not possible to read {.file {path}} with the {.arg meta} ",
+        "provided. Trying with {.code packageDescription('base')}"
+      )
+    )
+    new_meta <- packageDescription("base")
+    the_cit <- try(utils::readCitationFile(path, meta = new_meta),
+      silent = TRUE
+    )
+    # nocov start
+    if (inherits(the_cit, "try-error")) {
+      cli::cli_alert_danger(
+        "Can't read {.file path}, returning {.val NULL}"
+      )
+      return(NULL)
+    }
+    # nocov end
+  }
+  tocff <- as_cff(the_cit)
+
+  tocff
+}
+
+#' @export
+#' @family bibtex
+#' @rdname cff_read
+cff_read_bib <- function(path, encoding = "UTF-8", ...) {
+  file_exist_abort(path, abort = TRUE)
+
+  # nocov start
+  if (!requireNamespace("bibtex", quietly = TRUE)) {
+    msg <- paste0(
+      "{.pkg bibtex} package required for using this function: ",
+      '{.run install.packages("bibtex")}'
+    )
+    cli::cli_abort(msg)
+  }
+  # nocov end
+
+  # Read from tempfile
+  read_bib <- bibtex::read.bib(file = path, encoding = encoding, ...)
+
+
+  tocff <- as_cff(read_bib)
+  tocff
+}
+
+# Internal safe ----
+#' Internal version of cff_read_citation, safe
 #' @noRd
-rapply_cff <- function(x) {
-  if (inherits(x, "cff")) {
-    return(x)
+cff_safe_read_citation <- function(desc_path, cit_path) {
+  if (!file_exist_abort(cit_path) || !file_exist_abort(desc_path)) {
+    return(NULL)
+  }
+  # Create meta
+  meta <- desc_to_meta(desc_path)
+  meta <- clean_package_meta(meta)
+
+
+  the_cit <- try(utils::readCitationFile(cit_path, meta = meta), silent = TRUE)
+  # Try
+  if (inherits(the_cit, "try-error")) {
+    return(NULL)
   }
 
-  if (is.list(x) && length(x) > 0) {
-    x <- drop_null(x)
-    x <- lapply(x, rapply_cff)
-    return(structure(x, class = "cff"))
-  } else {
-    return(x)
-  }
+  # Need to be named here
+  tocff <- as_cff(the_cit)
+  tocff
 }
+
+# See utils.R

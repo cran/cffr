@@ -1,15 +1,16 @@
 #' Check if a string is an email
 #' @param email The string to be evaluated
 #' @noRd
-is.email <- function(email) {
+is_email <- function(email) {
   if (is.null(email)) {
     return(FALSE)
   }
 
-  # See https://www.nicebread.de/validating-email-adresses-in-r/
-  x <- grepl("\\<[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}\\>",
-    as.character(email),
-    ignore.case = TRUE
+  email <- trimws(as.character(email))
+
+  # See CFF  validation schema
+  x <- grepl("^[\\S]+@[\\S]+\\.[\\S]{2,}$", email,
+    ignore.case = TRUE, perl = TRUE
   )
   x
 }
@@ -17,12 +18,12 @@ is.email <- function(email) {
 #' Check if a string is an url
 #' @param url The url to be evaluated
 #' @noRd
-is.url <- function(url) {
+is_url <- function(url) {
   if (is.null(url)) {
     return(FALSE)
   }
 
-  x <- grepl("^http://|^https://|^ftp://|sftp://", url)
+  x <- grepl("^(https|http|ftp|sftp)://.+", url)
   x
 }
 
@@ -31,7 +32,7 @@ is.url <- function(url) {
 #' @param x string
 #' @param sub subtring to be evaluated
 #' @noRd
-is.substring <- function(x, sub) {
+is_substring <- function(x, sub) {
   if (is.null(x)) {
     return(FALSE)
   }
@@ -43,37 +44,25 @@ is.substring <- function(x, sub) {
   }
 }
 
-#' Check if a object is cff
+#' Check if a object is `cff`
 #' @param x object to be evaluated
 #' @noRd
-is.cff <- function(x) {
-  if (inherits(x, "cff")) {
-    return(TRUE)
-  } else {
-    return(FALSE)
-  }
+is_cff <- function(x) {
+  inherits(x, "cff")
 }
 
 #' Check if a object is cff file
 #' @param x object to be evaluated
 #' @noRd
-is.cff.file <- function(x) {
-  if (!inherits(x, "character")) {
-    return(FALSE)
-  }
-
-  if (tools::file_ext(x) != "cff") {
-    return(FALSE)
-  }
-
-  stopifnotexists(x)
-  return(TRUE)
+is_cff_file <- function(x) {
+  src <- detect_x_source(x)
+  return(src == "cff_citation")
 }
 
-#' Check if a object is cff
+#' Check if an url is from GitHub
 #' @param x object to be evaluated
 #' @noRd
-is.github <- function(x) {
+is_github <- function(x) {
   res <- isTRUE(grep(
     "^http[a-z]://github.com/",
     x["repository-code"]
@@ -82,34 +71,9 @@ is.github <- function(x) {
   return(res)
 }
 
-#' Error if it is not a cff file
-#' @param x file to be evaluated
+#' Check if `x` has names
+#' @param x object to be evaluated
 #' @noRd
-stopifnotcff <- function(x) {
-  if (is.cff(x)) {
-    return(invisible())
-  }
-
-  # x should be character at least
-  if (!inherits(x, "character")) {
-    cli::cli_abort(
-      "{.var x} is an object of class {.cls {class(x)}}, not {.cls cff}."
-    )
-  }
-
-  if (tools::file_ext(x) != "cff") {
-    cli::cli_abort(
-      "{.var x} is not a {.file *.cff} file"
-    )
-  }
-}
-
-#' Error if file doesn't exists
-#' @param x file to be evaluated
-#' @noRd
-stopifnotexists <- function(x) {
-  if (!file.exists(x)) {
-    cli::cli_abort("{.file {x}} doesn't exist")
-  }
-  return(invisible(NULL))
+is_named <- function(x) {
+  !is.null(names(x))
 }

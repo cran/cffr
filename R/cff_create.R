@@ -1,32 +1,36 @@
-#' Create `cff` object
+#' Create a [`cff`] object from several sources
 #'
 #' @description
-#' Create a [`cff`] object from a given source for further manipulation.
-#' Similar to [cff_write()], but returns a object rather than writing
-#' directly to a file. See **Examples**.
 #'
-#' @return A [`cff`] list object.
+#' Create a full and possibly valid [`cff`] object from a given source. This
+#' object can be written to a `*.cff ` file with [cff_write()],
+#' see **Examples**.
 #'
-#' @family core functions
+#' Most of the heavy lifting of \CRANpkg{cffr} is done via this function.
+#'
+#' @return A [`cff`] object.
+#'
+#' @family core
 #'
 #' @export
 #'
 #' @param x The source that would be used for generating
 #'   the [`cff`] object. It could be:
-#'   * A missing value. That would retrieve the DESCRIPTION
-#'     file on your in-development package.
-#'   * An existing [`cff`] object,
-#'   * The name of an installed package (`"jsonlite"`), or
-#'   * Path to a DESCRIPTION file (`"*/DESCRIPTION*"`).
+#'   * A missing value. That would retrieve the `DESCRIPTION` file on your
+#'     in-development **R** package.
+#'   * An existing [`cff`] object.
+#'   * The name of an installed package (`"jsonlite"`).
+#'   * Path to a `DESCRIPTION` file (`"./DESCRIPTION"`).
 #'
-#' @param keys List of additional keys to add to the [`cff`] object. See
-#'   **Details**.
+#' @param keys
+#'   List of additional keys to add to the [`cff`] object. See
+#'   [cff_modify()].
 #' @param cff_version The Citation File Format schema version that the
 #'   `CITATION.cff` file adheres to for providing the citation metadata.
 #' @param gh_keywords Logical `TRUE/FALSE`. If the package is hosted on
 #'   GitHub, would you like to add the repo topics as keywords?
 #' @param dependencies Logical `TRUE/FALSE`. Would you like to add the
-#'   of your package to the `reference` key?
+#'   of your package to the `references` CFF key?
 #' @param authors_roles Roles to be considered as authors of the package when
 #'   generating the `CITATION.cff` file. See **Details**.
 #'
@@ -40,33 +44,23 @@
 #'
 #' ```
 #'
-#' `vignette("cffr", "cffr")`
+#' - [cff_modify()] as the recommended way to modify a `cff` object.
+#' - [cff_write()] for creating a CFF file.
+#' - `vignette("cffr", "cffr")` shows an introduction on how manipulate
+#'   `cff` objects.
+#' - `vignette("crosswalk", package = "cffr")` provides details on how the
+#'  metadata of a package is mapped to produce a `cff` object.
+#'
 #' @details
 #'
-#' It is possible to add additional keys not detected by [cff_create()] using
-#' the `keys` argument. A list of valid keys can be retrieved with
-#' [cff_schema_keys()].
+#' If `x` is a path to a `DESCRIPTION` file or `inst/CITATION`, is not present
+#' on your package, \CRANpkg{cffr} would auto-generate a `preferred-citation`
+#' key using the information provided on that file.
 #'
-#'
-#' Please refer to
-#' ```{r, echo=FALSE, results='asis'}
-#'
-#' cat(paste0("\n", "[Guide to Citation File Format schema version 1.2.0]",
-#'            "(https://github.com/citation-file-format/",
-#'            "citation-file-format/blob/main/schema-guide.md)."))
-#'
-#'
-#' ```
-#' for additional details.
-#'
-#' If `x` is a path to a DESCRIPTION file or `inst/CITATION`, is not present on
-#' your package, **cffr** would auto-generate a `preferred-citation` key using
-#' the information provided on that file.
-#'
-#' By default, only persons whose role in the DESCRIPTION file of the package
+#' By default, only persons whose role in the `DESCRIPTION` file of the package
 #' is author (`"aut"`) or maintainer (`"cre"`) are considered to be authors
 #' of the package. The default setting can be controlled via the `authors_roles`
-#' parameter. See **Details** on [utils::person()] to get additional insights
+#' parameter. See **Details** on [person()] to get additional insights
 #' on person roles.
 #'
 #'
@@ -85,7 +79,7 @@
 #'   message = "This overwrites fields",
 #'   abstract = "New abstract",
 #'   keywords = c("A", "new", "list", "of", "keywords"),
-#'   authors = list(cff_parse_person("New author"))
+#'   authors = as_cff_person("New author")
 #' )
 #'
 #' cff_create(demo_file, keys = newkeys)
@@ -97,319 +91,143 @@
 #'
 #' new_contact <- append(
 #'   old$contact,
-#'   list(
-#'     cff_parse_person(person(
-#'       given = "I am",
-#'       family = "New Contact"
-#'     ))
-#'   )
+#'   as_cff_person(person(
+#'     given = "I am",
+#'     family = "New Contact"
+#'   ))
 #' )
 #'
 #'
 #' cff_create(demo_file, keys = list("contact" = new_contact))
 #' }
-cff_create <- function(x,
-                       keys = list(),
-                       cff_version = "1.2.0",
-                       gh_keywords = TRUE,
-                       dependencies = TRUE,
+cff_create <- function(x, keys = list(), cff_version = "1.2.0",
+                       gh_keywords = TRUE, dependencies = TRUE,
                        authors_roles = c("aut", "cre")) {
-  # On missing use package root
-  if (missing(x)) x <- getwd()
-
-  if (!is.cff(x) && !is.character(x)) {
-    msg <- "{.arg x} should be a {.cls cff} or {.cls character} object."
-    cli::cli_abort(msg)
+  # Guess source
+  # On missing add getwd()
+  if (missing(x)) {
+    hint_source <- "indev"
+    x <- getwd()
+  } else if (identical(getwd(), x)) {
+    # This case is coming from cff_write
+    hint_source <- "indev"
+  } else {
+    hint_source <- detect_x_source(x)
   }
 
-  instpack <- as.character(installed.packages()[, "Package"])
-
-  # Set initially citobj to NULL
-  citobj <- NULL
-  desc_path <- NULL
-
-  # Paths
-  if (is.cff(x)) {
-    # It is already an object
-    cffobj <- x
-    cffobj["cff-version"] <- cff_version
-  } else {
-    # Detect a package
-    if (x %in% instpack) x <- file.path(find.package(x), "DESCRIPTION")
-    # If is on the root create DESCRIPTION path
-    if (x == getwd()) x <- file.path(x, "DESCRIPTION")
-
-    if (isTRUE(grep("DESCRIPTION", x) == 1)) {
-      # Call for a DESCRIPTION file
-      desc_path <- x
-      # Look if a CITATION file on inst/ folder
-      # for in-development packages
-      cit_path <- gsub("DESCRIPTION$", "inst/CITATION", x)
-      # If it doesn't exists look on the root
-      # this is for call to installed packages with system.file()
-      if (!file.exists(cit_path)) {
-        cit_path <- gsub(
-          "DESCRIPTION$",
-          "CITATION", x
-        )
-      }
-      if (file.exists(cit_path)) {
-        citobj <- parse_r_citation(desc_path, cit_path)
-        citobj <- lapply(citobj, cff_parse_citation)
-        if (length(citobj) == 0) citobj <- NULL
-        citobj <- drop_null(citobj)
-      }
-    } else {
-      msg <- paste0(
-        "{.arg x} ({x}) not valid. If it is a package ",
+  # Abort in non-valid sources
+  valid_sources <- c("indev", "cff_obj", "package", "description")
+  if (!hint_source %in% valid_sources) {
+    # Abort, prepare message
+    msg_hint <- switch(hint_source,
+      "dontknow" = paste0(
+        "If it is a package ",
         "you may need to install it with ",
-        "{.fun install.packages}"
-      )
-      cli::cli_abort(msg)
-    }
+        "{.fn install.packages}."
+      ),
+      "bib" = "Maybe try with {.fn cff_read}."
+    )
 
-    if (!file.exists(desc_path)) {
-      cli::cli_abort("No {.file DESCRIPTION} file found with {.arg x}")
-    }
-
-    cffobj <- cff_description(desc_path, cff_version,
-      gh_keywords = gh_keywords, authors_roles = authors_roles
+    cli::cli_abort(
+      paste0("{.arg x} not valid. ", msg_hint)
     )
   }
 
-  citobj <- unique(citobj)
+  # Build cff and return paths if any
+  result_paths <- build_cff_and_paths(
+    x, cff_version, gh_keywords,
+    dependencies, authors_roles, hint_source
+  )
 
-  # Merge DESCRIPTION and CITATION
+  desc_path <- result_paths[["desc_path"]]
+  cffobjend <- result_paths[["cffobjend"]]
 
-  cffobjend <- merge_desc_cit(cffobj, citobj)
+
 
   # Add software dependencies
   if (dependencies) {
-    deps <- parse_dependencies(desc_path, instpack)
+    instpack <- as.character(installed.packages()[, "Package"])
+    deps <- get_dependencies(desc_path, instpack)
 
-    cffobjend$references <- unique(c(
-      cffobjend$references,
-      deps
-    ))
+    cffobjend$references <- unique(c(cffobjend$references, deps))
   }
 
-  # Additional keys
-  if (!is.null(keys)) {
-    keys <- fuzzy_keys(keys)
-    cffobjendmod <- cffobjend[setdiff(names(cffobjend), names(keys))]
-    cffobjend <- modifyList(cffobjendmod, keys, keep.null = FALSE)
-    cffobjend <- as.cff(cffobjend)
-  }
-
+  # Additional keys, using internals of cff_modify
+  cffobjend <- modify_cff(cffobjend, keys, "keys")
 
   # Order
   cffobjend <- cffobjend[cff_schema_keys()]
 
   # Enhance authors info
-
   if (!is.null(cffobjend$`preferred-citation`)) {
     cffobjend$`preferred-citation`$authors <- enhance_pref_authors(cffobjend)
   }
-  cffobjend <- as.cff(cffobjend)
+  cffobjend <- as_cff(cffobjend)
   cffobjend
 }
 
+build_cff_and_paths <- function(x, cff_version = "1.2.0",
+                                gh_keywords = TRUE, dependencies = TRUE,
+                                authors_roles = c("aut", "cre"), hint_source) {
+  collect_list <- list(
+    desc_path = NULL,
+    cffobjend = NULL
+  )
 
-#' Merge the information of a parsed description with a parsed citation
-#' @noRd
-merge_desc_cit <- function(cffobj, citobj) {
-  # If no citobj then return null
+  # "indev", "cff_obj", "package", "description"
 
-  if (is.null(citobj)) {
-    return(cffobj)
+  # Already cff, return it
+  if (is_cff(x)) {
+    # It is already an object
+    cffobj <- as_cff(as.list(x))
+    cffobj["cff-version"] <- cff_version
+
+    collect_list$cffobjend <- cffobj
+    return(collect_list)
   }
 
-  # Add doi from citation if missing
-  if (is.null(cffobj$doi)) {
-    cffobj$doi <- clean_str(citobj[[1]]$doi)
+  # Get info from DESCRIPTION
+  desc_path <- switch(hint_source,
+    "indev" = file.path(getwd(), "DESCRIPTION"),
+    "description" = x,
+    "package" = system.file("DESCRIPTION", package = x)
+  )
+
+  if (is.null(file_path_or_null(desc_path))) {
+    cli::cli_abort("No {.file DESCRIPTION} file found with {.arg x}.")
   }
-  cffobjend <- c(cffobj,
-    "preferred-citation" = citobj[1],
-    references = list(citobj[-1])
+
+  cffobj <- cff_read_description(desc_path, cff_version,
+    gh_keywords = gh_keywords,
+    authors_roles = authors_roles
   )
 
 
+  # Just for description case
+  try_get_citation <- function(x) {
+    cit1 <- file.path(dirname(x), "inst/CITATION")
+    cit2 <- file.path(dirname(x), "CITATION")
 
-  # Merge identifiers
-  oldids <- cffobjend$identifiers
-  cffobjend$identifiers <- c(
-    citobj[[1]]$identifiers,
-    oldids
-  )
-
-  # Reorder
-  cffobjfinal <- c(
-    cffobjend[!names(cffobjend) %in% c("identifiers", "references")],
-    cffobjend["identifiers"],
-    cffobjend["references"]
-  )
-
-  cffobjfinal <- drop_null(cffobjfinal)
-
-  return(cffobjfinal)
-}
-
-#' Enhance authors info from preferred-citation using metadata from DESCRIPTION
-#' @noRd
-enhance_pref_authors <- function(cffobjend) {
-  # Create index of authors extracted from DESCRIPTION (First cff level)
-  auth_desc <- cffobjend$authors
-  key_aut_desc <- lapply(auth_desc, function(x) {
-    l <- list(x["family-names"], x["given-names"], x["name"])
-    l <- unlist(drop_null(l))
-    tolower(paste0(l, collapse = ""))
-  })
-  names(auth_desc) <- unlist(key_aut_desc)
-
-  # Create index of authors from preferred-citation
-  auth_pref <- cffobjend$`preferred-citation`$authors
-  key_aut_cit <- lapply(auth_pref, function(x) {
-    l <- list(x["family-names"], x["given-names"], x["name"])
-    l <- unlist(drop_null(l))
-    tolower(paste0(l, collapse = ""))
-  })
-  names(auth_pref) <- unlist(key_aut_cit)
-
-  # Add missing keys to authors
-  enhancedauth <- lapply(names(auth_pref), function(x) {
-    newdata <- auth_desc[x]
-    olddata <- auth_pref[x]
-
-    # New fields only
-    oldkeys <- names(olddata[[1]])
-    newkeys <- names(newdata[[1]])
-    fieldstoadd <- newdata[[1]][!newkeys %in% oldkeys]
-
-    newinfo <- c(olddata[[1]], fieldstoadd)
-
-    newinfo
-  })
-
-  enhancedauth
-}
-
-
-parse_dependencies <- function(desc_path,
-                               instpack = as.character(
-                                 installed.packages()[, "Package"]
-                               )) {
-  # nocov start
-  if (!is.character(desc_path)) {
-    return(NULL)
+    c(file_path_or_null(cit1), file_path_or_null(cit2))[1]
   }
-  if (!file.exists(desc_path)) {
-    return(NULL)
-  }
-  # nocov end
 
-  getdeps <- desc::desc(desc_path)
-
-  deps <- getdeps$get_deps()
-
-  # Adapt version
-
-  deps$version_clean <- gsub("*", "", deps$version, fixed = TRUE)
-
-  # Save copy for later
-  origdeps <- deps
-
-  # Dedupe rows
-  deps <- unique(deps[, c("package", "version_clean")])
-
-
-  # Get dependency type and add to scope
-  scope <- vapply(deps$package,
-    FUN.VALUE = character(1),
-    function(x) {
-      y <- origdeps[origdeps$package == x, "type"]
-
-      y[1]
-    }
+  cit_path <- switch(hint_source,
+    "indev" = file.path(getwd(), "inst/CITATION"),
+    "description" = try_get_citation(x),
+    "package" = system.file("CITATION", package = x)
   )
-  deps$scope <- scope
 
-  av_deps <- deps[deps$package %in% c("R", instpack), ]
+  cit_path <- file_path_or_null(cit_path[1])
 
-  # Get references from DESCRIPTION of dependencies
-  cff_deps <- lapply(seq_len(nrow(av_deps)), function(y) {
-    n <- av_deps[y, ]
+  if (!is.null(cit_path)) {
+    citobj <- cff_safe_read_citation(desc_path, cit_path)
+    citobj <- unique(citobj)
+    # Merge DESCRIPTION and CITATION
+    cffobj <- merge_desc_cit(cffobj, citobj)
+  }
 
-    if (n$package == "R") {
-      mod <- cff_parse_citation(citation()[1])
-      mod$year <- format(Sys.Date(), "%Y")
-    } else {
-      mod <- try(cff_parse_citation(citation(n$package, auto = TRUE)[1]),
-        silent = TRUE
-      )
+  collect_list$desc_path <- desc_path
+  collect_list$cffobjend <- cffobj
 
-      if (inherits(mod, "try-error")) {
-        return(NULL)
-      }
-
-      # Simplified version of the cff obj
-      # Avoid cluttering the output
-      mod$abstract <- mod$title
-      mod$title <- n$package
-    }
-
-    mod$type <- "software"
-    mod$version <- ifelse(is.na(n$version_clean),
-      NULL,
-      paste(n$version_clean)
-    )
-    # Get url and repo from package DESCRIPTION
-    # urls from citation() vary due to auto = TRUE
-    dfile <- system.file("DESCRIPTION", package = n$package)
-
-    if (file.exists(dfile)) {
-      pkg <- desc::desc(dfile)
-      mod$url <- parse_desc_urls(pkg)$url
-      mod$repository <- parse_desc_repository(pkg)
-    }
-
-    mod <- drop_null(mod)
-
-    # Get year
-    date_rel <- mod[["date-released"]]
-
-    if (is.null(date_rel)) {
-      year <- format(Sys.Date(), "%Y")
-    } else {
-      year <- format(as.Date(date_rel), "%Y")
-    }
-
-    mod$year <- year
-    mod$notes <- clean_str(n$scope)
-
-    # Re-arrange
-    mod <- c(
-      mod[c(
-        "type",
-        "title", "abstract",
-        "notes",
-        "url", "repository"
-      )],
-      mod[!names(mod) %in% c(
-        "type",
-        "title", "abstract",
-        "notes",
-        "url", "repository"
-      )]
-    )
-
-    mod <- as.cff(mod)
-  })
-
-  cff_deps <- drop_null(cff_deps)
-
-  cff_deps <- unique(cff_deps)
-
-  class(cff_deps) <- "cff"
-
-  return(cff_deps)
+  return(collect_list)
 }

@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# cffr <a href='https://docs.ropensci.org/cffr/'><img src="man/figures/logo.png" align="right" height="139"/></a>
+# cffr <a href="https://docs.ropensci.org/cffr/"><img src="man/figures/logo.png" alt="cffr website" align="right" height="139"/></a>
 
 <!-- badges: start -->
 
@@ -10,7 +10,7 @@
 [![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/cffr?color=blue)](https://cran.r-project.org/package=cffr)
 [![R-CMD-check](https://github.com/ropensci/cffr/actions/workflows/check-full.yaml/badge.svg)](https://github.com/ropensci/cffr/actions/workflows/check-full.yaml)
 [![codecov](https://codecov.io/gh/ropensci/cffr/branch/main/graph/badge.svg?token=YRO3XL8RWK)](https://app.codecov.io/gh/ropensci/cffr)
-[![r-universe](https://ropensci.r-universe.dev/badges/cffr)](https://ropensci.r-universe.dev/)
+[![r-universe](https://ropensci.r-universe.dev/badges/cffr)](https://ropensci.r-universe.dev/cffr)
 [![CITATION-cff](https://github.com/ropensci/cffr/actions/workflows/cff-validator.yml/badge.svg)](https://github.com/ropensci/cffr/actions/workflows/cff-validator.yml)
 [![DOI](https://joss.theoj.org/papers/10.21105/joss.03900/status.svg)](https://doi.org/10.21105/joss.03900)
 [![Project Status: Active - The project has reached a stable, usable
@@ -22,7 +22,7 @@ bytes](https://img.shields.io/github/languages/code-size/ropensci/cffr)
 
 <!-- badges: end -->
 
-**cffr** provides utilities to generate, parse, modify and validate
+**cffr** provides utilities to generate, coerce, modify and validate
 `CITATION.cff` files automatically for **R** packages, as well as tools
 and examples for working with .cff more generally.
 
@@ -72,7 +72,7 @@ file and the `CITATION` file (if present) of your package. Note that
 **cffr** works best if your package pass
 `R CMD check/devtools::check()`.
 
-As per 2023-05-05 there are at least 147 repos on GitHub using **cffr**.
+As per 2024-03-12 there are at least 298 repos on GitHub using **cffr**.
 [Check them out
 here](https://github.com/search?q=cffr%20path%3A**%2FCITATION.cff&type=code).
 
@@ -94,14 +94,10 @@ Alternatively, you can install **cffr** using the
 [r-universe](https://ropensci.r-universe.dev/cffr):
 
 ``` r
-# Enable this universe
-options(repos = c(
-  ropensci = "https://ropensci.r-universe.dev",
-  CRAN = "https://cloud.r-project.org"
-))
-
-# Install some packages
-install.packages("cffr")
+# Install cffr in R:
+install.packages("cffr",
+  repos = c("https://ropensci.r-universe.dev", "https://cloud.r-project.org")
+)
 ```
 
 ### Example
@@ -147,7 +143,7 @@ test <- cff_create("rmarkdown")
     type: software
     license: GPL-3.0-only
     title: 'rmarkdown: Dynamic Documents for R'
-    version: '2.21'
+    version: '2.26'
     abstract: Convert R Markdown documents into a variety of formats.
     authors:
     - family-names: Allaire
@@ -224,13 +220,13 @@ test <- cff_create("rmarkdown")
         given-names: Richard
         email: rich@posit.co
         orcid: https://orcid.org/0000-0003-3925-190X
-      year: '2023'
-      notes: R package version 2.21
+      year: '2024'
+      notes: R package version 2.26
       url: https://github.com/rstudio/rmarkdown
     repository: https://CRAN.R-project.org/package=rmarkdown
     repository-code: https://github.com/rstudio/rmarkdown
     url: https://pkgs.rstudio.com/rmarkdown/
-    date-released: '2023-03-26'
+    date-released: '2024-03-05'
     contact:
     - family-names: Xie
       given-names: Yihui
@@ -280,11 +276,10 @@ test <- cff_create("rmarkdown")
       url: https://www.R-project.org/
       authors:
       - name: R Core Team
-      location:
-        name: Vienna, Austria
-      year: '2023'
       institution:
         name: R Foundation for Statistical Computing
+        address: Vienna, Austria
+      year: '2024'
       version: '>= 3.0'
     - type: software
       title: bslib
@@ -295,12 +290,16 @@ test <- cff_create("rmarkdown")
       authors:
       - family-names: Sievert
         given-names: Carson
-        email: carson@rstudio.com
+        email: carson@posit.co
         orcid: https://orcid.org/0000-0002-4958-2844
       - family-names: Cheng
         given-names: Joe
-        email: joe@rstudio.com
-      year: '2023'
+        email: joe@posit.co
+      - family-names: Aden-Buie
+        given-names: Garrick
+        email: garrick@posit.co
+        orcid: https://orcid.org/0000-0002-7111-0077
+      year: '2024'
       version: '>= 0.2.5.1'
     - type: software
       title: evaluate
@@ -316,7 +315,7 @@ test <- cff_create("rmarkdown")
         given-names: Yihui
         email: xie@yihui.name
         orcid: https://orcid.org/0000-0003-0645-5666
-      year: '2023'
+      year: '2024'
       version: '>= 0.13'
     - type: software
       title: fontawesome
@@ -329,7 +328,7 @@ test <- cff_create("rmarkdown")
         given-names: Richard
         email: rich@posit.co
         orcid: https://orcid.org/0000-0003-3925-190X
-      year: '2023'
+      year: '2024'
       version: '>= 0.5.0'
     - type: software
       title: htmltools
@@ -340,26 +339,25 @@ test <- cff_create("rmarkdown")
       authors:
       - family-names: Cheng
         given-names: Joe
-        email: joe@rstudio.com
+        email: joe@posit.co
       - family-names: Sievert
         given-names: Carson
-        email: carson@rstudio.com
+        email: carson@posit.co
         orcid: https://orcid.org/0000-0002-4958-2844
       - family-names: Schloerke
         given-names: Barret
-        email: barret@rstudio.com
+        email: barret@posit.co
         orcid: https://orcid.org/0000-0001-9986-114X
       - family-names: Chang
         given-names: Winston
-        email: winston@rstudio.com
+        email: winston@posit.co
         orcid: https://orcid.org/0000-0002-1576-2126
       - family-names: Xie
         given-names: Yihui
-        email: yihui@rstudio.com
+        email: yihui@posit.co
       - family-names: Allen
         given-names: Jeff
-        email: jeff@rstudio.com
-      year: '2023'
+      year: '2024'
       version: '>= 0.5.1'
     - type: software
       title: jquerylib
@@ -374,19 +372,19 @@ test <- cff_create("rmarkdown")
       - family-names: Cheng
         given-names: Joe
         email: joe@rstudio.com
-      year: '2023'
+      year: '2024'
     - type: software
       title: jsonlite
       abstract: 'jsonlite: A Simple and Robust JSON Parser and Generator for R'
       notes: Imports
-      url: https://arxiv.org/abs/1403.2805
+      url: https://jeroen.r-universe.dev/jsonlite
       repository: https://CRAN.R-project.org/package=jsonlite
       authors:
       - family-names: Ooms
         given-names: Jeroen
         email: jeroen@berkeley.edu
         orcid: https://orcid.org/0000-0002-4035-0289
-      year: '2023'
+      year: '2024'
     - type: software
       title: knitr
       abstract: 'knitr: A General-Purpose Package for Dynamic Report Generation in R'
@@ -398,31 +396,18 @@ test <- cff_create("rmarkdown")
         given-names: Yihui
         email: xie@yihui.name
         orcid: https://orcid.org/0000-0003-0645-5666
-      year: '2023'
-      version: '>= 1.22'
+      year: '2024'
+      version: '>= 1.43'
     - type: software
       title: methods
       abstract: 'R: A Language and Environment for Statistical Computing'
       notes: Imports
       authors:
       - name: R Core Team
-      location:
-        name: Vienna, Austria
-      year: '2023'
       institution:
         name: R Foundation for Statistical Computing
-    - type: software
-      title: stringr
-      abstract: 'stringr: Simple, Consistent Wrappers for Common String Operations'
-      notes: Imports
-      url: https://stringr.tidyverse.org
-      repository: https://CRAN.R-project.org/package=stringr
-      authors:
-      - family-names: Wickham
-        given-names: Hadley
-        email: hadley@rstudio.com
-      year: '2023'
-      version: '>= 1.2.0'
+        address: Vienna, Austria
+      year: '2024'
     - type: software
       title: tinytex
       abstract: 'tinytex: Helper Functions to Install and Maintain TeX Live, and Compile
@@ -435,7 +420,7 @@ test <- cff_create("rmarkdown")
         given-names: Yihui
         email: xie@yihui.name
         orcid: https://orcid.org/0000-0003-0645-5666
-      year: '2023'
+      year: '2024'
       version: '>= 0.31'
     - type: software
       title: tools
@@ -443,22 +428,20 @@ test <- cff_create("rmarkdown")
       notes: Imports
       authors:
       - name: R Core Team
-      location:
-        name: Vienna, Austria
-      year: '2023'
       institution:
         name: R Foundation for Statistical Computing
+        address: Vienna, Austria
+      year: '2024'
     - type: software
       title: utils
       abstract: 'R: A Language and Environment for Statistical Computing'
       notes: Imports
       authors:
       - name: R Core Team
-      location:
-        name: Vienna, Austria
-      year: '2023'
       institution:
         name: R Foundation for Statistical Computing
+        address: Vienna, Austria
+      year: '2024'
     - type: software
       title: xfun
       abstract: 'xfun: Supporting Functions for Packages Maintained by ''Yihui Xie'''
@@ -470,7 +453,7 @@ test <- cff_create("rmarkdown")
         given-names: Yihui
         email: xie@yihui.name
         orcid: https://orcid.org/0000-0003-0645-5666
-      year: '2023'
+      year: '2024'
       version: '>= 0.36'
     - type: software
       title: yaml
@@ -504,13 +487,13 @@ test <- cff_create("rmarkdown")
         given-names: Michael
       - family-names: Kamvar
         given-names: Zhian N.
-      year: '2023'
+      year: '2024'
       version: '>= 2.1.19'
     - type: software
       title: digest
       abstract: 'digest: Create Compact Hash Digests of R Objects'
       notes: Suggests
-      url: http://dirk.eddelbuettel.com/code/digest.html
+      url: https://dirk.eddelbuettel.com/code/digest.html
       repository: https://CRAN.R-project.org/package=digest
       authors:
       - family-names: Lucas
@@ -550,17 +533,22 @@ test <- cff_create("rmarkdown")
         given-names: Radford
       - family-names: Bell
         given-names: Kendon
-      - family-names: de Queljoe
+      - family-names: Queljoe
         given-names: Matthew
+        name-particle: de
       - family-names: Suruceanu
         given-names: Ion
       - family-names: Denney
         given-names: Bill
       - family-names: Schumacher
         given-names: Dirk
-      - family-names: Chang.
-        given-names: and Winston
-      year: '2023'
+      - family-names: Chang
+        given-names: Winston
+      - family-names: Attali
+        given-names: Dean
+      - family-names: Chirico.
+        given-names: Michael
+      year: '2024'
     - type: software
       title: dygraphs
       abstract: 'dygraphs: Interface to ''Dygraphs'' Interactive Time Series Charting
@@ -571,6 +559,7 @@ test <- cff_create("rmarkdown")
       authors:
       - family-names: Vanderkam
         given-names: Dan
+        website: http://dygraphs.com/
       - family-names: Allaire
         given-names: JJ
       - family-names: Owen
@@ -579,7 +568,7 @@ test <- cff_create("rmarkdown")
         given-names: Daniel
       - family-names: Thieurmel
         given-names: Benoit
-      year: '2023'
+      year: '2024'
     - type: software
       title: fs
       abstract: 'fs: Cross-Platform File System Operations Based on ''libuv'''
@@ -595,23 +584,27 @@ test <- cff_create("rmarkdown")
       - family-names: Csárdi
         given-names: Gábor
         email: csardi.gabor@gmail.com
-      year: '2023'
+      year: '2024'
     - type: software
       title: rsconnect
-      abstract: 'rsconnect: Deployment Interface for R Markdown Documents and Shiny Applications'
+      abstract: 'rsconnect: Deploy Docs, Apps, and APIs to ''Posit Connect'', ''shinyapps.io'',
+        and ''RPubs'''
       notes: Suggests
-      url: https://github.com/rstudio/rsconnect
+      url: https://rstudio.github.io/rsconnect/
       repository: https://CRAN.R-project.org/package=rsconnect
       authors:
       - family-names: Atkins
         given-names: Aron
         email: aron@posit.co
+      - family-names: Allen
+        given-names: Toph
+      - family-names: Wickham
+        given-names: Hadley
       - family-names: McPherson
         given-names: Jonathan
-        email: jonathan@posit.co
       - family-names: Allaire
         given-names: JJ
-      year: '2023'
+      year: '2024'
     - type: software
       title: downlit
       abstract: 'downlit: Syntax Highlighting and Automatic Linking'
@@ -621,8 +614,8 @@ test <- cff_create("rmarkdown")
       authors:
       - family-names: Wickham
         given-names: Hadley
-        email: hadley@rstudio.com
-      year: '2023'
+        email: hadley@posit.co
+      year: '2024'
       version: '>= 0.4.0'
     - type: software
       title: katex
@@ -635,7 +628,7 @@ test <- cff_create("rmarkdown")
         given-names: Jeroen
         email: jeroen@berkeley.edu
         orcid: https://orcid.org/0000-0002-4035-0289
-      year: '2023'
+      year: '2024'
       version: '>= 1.4.0'
     - type: software
       title: sass
@@ -662,47 +655,46 @@ test <- cff_create("rmarkdown")
         given-names: Carson
         email: carson@rstudio.com
         orcid: https://orcid.org/0000-0002-4958-2844
-      year: '2023'
+      year: '2024'
       version: '>= 0.4.0'
     - type: software
       title: shiny
       abstract: 'shiny: Web Application Framework for R'
       notes: Suggests
-      url: https://shiny.rstudio.com/
+      url: https://shiny.posit.co/
       repository: https://CRAN.R-project.org/package=shiny
       authors:
       - family-names: Chang
         given-names: Winston
-        email: winston@rstudio.com
+        email: winston@posit.co
         orcid: https://orcid.org/0000-0002-1576-2126
       - family-names: Cheng
         given-names: Joe
-        email: joe@rstudio.com
+        email: joe@posit.co
       - family-names: Allaire
         given-names: JJ
-        email: jj@rstudio.com
+        email: jj@posit.co
       - family-names: Sievert
         given-names: Carson
-        email: carson@rstudio.com
+        email: carson@posit.co
         orcid: https://orcid.org/0000-0002-4958-2844
       - family-names: Schloerke
         given-names: Barret
-        email: barret@rstudio.com
+        email: barret@posit.co
         orcid: https://orcid.org/0000-0001-9986-114X
       - family-names: Xie
         given-names: Yihui
-        email: yihui@rstudio.com
+        email: yihui@posit.co
       - family-names: Allen
         given-names: Jeff
-        email: jeff@rstudio.com
       - family-names: McPherson
         given-names: Jonathan
-        email: jonathan@rstudio.com
+        email: jonathan@posit.co
       - family-names: Dipert
         given-names: Alan
       - family-names: Borges
         given-names: Barbara
-      year: '2023'
+      year: '2024'
       version: '>= 1.6.0'
     - type: software
       title: testthat
@@ -713,8 +705,8 @@ test <- cff_create("rmarkdown")
       authors:
       - family-names: Wickham
         given-names: Hadley
-        email: hadley@rstudio.com
-      year: '2023'
+        email: hadley@posit.co
+      year: '2024'
       version: '>= 3.0.3'
     - type: software
       title: tibble
@@ -730,7 +722,7 @@ test <- cff_create("rmarkdown")
       - family-names: Wickham
         given-names: Hadley
         email: hadley@rstudio.com
-      year: '2023'
+      year: '2024'
     - type: software
       title: vctrs
       abstract: 'vctrs: Vector Helpers'
@@ -747,7 +739,19 @@ test <- cff_create("rmarkdown")
       - family-names: Vaughan
         given-names: Davis
         email: davis@posit.co
-      year: '2023'
+      year: '2024'
+    - type: software
+      title: cleanrmd
+      abstract: 'cleanrmd: Clean Class-Less ''R Markdown'' HTML Documents'
+      notes: Suggests
+      url: https://pkg.garrickadenbuie.com/cleanrmd/
+      repository: https://CRAN.R-project.org/package=cleanrmd
+      authors:
+      - family-names: Aden-Buie
+        given-names: Garrick
+        email: garrick@adenbuie.com
+        orcid: https://orcid.org/0000-0002-7111-0077
+      year: '2024'
     - type: software
       title: withr
       abstract: 'withr: Run Code ''With'' Temporarily Modified Global State'
@@ -759,7 +763,7 @@ test <- cff_create("rmarkdown")
         given-names: Jim
       - family-names: Henry
         given-names: Lionel
-        email: lionel@rstudio.com
+        email: lionel@posit.co
       - family-names: Müller
         given-names: Kirill
         email: krlmlr+r@mailbox.org
@@ -768,10 +772,10 @@ test <- cff_create("rmarkdown")
         email: kevinushey@gmail.com
       - family-names: Wickham
         given-names: Hadley
-        email: hadley@rstudio.com
+        email: hadley@posit.co
       - family-names: Chang
         given-names: Winston
-      year: '2023'
+      year: '2024'
       version: '>= 2.4.2'
 
 </details>
@@ -785,7 +789,7 @@ cff_validate(test)
 #> ✔ Congratulations! This <cff> is valid
 ```
 
-Check the [docs](https://docs.ropensci.org/cffr/reference/index.html)
+Check the [docs](https://docs.ropensci.org/cffr//reference/index.html)
 and `vignette("cffr", package = "cffr")` to learn how to work with `cff`
 objects.
 
@@ -856,20 +860,22 @@ Hernangómez, D., (2021). cffr: Generate Citation File Format Metadata
 for R Packages. Journal of Open Source Software, 6(67), 3900,
 <https://doi.org/10.21105/joss.03900>
 
-A BibTeX entry for LaTeX users is
+A BibTeX entry for LaTeX users is:
 
-    @Article{hernangomez2021,
-      doi = {10.21105/joss.03900},
-      url = {https://doi.org/10.21105/joss.03900},
-      year = {2021},
-      publisher = {The Open Journal},
-      volume = {6},
-      number = {67},
-      pages = {3900},
-      author = {Diego Hernangómez},
-      title = {{cffr}: Generate Citation File Format Metadata for {R} Packages},
-      journal = {Journal of Open Source Software},
-    }
+``` bibtex
+@article{hernangomez2021,
+    title        = {{cffr}: Generate Citation File Format Metadata for {R} Packages},
+    author       = {Diego Hernangómez},
+    year         = 2021,
+    journal      = {Journal of Open Source Software},
+    publisher    = {The Open Journal},
+    volume       = 6,
+    number       = 67,
+    pages        = 3900,
+    doi          = {10.21105/joss.03900},
+    url          = {https://doi.org/10.21105/joss.03900}
+}
+```
 
 You can also use the [citation provided by
 GitHub](https://github.com/ropensci/cffr), that is generated from the
@@ -880,13 +886,14 @@ for more info.
 
 ## References
 
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent"
+entry-spacing="0">
 
 <div id="ref-codemeta" class="csl-entry">
 
-Boettiger, Carl, and Maëlle Salmon. 2021a. *<span
-class="nocase">codemeta</span>: A Smaller <span
-class="nocase">codemetar</span> Package*.
+Boettiger, Carl, and Maëlle Salmon. 2021a.
+*<span class="nocase">codemeta</span>: A Smaller
+<span class="nocase">codemetar</span> Package*.
 <https://CRAN.R-project.org/package=codemeta>.
 
 </div>
@@ -907,8 +914,8 @@ Among Citation Formats*.
 
 <div id="ref-citation22" class="csl-entry">
 
-Dietrich, Jan Philipp, and Waldir Leoncio. 2022. *<span
-class="nocase">citation</span>: Software Citation Tools*.
+Dietrich, Jan Philipp, and Waldir Leoncio. 2022.
+*<span class="nocase">citation</span>: Software Citation Tools*.
 
 </div>
 

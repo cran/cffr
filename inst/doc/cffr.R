@@ -1,4 +1,4 @@
-## ---- include = FALSE-------------------------------------
+## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -11,34 +11,29 @@ library(cffr)
 ## ----echo=FALSE, out.width="400", fig.align='center', fig.alt="GitHub-link"----
 knitr::include_graphics("tweet-1.png")
 
-## ----setup, eval=FALSE------------------------------------
+## ----setup, eval=FALSE--------------------------------------------------------
 #  library(cffr)
 #  
 #  cff_write()
 #  
 #  # You are done!
 
-## ----newfields--------------------------------------------
-newobject <- cff_create(cff())
-
-# For modifying your auto-generated object, run this line instead:
-# newoobject <- cff_create()
+## ----newfields----------------------------------------------------------------
+newobject <- cff()
 
 newobject
 
-## ----validkeys--------------------------------------------
+## ----validkeys----------------------------------------------------------------
 cff_schema_keys()
 
-## ----modify-----------------------------------------------
-newkeys <- list(
-  "url" = "https://ropensci.org/",
-  "version" = "0.0.1",
-  "repository" = "https://github.com/ropensci/cffr",
+## ----modify-------------------------------------------------------------------
+modobject <- cff_modify(newobject,
+  url = "https://ropensci.org/",
+  version = "0.0.1",
+  repository = "https://github.com/ropensci/cffr",
   # If the field is already present, it would be overridden
   title = "Modifying a 'cff' object"
 )
-
-modobject <- cff_create(newobject, keys = newkeys)
 
 modobject
 
@@ -46,7 +41,7 @@ modobject
 
 cff_validate(modobject)
 
-## ----includeauthor----------------------------------------
+## ----includeauthor------------------------------------------------------------
 # Valid person keys
 
 cff_schema_definitions_person()
@@ -66,34 +61,29 @@ chiquito <- person("Gregorio",
 
 chiquito
 
-# Parse it
-chiquito_parsed <- cff_parse_person(chiquito)
-chiquito_parsed
+# To cff
+chiquito_cff <- as_cff_person(chiquito)
+chiquito_cff
 
 
 # Append to previous authors
 
-# Needs to be append as a list
-newauthors <- c(modobject$authors, list(chiquito_parsed))
+newauthors <- c(modobject$authors, chiquito_cff)
 newauthors
 
-newauthorobject <- cff_create(modobject, keys = list(authors = newauthors))
+newauthorobject <- cff_modify(modobject, authors = newauthors)
 
 newauthorobject
 
 cff_validate(newauthorobject)
 
-## ----parsingcits------------------------------------------
+## ----parsingcits--------------------------------------------------------------
 # Valid reference keys
 
 cff_schema_definitions_refs()
 
-# Auto parsed from another R package
-base_r <- cff_parse_citation(citation("base"))
-
-base_r
-
-# Create with bibentry
+# Auto coercion from another R package
+base_r <- citation("base")
 
 bib <- bibentry("Book",
   title = "This is a book",
@@ -102,47 +92,46 @@ bib <- bibentry("Book",
   publisher = "McGraw Hill",
   volume = 2
 )
-bib
 
-# Now parse it
+refs <- c(base_r, bib)
 
-bookparsed <- cff_parse_citation(bib)
+refs
 
-bookparsed
+# Now to cff
 
-## ----references-------------------------------------------
-refkeys <- list(references = c(list(base_r), list(bookparsed)))
+refs_cff <- as_cff(refs)
 
-refkeys
+refs_cff
 
-finalobject <- cff_create(newauthorobject, keys = refkeys)
+## ----references---------------------------------------------------------------
+finalobject <- cff_modify(newauthorobject, references = refs_cff)
 
 finalobject
 
 cff_validate(finalobject)
 
-## ----write------------------------------------------------
+## ----write--------------------------------------------------------------------
 # For example
 tmp <- tempfile(fileext = ".cff")
 
 see_res <- cff_write(finalobject, outfile = tmp)
 
-see_res
+cat(readLines(tmp), sep = "\n")
 
-## ----read-------------------------------------------------
-reading <- cff(tmp)
+## ----read---------------------------------------------------------------------
+reading <- cff_read(tmp)
 
 reading
 
-## ---------------------------------------------------------
+## -----------------------------------------------------------------------------
 allkeys <- list(
   "url" = "https://ropensci.org/",
   "version" = "0.0.1",
-  "repository" = "https://github.com/user/repo",
+  "repository" = "https://github.com/ropensci/cffr",
   # If the field is already present, it would be overridden
   title = "Modifying a 'cff' object",
   authors = newauthors,
-  references = c(list(base_r), list(bookparsed))
+  references = refs_cff
 )
 
 tmp2 <- tempfile(fileext = ".cff")
@@ -150,4 +139,9 @@ tmp2 <- tempfile(fileext = ".cff")
 res <- cff_write(cff(), outfile = tmp2, keys = allkeys)
 
 res
+
+## ----include=FALSE------------------------------------------------------------
+# Clean temps
+unlink(tmp)
+unlink(tmp2)
 

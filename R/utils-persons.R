@@ -260,49 +260,146 @@ bibtex_pers_first_von_last <- function(x) {
   return(end_list)
 }
 
-as_person_bibtex <- function(x) {
-  # Identify the pattern
-  # It may be one of:
-  # A. Given von Family
-  # B. von Family, Given
-  # C. von Family, Junior, Given
+validate_cff_person_fields <- function(person_cff) {
+  # Entity of person
 
-  # Protect commas on brackets to avoid error counting
-  protected <- gsub(",(?![^\\}]*(\\{|$))", "@comma@",
-    x,
+  # Guess entity or person
+  is_entity <- as.character("name" %in% names(person_cff))
+
+  # Keep only valid tags - Would depend on entity or person
+  definition <- switch(is_entity,
+    "TRUE" = cff_schema_definitions_entity(),
+    cff_schema_definitions_person()
+  )
+
+  person_cff <- person_cff[names(person_cff) %in% definition]
+
+  # Duplicates removed
+  person_cff <- person_cff[!duplicated(names(person_cff))]
+
+  person_cff
+}
+
+split_txt_persons <- function(person) {
+  person <- trimws(person)
+  person <- paste0(person, collapse = " and ")
+
+  # Remove role on [] as it comes from print.person by default
+  # We don't use it here
+  person <- gsub("\\[[^()]*\\]", "", person)
+
+  # Protect 'and' on brackets {}
+  # Lower
+  protected <- gsub("(and)(?![^\\}]*(\\{|$))", "@nd@",
+    person,
     perl = TRUE
   )
 
-  commas <- length(grep(",", unlist(strsplit(protected, "|"))))
+  # upper
+  protected <- gsub("AND(?![^\\}]*(\\{|$))", "@ND@",
+    protected,
+    perl = TRUE
+  )
 
-  if (commas == 0) {
-    # Case A
-    end_list <- bibtex_pers_first_von_last(x)
-  } else if (commas == 1) {
-    # Case B
-    end_list <- bibtex_pers_von_last_first(x)
-  } else if (commas == 2) {
-    # Case C
-    end_list <- bibtex_pers_von_last_first_jr(x)
-  } else {
-    # Not considered by BibTeX. everything to family
-    end_list <- list(family = paste(x, collapse = " "))
+  # Do the same for 'and' in comments "()" as provided by print.person
+  # Lower
+  protected <- gsub("(and)(?![^\\)]*(\\(|$))", "@nd@",
+    protected,
+    perl = TRUE
+  )
+
+  # upper
+  protected <- gsub("AND(?![^\\)]*(\\(|$))", "@ND@",
+    protected,
+    perl = TRUE
+  )
+
+  # Do the same for 'and' in "<>". These are email, should never happen
+  # Lower
+  protected <- gsub("(and)(?![^>]*(<|$))", "@nd@",
+    protected,
+    perl = TRUE
+  )
+
+  # upper
+  protected <- gsub("AND(?![^>]*(<|$))", "@ND@",
+    protected,
+    perl = TRUE
+  )
+
+  auths <- unlist(strsplit(protected, " and | AND "))
+
+  # Unprotec
+  auths_un <- gsub("@nd@", "and", auths)
+  auths_un <- gsub("@ND@", "AND", auths_un)
+
+  auths_un
+}
+
+extract_person_comments <- function(person) {
+  # Ensure person type
+  person <- as.person(person)
+
+  # Extract from comments
+  comm_cff <- as.list(person$comment)
+  names(comm_cff) <- tolower(names(comm_cff))
+  nms_com <- names(comm_cff)
+  comment_as_text <- tolower(clean_str(comm_cff))
+
+  # Special case when coerced from text, only can extract orcid and web
+  if (all(
+    any(is.na(nms_com), length(nms_com) == 0),
+    length(comment_as_text > 0)
+  )
+  ) {
+    split_comments <- unlist(strsplit(comment_as_text, ",| |<|>"))
+
+    # Guess that seems to be a web
+    url_comment <- split_comments[is_url(split_comments)]
+
+    # guess orcid
+    orcid <- url_comment[grepl("orcid.org/", url_comment)]
+
+    # Get the first non-orcid url
+    web <- url_comment[!grepl("orcid.org/", url_comment)][1]
+
+    # Reset comment list
+    comm_cff <- list()
+
+    comm_cff$orcid <- clean_str(orcid)
+    comm_cff$website <- clean_str(web)
   }
 
-  # Clean
-  end_list <- lapply(end_list, function(z) {
-    if (is.null(z)) {
-      return(NULL)
-    }
-    if (any((is.na(z) | z == ""))) {
-      return(NULL)
-    }
+  # Add url to orcid if not present
+  # Get leading invalid urls
 
-    gsub("\\{|\\}", "", z)
-  })
+  if (!is.null(comm_cff$orcid)) {
+    orcid <- gsub("^orcid.org/", "", comm_cff$orcid)
+    orcid <- gsub("^https://orcid.org/", "", orcid)
+    orcid <- gsub("^http://orcid.org/", "", orcid)
 
-  end_list <- lapply(end_list, clean_str)
+    comm_cff$orcid <- paste0("https://orcid.org/", orcid)
+  }
 
+  # Add website
+  web <- comm_cff$website
 
-  return(end_list)
+  if (!is.null(web)) {
+    comm_cff$website <- clean_str(web[is_url(web)])
+  }
+
+  # Add also email
+  # Check if several mails (MomTrunc 6.0)
+  look_emails <- c(unlist(person$email), comm_cff$email)
+  valid_emails <- unlist(lapply(look_emails, is_email))
+  email <- look_emails[valid_emails][1]
+
+  # Final list
+  fin_list <- c(
+    list(email = NULL),
+    comm_cff["email" != names(comm_cff)]
+  )
+  fin_list$email <- clean_str(email)
+
+  fin_list
 }

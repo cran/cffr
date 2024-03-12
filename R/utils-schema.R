@@ -33,7 +33,7 @@
 #'
 #' ```
 #'
-#' @family schema
+#' @family schemas
 #'
 #' @export
 #'
@@ -253,4 +253,52 @@ cff_schema_definitions_refs <- function() {
     "year-original"
   )
   definitions_reference
+}
+
+
+# Helper lists and vectors ----
+
+#' Vector other persons
+#' @noRd
+other_persons <- function() {
+  pers_ent <- c(
+    "contact",
+    "editors",
+    "editors-series",
+    "recipients",
+    "senders",
+    "translators"
+  )
+
+  pers_ent <- sort(unique(c(
+    pers_ent,
+    other_persons_entity(),
+    entity_person()
+  )))
+
+  return(pers_ent)
+}
+
+#' Vector other persons to be coerced as entities
+#' @noRd
+other_persons_entity <- function() {
+  entities <- c(
+    "conference",
+    "database-provider",
+    "institution",
+    "location",
+    "publisher"
+  )
+
+  entities
+}
+
+#' This may be entities or persons
+#' @noRd
+entity_person <- function() {
+  forced <- c(
+    "editors",
+    "editors-series"
+  )
+  forced
 }

@@ -7,37 +7,27 @@
 #'
 #' This function writes out a `CITATION.cff` file for a given package. This
 #' function is basically a wrapper around [cff_create()] to both create the
-#' [`cff`] object and writes it out to a YAML-formatted file in one command.
+#' [`cff`] object and write it out to a YAML-formatted file in
+#' one command.
 #'
-#' @family core functions
+#' @family writing
 #'
-#' @param x The source that would be used for generating
-#'   the `CITATION.cff` file. It could be:
-#'   * A missing value. That would retrieve the DESCRIPTION
-#'     file on your in-development package.
-#'   * A [`cff`] object,
-#'   * The name of an installed package (`"jsonlite"`), or
-#'   * Path to a DESCRIPTION file (`"*/DESCRIPTION*"`).
 #'
 #' @param outfile The name and path of the `CITATION.cff` to be created.
-#'
-#' @param keys List of additional keys to add to the [`cff`] object. See
-#'  [cff_create()] for details and examples.
-#'
-#' @param validate Logical `TRUE/FALSE`. Should the new file be validated using
-#'   [cff_validate()]?
 #'
 #' @param verbose Logical `TRUE/FALSE`. On `TRUE` the function would display
 #'   informative messages.
 #'
-#' @param authors_roles Roles to be considered as authors of the package when
-#'   generating the `CITATION.cff` file. See **Details** on [cff_create()].
+#' @param validate validate Logical `TRUE/FALSE`. Should the new file be
+#'   validated using `cff_validate()`?
+#'
+#' @inheritParams cff_create
+#' @inheritParams cff_validate
 #'
 #' @export
 #'
-#' @inheritParams cff_create
 #'
-#' @return A `CITATION.cff` file and an (invisible) [`cff`] object.
+#' @return A `CITATION.cff` file and an (invisible) `cff` object.
 #'
 #' @seealso
 #' ```{r, echo=FALSE, results='asis'}
@@ -48,6 +38,9 @@
 #'
 #'
 #' ```
+#' This function unifies the workflow [cff_create()] + [cff_validate()] +
+#' write a file.
+#'
 #' @examples
 #' \donttest{
 #' tmpfile <- tempfile(fileext = ".cff")
@@ -60,18 +53,17 @@
 #' }
 #' @details
 #'
+#' For details of `authors_roles` see [cff_create()].
+#'
 #' When creating and writing a `CITATION.cff` for the first time, the function
-#' adds "CITATION.cff" to ".Rbuildignore".
-cff_write <- function(x,
-                      outfile = "CITATION.cff",
-                      keys = list(),
-                      cff_version = "1.2.0",
-                      gh_keywords = TRUE,
-                      dependencies = TRUE,
-                      validate = TRUE,
-                      verbose = TRUE,
-                      authors_roles = c("aut", "cre")) {
-  # On missing use package root
+#' adds the pattern `"^CITATION\.cff$"` to your `.Rbuildignore` file to avoid
+#' `NOTE`s and `WARNING`s in `R CMD CHECK`.
+#'
+cff_write <- function(x, outfile = "CITATION.cff", keys = list(),
+                      cff_version = "1.2.0", gh_keywords = TRUE,
+                      dependencies = TRUE, validate = TRUE,
+                      verbose = TRUE, authors_roles = c("aut", "cre")) {
+  # # On missing use NULL
   if (missing(x)) x <- getwd()
 
   citat <- cff_create(x,
@@ -84,7 +76,7 @@ cff_write <- function(x,
 
 
   # Fix string if it is not cff
-  if (!is.substring(outfile, ".cff$")) outfile <- paste0(outfile, ".cff")
+  if (!is_substring(outfile, ".cff$")) outfile <- paste0(outfile, ".cff")
 
   # Check if dir exist and if not create
   outdir <- dirname(outfile)
@@ -122,7 +114,7 @@ cff_write <- function(x,
   }
 
   # Add CITATION.cff to .Rbuildignore
-  if (!is.cff(x) && x == getwd() && file.exists(".Rbuildignore")) {
+  if (!is_cff(x) && x == getwd() && file_exist_abort(".Rbuildignore")) {
     ignore <- readLines(".Rbuildignore")
 
     # If not already
