@@ -50,7 +50,7 @@ overflow: visible;
 </style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -61,7 +61,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
 { counter-reset: source-line 0; }
@@ -149,7 +149,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; }
 div.csl-bib-body { }
 div.csl-entry {
 clear: both;
-margin-bottom: 0em;
 }
 .hanging div.csl-entry {
 margin-left:2em;
@@ -1477,246 +1476,181 @@ on each dependency.</p>
 <span id="cb17-311"><a href="#cb17-311" tabindex="-1"></a><span class="co">#&gt;     given-names: Michael</span></span>
 <span id="cb17-312"><a href="#cb17-312" tabindex="-1"></a><span class="co">#&gt;   year: &#39;2024&#39;</span></span>
 <span id="cb17-313"><a href="#cb17-313" tabindex="-1"></a><span class="co">#&gt; - type: software</span></span>
-<span id="cb17-314"><a href="#cb17-314" tabindex="-1"></a><span class="co">#&gt;   title: dygraphs</span></span>
-<span id="cb17-315"><a href="#cb17-315" tabindex="-1"></a><span class="co">#&gt;   abstract: &#39;dygraphs: Interface to &#39;&#39;Dygraphs&#39;&#39; Interactive Time Series Charting</span></span>
-<span id="cb17-316"><a href="#cb17-316" tabindex="-1"></a><span class="co">#&gt;     Library&#39;</span></span>
-<span id="cb17-317"><a href="#cb17-317" tabindex="-1"></a><span class="co">#&gt;   notes: Suggests</span></span>
-<span id="cb17-318"><a href="#cb17-318" tabindex="-1"></a><span class="co">#&gt;   url: https://github.com/rstudio/dygraphs</span></span>
-<span id="cb17-319"><a href="#cb17-319" tabindex="-1"></a><span class="co">#&gt;   repository: https://CRAN.R-project.org/package=dygraphs</span></span>
-<span id="cb17-320"><a href="#cb17-320" tabindex="-1"></a><span class="co">#&gt;   authors:</span></span>
-<span id="cb17-321"><a href="#cb17-321" tabindex="-1"></a><span class="co">#&gt;   - family-names: Vanderkam</span></span>
-<span id="cb17-322"><a href="#cb17-322" tabindex="-1"></a><span class="co">#&gt;     given-names: Dan</span></span>
-<span id="cb17-323"><a href="#cb17-323" tabindex="-1"></a><span class="co">#&gt;     website: http://dygraphs.com/</span></span>
-<span id="cb17-324"><a href="#cb17-324" tabindex="-1"></a><span class="co">#&gt;   - family-names: Allaire</span></span>
-<span id="cb17-325"><a href="#cb17-325" tabindex="-1"></a><span class="co">#&gt;     given-names: JJ</span></span>
-<span id="cb17-326"><a href="#cb17-326" tabindex="-1"></a><span class="co">#&gt;   - family-names: Owen</span></span>
-<span id="cb17-327"><a href="#cb17-327" tabindex="-1"></a><span class="co">#&gt;     given-names: Jonathan</span></span>
-<span id="cb17-328"><a href="#cb17-328" tabindex="-1"></a><span class="co">#&gt;   - family-names: Gromer</span></span>
-<span id="cb17-329"><a href="#cb17-329" tabindex="-1"></a><span class="co">#&gt;     given-names: Daniel</span></span>
-<span id="cb17-330"><a href="#cb17-330" tabindex="-1"></a><span class="co">#&gt;   - family-names: Thieurmel</span></span>
-<span id="cb17-331"><a href="#cb17-331" tabindex="-1"></a><span class="co">#&gt;     given-names: Benoit</span></span>
-<span id="cb17-332"><a href="#cb17-332" tabindex="-1"></a><span class="co">#&gt;   year: &#39;2024&#39;</span></span>
-<span id="cb17-333"><a href="#cb17-333" tabindex="-1"></a><span class="co">#&gt; - type: software</span></span>
-<span id="cb17-334"><a href="#cb17-334" tabindex="-1"></a><span class="co">#&gt;   title: fs</span></span>
-<span id="cb17-335"><a href="#cb17-335" tabindex="-1"></a><span class="co">#&gt;   abstract: &#39;fs: Cross-Platform File System Operations Based on &#39;&#39;libuv&#39;&#39;&#39;</span></span>
-<span id="cb17-336"><a href="#cb17-336" tabindex="-1"></a><span class="co">#&gt;   notes: Suggests</span></span>
-<span id="cb17-337"><a href="#cb17-337" tabindex="-1"></a><span class="co">#&gt;   url: https://fs.r-lib.org</span></span>
-<span id="cb17-338"><a href="#cb17-338" tabindex="-1"></a><span class="co">#&gt;   repository: https://CRAN.R-project.org/package=fs</span></span>
-<span id="cb17-339"><a href="#cb17-339" tabindex="-1"></a><span class="co">#&gt;   authors:</span></span>
-<span id="cb17-340"><a href="#cb17-340" tabindex="-1"></a><span class="co">#&gt;   - family-names: Hester</span></span>
-<span id="cb17-341"><a href="#cb17-341" tabindex="-1"></a><span class="co">#&gt;     given-names: Jim</span></span>
-<span id="cb17-342"><a href="#cb17-342" tabindex="-1"></a><span class="co">#&gt;   - family-names: Wickham</span></span>
-<span id="cb17-343"><a href="#cb17-343" tabindex="-1"></a><span class="co">#&gt;     given-names: Hadley</span></span>
-<span id="cb17-344"><a href="#cb17-344" tabindex="-1"></a><span class="co">#&gt;     email: hadley@rstudio.com</span></span>
-<span id="cb17-345"><a href="#cb17-345" tabindex="-1"></a><span class="co">#&gt;   - family-names: Csárdi</span></span>
-<span id="cb17-346"><a href="#cb17-346" tabindex="-1"></a><span class="co">#&gt;     given-names: Gábor</span></span>
-<span id="cb17-347"><a href="#cb17-347" tabindex="-1"></a><span class="co">#&gt;     email: csardi.gabor@gmail.com</span></span>
-<span id="cb17-348"><a href="#cb17-348" tabindex="-1"></a><span class="co">#&gt;   year: &#39;2024&#39;</span></span>
-<span id="cb17-349"><a href="#cb17-349" tabindex="-1"></a><span class="co">#&gt; - type: software</span></span>
-<span id="cb17-350"><a href="#cb17-350" tabindex="-1"></a><span class="co">#&gt;   title: rsconnect</span></span>
-<span id="cb17-351"><a href="#cb17-351" tabindex="-1"></a><span class="co">#&gt;   abstract: &#39;rsconnect: Deploy Docs, Apps, and APIs to &#39;&#39;Posit Connect&#39;&#39;, &#39;&#39;shinyapps.io&#39;&#39;,</span></span>
-<span id="cb17-352"><a href="#cb17-352" tabindex="-1"></a><span class="co">#&gt;     and &#39;&#39;RPubs&#39;&#39;&#39;</span></span>
-<span id="cb17-353"><a href="#cb17-353" tabindex="-1"></a><span class="co">#&gt;   notes: Suggests</span></span>
-<span id="cb17-354"><a href="#cb17-354" tabindex="-1"></a><span class="co">#&gt;   url: https://rstudio.github.io/rsconnect/</span></span>
-<span id="cb17-355"><a href="#cb17-355" tabindex="-1"></a><span class="co">#&gt;   repository: https://CRAN.R-project.org/package=rsconnect</span></span>
-<span id="cb17-356"><a href="#cb17-356" tabindex="-1"></a><span class="co">#&gt;   authors:</span></span>
-<span id="cb17-357"><a href="#cb17-357" tabindex="-1"></a><span class="co">#&gt;   - family-names: Atkins</span></span>
-<span id="cb17-358"><a href="#cb17-358" tabindex="-1"></a><span class="co">#&gt;     given-names: Aron</span></span>
-<span id="cb17-359"><a href="#cb17-359" tabindex="-1"></a><span class="co">#&gt;     email: aron@posit.co</span></span>
-<span id="cb17-360"><a href="#cb17-360" tabindex="-1"></a><span class="co">#&gt;   - family-names: Allen</span></span>
-<span id="cb17-361"><a href="#cb17-361" tabindex="-1"></a><span class="co">#&gt;     given-names: Toph</span></span>
-<span id="cb17-362"><a href="#cb17-362" tabindex="-1"></a><span class="co">#&gt;   - family-names: Wickham</span></span>
-<span id="cb17-363"><a href="#cb17-363" tabindex="-1"></a><span class="co">#&gt;     given-names: Hadley</span></span>
-<span id="cb17-364"><a href="#cb17-364" tabindex="-1"></a><span class="co">#&gt;   - family-names: McPherson</span></span>
-<span id="cb17-365"><a href="#cb17-365" tabindex="-1"></a><span class="co">#&gt;     given-names: Jonathan</span></span>
-<span id="cb17-366"><a href="#cb17-366" tabindex="-1"></a><span class="co">#&gt;   - family-names: Allaire</span></span>
-<span id="cb17-367"><a href="#cb17-367" tabindex="-1"></a><span class="co">#&gt;     given-names: JJ</span></span>
-<span id="cb17-368"><a href="#cb17-368" tabindex="-1"></a><span class="co">#&gt;   year: &#39;2024&#39;</span></span>
-<span id="cb17-369"><a href="#cb17-369" tabindex="-1"></a><span class="co">#&gt; - type: software</span></span>
-<span id="cb17-370"><a href="#cb17-370" tabindex="-1"></a><span class="co">#&gt;   title: downlit</span></span>
-<span id="cb17-371"><a href="#cb17-371" tabindex="-1"></a><span class="co">#&gt;   abstract: &#39;downlit: Syntax Highlighting and Automatic Linking&#39;</span></span>
-<span id="cb17-372"><a href="#cb17-372" tabindex="-1"></a><span class="co">#&gt;   notes: Suggests</span></span>
-<span id="cb17-373"><a href="#cb17-373" tabindex="-1"></a><span class="co">#&gt;   url: https://downlit.r-lib.org/</span></span>
-<span id="cb17-374"><a href="#cb17-374" tabindex="-1"></a><span class="co">#&gt;   repository: https://CRAN.R-project.org/package=downlit</span></span>
-<span id="cb17-375"><a href="#cb17-375" tabindex="-1"></a><span class="co">#&gt;   authors:</span></span>
-<span id="cb17-376"><a href="#cb17-376" tabindex="-1"></a><span class="co">#&gt;   - family-names: Wickham</span></span>
-<span id="cb17-377"><a href="#cb17-377" tabindex="-1"></a><span class="co">#&gt;     given-names: Hadley</span></span>
-<span id="cb17-378"><a href="#cb17-378" tabindex="-1"></a><span class="co">#&gt;     email: hadley@posit.co</span></span>
-<span id="cb17-379"><a href="#cb17-379" tabindex="-1"></a><span class="co">#&gt;   year: &#39;2024&#39;</span></span>
-<span id="cb17-380"><a href="#cb17-380" tabindex="-1"></a><span class="co">#&gt;   version: &#39;&gt;= 0.4.0&#39;</span></span>
-<span id="cb17-381"><a href="#cb17-381" tabindex="-1"></a><span class="co">#&gt; - type: software</span></span>
-<span id="cb17-382"><a href="#cb17-382" tabindex="-1"></a><span class="co">#&gt;   title: katex</span></span>
-<span id="cb17-383"><a href="#cb17-383" tabindex="-1"></a><span class="co">#&gt;   abstract: &#39;katex: Rendering Math to HTML, &#39;&#39;MathML&#39;&#39;, or R-Documentation Format&#39;</span></span>
-<span id="cb17-384"><a href="#cb17-384" tabindex="-1"></a><span class="co">#&gt;   notes: Suggests</span></span>
-<span id="cb17-385"><a href="#cb17-385" tabindex="-1"></a><span class="co">#&gt;   url: https://docs.ropensci.org/katex/</span></span>
-<span id="cb17-386"><a href="#cb17-386" tabindex="-1"></a><span class="co">#&gt;   repository: https://CRAN.R-project.org/package=katex</span></span>
-<span id="cb17-387"><a href="#cb17-387" tabindex="-1"></a><span class="co">#&gt;   authors:</span></span>
-<span id="cb17-388"><a href="#cb17-388" tabindex="-1"></a><span class="co">#&gt;   - family-names: Ooms</span></span>
-<span id="cb17-389"><a href="#cb17-389" tabindex="-1"></a><span class="co">#&gt;     given-names: Jeroen</span></span>
-<span id="cb17-390"><a href="#cb17-390" tabindex="-1"></a><span class="co">#&gt;     email: jeroen@berkeley.edu</span></span>
-<span id="cb17-391"><a href="#cb17-391" tabindex="-1"></a><span class="co">#&gt;     orcid: https://orcid.org/0000-0002-4035-0289</span></span>
-<span id="cb17-392"><a href="#cb17-392" tabindex="-1"></a><span class="co">#&gt;   year: &#39;2024&#39;</span></span>
-<span id="cb17-393"><a href="#cb17-393" tabindex="-1"></a><span class="co">#&gt;   version: &#39;&gt;= 1.4.0&#39;</span></span>
-<span id="cb17-394"><a href="#cb17-394" tabindex="-1"></a><span class="co">#&gt; - type: software</span></span>
-<span id="cb17-395"><a href="#cb17-395" tabindex="-1"></a><span class="co">#&gt;   title: sass</span></span>
-<span id="cb17-396"><a href="#cb17-396" tabindex="-1"></a><span class="co">#&gt;   abstract: &#39;sass: Syntactically Awesome Style Sheets (&#39;&#39;Sass&#39;&#39;)&#39;</span></span>
-<span id="cb17-397"><a href="#cb17-397" tabindex="-1"></a><span class="co">#&gt;   notes: Suggests</span></span>
-<span id="cb17-398"><a href="#cb17-398" tabindex="-1"></a><span class="co">#&gt;   url: https://rstudio.github.io/sass/</span></span>
-<span id="cb17-399"><a href="#cb17-399" tabindex="-1"></a><span class="co">#&gt;   repository: https://CRAN.R-project.org/package=sass</span></span>
-<span id="cb17-400"><a href="#cb17-400" tabindex="-1"></a><span class="co">#&gt;   authors:</span></span>
-<span id="cb17-401"><a href="#cb17-401" tabindex="-1"></a><span class="co">#&gt;   - family-names: Cheng</span></span>
-<span id="cb17-402"><a href="#cb17-402" tabindex="-1"></a><span class="co">#&gt;     given-names: Joe</span></span>
-<span id="cb17-403"><a href="#cb17-403" tabindex="-1"></a><span class="co">#&gt;     email: joe@rstudio.com</span></span>
-<span id="cb17-404"><a href="#cb17-404" tabindex="-1"></a><span class="co">#&gt;   - family-names: Mastny</span></span>
-<span id="cb17-405"><a href="#cb17-405" tabindex="-1"></a><span class="co">#&gt;     given-names: Timothy</span></span>
-<span id="cb17-406"><a href="#cb17-406" tabindex="-1"></a><span class="co">#&gt;     email: tim.mastny@gmail.com</span></span>
-<span id="cb17-407"><a href="#cb17-407" tabindex="-1"></a><span class="co">#&gt;   - family-names: Iannone</span></span>
-<span id="cb17-408"><a href="#cb17-408" tabindex="-1"></a><span class="co">#&gt;     given-names: Richard</span></span>
-<span id="cb17-409"><a href="#cb17-409" tabindex="-1"></a><span class="co">#&gt;     email: rich@rstudio.com</span></span>
-<span id="cb17-410"><a href="#cb17-410" tabindex="-1"></a><span class="co">#&gt;     orcid: https://orcid.org/0000-0003-3925-190X</span></span>
-<span id="cb17-411"><a href="#cb17-411" tabindex="-1"></a><span class="co">#&gt;   - family-names: Schloerke</span></span>
-<span id="cb17-412"><a href="#cb17-412" tabindex="-1"></a><span class="co">#&gt;     given-names: Barret</span></span>
-<span id="cb17-413"><a href="#cb17-413" tabindex="-1"></a><span class="co">#&gt;     email: barret@rstudio.com</span></span>
-<span id="cb17-414"><a href="#cb17-414" tabindex="-1"></a><span class="co">#&gt;     orcid: https://orcid.org/0000-0001-9986-114X</span></span>
-<span id="cb17-415"><a href="#cb17-415" tabindex="-1"></a><span class="co">#&gt;   - family-names: Sievert</span></span>
-<span id="cb17-416"><a href="#cb17-416" tabindex="-1"></a><span class="co">#&gt;     given-names: Carson</span></span>
-<span id="cb17-417"><a href="#cb17-417" tabindex="-1"></a><span class="co">#&gt;     email: carson@rstudio.com</span></span>
-<span id="cb17-418"><a href="#cb17-418" tabindex="-1"></a><span class="co">#&gt;     orcid: https://orcid.org/0000-0002-4958-2844</span></span>
-<span id="cb17-419"><a href="#cb17-419" tabindex="-1"></a><span class="co">#&gt;   year: &#39;2024&#39;</span></span>
-<span id="cb17-420"><a href="#cb17-420" tabindex="-1"></a><span class="co">#&gt;   version: &#39;&gt;= 0.4.0&#39;</span></span>
-<span id="cb17-421"><a href="#cb17-421" tabindex="-1"></a><span class="co">#&gt; - type: software</span></span>
-<span id="cb17-422"><a href="#cb17-422" tabindex="-1"></a><span class="co">#&gt;   title: shiny</span></span>
-<span id="cb17-423"><a href="#cb17-423" tabindex="-1"></a><span class="co">#&gt;   abstract: &#39;shiny: Web Application Framework for R&#39;</span></span>
-<span id="cb17-424"><a href="#cb17-424" tabindex="-1"></a><span class="co">#&gt;   notes: Suggests</span></span>
-<span id="cb17-425"><a href="#cb17-425" tabindex="-1"></a><span class="co">#&gt;   url: https://shiny.posit.co/</span></span>
-<span id="cb17-426"><a href="#cb17-426" tabindex="-1"></a><span class="co">#&gt;   repository: https://CRAN.R-project.org/package=shiny</span></span>
-<span id="cb17-427"><a href="#cb17-427" tabindex="-1"></a><span class="co">#&gt;   authors:</span></span>
-<span id="cb17-428"><a href="#cb17-428" tabindex="-1"></a><span class="co">#&gt;   - family-names: Chang</span></span>
-<span id="cb17-429"><a href="#cb17-429" tabindex="-1"></a><span class="co">#&gt;     given-names: Winston</span></span>
-<span id="cb17-430"><a href="#cb17-430" tabindex="-1"></a><span class="co">#&gt;     email: winston@posit.co</span></span>
-<span id="cb17-431"><a href="#cb17-431" tabindex="-1"></a><span class="co">#&gt;     orcid: https://orcid.org/0000-0002-1576-2126</span></span>
-<span id="cb17-432"><a href="#cb17-432" tabindex="-1"></a><span class="co">#&gt;   - family-names: Cheng</span></span>
-<span id="cb17-433"><a href="#cb17-433" tabindex="-1"></a><span class="co">#&gt;     given-names: Joe</span></span>
-<span id="cb17-434"><a href="#cb17-434" tabindex="-1"></a><span class="co">#&gt;     email: joe@posit.co</span></span>
-<span id="cb17-435"><a href="#cb17-435" tabindex="-1"></a><span class="co">#&gt;   - family-names: Allaire</span></span>
-<span id="cb17-436"><a href="#cb17-436" tabindex="-1"></a><span class="co">#&gt;     given-names: JJ</span></span>
-<span id="cb17-437"><a href="#cb17-437" tabindex="-1"></a><span class="co">#&gt;     email: jj@posit.co</span></span>
-<span id="cb17-438"><a href="#cb17-438" tabindex="-1"></a><span class="co">#&gt;   - family-names: Sievert</span></span>
-<span id="cb17-439"><a href="#cb17-439" tabindex="-1"></a><span class="co">#&gt;     given-names: Carson</span></span>
-<span id="cb17-440"><a href="#cb17-440" tabindex="-1"></a><span class="co">#&gt;     email: carson@posit.co</span></span>
-<span id="cb17-441"><a href="#cb17-441" tabindex="-1"></a><span class="co">#&gt;     orcid: https://orcid.org/0000-0002-4958-2844</span></span>
-<span id="cb17-442"><a href="#cb17-442" tabindex="-1"></a><span class="co">#&gt;   - family-names: Schloerke</span></span>
-<span id="cb17-443"><a href="#cb17-443" tabindex="-1"></a><span class="co">#&gt;     given-names: Barret</span></span>
-<span id="cb17-444"><a href="#cb17-444" tabindex="-1"></a><span class="co">#&gt;     email: barret@posit.co</span></span>
-<span id="cb17-445"><a href="#cb17-445" tabindex="-1"></a><span class="co">#&gt;     orcid: https://orcid.org/0000-0001-9986-114X</span></span>
-<span id="cb17-446"><a href="#cb17-446" tabindex="-1"></a><span class="co">#&gt;   - family-names: Xie</span></span>
-<span id="cb17-447"><a href="#cb17-447" tabindex="-1"></a><span class="co">#&gt;     given-names: Yihui</span></span>
-<span id="cb17-448"><a href="#cb17-448" tabindex="-1"></a><span class="co">#&gt;     email: yihui@posit.co</span></span>
-<span id="cb17-449"><a href="#cb17-449" tabindex="-1"></a><span class="co">#&gt;   - family-names: Allen</span></span>
-<span id="cb17-450"><a href="#cb17-450" tabindex="-1"></a><span class="co">#&gt;     given-names: Jeff</span></span>
-<span id="cb17-451"><a href="#cb17-451" tabindex="-1"></a><span class="co">#&gt;   - family-names: McPherson</span></span>
-<span id="cb17-452"><a href="#cb17-452" tabindex="-1"></a><span class="co">#&gt;     given-names: Jonathan</span></span>
-<span id="cb17-453"><a href="#cb17-453" tabindex="-1"></a><span class="co">#&gt;     email: jonathan@posit.co</span></span>
-<span id="cb17-454"><a href="#cb17-454" tabindex="-1"></a><span class="co">#&gt;   - family-names: Dipert</span></span>
-<span id="cb17-455"><a href="#cb17-455" tabindex="-1"></a><span class="co">#&gt;     given-names: Alan</span></span>
-<span id="cb17-456"><a href="#cb17-456" tabindex="-1"></a><span class="co">#&gt;   - family-names: Borges</span></span>
-<span id="cb17-457"><a href="#cb17-457" tabindex="-1"></a><span class="co">#&gt;     given-names: Barbara</span></span>
-<span id="cb17-458"><a href="#cb17-458" tabindex="-1"></a><span class="co">#&gt;   year: &#39;2024&#39;</span></span>
-<span id="cb17-459"><a href="#cb17-459" tabindex="-1"></a><span class="co">#&gt;   version: &#39;&gt;= 1.6.0&#39;</span></span>
-<span id="cb17-460"><a href="#cb17-460" tabindex="-1"></a><span class="co">#&gt; - type: software</span></span>
-<span id="cb17-461"><a href="#cb17-461" tabindex="-1"></a><span class="co">#&gt;   title: testthat</span></span>
-<span id="cb17-462"><a href="#cb17-462" tabindex="-1"></a><span class="co">#&gt;   abstract: &#39;testthat: Unit Testing for R&#39;</span></span>
-<span id="cb17-463"><a href="#cb17-463" tabindex="-1"></a><span class="co">#&gt;   notes: Suggests</span></span>
-<span id="cb17-464"><a href="#cb17-464" tabindex="-1"></a><span class="co">#&gt;   url: https://testthat.r-lib.org</span></span>
-<span id="cb17-465"><a href="#cb17-465" tabindex="-1"></a><span class="co">#&gt;   repository: https://CRAN.R-project.org/package=testthat</span></span>
-<span id="cb17-466"><a href="#cb17-466" tabindex="-1"></a><span class="co">#&gt;   authors:</span></span>
-<span id="cb17-467"><a href="#cb17-467" tabindex="-1"></a><span class="co">#&gt;   - family-names: Wickham</span></span>
-<span id="cb17-468"><a href="#cb17-468" tabindex="-1"></a><span class="co">#&gt;     given-names: Hadley</span></span>
-<span id="cb17-469"><a href="#cb17-469" tabindex="-1"></a><span class="co">#&gt;     email: hadley@posit.co</span></span>
-<span id="cb17-470"><a href="#cb17-470" tabindex="-1"></a><span class="co">#&gt;   year: &#39;2024&#39;</span></span>
-<span id="cb17-471"><a href="#cb17-471" tabindex="-1"></a><span class="co">#&gt;   version: &#39;&gt;= 3.0.3&#39;</span></span>
-<span id="cb17-472"><a href="#cb17-472" tabindex="-1"></a><span class="co">#&gt; - type: software</span></span>
-<span id="cb17-473"><a href="#cb17-473" tabindex="-1"></a><span class="co">#&gt;   title: tibble</span></span>
-<span id="cb17-474"><a href="#cb17-474" tabindex="-1"></a><span class="co">#&gt;   abstract: &#39;tibble: Simple Data Frames&#39;</span></span>
-<span id="cb17-475"><a href="#cb17-475" tabindex="-1"></a><span class="co">#&gt;   notes: Suggests</span></span>
-<span id="cb17-476"><a href="#cb17-476" tabindex="-1"></a><span class="co">#&gt;   url: https://tibble.tidyverse.org/</span></span>
-<span id="cb17-477"><a href="#cb17-477" tabindex="-1"></a><span class="co">#&gt;   repository: https://CRAN.R-project.org/package=tibble</span></span>
-<span id="cb17-478"><a href="#cb17-478" tabindex="-1"></a><span class="co">#&gt;   authors:</span></span>
-<span id="cb17-479"><a href="#cb17-479" tabindex="-1"></a><span class="co">#&gt;   - family-names: Müller</span></span>
-<span id="cb17-480"><a href="#cb17-480" tabindex="-1"></a><span class="co">#&gt;     given-names: Kirill</span></span>
-<span id="cb17-481"><a href="#cb17-481" tabindex="-1"></a><span class="co">#&gt;     email: kirill@cynkra.com</span></span>
-<span id="cb17-482"><a href="#cb17-482" tabindex="-1"></a><span class="co">#&gt;     orcid: https://orcid.org/0000-0002-1416-3412</span></span>
-<span id="cb17-483"><a href="#cb17-483" tabindex="-1"></a><span class="co">#&gt;   - family-names: Wickham</span></span>
-<span id="cb17-484"><a href="#cb17-484" tabindex="-1"></a><span class="co">#&gt;     given-names: Hadley</span></span>
-<span id="cb17-485"><a href="#cb17-485" tabindex="-1"></a><span class="co">#&gt;     email: hadley@rstudio.com</span></span>
-<span id="cb17-486"><a href="#cb17-486" tabindex="-1"></a><span class="co">#&gt;   year: &#39;2024&#39;</span></span>
-<span id="cb17-487"><a href="#cb17-487" tabindex="-1"></a><span class="co">#&gt; - type: software</span></span>
-<span id="cb17-488"><a href="#cb17-488" tabindex="-1"></a><span class="co">#&gt;   title: vctrs</span></span>
-<span id="cb17-489"><a href="#cb17-489" tabindex="-1"></a><span class="co">#&gt;   abstract: &#39;vctrs: Vector Helpers&#39;</span></span>
-<span id="cb17-490"><a href="#cb17-490" tabindex="-1"></a><span class="co">#&gt;   notes: Suggests</span></span>
-<span id="cb17-491"><a href="#cb17-491" tabindex="-1"></a><span class="co">#&gt;   url: https://vctrs.r-lib.org/</span></span>
-<span id="cb17-492"><a href="#cb17-492" tabindex="-1"></a><span class="co">#&gt;   repository: https://CRAN.R-project.org/package=vctrs</span></span>
-<span id="cb17-493"><a href="#cb17-493" tabindex="-1"></a><span class="co">#&gt;   authors:</span></span>
-<span id="cb17-494"><a href="#cb17-494" tabindex="-1"></a><span class="co">#&gt;   - family-names: Wickham</span></span>
-<span id="cb17-495"><a href="#cb17-495" tabindex="-1"></a><span class="co">#&gt;     given-names: Hadley</span></span>
-<span id="cb17-496"><a href="#cb17-496" tabindex="-1"></a><span class="co">#&gt;     email: hadley@posit.co</span></span>
-<span id="cb17-497"><a href="#cb17-497" tabindex="-1"></a><span class="co">#&gt;   - family-names: Henry</span></span>
-<span id="cb17-498"><a href="#cb17-498" tabindex="-1"></a><span class="co">#&gt;     given-names: Lionel</span></span>
-<span id="cb17-499"><a href="#cb17-499" tabindex="-1"></a><span class="co">#&gt;     email: lionel@posit.co</span></span>
-<span id="cb17-500"><a href="#cb17-500" tabindex="-1"></a><span class="co">#&gt;   - family-names: Vaughan</span></span>
-<span id="cb17-501"><a href="#cb17-501" tabindex="-1"></a><span class="co">#&gt;     given-names: Davis</span></span>
-<span id="cb17-502"><a href="#cb17-502" tabindex="-1"></a><span class="co">#&gt;     email: davis@posit.co</span></span>
-<span id="cb17-503"><a href="#cb17-503" tabindex="-1"></a><span class="co">#&gt;   year: &#39;2024&#39;</span></span>
-<span id="cb17-504"><a href="#cb17-504" tabindex="-1"></a><span class="co">#&gt; - type: software</span></span>
-<span id="cb17-505"><a href="#cb17-505" tabindex="-1"></a><span class="co">#&gt;   title: cleanrmd</span></span>
-<span id="cb17-506"><a href="#cb17-506" tabindex="-1"></a><span class="co">#&gt;   abstract: &#39;cleanrmd: Clean Class-Less &#39;&#39;R Markdown&#39;&#39; HTML Documents&#39;</span></span>
-<span id="cb17-507"><a href="#cb17-507" tabindex="-1"></a><span class="co">#&gt;   notes: Suggests</span></span>
-<span id="cb17-508"><a href="#cb17-508" tabindex="-1"></a><span class="co">#&gt;   url: https://pkg.garrickadenbuie.com/cleanrmd/</span></span>
-<span id="cb17-509"><a href="#cb17-509" tabindex="-1"></a><span class="co">#&gt;   repository: https://CRAN.R-project.org/package=cleanrmd</span></span>
-<span id="cb17-510"><a href="#cb17-510" tabindex="-1"></a><span class="co">#&gt;   authors:</span></span>
-<span id="cb17-511"><a href="#cb17-511" tabindex="-1"></a><span class="co">#&gt;   - family-names: Aden-Buie</span></span>
-<span id="cb17-512"><a href="#cb17-512" tabindex="-1"></a><span class="co">#&gt;     given-names: Garrick</span></span>
-<span id="cb17-513"><a href="#cb17-513" tabindex="-1"></a><span class="co">#&gt;     email: garrick@adenbuie.com</span></span>
-<span id="cb17-514"><a href="#cb17-514" tabindex="-1"></a><span class="co">#&gt;     orcid: https://orcid.org/0000-0002-7111-0077</span></span>
-<span id="cb17-515"><a href="#cb17-515" tabindex="-1"></a><span class="co">#&gt;   year: &#39;2024&#39;</span></span>
-<span id="cb17-516"><a href="#cb17-516" tabindex="-1"></a><span class="co">#&gt; - type: software</span></span>
-<span id="cb17-517"><a href="#cb17-517" tabindex="-1"></a><span class="co">#&gt;   title: withr</span></span>
-<span id="cb17-518"><a href="#cb17-518" tabindex="-1"></a><span class="co">#&gt;   abstract: &#39;withr: Run Code &#39;&#39;With&#39;&#39; Temporarily Modified Global State&#39;</span></span>
-<span id="cb17-519"><a href="#cb17-519" tabindex="-1"></a><span class="co">#&gt;   notes: Suggests</span></span>
-<span id="cb17-520"><a href="#cb17-520" tabindex="-1"></a><span class="co">#&gt;   url: https://withr.r-lib.org</span></span>
-<span id="cb17-521"><a href="#cb17-521" tabindex="-1"></a><span class="co">#&gt;   repository: https://CRAN.R-project.org/package=withr</span></span>
-<span id="cb17-522"><a href="#cb17-522" tabindex="-1"></a><span class="co">#&gt;   authors:</span></span>
-<span id="cb17-523"><a href="#cb17-523" tabindex="-1"></a><span class="co">#&gt;   - family-names: Hester</span></span>
-<span id="cb17-524"><a href="#cb17-524" tabindex="-1"></a><span class="co">#&gt;     given-names: Jim</span></span>
-<span id="cb17-525"><a href="#cb17-525" tabindex="-1"></a><span class="co">#&gt;   - family-names: Henry</span></span>
-<span id="cb17-526"><a href="#cb17-526" tabindex="-1"></a><span class="co">#&gt;     given-names: Lionel</span></span>
-<span id="cb17-527"><a href="#cb17-527" tabindex="-1"></a><span class="co">#&gt;     email: lionel@posit.co</span></span>
-<span id="cb17-528"><a href="#cb17-528" tabindex="-1"></a><span class="co">#&gt;   - family-names: Müller</span></span>
-<span id="cb17-529"><a href="#cb17-529" tabindex="-1"></a><span class="co">#&gt;     given-names: Kirill</span></span>
-<span id="cb17-530"><a href="#cb17-530" tabindex="-1"></a><span class="co">#&gt;     email: krlmlr+r@mailbox.org</span></span>
-<span id="cb17-531"><a href="#cb17-531" tabindex="-1"></a><span class="co">#&gt;   - family-names: Ushey</span></span>
-<span id="cb17-532"><a href="#cb17-532" tabindex="-1"></a><span class="co">#&gt;     given-names: Kevin</span></span>
-<span id="cb17-533"><a href="#cb17-533" tabindex="-1"></a><span class="co">#&gt;     email: kevinushey@gmail.com</span></span>
-<span id="cb17-534"><a href="#cb17-534" tabindex="-1"></a><span class="co">#&gt;   - family-names: Wickham</span></span>
-<span id="cb17-535"><a href="#cb17-535" tabindex="-1"></a><span class="co">#&gt;     given-names: Hadley</span></span>
-<span id="cb17-536"><a href="#cb17-536" tabindex="-1"></a><span class="co">#&gt;     email: hadley@posit.co</span></span>
-<span id="cb17-537"><a href="#cb17-537" tabindex="-1"></a><span class="co">#&gt;   - family-names: Chang</span></span>
-<span id="cb17-538"><a href="#cb17-538" tabindex="-1"></a><span class="co">#&gt;     given-names: Winston</span></span>
-<span id="cb17-539"><a href="#cb17-539" tabindex="-1"></a><span class="co">#&gt;   year: &#39;2024&#39;</span></span>
-<span id="cb17-540"><a href="#cb17-540" tabindex="-1"></a><span class="co">#&gt;   version: &#39;&gt;= 2.4.2&#39;</span></span>
-<span id="cb17-541"><a href="#cb17-541" tabindex="-1"></a></span>
-<span id="cb17-542"><a href="#cb17-542" tabindex="-1"></a><span class="fu">citation</span>(<span class="st">&quot;rmarkdown&quot;</span>)[<span class="sc">-</span><span class="dv">1</span>]</span>
-<span id="cb17-543"><a href="#cb17-543" tabindex="-1"></a><span class="co">#&gt; Xie Y, Allaire J, Grolemund G (2018). _R Markdown: The Definitive</span></span>
-<span id="cb17-544"><a href="#cb17-544" tabindex="-1"></a><span class="co">#&gt; Guide_. Chapman and Hall/CRC, Boca Raton, Florida. ISBN 9781138359338,</span></span>
-<span id="cb17-545"><a href="#cb17-545" tabindex="-1"></a><span class="co">#&gt; &lt;https://bookdown.org/yihui/rmarkdown&gt;.</span></span>
-<span id="cb17-546"><a href="#cb17-546" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb17-547"><a href="#cb17-547" tabindex="-1"></a><span class="co">#&gt; Xie Y, Dervieux C, Riederer E (2020). _R Markdown Cookbook_. Chapman</span></span>
-<span id="cb17-548"><a href="#cb17-548" tabindex="-1"></a><span class="co">#&gt; and Hall/CRC, Boca Raton, Florida. ISBN 9780367563837,</span></span>
-<span id="cb17-549"><a href="#cb17-549" tabindex="-1"></a><span class="co">#&gt; &lt;https://bookdown.org/yihui/rmarkdown-cookbook&gt;.</span></span>
-<span id="cb17-550"><a href="#cb17-550" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb17-551"><a href="#cb17-551" tabindex="-1"></a><span class="co">#&gt; To see these entries in BibTeX format, use &#39;print(&lt;citation&gt;,</span></span>
-<span id="cb17-552"><a href="#cb17-552" tabindex="-1"></a><span class="co">#&gt; bibtex=TRUE)&#39;, &#39;toBibtex(.)&#39;, or set</span></span>
-<span id="cb17-553"><a href="#cb17-553" tabindex="-1"></a><span class="co">#&gt; &#39;options(citation.bibtex.max=999)&#39;.</span></span></code></pre></div>
+<span id="cb17-314"><a href="#cb17-314" tabindex="-1"></a><span class="co">#&gt;   title: fs</span></span>
+<span id="cb17-315"><a href="#cb17-315" tabindex="-1"></a><span class="co">#&gt;   abstract: &#39;fs: Cross-Platform File System Operations Based on &#39;&#39;libuv&#39;&#39;&#39;</span></span>
+<span id="cb17-316"><a href="#cb17-316" tabindex="-1"></a><span class="co">#&gt;   notes: Suggests</span></span>
+<span id="cb17-317"><a href="#cb17-317" tabindex="-1"></a><span class="co">#&gt;   url: https://fs.r-lib.org</span></span>
+<span id="cb17-318"><a href="#cb17-318" tabindex="-1"></a><span class="co">#&gt;   repository: https://CRAN.R-project.org/package=fs</span></span>
+<span id="cb17-319"><a href="#cb17-319" tabindex="-1"></a><span class="co">#&gt;   authors:</span></span>
+<span id="cb17-320"><a href="#cb17-320" tabindex="-1"></a><span class="co">#&gt;   - family-names: Hester</span></span>
+<span id="cb17-321"><a href="#cb17-321" tabindex="-1"></a><span class="co">#&gt;     given-names: Jim</span></span>
+<span id="cb17-322"><a href="#cb17-322" tabindex="-1"></a><span class="co">#&gt;   - family-names: Wickham</span></span>
+<span id="cb17-323"><a href="#cb17-323" tabindex="-1"></a><span class="co">#&gt;     given-names: Hadley</span></span>
+<span id="cb17-324"><a href="#cb17-324" tabindex="-1"></a><span class="co">#&gt;     email: hadley@rstudio.com</span></span>
+<span id="cb17-325"><a href="#cb17-325" tabindex="-1"></a><span class="co">#&gt;   - family-names: Csárdi</span></span>
+<span id="cb17-326"><a href="#cb17-326" tabindex="-1"></a><span class="co">#&gt;     given-names: Gábor</span></span>
+<span id="cb17-327"><a href="#cb17-327" tabindex="-1"></a><span class="co">#&gt;     email: csardi.gabor@gmail.com</span></span>
+<span id="cb17-328"><a href="#cb17-328" tabindex="-1"></a><span class="co">#&gt;   year: &#39;2024&#39;</span></span>
+<span id="cb17-329"><a href="#cb17-329" tabindex="-1"></a><span class="co">#&gt; - type: software</span></span>
+<span id="cb17-330"><a href="#cb17-330" tabindex="-1"></a><span class="co">#&gt;   title: downlit</span></span>
+<span id="cb17-331"><a href="#cb17-331" tabindex="-1"></a><span class="co">#&gt;   abstract: &#39;downlit: Syntax Highlighting and Automatic Linking&#39;</span></span>
+<span id="cb17-332"><a href="#cb17-332" tabindex="-1"></a><span class="co">#&gt;   notes: Suggests</span></span>
+<span id="cb17-333"><a href="#cb17-333" tabindex="-1"></a><span class="co">#&gt;   url: https://downlit.r-lib.org/</span></span>
+<span id="cb17-334"><a href="#cb17-334" tabindex="-1"></a><span class="co">#&gt;   repository: https://CRAN.R-project.org/package=downlit</span></span>
+<span id="cb17-335"><a href="#cb17-335" tabindex="-1"></a><span class="co">#&gt;   authors:</span></span>
+<span id="cb17-336"><a href="#cb17-336" tabindex="-1"></a><span class="co">#&gt;   - family-names: Wickham</span></span>
+<span id="cb17-337"><a href="#cb17-337" tabindex="-1"></a><span class="co">#&gt;     given-names: Hadley</span></span>
+<span id="cb17-338"><a href="#cb17-338" tabindex="-1"></a><span class="co">#&gt;     email: hadley@posit.co</span></span>
+<span id="cb17-339"><a href="#cb17-339" tabindex="-1"></a><span class="co">#&gt;   year: &#39;2024&#39;</span></span>
+<span id="cb17-340"><a href="#cb17-340" tabindex="-1"></a><span class="co">#&gt;   version: &#39;&gt;= 0.4.0&#39;</span></span>
+<span id="cb17-341"><a href="#cb17-341" tabindex="-1"></a><span class="co">#&gt; - type: software</span></span>
+<span id="cb17-342"><a href="#cb17-342" tabindex="-1"></a><span class="co">#&gt;   title: sass</span></span>
+<span id="cb17-343"><a href="#cb17-343" tabindex="-1"></a><span class="co">#&gt;   abstract: &#39;sass: Syntactically Awesome Style Sheets (&#39;&#39;Sass&#39;&#39;)&#39;</span></span>
+<span id="cb17-344"><a href="#cb17-344" tabindex="-1"></a><span class="co">#&gt;   notes: Suggests</span></span>
+<span id="cb17-345"><a href="#cb17-345" tabindex="-1"></a><span class="co">#&gt;   url: https://rstudio.github.io/sass/</span></span>
+<span id="cb17-346"><a href="#cb17-346" tabindex="-1"></a><span class="co">#&gt;   repository: https://CRAN.R-project.org/package=sass</span></span>
+<span id="cb17-347"><a href="#cb17-347" tabindex="-1"></a><span class="co">#&gt;   authors:</span></span>
+<span id="cb17-348"><a href="#cb17-348" tabindex="-1"></a><span class="co">#&gt;   - family-names: Cheng</span></span>
+<span id="cb17-349"><a href="#cb17-349" tabindex="-1"></a><span class="co">#&gt;     given-names: Joe</span></span>
+<span id="cb17-350"><a href="#cb17-350" tabindex="-1"></a><span class="co">#&gt;     email: joe@rstudio.com</span></span>
+<span id="cb17-351"><a href="#cb17-351" tabindex="-1"></a><span class="co">#&gt;   - family-names: Mastny</span></span>
+<span id="cb17-352"><a href="#cb17-352" tabindex="-1"></a><span class="co">#&gt;     given-names: Timothy</span></span>
+<span id="cb17-353"><a href="#cb17-353" tabindex="-1"></a><span class="co">#&gt;     email: tim.mastny@gmail.com</span></span>
+<span id="cb17-354"><a href="#cb17-354" tabindex="-1"></a><span class="co">#&gt;   - family-names: Iannone</span></span>
+<span id="cb17-355"><a href="#cb17-355" tabindex="-1"></a><span class="co">#&gt;     given-names: Richard</span></span>
+<span id="cb17-356"><a href="#cb17-356" tabindex="-1"></a><span class="co">#&gt;     email: rich@rstudio.com</span></span>
+<span id="cb17-357"><a href="#cb17-357" tabindex="-1"></a><span class="co">#&gt;     orcid: https://orcid.org/0000-0003-3925-190X</span></span>
+<span id="cb17-358"><a href="#cb17-358" tabindex="-1"></a><span class="co">#&gt;   - family-names: Schloerke</span></span>
+<span id="cb17-359"><a href="#cb17-359" tabindex="-1"></a><span class="co">#&gt;     given-names: Barret</span></span>
+<span id="cb17-360"><a href="#cb17-360" tabindex="-1"></a><span class="co">#&gt;     email: barret@rstudio.com</span></span>
+<span id="cb17-361"><a href="#cb17-361" tabindex="-1"></a><span class="co">#&gt;     orcid: https://orcid.org/0000-0001-9986-114X</span></span>
+<span id="cb17-362"><a href="#cb17-362" tabindex="-1"></a><span class="co">#&gt;   - family-names: Sievert</span></span>
+<span id="cb17-363"><a href="#cb17-363" tabindex="-1"></a><span class="co">#&gt;     given-names: Carson</span></span>
+<span id="cb17-364"><a href="#cb17-364" tabindex="-1"></a><span class="co">#&gt;     email: carson@rstudio.com</span></span>
+<span id="cb17-365"><a href="#cb17-365" tabindex="-1"></a><span class="co">#&gt;     orcid: https://orcid.org/0000-0002-4958-2844</span></span>
+<span id="cb17-366"><a href="#cb17-366" tabindex="-1"></a><span class="co">#&gt;   year: &#39;2024&#39;</span></span>
+<span id="cb17-367"><a href="#cb17-367" tabindex="-1"></a><span class="co">#&gt;   version: &#39;&gt;= 0.4.0&#39;</span></span>
+<span id="cb17-368"><a href="#cb17-368" tabindex="-1"></a><span class="co">#&gt; - type: software</span></span>
+<span id="cb17-369"><a href="#cb17-369" tabindex="-1"></a><span class="co">#&gt;   title: shiny</span></span>
+<span id="cb17-370"><a href="#cb17-370" tabindex="-1"></a><span class="co">#&gt;   abstract: &#39;shiny: Web Application Framework for R&#39;</span></span>
+<span id="cb17-371"><a href="#cb17-371" tabindex="-1"></a><span class="co">#&gt;   notes: Suggests</span></span>
+<span id="cb17-372"><a href="#cb17-372" tabindex="-1"></a><span class="co">#&gt;   url: https://shiny.posit.co/</span></span>
+<span id="cb17-373"><a href="#cb17-373" tabindex="-1"></a><span class="co">#&gt;   repository: https://CRAN.R-project.org/package=shiny</span></span>
+<span id="cb17-374"><a href="#cb17-374" tabindex="-1"></a><span class="co">#&gt;   authors:</span></span>
+<span id="cb17-375"><a href="#cb17-375" tabindex="-1"></a><span class="co">#&gt;   - family-names: Chang</span></span>
+<span id="cb17-376"><a href="#cb17-376" tabindex="-1"></a><span class="co">#&gt;     given-names: Winston</span></span>
+<span id="cb17-377"><a href="#cb17-377" tabindex="-1"></a><span class="co">#&gt;     email: winston@posit.co</span></span>
+<span id="cb17-378"><a href="#cb17-378" tabindex="-1"></a><span class="co">#&gt;     orcid: https://orcid.org/0000-0002-1576-2126</span></span>
+<span id="cb17-379"><a href="#cb17-379" tabindex="-1"></a><span class="co">#&gt;   - family-names: Cheng</span></span>
+<span id="cb17-380"><a href="#cb17-380" tabindex="-1"></a><span class="co">#&gt;     given-names: Joe</span></span>
+<span id="cb17-381"><a href="#cb17-381" tabindex="-1"></a><span class="co">#&gt;     email: joe@posit.co</span></span>
+<span id="cb17-382"><a href="#cb17-382" tabindex="-1"></a><span class="co">#&gt;   - family-names: Allaire</span></span>
+<span id="cb17-383"><a href="#cb17-383" tabindex="-1"></a><span class="co">#&gt;     given-names: JJ</span></span>
+<span id="cb17-384"><a href="#cb17-384" tabindex="-1"></a><span class="co">#&gt;     email: jj@posit.co</span></span>
+<span id="cb17-385"><a href="#cb17-385" tabindex="-1"></a><span class="co">#&gt;   - family-names: Sievert</span></span>
+<span id="cb17-386"><a href="#cb17-386" tabindex="-1"></a><span class="co">#&gt;     given-names: Carson</span></span>
+<span id="cb17-387"><a href="#cb17-387" tabindex="-1"></a><span class="co">#&gt;     email: carson@posit.co</span></span>
+<span id="cb17-388"><a href="#cb17-388" tabindex="-1"></a><span class="co">#&gt;     orcid: https://orcid.org/0000-0002-4958-2844</span></span>
+<span id="cb17-389"><a href="#cb17-389" tabindex="-1"></a><span class="co">#&gt;   - family-names: Schloerke</span></span>
+<span id="cb17-390"><a href="#cb17-390" tabindex="-1"></a><span class="co">#&gt;     given-names: Barret</span></span>
+<span id="cb17-391"><a href="#cb17-391" tabindex="-1"></a><span class="co">#&gt;     email: barret@posit.co</span></span>
+<span id="cb17-392"><a href="#cb17-392" tabindex="-1"></a><span class="co">#&gt;     orcid: https://orcid.org/0000-0001-9986-114X</span></span>
+<span id="cb17-393"><a href="#cb17-393" tabindex="-1"></a><span class="co">#&gt;   - family-names: Xie</span></span>
+<span id="cb17-394"><a href="#cb17-394" tabindex="-1"></a><span class="co">#&gt;     given-names: Yihui</span></span>
+<span id="cb17-395"><a href="#cb17-395" tabindex="-1"></a><span class="co">#&gt;     email: yihui@posit.co</span></span>
+<span id="cb17-396"><a href="#cb17-396" tabindex="-1"></a><span class="co">#&gt;   - family-names: Allen</span></span>
+<span id="cb17-397"><a href="#cb17-397" tabindex="-1"></a><span class="co">#&gt;     given-names: Jeff</span></span>
+<span id="cb17-398"><a href="#cb17-398" tabindex="-1"></a><span class="co">#&gt;   - family-names: McPherson</span></span>
+<span id="cb17-399"><a href="#cb17-399" tabindex="-1"></a><span class="co">#&gt;     given-names: Jonathan</span></span>
+<span id="cb17-400"><a href="#cb17-400" tabindex="-1"></a><span class="co">#&gt;     email: jonathan@posit.co</span></span>
+<span id="cb17-401"><a href="#cb17-401" tabindex="-1"></a><span class="co">#&gt;   - family-names: Dipert</span></span>
+<span id="cb17-402"><a href="#cb17-402" tabindex="-1"></a><span class="co">#&gt;     given-names: Alan</span></span>
+<span id="cb17-403"><a href="#cb17-403" tabindex="-1"></a><span class="co">#&gt;   - family-names: Borges</span></span>
+<span id="cb17-404"><a href="#cb17-404" tabindex="-1"></a><span class="co">#&gt;     given-names: Barbara</span></span>
+<span id="cb17-405"><a href="#cb17-405" tabindex="-1"></a><span class="co">#&gt;   year: &#39;2024&#39;</span></span>
+<span id="cb17-406"><a href="#cb17-406" tabindex="-1"></a><span class="co">#&gt;   version: &#39;&gt;= 1.6.0&#39;</span></span>
+<span id="cb17-407"><a href="#cb17-407" tabindex="-1"></a><span class="co">#&gt; - type: software</span></span>
+<span id="cb17-408"><a href="#cb17-408" tabindex="-1"></a><span class="co">#&gt;   title: testthat</span></span>
+<span id="cb17-409"><a href="#cb17-409" tabindex="-1"></a><span class="co">#&gt;   abstract: &#39;testthat: Unit Testing for R&#39;</span></span>
+<span id="cb17-410"><a href="#cb17-410" tabindex="-1"></a><span class="co">#&gt;   notes: Suggests</span></span>
+<span id="cb17-411"><a href="#cb17-411" tabindex="-1"></a><span class="co">#&gt;   url: https://testthat.r-lib.org</span></span>
+<span id="cb17-412"><a href="#cb17-412" tabindex="-1"></a><span class="co">#&gt;   repository: https://CRAN.R-project.org/package=testthat</span></span>
+<span id="cb17-413"><a href="#cb17-413" tabindex="-1"></a><span class="co">#&gt;   authors:</span></span>
+<span id="cb17-414"><a href="#cb17-414" tabindex="-1"></a><span class="co">#&gt;   - family-names: Wickham</span></span>
+<span id="cb17-415"><a href="#cb17-415" tabindex="-1"></a><span class="co">#&gt;     given-names: Hadley</span></span>
+<span id="cb17-416"><a href="#cb17-416" tabindex="-1"></a><span class="co">#&gt;     email: hadley@posit.co</span></span>
+<span id="cb17-417"><a href="#cb17-417" tabindex="-1"></a><span class="co">#&gt;   year: &#39;2024&#39;</span></span>
+<span id="cb17-418"><a href="#cb17-418" tabindex="-1"></a><span class="co">#&gt;   version: &#39;&gt;= 3.0.3&#39;</span></span>
+<span id="cb17-419"><a href="#cb17-419" tabindex="-1"></a><span class="co">#&gt; - type: software</span></span>
+<span id="cb17-420"><a href="#cb17-420" tabindex="-1"></a><span class="co">#&gt;   title: tibble</span></span>
+<span id="cb17-421"><a href="#cb17-421" tabindex="-1"></a><span class="co">#&gt;   abstract: &#39;tibble: Simple Data Frames&#39;</span></span>
+<span id="cb17-422"><a href="#cb17-422" tabindex="-1"></a><span class="co">#&gt;   notes: Suggests</span></span>
+<span id="cb17-423"><a href="#cb17-423" tabindex="-1"></a><span class="co">#&gt;   url: https://tibble.tidyverse.org/</span></span>
+<span id="cb17-424"><a href="#cb17-424" tabindex="-1"></a><span class="co">#&gt;   repository: https://CRAN.R-project.org/package=tibble</span></span>
+<span id="cb17-425"><a href="#cb17-425" tabindex="-1"></a><span class="co">#&gt;   authors:</span></span>
+<span id="cb17-426"><a href="#cb17-426" tabindex="-1"></a><span class="co">#&gt;   - family-names: Müller</span></span>
+<span id="cb17-427"><a href="#cb17-427" tabindex="-1"></a><span class="co">#&gt;     given-names: Kirill</span></span>
+<span id="cb17-428"><a href="#cb17-428" tabindex="-1"></a><span class="co">#&gt;     email: kirill@cynkra.com</span></span>
+<span id="cb17-429"><a href="#cb17-429" tabindex="-1"></a><span class="co">#&gt;     orcid: https://orcid.org/0000-0002-1416-3412</span></span>
+<span id="cb17-430"><a href="#cb17-430" tabindex="-1"></a><span class="co">#&gt;   - family-names: Wickham</span></span>
+<span id="cb17-431"><a href="#cb17-431" tabindex="-1"></a><span class="co">#&gt;     given-names: Hadley</span></span>
+<span id="cb17-432"><a href="#cb17-432" tabindex="-1"></a><span class="co">#&gt;     email: hadley@rstudio.com</span></span>
+<span id="cb17-433"><a href="#cb17-433" tabindex="-1"></a><span class="co">#&gt;   year: &#39;2024&#39;</span></span>
+<span id="cb17-434"><a href="#cb17-434" tabindex="-1"></a><span class="co">#&gt; - type: software</span></span>
+<span id="cb17-435"><a href="#cb17-435" tabindex="-1"></a><span class="co">#&gt;   title: vctrs</span></span>
+<span id="cb17-436"><a href="#cb17-436" tabindex="-1"></a><span class="co">#&gt;   abstract: &#39;vctrs: Vector Helpers&#39;</span></span>
+<span id="cb17-437"><a href="#cb17-437" tabindex="-1"></a><span class="co">#&gt;   notes: Suggests</span></span>
+<span id="cb17-438"><a href="#cb17-438" tabindex="-1"></a><span class="co">#&gt;   url: https://vctrs.r-lib.org/</span></span>
+<span id="cb17-439"><a href="#cb17-439" tabindex="-1"></a><span class="co">#&gt;   repository: https://CRAN.R-project.org/package=vctrs</span></span>
+<span id="cb17-440"><a href="#cb17-440" tabindex="-1"></a><span class="co">#&gt;   authors:</span></span>
+<span id="cb17-441"><a href="#cb17-441" tabindex="-1"></a><span class="co">#&gt;   - family-names: Wickham</span></span>
+<span id="cb17-442"><a href="#cb17-442" tabindex="-1"></a><span class="co">#&gt;     given-names: Hadley</span></span>
+<span id="cb17-443"><a href="#cb17-443" tabindex="-1"></a><span class="co">#&gt;     email: hadley@posit.co</span></span>
+<span id="cb17-444"><a href="#cb17-444" tabindex="-1"></a><span class="co">#&gt;   - family-names: Henry</span></span>
+<span id="cb17-445"><a href="#cb17-445" tabindex="-1"></a><span class="co">#&gt;     given-names: Lionel</span></span>
+<span id="cb17-446"><a href="#cb17-446" tabindex="-1"></a><span class="co">#&gt;     email: lionel@posit.co</span></span>
+<span id="cb17-447"><a href="#cb17-447" tabindex="-1"></a><span class="co">#&gt;   - family-names: Vaughan</span></span>
+<span id="cb17-448"><a href="#cb17-448" tabindex="-1"></a><span class="co">#&gt;     given-names: Davis</span></span>
+<span id="cb17-449"><a href="#cb17-449" tabindex="-1"></a><span class="co">#&gt;     email: davis@posit.co</span></span>
+<span id="cb17-450"><a href="#cb17-450" tabindex="-1"></a><span class="co">#&gt;   year: &#39;2024&#39;</span></span>
+<span id="cb17-451"><a href="#cb17-451" tabindex="-1"></a><span class="co">#&gt; - type: software</span></span>
+<span id="cb17-452"><a href="#cb17-452" tabindex="-1"></a><span class="co">#&gt;   title: withr</span></span>
+<span id="cb17-453"><a href="#cb17-453" tabindex="-1"></a><span class="co">#&gt;   abstract: &#39;withr: Run Code &#39;&#39;With&#39;&#39; Temporarily Modified Global State&#39;</span></span>
+<span id="cb17-454"><a href="#cb17-454" tabindex="-1"></a><span class="co">#&gt;   notes: Suggests</span></span>
+<span id="cb17-455"><a href="#cb17-455" tabindex="-1"></a><span class="co">#&gt;   url: https://withr.r-lib.org</span></span>
+<span id="cb17-456"><a href="#cb17-456" tabindex="-1"></a><span class="co">#&gt;   repository: https://CRAN.R-project.org/package=withr</span></span>
+<span id="cb17-457"><a href="#cb17-457" tabindex="-1"></a><span class="co">#&gt;   authors:</span></span>
+<span id="cb17-458"><a href="#cb17-458" tabindex="-1"></a><span class="co">#&gt;   - family-names: Hester</span></span>
+<span id="cb17-459"><a href="#cb17-459" tabindex="-1"></a><span class="co">#&gt;     given-names: Jim</span></span>
+<span id="cb17-460"><a href="#cb17-460" tabindex="-1"></a><span class="co">#&gt;   - family-names: Henry</span></span>
+<span id="cb17-461"><a href="#cb17-461" tabindex="-1"></a><span class="co">#&gt;     given-names: Lionel</span></span>
+<span id="cb17-462"><a href="#cb17-462" tabindex="-1"></a><span class="co">#&gt;     email: lionel@posit.co</span></span>
+<span id="cb17-463"><a href="#cb17-463" tabindex="-1"></a><span class="co">#&gt;   - family-names: Müller</span></span>
+<span id="cb17-464"><a href="#cb17-464" tabindex="-1"></a><span class="co">#&gt;     given-names: Kirill</span></span>
+<span id="cb17-465"><a href="#cb17-465" tabindex="-1"></a><span class="co">#&gt;     email: krlmlr+r@mailbox.org</span></span>
+<span id="cb17-466"><a href="#cb17-466" tabindex="-1"></a><span class="co">#&gt;   - family-names: Ushey</span></span>
+<span id="cb17-467"><a href="#cb17-467" tabindex="-1"></a><span class="co">#&gt;     given-names: Kevin</span></span>
+<span id="cb17-468"><a href="#cb17-468" tabindex="-1"></a><span class="co">#&gt;     email: kevinushey@gmail.com</span></span>
+<span id="cb17-469"><a href="#cb17-469" tabindex="-1"></a><span class="co">#&gt;   - family-names: Wickham</span></span>
+<span id="cb17-470"><a href="#cb17-470" tabindex="-1"></a><span class="co">#&gt;     given-names: Hadley</span></span>
+<span id="cb17-471"><a href="#cb17-471" tabindex="-1"></a><span class="co">#&gt;     email: hadley@posit.co</span></span>
+<span id="cb17-472"><a href="#cb17-472" tabindex="-1"></a><span class="co">#&gt;   - family-names: Chang</span></span>
+<span id="cb17-473"><a href="#cb17-473" tabindex="-1"></a><span class="co">#&gt;     given-names: Winston</span></span>
+<span id="cb17-474"><a href="#cb17-474" tabindex="-1"></a><span class="co">#&gt;   year: &#39;2024&#39;</span></span>
+<span id="cb17-475"><a href="#cb17-475" tabindex="-1"></a><span class="co">#&gt;   version: &#39;&gt;= 2.4.2&#39;</span></span>
+<span id="cb17-476"><a href="#cb17-476" tabindex="-1"></a></span>
+<span id="cb17-477"><a href="#cb17-477" tabindex="-1"></a><span class="fu">citation</span>(<span class="st">&quot;rmarkdown&quot;</span>)[<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb17-478"><a href="#cb17-478" tabindex="-1"></a><span class="co">#&gt; Xie Y, Allaire J, Grolemund G (2018). _R Markdown: The Definitive</span></span>
+<span id="cb17-479"><a href="#cb17-479" tabindex="-1"></a><span class="co">#&gt; Guide_. Chapman and Hall/CRC, Boca Raton, Florida. ISBN 9781138359338,</span></span>
+<span id="cb17-480"><a href="#cb17-480" tabindex="-1"></a><span class="co">#&gt; &lt;https://bookdown.org/yihui/rmarkdown&gt;.</span></span>
+<span id="cb17-481"><a href="#cb17-481" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb17-482"><a href="#cb17-482" tabindex="-1"></a><span class="co">#&gt; Xie Y, Dervieux C, Riederer E (2020). _R Markdown Cookbook_. Chapman</span></span>
+<span id="cb17-483"><a href="#cb17-483" tabindex="-1"></a><span class="co">#&gt; and Hall/CRC, Boca Raton, Florida. ISBN 9780367563837,</span></span>
+<span id="cb17-484"><a href="#cb17-484" tabindex="-1"></a><span class="co">#&gt; &lt;https://bookdown.org/yihui/rmarkdown-cookbook&gt;.</span></span>
+<span id="cb17-485"><a href="#cb17-485" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb17-486"><a href="#cb17-486" tabindex="-1"></a><span class="co">#&gt; To see these entries in BibTeX format, use &#39;print(&lt;citation&gt;,</span></span>
+<span id="cb17-487"><a href="#cb17-487" tabindex="-1"></a><span class="co">#&gt; bibtex=TRUE)&#39;, &#39;toBibtex(.)&#39;, or set</span></span>
+<span id="cb17-488"><a href="#cb17-488" tabindex="-1"></a><span class="co">#&gt; &#39;options(citation.bibtex.max=999)&#39;.</span></span></code></pre></div>
 </details>
 <p><a href="#summary">Back to summary</a>.</p>
 </div>
@@ -1984,7 +1918,7 @@ corresponds to the first url that is different to <a href="#repository-code">rep
 </div>
 <div id="references-1" class="section level2 unnumbered">
 <h2 class="unnumbered">References</h2>
-<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-druskat_citation_2021" class="csl-entry">
 Druskat, Stephan, Jurriaan H. Spaaks, Neil Chue Hong, Robert Haines,
 James Baker, Spencer Bliven, Egon Willighagen, David Pérez-Suárez, and

@@ -1,3 +1,9 @@
+# cffr 1.0.1
+
+-   Update `cff_write()` to add a new `encoding` argument to make it work with
+    different encodings, see `iconv()`.
+-   Fix **NOTEs** due to empty lines in docs.
+
 # cffr 1.0.0
 
 This is a major release with some notable changes. The change mainly **affects
@@ -29,7 +35,7 @@ package.
 -   New `as_cff()` S3 generic method (replacing `as.cff()`): This method coerces
     **R** objects to `cff` class format. Current methods provided are:
     -   `as_cff.Bibtex()`.
-    -   `as_cff.bibentry()`, replacing cff_parse_citation().
+    -   `as_cff.bibentry()`, replacing `cff_parse_citation()`.
     -   `as_cff.person()`, similar to `as_cff_person()` but only for `person`
         objects. We recommend using `as_cff_person()` since it can coerce also
         string representing authors in BibTeX markup (`"{von Neumen}, James"`),

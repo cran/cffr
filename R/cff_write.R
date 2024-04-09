@@ -21,6 +21,10 @@
 #' @param validate validate Logical `TRUE/FALSE`. Should the new file be
 #'   validated using `cff_validate()`?
 #'
+#' @param encoding The name of the encoding to be assumed. Default is `"UTF-8"`,
+#'   but it can be any other value as accepted by [iconv()], such as
+#'   `"ASCII//TRANSLIT"`.
+#'
 #' @inheritParams cff_create
 #' @inheritParams cff_validate
 #'
@@ -62,7 +66,8 @@
 cff_write <- function(x, outfile = "CITATION.cff", keys = list(),
                       cff_version = "1.2.0", gh_keywords = TRUE,
                       dependencies = TRUE, validate = TRUE,
-                      verbose = TRUE, authors_roles = c("aut", "cre")) {
+                      verbose = TRUE, authors_roles = c("aut", "cre"),
+                      encoding = "UTF-8") {
   # # On missing use NULL
   if (missing(x)) x <- getwd()
 
@@ -89,26 +94,24 @@ cff_write <- function(x, outfile = "CITATION.cff", keys = list(),
   }
 
 
-  # Write CITATION
-  yaml::write_yaml(citat, outfile)
-
-  addcomment <- readLines(outfile)
-  addcomment <- c(
-    "# -----------------------------------------------------------",
-    paste0(
-      "# CITATION file created with {cffr} R package, v",
-      packageDescription("cffr")$Version
-    ),
-    paste(
-      "# See also:",
-      strsplit(packageDescription("cffr")$URL, ",")[[1]][1]
-    ),
-    "# -----------------------------------------------------------",
-    " ",
-    addcomment
+  # See https://github.com/r-universe-org/help/issues/382
+  # Write CITATION with comment
+  com <- c(
+    "# --------------------------------------------",
+    "# CITATION file created with {cffr} R package",
+    "# See also: https://docs.ropensci.org/cffr/",
+    "# --------------------------------------------",
+    " "
   )
 
-  writeLines(addcomment, outfile)
+  # MAX effort to get right the encoding
+  com <- enc2utf8(com)
+  out_yaml <- enc2utf8(capture.output(print(citat)))
+  full_text <- enc2utf8(c(com, out_yaml, ""))
+  fh <- file(outfile, encoding = encoding)
+  on.exit(if (isOpen(fh)) close(fh))
+  writeLines(full_text, fh)
+
   if (verbose) {
     cli::cli_alert_success("{.file {outfile}} generated")
   }
