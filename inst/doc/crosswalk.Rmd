@@ -59,7 +59,8 @@ origin[keys %in% c(
   "date-released",
   "contact",
   "keywords",
-  "license"
+  "license",
+  "commit"
 )] <- "DESCRIPTION file"
 
 origin[keys %in% c(
@@ -163,20 +164,28 @@ cat(cff_objv110$`cff-version`)
 
 ### commit
 
-This key is not extracted from the metadata of the package. See the description
-on the [Guide to CFF schema
-v1.2.0](https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#commit).
+This key is extracted from the `"RemoteSha"` field of the `DESCRIPTION` file.
+This is the case of packages installed using the
+[r-universe](https://r-universe.dev/) or packages such as **remotes** or
+**pak**.
 
-> -   **description**: The commit hash or revision number of the software
->     version.
->
-> -   **usage**:
->
->     ``` yaml
->     commit: 1ff847d81f29c45a3a1a5ce73d38e45c2f319bba
->
->     commit: "Revision: 8612"
->     ```
+<details>
+
+<summary><strong>Example</strong></summary>
+
+```{r commit}
+# An example DESCRIPTION
+path <- system.file("examples/DESCRIPTION_r_universe", package = "cffr")
+pkg <- desc::desc(path)
+
+# See RemoteSha
+pkg$get("RemoteSha")
+
+
+cff_read(path)
+```
+
+</details>
 
 [Back to summary](#summary).
 
@@ -261,7 +270,9 @@ cat(cff_create(tmp)$`date-released`)
 ### doi {#doi}
 
 This key is coerced from the `"doi"` field of the
-[preferred-citation](#preferred-citation) object.
+[preferred-citation](#preferred-citation) object. If not present and the package
+is on **CRAN**, it would be populated with the doi provided by **CRAN** (e.g.
+<https://doi.org/10.32614/CRAN.package.cffr>).
 
 <details>
 
@@ -289,6 +300,9 @@ This key includes all the possible identifiers of the package:
 -   From the `CITATION` file, it includes all the dois not included in
     [doi](#doi) and the identifiers (if any) not included in the `"identifiers"`
     key of [preferred-citation](#preferred-citation).
+
+-   If the package is on **CRAN** and it has a `CITATION` file providing a doi,
+    the doi provided by **CRAN** would be added as well.
 
 <details>
 

@@ -455,11 +455,11 @@ File Format schema version 1.2.0</a> can be displayed with
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">cff_schema_keys</span>()</span>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;cff-version&quot;         &quot;message&quot;             &quot;type&quot;               </span></span>
 <span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="co">#&gt;  [4] &quot;license&quot;             &quot;title&quot;               &quot;version&quot;            </span></span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;doi&quot;                 &quot;abstract&quot;            &quot;authors&quot;            </span></span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co">#&gt; [10] &quot;preferred-citation&quot;  &quot;repository&quot;          &quot;repository-artifact&quot;</span></span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt; [13] &quot;repository-code&quot;     &quot;url&quot;                 &quot;date-released&quot;      </span></span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt; [16] &quot;contact&quot;             &quot;keywords&quot;            &quot;references&quot;         </span></span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt; [19] &quot;commit&quot;              &quot;identifiers&quot;         &quot;license-url&quot;</span></span></code></pre></div>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;doi&quot;                 &quot;identifiers&quot;         &quot;abstract&quot;           </span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co">#&gt; [10] &quot;authors&quot;             &quot;preferred-citation&quot;  &quot;repository&quot;         </span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt; [13] &quot;repository-artifact&quot; &quot;repository-code&quot;     &quot;commit&quot;             </span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt; [16] &quot;url&quot;                 &quot;date-released&quot;       &quot;contact&quot;            </span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt; [19] &quot;keywords&quot;            &quot;references&quot;          &quot;license-url&quot;</span></span></code></pre></div>
 <p>In this case, we are going to add <code>url</code>,
 <code>version</code> and <code>repository</code>. We would also
 overwrite the <code>title</code> key. We just need to add those
@@ -697,9 +697,9 @@ we just modify our <code>cff</code> object:</p>
 <span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">&quot;.cff&quot;</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a></span>
 <span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>see_res <span class="ot">&lt;-</span> <span class="fu">cff_write</span>(finalobject, <span class="at">outfile =</span> tmp)</span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="co">#&gt; ✔ &#39;/tmp/RtmpVJ2GjP/file2413808ea79.cff&#39; generated</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="co">#&gt; ✔ &#39;/tmp/RtmpTfFvDn/file3a06edad30e.cff&#39; generated</span></span>
 <span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="co">#&gt; ══ Validating cff ══════════════════════════════════════════════════════════════</span></span>
-<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="co">#&gt; ✔ Congratulations! &#39;/tmp/RtmpVJ2GjP/file2413808ea79.cff&#39; is valid</span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="co">#&gt; ✔ Congratulations! &#39;/tmp/RtmpTfFvDn/file3a06edad30e.cff&#39; is valid</span></span>
 <span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a></span>
 <span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">readLines</span>(tmp), <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
 <span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="co">#&gt; # --------------------------------------------</span></span>
@@ -797,9 +797,9 @@ param, so the workflow can be simplified as:</p>
 <span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a>tmp2 <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">&quot;.cff&quot;</span>)</span>
 <span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a></span>
 <span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">cff_write</span>(<span class="fu">cff</span>(), <span class="at">outfile =</span> tmp2, <span class="at">keys =</span> allkeys)</span>
-<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a><span class="co">#&gt; ✔ &#39;/tmp/RtmpVJ2GjP/file2418293504.cff&#39; generated</span></span>
+<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a><span class="co">#&gt; ✔ &#39;/tmp/RtmpTfFvDn/file3a07110b315.cff&#39; generated</span></span>
 <span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a><span class="co">#&gt; ══ Validating cff ══════════════════════════════════════════════════════════════</span></span>
-<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a><span class="co">#&gt; ✔ Congratulations! &#39;/tmp/RtmpVJ2GjP/file2418293504.cff&#39; is valid</span></span>
+<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a><span class="co">#&gt; ✔ Congratulations! &#39;/tmp/RtmpTfFvDn/file3a07110b315.cff&#39; is valid</span></span>
 <span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a></span>
 <span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a>res</span>
 <span id="cb10-19"><a href="#cb10-19" tabindex="-1"></a><span class="co">#&gt; cff-version: 1.2.0</span></span>

@@ -159,9 +159,11 @@ ref_list
 #>     given-names: Michael
 #>   - family-names: Kamvar
 #>     given-names: Zhian N.
-#>   year: '2023'
-#>   notes: R package version 2.3.8
-#>   url: https://CRAN.R-project.org/package=yaml
+#>   - family-names: Gao
+#>     given-names: Charlie
+#>   year: '2024'
+#>   notes: R package version 2.3.9
+#>   url: https://github.com/vubiostat/r-yaml/
 
 class(ref_list)
 #> [1] "cff_ref_lst" "cff"
@@ -332,10 +334,10 @@ toBibtex(cit)
 #> 
 #> @Manual\{,
 #>   title = \{yaml: Methods to Convert R Data to YAML and Back\},
-#>   author = \{Shawn P Garbett and Jeremy Stephens and Kirill Simonov and Yihui Xie and Zhuoer Dong and Hadley Wickham and Jeffrey Horner and \{reikoch\} and Will Beasley and Brendan O'Connor and Gregory R. Warnes and Michael Quinn and Zhian N. Kamvar\},
-#>   year = \{2023\},
-#>   note = \{R package version 2.3.8\},
-#>   url = \{https://CRAN.R-project.org/package=yaml\},
+#>   author = \{Shawn P Garbett and Jeremy Stephens and Kirill Simonov and Yihui Xie and Zhuoer Dong and Hadley Wickham and Jeffrey Horner and \{reikoch\} and Will Beasley and Brendan O'Connor and Gregory R. Warnes and Michael Quinn and Zhian N. Kamvar and Charlie Gao\},
+#>   year = \{2024\},
+#>   note = \{R package version 2.3.9\},
+#>   url = \{https://github.com/vubiostat/r-yaml/\},
 #> \}
 
 # cff_pers, cff_pers_lst

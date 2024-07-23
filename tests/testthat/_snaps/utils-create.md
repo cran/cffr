@@ -286,6 +286,9 @@
         doi: 10.1111/2041-210X.12469
         start: '352'
         end: '357'
+      identifiers:
+      - type: doi
+        value: 10.32614/CRAN.package.codemetar
       references:
       - type: book
         title: 'ggplot2: Elegant Graphics for Data Analysis'
@@ -493,6 +496,9 @@
         doi: 10.1111/2041-210X.12469
         start: '352'
         end: '357'
+      identifiers:
+      - type: doi
+        value: 10.32614/CRAN.package.codemetar
       references:
       - type: book
         title: 'ggplot2: Elegant Graphics for Data Analysis'
@@ -614,6 +620,9 @@
         doi: 10.1111/2041-210X.12469
         start: '352'
         end: '357'
+      identifiers:
+      - type: doi
+        value: 10.32614/CRAN.package.resmush
       references:
       - type: book
         title: 'ggplot2: Elegant Graphics for Data Analysis'
@@ -665,6 +674,7 @@
       - credit
       - linked-data
       license: GPL-3.0-only
+      commit: bdd9a29d7eabcc43c3195fe461f884932eba763c
       doi: 10.1111/2041-210X.12469
       preferred-citation:
         type: article
@@ -685,6 +695,9 @@
         doi: 10.1111/2041-210X.12469
         start: '352'
         end: '357'
+      identifiers:
+      - type: doi
+        value: 10.32614/CRAN.package.codemetar
       references:
       - type: book
         title: 'ggplot2: Elegant Graphics for Data Analysis'
@@ -853,6 +866,9 @@
         doi: 10.1111/2041-210X.12469
         start: '352'
         end: '357'
+      identifiers:
+      - type: doi
+        value: 10.32614/CRAN.package.surveillance
       references:
       - type: book
         title: 'ggplot2: Elegant Graphics for Data Analysis'
@@ -920,6 +936,9 @@
         doi: 10.1111/2041-210X.12469
         start: '352'
         end: '357'
+      identifiers:
+      - type: doi
+        value: 10.32614/CRAN.package.MomTrunc
       references:
       - type: book
         title: 'ggplot2: Elegant Graphics for Data Analysis'
@@ -986,6 +1005,9 @@
         doi: 10.1111/2041-210X.12469
         start: '352'
         end: '357'
+      identifiers:
+      - type: doi
+        value: 10.32614/CRAN.package.codemetar
       references:
       - type: book
         title: 'ggplot2: Elegant Graphics for Data Analysis'

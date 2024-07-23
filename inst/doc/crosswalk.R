@@ -26,7 +26,8 @@ origin[keys %in% c(
   "date-released",
   "contact",
   "keywords",
-  "license"
+  "license",
+  "commit"
 )] <- "DESCRIPTION file"
 
 origin[keys %in% c(
@@ -82,6 +83,17 @@ cff_obj_alt$authors
 cff_objv110 <- cff_create("jsonlite", cff_version = "v1.1.0")
 
 cat(cff_objv110$`cff-version`)
+
+## ----commit-------------------------------------------------------------------
+# An example DESCRIPTION
+path <- system.file("examples/DESCRIPTION_r_universe", package = "cffr")
+pkg <- desc::desc(path)
+
+# See RemoteSha
+pkg$get("RemoteSha")
+
+
+cff_read(path)
 
 ## ----contact------------------------------------------------------------------
 cff_obj <- cff_create("rmarkdown")
