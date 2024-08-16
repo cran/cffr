@@ -50,7 +50,7 @@ overflow: visible;
 </style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -61,7 +61,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
 { counter-reset: source-line 0; }
@@ -159,6 +159,7 @@ width: 90%;
 div.csl-bib-body { }
 div.csl-entry {
 clear: both;
+margin-bottom: 0em;
 }
 .hanging div.csl-entry {
 margin-left:2em;
@@ -501,7 +502,7 @@ formats:</p>
 entries that are already stored in a variable.</li>
 <li>A S3 method <code>toBibtex.cff()</code> that converts from
 <code>cff</code> objects to Bibtex objects (see
-<code>utils::tpBibtex()</code>).</li>
+<code>utils::toBibtex()</code>).</li>
 </ul>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>string <span class="ot">&lt;-</span> <span class="st">&quot;@book{einstein1921,</span></span>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="st">    title        = {Relativity: The Special and the General Theory},</span></span>
@@ -3487,7 +3488,7 @@ definitions and field requirements.</p>
 </div>
 <div id="references" class="section level2 unnumbered">
 <h2 class="unnumbered">References</h2>
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
 <div id="ref-druskat2019" class="csl-entry">
 Druskat, Stephan, Jurriaan H. Spaaks, Neil Chue Hong, Robert Haines, and
 James Baker. 2019. <span>“<span>Citation File Format (CFF)</span> -

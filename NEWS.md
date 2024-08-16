@@ -1,3 +1,7 @@
+# cffr 1.1.1
+
+-   Adapt extraction of orcid to **R \> 4.4.1**.
+
 # cffr 1.1.0
 
 -   Now **cffr** adds automatically dois to packages on **CRAN** (e.g.
