@@ -12,11 +12,11 @@ library(cffr)
 knitr::include_graphics("tweet-1.png")
 
 ## ----setup, eval=FALSE--------------------------------------------------------
-#  library(cffr)
-#  
-#  cff_write()
-#  
-#  # You are done!
+# library(cffr)
+# 
+# cff_write()
+# 
+# # You are done!
 
 ## ----newfields----------------------------------------------------------------
 newobject <- cff()

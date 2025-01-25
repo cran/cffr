@@ -209,11 +209,11 @@ pkg <- desc::desc(file.path(find.package("yaml"), "DESCRIPTION"))
 cat(pkg$get("License"))
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  msg <- paste0(
-#    'To cite package "',
-#    "NAME_OF_THE_PACKAGE",
-#    '" in publications use:'
-#  )
+# msg <- paste0(
+#   'To cite package "',
+#   "NAME_OF_THE_PACKAGE",
+#   '" in publications use:'
+# )
 
 ## ----message------------------------------------------------------------------
 cat(cff_create("jsonlite")$message)
@@ -271,7 +271,7 @@ cat(cff_create(tmp)[["repository"]])
 ## ----repository-code----------------------------------------------------------
 # Installed package on GitHub
 
-cff_create("jsonlite")$`repository-code`
+cat(cff_create("jsonlite")$`repository-code`)
 
 
 
@@ -282,16 +282,18 @@ gitlab <- system.file("examples/DESCRIPTION_gitlab", package = "cffr")
 cat(cff_create(gitlab)$`repository-code`)
 
 
-# Check
+# Codeberg
 
-desc::desc(gitlab)
+codeberg <- system.file("examples/DESCRIPTION_codeberg", package = "cffr")
+
+cat(cff_create(codeberg)$`repository-code`)
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  title <- paste0(
-#    "NAME_OF_THE_PACKAGE",
-#    ": ",
-#    "TITLE_OF_THE_PACKAGE"
-#  )
+# title <- paste0(
+#   "NAME_OF_THE_PACKAGE",
+#   ": ",
+#   "TITLE_OF_THE_PACKAGE"
+# )
 
 ## ----title--------------------------------------------------------------------
 # Installed package

@@ -204,7 +204,7 @@ get_desc_urls <- function(pkg) {
 
   # Clean if GitLab
   issues <- gsub("/-/issues$", "", issues)
-  # Clean if GitHub
+  # Clean if GitHub and codeberg.org
   issues <- gsub("/issues$", "", issues)
 
   # Join issues and urls
@@ -223,11 +223,12 @@ get_desc_urls <- function(pkg) {
     "github.com", "www.github.com",
     "gitlab.com",
     "r-forge.r-project.org",
-    "bitbucket.org"
+    "bitbucket.org",
+    "codeberg.org"
   ), collapse = "|")
 
   # Extract repo url
-  repo_line <- grep(domains, allurls)[1]
+  repo_line <- grep(domains, allurls, ignore.case = TRUE)[1]
 
   repository_code <- clean_str(allurls[repo_line][1])
 
@@ -302,7 +303,7 @@ get_gh_topics <- function(x) {
   # fast the GH api limit (no auth)
   # Need to auth to increase limit
   # Try to get an stored token
-  token <- (Sys.getenv(c("GITHUB_PAT", "GITHUB_TOKEN")))
+  token <- c(Sys.getenv(c("GITHUB_TOKEN", "GITHUB_PAT")))
   token <- token[!token %in% c(NA, NULL, "")][1]
 
   ghtoken <- paste("token", token)

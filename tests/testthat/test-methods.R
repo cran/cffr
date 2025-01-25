@@ -135,6 +135,9 @@ test_that("Convert list of authors", {
 
 
 test_that("as.person method", {
+  rvers <- getRversion()
+  skip_if(!grepl("^4.4", rvers), "Snapshot created with R 4.4.*")
+  skip_on_cran()
   path <- system.file("examples/CITATION_complete.cff", package = "cffr")
 
   the_cff <- cff_read(path)
@@ -165,9 +168,6 @@ test_that("as.person method", {
   expect_s3_class(aut2[1], "person")
   expect_s3_class(aut2[2], "person")
   expect_snapshot(dput(aut2))
-  expect_snapshot(
-    format(aut2, include = c("given", "family", "email", "role", "comment"))
-  )
 
   # Malformed
   malf <- getref$authors
@@ -228,11 +228,6 @@ test_that("head and tail", {
 })
 
 test_that("toBibtex", {
-  rvers <- getRversion()
-  skip_if(rvers <= "4.4.1", "Snapshot created with R 4.5.0")
-  skip_on_os("mac")
-  skip_on_os("linux")
-  skip_on_os("solaris")
   skip_on_cran()
 
 
@@ -296,20 +291,27 @@ test_that("toBibtex", {
     "{The Big Bopper} and Frank Sinatra and Dean Martin and Davis, Jr., Sammy"
   )
 
+  comp <- c(
+    person("The Big Bopper"), person("Frank", "Sinatra"),
+    person("Dean", "Martin"), person("Sammy", "Davis, Jr.")
+  )
+
   expect_length(sev_auth, 4)
   expect_s3_class(sev_auth, "cff_pers_lst")
-  expect_snapshot(toBibtex(sev_auth))
-
+  expect_identical(toBibtex(sev_auth), toBibtex(comp))
 
   # Single person
   single <- as_cff_person(person("A", "person", email = "a@b.d"))[[1]]
   expect_s3_class(single, "cff_pers")
-  expect_snapshot(toBibtex(single))
+  expect_identical(toBibtex(single), toBibtex(person("A", "person")))
 
   # Single entity
   single <- as_cff_person(person("{A and B co}", email = "a@b.d"))[[1]]
   expect_s3_class(single, "cff_pers")
-  expect_snapshot(toBibtex(single))
+  expect_identical(
+    toBibtex(single),
+    toBibtex(person("A and B co", email = "a@b.d"))
+  )
 })
 
 

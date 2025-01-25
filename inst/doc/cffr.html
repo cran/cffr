@@ -698,9 +698,9 @@ we just modify our <code>cff</code> object:</p>
 <span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">&quot;.cff&quot;</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a></span>
 <span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>see_res <span class="ot">&lt;-</span> <span class="fu">cff_write</span>(finalobject, <span class="at">outfile =</span> tmp)</span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="co">#&gt; ✔ &#39;C:\Users\diego\AppData\Local\Temp\RtmpYH1rtj\file4d0cb1f7d1.cff&#39; generated</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="co">#&gt; ✔ &#39;C:\Users\diego\AppData\Local\Temp\RtmpygP3mt\file1ed84bba7528.cff&#39; generated</span></span>
 <span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="co">#&gt; ══ Validating cff ══════════════════════════════════════════════════════════════</span></span>
-<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="co">#&gt; ✔ Congratulations! &#39;C:\Users\diego\AppData\Local\Temp\RtmpYH1rtj\file4d0cb1f7d1.cff&#39; is valid</span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="co">#&gt; ✔ Congratulations! &#39;C:\Users\diego\AppData\Local\Temp\RtmpygP3mt\file1ed84bba7528.cff&#39; is valid</span></span>
 <span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a></span>
 <span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">readLines</span>(tmp), <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
 <span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="co">#&gt; # --------------------------------------------</span></span>
@@ -798,9 +798,9 @@ param, so the workflow can be simplified as:</p>
 <span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a>tmp2 <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">&quot;.cff&quot;</span>)</span>
 <span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a></span>
 <span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">cff_write</span>(<span class="fu">cff</span>(), <span class="at">outfile =</span> tmp2, <span class="at">keys =</span> allkeys)</span>
-<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a><span class="co">#&gt; ✔ &#39;C:\Users\diego\AppData\Local\Temp\RtmpYH1rtj\file4d0c67af5523.cff&#39; generated</span></span>
+<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a><span class="co">#&gt; ✔ &#39;C:\Users\diego\AppData\Local\Temp\RtmpygP3mt\file1ed87e2f2e2.cff&#39; generated</span></span>
 <span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a><span class="co">#&gt; ══ Validating cff ══════════════════════════════════════════════════════════════</span></span>
-<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a><span class="co">#&gt; ✔ Congratulations! &#39;C:\Users\diego\AppData\Local\Temp\RtmpYH1rtj\file4d0c67af5523.cff&#39; is valid</span></span>
+<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a><span class="co">#&gt; ✔ Congratulations! &#39;C:\Users\diego\AppData\Local\Temp\RtmpygP3mt\file1ed87e2f2e2.cff&#39; is valid</span></span>
 <span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a></span>
 <span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a>res</span>
 <span id="cb10-19"><a href="#cb10-19" tabindex="-1"></a><span class="co">#&gt; cff-version: 1.2.0</span></span>
