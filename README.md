@@ -73,7 +73,7 @@ file and the `CITATION` file (if present) of your package. Note that
 **cffr** works best if your package pass
 `R CMD check/devtools::check()`.
 
-As per 2025-01-25 there are at least 390 repos on GitHub using **cffr**.
+As per 2026-01-11 there are at least 524 repos on GitHub using **cffr**.
 [Check them out
 here](https://github.com/search?q=cffr%20path%3A**%2FCITATION.cff&type=code).
 
@@ -135,7 +135,9 @@ test <- cff_create("rmarkdown")
 ```
 
 <details>
+
 <summary>
+
 <code>CITATION.cff</code> for <strong>rmarkdown</strong>
 </summary>
 
@@ -144,7 +146,7 @@ test <- cff_create("rmarkdown")
     type: software
     license: GPL-3.0-only
     title: 'rmarkdown: Dynamic Documents for R'
-    version: '2.29'
+    version: '2.30'
     identifiers:
     - type: doi
       value: 10.32614/CRAN.package.rmarkdown
@@ -224,13 +226,14 @@ test <- cff_create("rmarkdown")
         given-names: Richard
         email: rich@posit.co
         orcid: https://orcid.org/0000-0003-3925-190X
-      year: '2024'
-      notes: R package version 2.29
+      year: '2025'
+      notes: R package version 2.30
       url: https://github.com/rstudio/rmarkdown
     repository: https://CRAN.R-project.org/package=rmarkdown
     repository-code: https://github.com/rstudio/rmarkdown
+    commit: '2.30'
     url: https://pkgs.rstudio.com/rmarkdown/
-    date-released: '2024-11-04'
+    date-released: '2025-09-28'
     contact:
     - family-names: Xie
       given-names: Yihui
@@ -283,7 +286,7 @@ test <- cff_create("rmarkdown")
       institution:
         name: R Foundation for Statistical Computing
         address: Vienna, Austria
-      year: '2025'
+      year: '2026'
       version: '>= 3.0'
     - type: software
       title: bslib
@@ -303,7 +306,7 @@ test <- cff_create("rmarkdown")
         given-names: Garrick
         email: garrick@posit.co
         orcid: https://orcid.org/0000-0002-7111-0077
-      year: '2025'
+      year: '2026'
       doi: 10.32614/CRAN.package.bslib
       version: '>= 0.2.5.1'
     - type: software
@@ -320,7 +323,7 @@ test <- cff_create("rmarkdown")
       - family-names: Xie
         given-names: Yihui
         orcid: https://orcid.org/0000-0003-0645-5666
-      year: '2025'
+      year: '2026'
       doi: 10.32614/CRAN.package.evaluate
       version: '>= 0.13'
     - type: software
@@ -334,7 +337,7 @@ test <- cff_create("rmarkdown")
         given-names: Richard
         email: rich@posit.co
         orcid: https://orcid.org/0000-0003-3925-190X
-      year: '2025'
+      year: '2026'
       doi: 10.32614/CRAN.package.fontawesome
       version: '>= 0.5.0'
     - type: software
@@ -364,7 +367,7 @@ test <- cff_create("rmarkdown")
         email: yihui@posit.co
       - family-names: Allen
         given-names: Jeff
-      year: '2025'
+      year: '2026'
       doi: 10.32614/CRAN.package.htmltools
       version: '>= 0.5.1'
     - type: software
@@ -380,7 +383,7 @@ test <- cff_create("rmarkdown")
       - family-names: Cheng
         given-names: Joe
         email: joe@rstudio.com
-      year: '2025'
+      year: '2026'
       doi: 10.32614/CRAN.package.jquerylib
     - type: software
       title: jsonlite
@@ -393,7 +396,7 @@ test <- cff_create("rmarkdown")
         given-names: Jeroen
         email: jeroenooms@gmail.com
         orcid: https://orcid.org/0000-0002-4035-0289
-      year: '2025'
+      year: '2026'
       doi: 10.32614/CRAN.package.jsonlite
     - type: software
       title: knitr
@@ -406,7 +409,7 @@ test <- cff_create("rmarkdown")
         given-names: Yihui
         email: xie@yihui.name
         orcid: https://orcid.org/0000-0003-0645-5666
-      year: '2025'
+      year: '2026'
       doi: 10.32614/CRAN.package.knitr
       version: '>= 1.43'
     - type: software
@@ -418,7 +421,7 @@ test <- cff_create("rmarkdown")
       institution:
         name: R Foundation for Statistical Computing
         address: Vienna, Austria
-      year: '2025'
+      year: '2026'
     - type: software
       title: tinytex
       abstract: 'tinytex: Helper Functions to Install and Maintain TeX Live, and Compile
@@ -431,7 +434,7 @@ test <- cff_create("rmarkdown")
         given-names: Yihui
         email: xie@yihui.name
         orcid: https://orcid.org/0000-0003-0645-5666
-      year: '2025'
+      year: '2026'
       doi: 10.32614/CRAN.package.tinytex
       version: '>= 0.31'
     - type: software
@@ -443,7 +446,7 @@ test <- cff_create("rmarkdown")
       institution:
         name: R Foundation for Statistical Computing
         address: Vienna, Austria
-      year: '2025'
+      year: '2026'
     - type: software
       title: utils
       abstract: 'R: A Language and Environment for Statistical Computing'
@@ -453,7 +456,7 @@ test <- cff_create("rmarkdown")
       institution:
         name: R Foundation for Statistical Computing
         address: Vienna, Austria
-      year: '2025'
+      year: '2026'
     - type: software
       title: xfun
       abstract: 'xfun: Supporting Functions for Packages Maintained by ''Yihui Xie'''
@@ -465,80 +468,36 @@ test <- cff_create("rmarkdown")
         given-names: Yihui
         email: xie@yihui.name
         orcid: https://orcid.org/0000-0003-0645-5666
-      year: '2025'
+      year: '2026'
       doi: 10.32614/CRAN.package.xfun
       version: '>= 0.36'
     - type: software
       title: yaml
       abstract: 'yaml: Methods to Convert R Data to YAML and Back'
       notes: Imports
-      url: https://github.com/vubiostat/r-yaml/
+      url: https://yaml.r-lib.org
       repository: https://CRAN.R-project.org/package=yaml
       authors:
-      - family-names: Garbett
-        given-names: Shawn P
       - family-names: Stephens
         given-names: Jeremy
       - family-names: Simonov
         given-names: Kirill
-      - family-names: Xie
-        given-names: Yihui
-      - family-names: Dong
-        given-names: Zhuoer
-      - family-names: Wickham
-        given-names: Hadley
-      - family-names: Horner
-        given-names: Jeffrey
-      - name: reikoch
-      - family-names: Beasley
-        given-names: Will
-      - family-names: O'Connor
-        given-names: Brendan
-      - family-names: Warnes
-        given-names: Gregory R.
-      - family-names: Quinn
-        given-names: Michael
-      - family-names: Kamvar
-        given-names: Zhian N.
-      - family-names: Gao
-        given-names: Charlie
-      year: '2025'
+      year: '2026'
       doi: 10.32614/CRAN.package.yaml
       version: '>= 2.1.19'
     - type: software
       title: digest
       abstract: 'digest: Create Compact Hash Digests of R Objects'
       notes: Suggests
-      url: https://dirk.eddelbuettel.com/code/digest.html
+      url: https://eddelbuettel.github.io/digest/
       repository: https://CRAN.R-project.org/package=digest
       authors:
       - family-names: Eddelbuettel
         given-names: Dirk
         email: edd@debian.org
         orcid: https://orcid.org/0000-0001-6419-907X
-      year: '2025'
+      year: '2026'
       doi: 10.32614/CRAN.package.digest
-    - type: software
-      title: dygraphs
-      abstract: 'dygraphs: Interface to ''Dygraphs'' Interactive Time Series Charting
-        Library'
-      notes: Suggests
-      url: https://github.com/rstudio/dygraphs
-      repository: https://CRAN.R-project.org/package=dygraphs
-      authors:
-      - family-names: Vanderkam
-        given-names: Dan
-        website: http://dygraphs.com/
-      - family-names: Allaire
-        given-names: JJ
-      - family-names: Owen
-        given-names: Jonathan
-      - family-names: Gromer
-        given-names: Daniel
-      - family-names: Thieurmel
-        given-names: Benoit
-      year: '2025'
-      doi: 10.32614/CRAN.package.dygraphs
     - type: software
       title: fs
       abstract: 'fs: Cross-Platform File System Operations Based on ''libuv'''
@@ -554,29 +513,8 @@ test <- cff_create("rmarkdown")
       - family-names: Csárdi
         given-names: Gábor
         email: csardi.gabor@gmail.com
-      year: '2025'
+      year: '2026'
       doi: 10.32614/CRAN.package.fs
-    - type: software
-      title: rsconnect
-      abstract: 'rsconnect: Deploy Docs, Apps, and APIs to ''Posit Connect'', ''shinyapps.io'',
-        and ''RPubs'''
-      notes: Suggests
-      url: https://rstudio.github.io/rsconnect/
-      repository: https://CRAN.R-project.org/package=rsconnect
-      authors:
-      - family-names: Atkins
-        given-names: Aron
-        email: aron@posit.co
-      - family-names: Allen
-        given-names: Toph
-      - family-names: Wickham
-        given-names: Hadley
-      - family-names: McPherson
-        given-names: Jonathan
-      - family-names: Allaire
-        given-names: JJ
-      year: '2025'
-      doi: 10.32614/CRAN.package.rsconnect
     - type: software
       title: downlit
       abstract: 'downlit: Syntax Highlighting and Automatic Linking'
@@ -587,23 +525,9 @@ test <- cff_create("rmarkdown")
       - family-names: Wickham
         given-names: Hadley
         email: hadley@posit.co
-      year: '2025'
+      year: '2026'
       doi: 10.32614/CRAN.package.downlit
       version: '>= 0.4.0'
-    - type: software
-      title: katex
-      abstract: 'katex: Rendering Math to HTML, ''MathML'', or R-Documentation Format'
-      notes: Suggests
-      url: https://docs.ropensci.org/katex/
-      repository: https://CRAN.R-project.org/package=katex
-      authors:
-      - family-names: Ooms
-        given-names: Jeroen
-        email: jeroenooms@gmail.com
-        orcid: https://orcid.org/0000-0002-4035-0289
-      year: '2025'
-      doi: 10.32614/CRAN.package.katex
-      version: '>= 1.4.0'
     - type: software
       title: sass
       abstract: 'sass: Syntactically Awesome Style Sheets (''Sass'')'
@@ -629,7 +553,7 @@ test <- cff_create("rmarkdown")
         given-names: Carson
         email: carson@rstudio.com
         orcid: https://orcid.org/0000-0002-4958-2844
-      year: '2025'
+      year: '2026'
       doi: 10.32614/CRAN.package.sass
       version: '>= 0.4.0'
     - type: software
@@ -657,6 +581,10 @@ test <- cff_create("rmarkdown")
         given-names: Barret
         email: barret@posit.co
         orcid: https://orcid.org/0000-0001-9986-114X
+      - family-names: Aden-Buie
+        given-names: Garrick
+        email: garrick@adenbuie.com
+        orcid: https://orcid.org/0000-0002-7111-0077
       - family-names: Xie
         given-names: Yihui
         email: yihui@posit.co
@@ -669,7 +597,7 @@ test <- cff_create("rmarkdown")
         given-names: Alan
       - family-names: Borges
         given-names: Barbara
-      year: '2025'
+      year: '2026'
       doi: 10.32614/CRAN.package.shiny
       version: '>= 1.6.0'
     - type: software
@@ -682,7 +610,7 @@ test <- cff_create("rmarkdown")
       - family-names: Wickham
         given-names: Hadley
         email: hadley@posit.co
-      year: '2025'
+      year: '2026'
       doi: 10.32614/CRAN.package.testthat
       version: '>= 3.0.3'
     - type: software
@@ -699,7 +627,7 @@ test <- cff_create("rmarkdown")
       - family-names: Wickham
         given-names: Hadley
         email: hadley@rstudio.com
-      year: '2025'
+      year: '2026'
       doi: 10.32614/CRAN.package.tibble
     - type: software
       title: vctrs
@@ -717,21 +645,8 @@ test <- cff_create("rmarkdown")
       - family-names: Vaughan
         given-names: Davis
         email: davis@posit.co
-      year: '2025'
+      year: '2026'
       doi: 10.32614/CRAN.package.vctrs
-    - type: software
-      title: cleanrmd
-      abstract: 'cleanrmd: Clean Class-Less ''R Markdown'' HTML Documents'
-      notes: Suggests
-      url: https://pkg.garrickadenbuie.com/cleanrmd/
-      repository: https://CRAN.R-project.org/package=cleanrmd
-      authors:
-      - family-names: Aden-Buie
-        given-names: Garrick
-        email: garrick@adenbuie.com
-        orcid: https://orcid.org/0000-0002-7111-0077
-      year: '2025'
-      doi: 10.32614/CRAN.package.cleanrmd
     - type: software
       title: withr
       abstract: 'withr: Run Code ''With'' Temporarily Modified Global State'
@@ -755,27 +670,28 @@ test <- cff_create("rmarkdown")
         email: hadley@posit.co
       - family-names: Chang
         given-names: Winston
-      year: '2025'
+      year: '2026'
       doi: 10.32614/CRAN.package.withr
       version: '>= 2.4.2'
     - type: software
       title: xml2
       abstract: 'xml2: Parse XML'
       notes: Suggests
-      url: https://xml2.r-lib.org/
+      url: https://xml2.r-lib.org
       repository: https://CRAN.R-project.org/package=xml2
       authors:
       - family-names: Wickham
         given-names: Hadley
-        email: hadley@posit.co
       - family-names: Hester
         given-names: Jim
       - family-names: Ooms
         given-names: Jeroen
-      year: '2025'
+        email: jeroenooms@gmail.com
+      year: '2026'
       doi: 10.32614/CRAN.package.xml2
 
 </details>
+
 <p>
 
 We can validate the result using `cff_validate()`:

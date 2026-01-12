@@ -1095,7 +1095,6 @@
       - family-names: Boettiger
         given-names: Carl
         email: cboettig@gmail.com
-        orcid: https://orcid.org/0000-0002-1642-628X
       abstract: Codemeta defines a 'JSON-LD' format for describing software metadata. This
         package provides utilities to generate, parse, and modify codemeta.jsonld files
         automatically for R packages.
@@ -1104,7 +1103,6 @@
       - family-names: Boettiger
         given-names: Carl
         email: cboettig@gmail.com
-        orcid: https://orcid.org/0000-0002-1642-628X
       keywords:
       - metadata
       - codemeta
@@ -1170,7 +1168,7 @@
         url: https://docs.ropensci.org/jsonvalidate/
         repository: https://CRAN.R-project.org/package=jsonvalidate
       - title: yaml
-        url: https://github.com/vubiostat/r-yaml/
+        url: https://yaml.r-lib.org
         repository: https://CRAN.R-project.org/package=yaml
       - title: bibtex
         url: https://docs.ropensci.org/bibtex/

@@ -110,7 +110,8 @@ cff_schema_keys <- function(sorted = FALSE) {
 #' # Valid Licenses keys
 #' head(cff_schema_keys_license(), 20)
 cff_schema_keys_license <- function() {
-  license <- read.csv(system.file("extdata/SPDX_License_List.csv",
+  license <- read.csv(system.file(
+    "extdata/SPDX_License_List.csv",
     package = "cffr"
   ))
 
@@ -276,7 +277,7 @@ other_persons <- function() {
     entity_person()
   )))
 
-  return(pers_ent)
+  pers_ent
 }
 
 #' Vector other persons to be coerced as entities

@@ -116,7 +116,6 @@ cat(pkg$get("Date/Publication"))
 cat(cff_obj$`date-released`)
 
 
-
 # A DESCRIPTION file without a Date
 nodate <- system.file("examples/DESCRIPTION_basic", package = "cffr")
 tmp <- tempfile("DESCRIPTION")
@@ -272,7 +271,6 @@ cat(cff_create(tmp)[["repository"]])
 # Installed package on GitHub
 
 cat(cff_create("jsonlite")$`repository-code`)
-
 
 
 # GitLab

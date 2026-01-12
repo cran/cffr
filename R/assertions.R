@@ -9,8 +9,11 @@ is_email <- function(email) {
   email <- trimws(as.character(email))
 
   # See CFF  validation schema
-  x <- grepl("^[\\S]+@[\\S]+\\.[\\S]{2,}$", email,
-    ignore.case = TRUE, perl = TRUE
+  x <- grepl(
+    "^[\\S]+@[\\S]+\\.[\\S]{2,}$",
+    email,
+    ignore.case = TRUE,
+    perl = TRUE
   )
   x
 }
@@ -38,9 +41,9 @@ is_substring <- function(x, sub) {
   }
 
   if (isTRUE(grep(sub, x) == 1)) {
-    return(TRUE)
+    TRUE
   } else {
-    return(FALSE)
+    FALSE
   }
 }
 
@@ -56,19 +59,23 @@ is_cff <- function(x) {
 #' @noRd
 is_cff_file <- function(x) {
   src <- detect_x_source(x)
-  return(src == "cff_citation")
+  val <- src == "cff_citation"
+  val
 }
 
 #' Check if an url is from GitHub
 #' @param x object to be evaluated
 #' @noRd
 is_github <- function(x) {
-  res <- isTRUE(grep(
-    "^http[a-z]://github.com/",
-    x["repository-code"]
-  ) == 1)
+  res <- isTRUE(
+    grep(
+      "^http[a-z]://github.com/",
+      x["repository-code"]
+    ) ==
+      1
+  )
 
-  return(res)
+  res
 }
 
 #' Check if `x` has names

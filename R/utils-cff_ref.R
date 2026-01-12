@@ -8,7 +8,6 @@ get_bibtex_entry <- function(bib) {
   init_type <- attr(unclass(bib)[[1]], "bibtype")
   init_type <- clean_str(tolower(init_type))
 
-
   cit_list <- drop_null(unclass(bib)[[1]])
 
   # Add fields
@@ -34,7 +33,6 @@ get_bibtex_entry <- function(bib) {
     "generic"
   )
 
-
   # Check if it an inbook with booktitle (BibLaTeX style)
   if (all(init_type == "inbook", "booktitle" %in% names(cit_list))) {
     # Make it incollection
@@ -42,8 +40,7 @@ get_bibtex_entry <- function(bib) {
     cit_list$type <- "generic"
   }
 
-
-  return(cit_list)
+  cit_list
 }
 
 #' Adapt names from R citation()/BibTeX to cff format
@@ -89,7 +86,6 @@ get_bibtex_fields <- function(cit_list) {
   # Other BibLaTeX fields that does not require any mapping
   # abstract, doi, isbn, issn, url, version
 
-
   # Keywords may be duplicated, unify
   if ("keywords" %in% nm) {
     kwords <- unlist(cit_list["keywords" == nm])
@@ -118,9 +114,9 @@ get_bibtex_fields <- function(cit_list) {
 
   loc <- cit_list$location
 
-  if (!is.null(loc)) cit_list$location <- loc
-
-
+  if (!is.null(loc)) {
+    cit_list$location <- loc
+  }
 
   # Treat additional dates ----
   dpub <- clean_str(cit_list$`date-published`)
@@ -140,7 +136,7 @@ get_bibtex_fields <- function(cit_list) {
     if (length(spl) > 1) cit_list$end <- paste(spl[-1], collapse = "--")
   }
 
-  return(cit_list)
+  cit_list
 }
 
 #' Modify mapping of some org. fields on BibTeX to CFF
@@ -181,10 +177,8 @@ add_conference <- function(field_list) {
   if (bibtex_entry %in% c("conference", "inproceedings", "proceedings")) {
     field_list$conference <- field_list$`collection-title`
   }
-  return(field_list)
+  field_list
 }
-
-
 
 
 #' Adapt cff keys to bibtex entries
@@ -238,7 +232,7 @@ add_address <- function(cit_list) {
     cit_list$location <- NULL
   }
 
-  return(cit_list)
+  cit_list
 }
 
 add_bibtex_coltype <- function(field_list) {
@@ -263,7 +257,7 @@ add_bibtex_coltype <- function(field_list) {
 
   field_list <- field_list[nms_end]
 
-  return(field_list)
+  field_list
 }
 
 fallback_dates <- function(cit_list) {
@@ -279,7 +273,7 @@ fallback_dates <- function(cit_list) {
   ## month ----
   cit_list$month <- get_bibtex_month(cit_list)
 
-  return(cit_list)
+  cit_list
 }
 
 #' BB for doi
@@ -292,9 +286,7 @@ get_bibtex_doi <- function(cit_list) {
     x <- clean_str(x)
   }))
 
-
   dois <- unique(as.character(dois))
-
 
   # The first doi goes to doi key
   doi <- unlist(dois[1])
@@ -306,12 +298,14 @@ get_bibtex_doi <- function(cit_list) {
       value = clean_str(x)
     )
   })
-  if (length(identifiers) == 0) identifiers <- NULL
+  if (length(identifiers) == 0) {
+    identifiers <- NULL
+  }
   doi_list <- list(
     doi = clean_str(doi),
     identifiers = identifiers
   )
-  return(doi_list)
+  doi_list
 }
 
 #' BB for month
@@ -366,14 +360,16 @@ get_bibtex_url <- function(cit_list) {
     )
   })
 
-  if (length(identifiers) == 0) identifiers <- NULL
+  if (length(identifiers) == 0) {
+    identifiers <- NULL
+  }
 
   url_list <- list(
     url = clean_str(url),
     identifiers = identifiers
   )
 
-  return(url_list)
+  url_list
 }
 
 #' BB for other persons
@@ -387,11 +383,9 @@ get_bibtex_other_pers <- function(field_list) {
     if (inherits(x, "person")) {
       x <- paste(x, collapse = " and ")
     } else {
-      return(x)
+      x
     }
   })
-
-
 
   # Select subsets
   all_pers <- other_persons()
@@ -413,17 +407,15 @@ get_bibtex_other_pers <- function(field_list) {
     bibtex <- paste(x, collapse = " and ")
     end <- as_cff_person(bibtex)
 
-    return(end)
+    end
   })
-
 
   toperson <- others[names(others) %in% toauto_end]
   toperson <- lapply(toperson, as_cff_person)
-
 
   # Bind and reorder
   other_list <- c(toentity, toperson, toentity_pers)
   other_list <- other_list[names(others)]
 
-  return(other_list)
+  other_list
 }

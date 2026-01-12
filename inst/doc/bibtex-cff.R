@@ -86,7 +86,7 @@ refkeys <- matrix(l, ncol = 5, byrow = TRUE)
 
 knitr::kable(refkeys,
   row.names = NA,
-  caption = "Valid keys on [CFF]{underline} `definition-reference` objects"
+  caption = "Valid keys on [CFF]{.underline} `definition-reference` objects"
 )
 
 ## ----entry_bib2cff, echo=FALSE, results='asis'--------------------------------

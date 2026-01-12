@@ -34,7 +34,7 @@ file_exist_abort <- function(x, abort = FALSE) {
       "{.file {x}} doesn't exist. Check the {.file {dirname(x)}} directory"
     )
   }
-  return(invisible(res))
+  invisible(res)
 }
 
 match_cff_arg <- function(arg, valid, for_msg, call = environment()) {
@@ -48,14 +48,16 @@ match_cff_arg <- function(arg, valid, for_msg, call = environment()) {
     )
   }
 
-  return(arg)
+  arg
 }
 
 write_lines_msg <- function(lines, file, verbose, append) {
   # Check that the directory exists, if not create
   dir <- dirname(path.expand(file))
   if (!dir.exists(dir)) {
-    if (verbose) cli::cli_alert_info("Creating directory {.path {dir}}")
+    if (verbose) {
+      cli::cli_alert_info("Creating directory {.path {dir}}")
+    }
     dir.create(dir, recursive = TRUE)
   }
 
@@ -73,7 +75,6 @@ write_lines_msg <- function(lines, file, verbose, append) {
     }
     file.copy(file, f)
   }
-
 
   fh <- file(file, encoding = "UTF-8", open = ifelse(append, "a+", "w+"))
   on.exit(if (isOpen(fh)) close(fh))

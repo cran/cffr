@@ -131,7 +131,7 @@
 #' # Coerce a string
 #' a_str <- paste0(
 #'   "Julio Iglesias <fake@email.com> ",
-#'   "(<https://orcid.org/0000-0001-8457-4658>)"
+#'   "(city: Miami, region: California, country: US)"
 #' )
 #' as_cff_person(a_str)
 #'
@@ -171,7 +171,9 @@ as_cff_person <- function(x, ...) {
 #' @order 2
 as_cff_person.default <- function(x, ...) {
   # Check if this is protected
-  if (!inherits(x, "Bibtex")) x <- clean_str(x)
+  if (!inherits(x, "Bibtex")) {
+    x <- clean_str(x)
+  }
   if (is.null(x)) {
     return(NULL)
   }
@@ -205,7 +207,6 @@ as_cff_person.character <- function(x, ...) {
     test_x <- clean_str(x)
   }
 
-
   if (is.null(test_x)) {
     return(NULL)
   }
@@ -217,7 +218,6 @@ as_cff_person.character <- function(x, ...) {
   the_obj <- as_cff(the_obj)
   the_obj
 }
-
 
 
 create_person_from_r <- function(person) {
@@ -238,10 +238,12 @@ create_person_from_r <- function(person) {
   }
 
   # Special case for R Core Team
-  if (all(
-    is_substring(clean_str(person$given), "R Core"),
-    is_substring(person$family, "Team")
-  )) {
+  if (
+    all(
+      is_substring(clean_str(person$given), "R Core"),
+      is_substring(person$family, "Team")
+    )
+  ) {
     person <- person(
       given = paste(
         clean_str(person$given),
@@ -271,8 +273,11 @@ create_person_from_r <- function(person) {
   }
 
   pers_cff <- create_person_from_txt(as_bib_text)
-  comm_cff <- extract_person_comments(person)
-
+  if (getRversion() < "4.5.0") {
+    comm_cff <- extract_person_comments(person) # nocov
+  } else {
+    comm_cff <- extract_person_comments45(person)
+  }
   # Add comments
   pers_cff <- c(pers_cff, comm_cff)
 
@@ -288,8 +293,10 @@ create_person_from_txt <- function(as_bib_text) {
   # but we protect this if inside brackets
   comments_pattern <- "<|>|\\(|\\)|\\[|\\]"
 
-  protected <- gsub(paste0("(", comments_pattern, ")(?![^\\}]*(\\{|$))"),
-    "0", as_bib_text,
+  protected <- gsub(
+    paste0("(", comments_pattern, ")(?![^\\}]*(\\{|$))"),
+    "0",
+    as_bib_text,
     perl = TRUE
   )
 
@@ -299,13 +306,18 @@ create_person_from_txt <- function(as_bib_text) {
     # has comments
     person_only <- trimws(substr(as_bib_text, 1, start_comment - 1))
     comment_only <- trimws(substr(
-      as_bib_text, start_comment,
+      as_bib_text,
+      start_comment,
       nchar(as_bib_text)
     ))
 
     # Fake a person object to extract comments
     fake_person <- paste0("{Fake} ", comment_only)
-    comm_cff <- extract_person_comments(fake_person)
+    if (getRversion() < "4.5.0") {
+      comm_cff <- extract_person_comments(fake_person) # nocov
+    } else {
+      comm_cff <- extract_person_comments45(fake_person)
+    }
   } else {
     # Does not
     person_only <- as_bib_text
@@ -321,7 +333,6 @@ create_person_from_txt <- function(as_bib_text) {
     person_only <- protect_bib_braces(person_only)
   }
 
-
   # Now extract structure for person_only string
   # It may be one of:
   # A. Given von Family
@@ -329,10 +340,7 @@ create_person_from_txt <- function(as_bib_text) {
   # C. von Family, Junior, Given
 
   # Protect commas on brackets to avoid error counting
-  protected <- gsub(",(?![^\\}]*(\\{|$))", "@comma@",
-    person_only,
-    perl = TRUE
-  )
+  protected <- gsub(",(?![^\\}]*(\\{|$))", "@comma@", person_only, perl = TRUE)
 
   commas <- as.character(
     lengths(regmatches(protected, gregexpr(",", protected)))

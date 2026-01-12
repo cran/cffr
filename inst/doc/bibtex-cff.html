@@ -49,8 +49,9 @@ overflow: visible;
 }
 </style>
 <style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -61,7 +62,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
 { counter-reset: source-line 0; }
@@ -446,7 +447,7 @@ entry:</p>
 <span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>    <span class="dt">journal</span>      = {The {cffr} package},</span>
 <span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>    <span class="dt">volume</span>       = {Vignettes},</span>
 <span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>    <span class="dt">doi</span>          = {10.21105/joss.03900},</span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>    <span class="dt">url</span>          = {https://docs.ropensci.org/cffr/articles/bibtex_cff.html}</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>    <span class="dt">url</span>          = {https://docs.ropensci.org/cffr/articles/bibtex-cff.html}</span>
 <span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <div id="bibtex-and-r" class="section level2">
@@ -1185,8 +1186,8 @@ implemented in the software version.</li>
 to Citation File Format schema version 1.2.0</a>, and they may contain
 the following keys:</p>
 <table>
-<caption>Valid keys on [CFF]{underline}
-<code>definition-reference</code> objects</caption>
+<caption>Valid keys on <u>CFF</u> <code>definition-reference</code>
+objects</caption>
 <colgroup>
 <col width="19%" />
 <col width="20%" />
@@ -1682,15 +1683,6 @@ collection-title would correspond to <strong>booktitle</strong> for
 the rest of cases it would correspond to series. A consequence of this
 is that series information would be lost for incollection and
 inproceedings, but on those cases is an optional field.</p></li>
-<li><p>Regarding <strong>series</strong>, it would be mapped to
-<u>collection-title</u> only for those entries that do not require
-<strong>booktitle</strong>. In practice, this means that
-<u>collection-title</u> would correspond to <strong>booktitle</strong>
-for <strong>@incollection</strong> and <strong>@inproceedings</strong>,
-while in other cases it would correspond to <strong>series</strong>. As
-a consequence, <strong>series</strong> information would be lost for
-<strong>@incollection</strong> and <strong>@inproceedings</strong>, but
-in those cases, it is an optional field.</p></li>
 <li><p>When converting from <u>CFF</u> to <strong>BibTeX</strong>, we
 propose to use <u>date-published</u> as a fallback for extracting
 <strong>month</strong> and <strong>year</strong> fields.</p></li>

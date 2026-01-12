@@ -1,3 +1,12 @@
+# cffr 1.2.1
+
+-   `cff_gha_update()` action now runs in `ubuntu-latest` by default to save
+    [GitHub Actions
+    quota](https://docs.github.com/en/billing/managing-billing-for-your-products/managing-billing-for-github-actions/about-billing-for-github-actions#minute-multipliers)
+    (#90, thanks to \@Pakillo).
+-   Improve comments detection and parsing in `as_cff_person()` function family.
+-   Update mapping of CRAN packages to SPDX codes.
+
 # cffr 1.2.0
 
 -   New parameter `r_citation` in `cff_write()`. When it is set to `TRUE` a

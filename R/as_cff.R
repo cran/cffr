@@ -163,15 +163,17 @@ rapply_drop_null <- function(x) {
   if (is.list(x) && length(x) > 0) {
     x <- drop_null(x)
     x <- lapply(x, rapply_drop_null)
-    return(x)
+    x
   } else {
-    return(x)
+    x
   }
 }
 
 
 rapply_class <- function(x) {
-  if (is_named(x)) x <- x[!duplicated(names(x))]
+  if (is_named(x)) {
+    x <- x[!duplicated(names(x))]
+  }
 
   xend <- lapply(x, function(el) {
     xelement <- el
@@ -204,7 +206,7 @@ rapply_class <- function(x) {
       class(xin) <- c(guess, "cff")
       xelement <- xin
     }
-    return(xelement)
+    xelement
   })
   xend
 }
@@ -214,20 +216,24 @@ rapply_class <- function(x) {
 new_cff <- function(x) {
   # Clean all strings recursively
 
-  x <- rapply(x, function(x) {
-    if (is.list(x) || length(x) > 1) {
-      return(x)
-    }
-    return(clean_str(x))
-  },
-  how = "list"
+  x <- rapply(
+    x,
+    function(x) {
+      if (is.list(x) || length(x) > 1) {
+        return(x)
+      }
+      clean_str(x)
+    },
+    how = "list"
   )
 
   # Remove NULLs
   x <- drop_null(x)
 
   # Remove duplicated names if named
-  if (is_named(x)) x <- x[!duplicated(names(x))]
+  if (is_named(x)) {
+    x <- x[!duplicated(names(x))]
+  }
 
   # Now apply drop null to nested lists
   x <- lapply(x, rapply_drop_null)

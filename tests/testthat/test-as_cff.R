@@ -13,7 +13,9 @@ test_that("as.cff still works", {
 
 
 test_that("as_cff.person", {
-  pers <- person("A", "person",
+  pers <- person(
+    "A",
+    "person",
     email = "fake@gmail.com",
     comment = c(
       ORCID = "0000-0001-8457-4658",
@@ -26,6 +28,8 @@ test_that("as_cff.person", {
   expect_s3_class(aa, c("cff_pers_lst", "cff"), exact = TRUE)
   expect_s3_class(aa[[1]], c("cff_pers", "cff"), exact = TRUE)
   expect_identical(aa, as_cff_person(pers))
+  rvers <- getRversion()
+  skip_if(!grepl("^4.5", rvers), "Snapshot created with R 4.5.*")
   expect_snapshot(as_cff(pers))
 
   # Check a single person
@@ -37,10 +41,7 @@ test_that("as_cff.person", {
 })
 
 test_that("as_cff.bibentry, toBibtex", {
-  b <- bibentry("Misc",
-    title = "title", author = "Author",
-    editor = "Editor"
-  )
+  b <- bibentry("Misc", title = "title", author = "Author", editor = "Editor")
 
   bbb <- as_cff(b)
 
@@ -91,10 +92,7 @@ test_that("Other convertes", {
 
 
 test_that("]] cff_ref", {
-  b1 <- bibentry("Misc",
-    title = "title", author = "Author",
-    editor = "Editor"
-  )
+  b1 <- bibentry("Misc", title = "title", author = "Author", editor = "Editor")
   b2 <- bibentry("Manual", author = "Another", title = "another title")
 
   b_all <- c(b1, b2)
@@ -134,9 +132,13 @@ test_that("Reading full cff", {
 
   nm <- names(cff_complete)
 
-  class_v <- vapply(nm, function(x) {
-    clean_str(paste0(class(cff_complete[[x]]), collapse = "|"))
-  }, character(1))
+  class_v <- vapply(
+    nm,
+    function(x) {
+      clean_str(paste0(class(cff_complete[[x]]), collapse = "|"))
+    },
+    character(1)
+  )
 
   df <- data.frame(class = sort(class_v[class_v != "character"]))
 
@@ -146,12 +148,15 @@ test_that("Reading full cff", {
   pref <- cff_complete$`preferred-citation`
   nm2 <- names(pref)
 
-  class_v2 <- vapply(nm2, function(x) {
-    clean_str(paste0(class(pref[[x]]), collapse = "|"))
-  }, character(1))
+  class_v2 <- vapply(
+    nm2,
+    function(x) {
+      clean_str(paste0(class(pref[[x]]), collapse = "|"))
+    },
+    character(1)
+  )
 
   df2 <- data.frame(class = sort(class_v2[class_v2 != "character"]))
-
 
   expect_snapshot(df2)
 

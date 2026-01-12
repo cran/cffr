@@ -27,7 +27,9 @@ clean_str <- function(str) {
   # Encoding
   enc <- Encoding(clean)
 
-  if (enc != "UTF-8") clean <- iconv(clean, to = "UTF-8")
+  if (enc != "UTF-8") {
+    clean <- iconv(clean, to = "UTF-8")
+  }
 
   clean
 }
@@ -59,9 +61,11 @@ print_snapshot <- function(title = "----", obj) {
 #' [utils::available.packages()].
 #' @param repos vector of repos
 #' @noRd
-search_on_repos <- function(name,
-                            avail = avail_on_init,
-                            repos = detect_repos()) {
+search_on_repos <- function(
+  name,
+  avail = avail_on_init,
+  repos = detect_repos()
+) {
   get <- avail[name == avail$Package, "Repository"]
 
   get <- clean_str(get)
@@ -72,7 +76,6 @@ search_on_repos <- function(name,
 
   # Try to find in CRAN
   cran_repo <- clean_str(repos["CRAN"])
-
 
   if (length(grep(cran_repo, get) == 1)) {
     # Canonical url to CRAN
@@ -104,7 +107,7 @@ detect_repos <- function(repos = getOption("repos")) {
     repos["CRAN"] <- "https://cloud.r-project.org/"
   }
 
-  return(repos)
+  repos
 }
 
 #' Function for fuzzy matching the names of the keys
@@ -117,7 +120,8 @@ fuzzy_keys <- function(keys) {
   nm <- names(keys)
   names(keys) <- gsub("_", "-", nm, fixed = TRUE)
   valid_keys <- unique(c(
-    cff_schema_keys(), cff_schema_definitions_entity(),
+    cff_schema_keys(),
+    cff_schema_definitions_entity(),
     cff_schema_definitions_person(),
     cff_schema_definitions_refs()
   ))
@@ -129,13 +133,14 @@ fuzzy_keys <- function(keys) {
   if (isFALSE(all(is_valid_key))) {
     names_fuzzy <- names[!(is_valid_key)]
 
-    keys_match <- lapply(names_fuzzy,
-      agrep, valid_keys,
+    keys_match <- lapply(
+      names_fuzzy,
+      agrep,
+      valid_keys,
       ignore.case = TRUE,
       value = TRUE,
       fixed = FALSE
     )
-
 
     # Modify NULL correspondences
     keys_match <- unlist(lapply(
@@ -144,7 +149,7 @@ fuzzy_keys <- function(keys) {
         if (length(x) == 0) {
           return("No match, removing.")
         }
-        return(x[1])
+        x[1]
       }
     ))
 
@@ -168,7 +173,7 @@ fuzzy_keys <- function(keys) {
 
   new_keys <- new_keys[names %in% valid_keys]
 
-  return(new_keys)
+  new_keys
 }
 
 guess_cff_named_part <- function(x) {
@@ -192,7 +197,7 @@ guess_cff_named_part <- function(x) {
   }
 
   # Else
-  return("unclear")
+  "unclear"
 }
 
 
@@ -231,7 +236,6 @@ detect_x_source <- function(x) {
     return("package")
   }
 
-
   if (grepl("\\.cff$", x, ignore.case = TRUE)) {
     return("cff_citation")
   }
@@ -245,7 +249,7 @@ detect_x_source <- function(x) {
     return("description")
   }
 
-  return("dontknow")
+  "dontknow"
 }
 
 file_path_or_null <- function(x) {
@@ -256,7 +260,7 @@ file_path_or_null <- function(x) {
   if (file_exist_abort(x)) {
     return(x)
   }
-  return(NULL)
+  NULL
 }
 
 #' Coerce and clean data from DESCRIPTION to create metadata
@@ -294,13 +298,11 @@ clean_package_meta <- function(meta) {
 }
 
 
-
 # Convert a DESCRIPTION object to meta object using desc package
 desc_to_meta <- function(x) {
   src <- x
   my_meta <- desc::desc(src)
   my_meta$coerce_authors_at_r()
-
 
   # As list
   my_meta_l <- my_meta$get(desc::cran_valid_fields)
