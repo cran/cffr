@@ -9,19 +9,19 @@ cff_gha_update(path = ".", overwrite = FALSE)
 \arguments{
 \item{path}{Project root directory.}
 
-\item{overwrite}{Logical. If already present, do you want to overwrite your
-action?}
+\item{overwrite}{Logical. If the action already exists, should it be
+overwritten?}
 }
 \value{
 Invisible, this function is called by its side effects.
 }
 \description{
-This function would install a \href{https://github.com/features/actions}{GitHub Action} on your repo. The action will
-update your \code{CITATION.cff} when any of these events occur:
+This function installs a \href{https://github.com/features/actions}{GitHub Action} on your repository. The action
+updates your \code{CITATION.cff} when any of these events occur:
 \itemize{
 \item You publish a new release of the package.
-\item Your \code{DESCRIPTION} or \code{inst/CITATION} are modified.
-\item The action can be run also manually.
+\item Your \code{DESCRIPTION} or \code{inst/CITATION} file is modified.
+\item The action can be run manually.
 }
 }
 \details{

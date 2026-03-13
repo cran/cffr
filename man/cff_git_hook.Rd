@@ -16,37 +16,37 @@ Invisible. This function is called for its side effects.
 \description{
 Install a
 \href{https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks#_committing_workflow_hooks}{pre-commit hook}
-that remembers you to update your \code{CITATION.cff} file. This is a wrapper of
+that reminds you to update your \code{CITATION.cff} file. This is a wrapper of
 \code{\link[usethis:use_git_hook]{usethis::use_git_hook()}}.
 }
 \details{
-This function would install a pre-commit hook using
+This function installs a pre-commit hook using
 \code{\link[usethis:use_git_hook]{usethis::use_git_hook()}}.
 
-A pre-commit hook is a script that identifies  simple issues before
-submission to code review. This pre-commit hook would warn you if any of the
+A pre-commit hook is a script that identifies simple issues before
+submission to code review. This pre-commit hook warns you if any of the
 following conditions are met:
 \itemize{
-\item You included in a commit your \code{DESCRIPTION} or \code{inst/CITATION} file, you
-are not including your \code{CITATION.cff} and the \code{CITATION.cff} file is
-"older" than any of your \code{DESCRIPTION} or \code{inst/CITATION} file.
-\item You have updated your \code{CITATION.cff} but you are not including it on
+\item You included your \code{DESCRIPTION} or \code{inst/CITATION} file in a commit but
+did not include your \code{CITATION.cff}, and the \code{CITATION.cff} file is
+"older" than your \code{DESCRIPTION} or \code{inst/CITATION} file.
+\item You updated your \code{CITATION.cff} but did not include it in
 your commit.
 }
 }
 \section{A word of caution}{
-The pre-commit hook may prevent you to commit if you are not updating your
-\code{CITATION.cff}. However, the mechanism of detection is not perfect and would
-be triggered also even if you have tried to update your \code{CITATION.cff} file.
+The pre-commit hook may prevent you from committing if you are not updating
+your \code{CITATION.cff}. However, the detection mechanism is not perfect and may
+be triggered even if you have attempted to update your \code{CITATION.cff} file.
 
-This is typically the case when you have updated your \code{DESCRIPTION} or
-\code{inst/CITATION} files but those changes doesn't make a change on your
-\code{CITATION.cff} file (i.e. you are including new dependencies).
+This typically occurs when you have updated your \code{DESCRIPTION} or
+\code{inst/CITATION} files, but those changes do not affect your
+\code{CITATION.cff} file (i.e., you are adding new dependencies).
 
-In those cases, you can override the check running \verb{git commit --no-verify}
-on the terminal.
+In those cases, you can override the check by running
+\verb{git commit --no-verify} in the terminal.
 
-If you are using \strong{RStudio} you can run also this command from a \strong{R}
+If you are using \strong{RStudio}, you can also run this command from an \strong{R}
 script by selecting that line and sending it to the terminal using:
 \itemize{
 \item Windows & Linux: \code{Ctrl+Alt+Enter}.
@@ -55,7 +55,7 @@ script by selecting that line and sending it to the terminal using:
 }
 
 \section{Removing the git pre-commit hook}{
-You can remove the pre-commit hook by running \code{cff_git_hook_remove()}.
+You can remove the pre-commit hook using \code{cff_git_hook_remove()}.
 }
 
 \examples{

@@ -10,7 +10,7 @@
 #' (`bibentry` object to [`cff_ref_lst`]) can be done with the corresponding
 #' [as_cff.bibentry()] method.
 #'
-#' With [`toBibtex()`][toBibtex.cff()] it is possible to convert `cff` objects
+#' With [`toBibtex()`][toBibtex.cff()] it is possible to convert [`cff`] objects
 #' to BibTeX markup on the fly, see **Examples**.
 #'
 #' @seealso
@@ -38,15 +38,15 @@
 #'   *The cffr package, Vignettes*. \doi{10.21105/joss.03900},
 #'   <https://docs.ropensci.org/cffr/articles/bibtex-cff.html>.
 #'
-#' @param x The source that would be used for generating
-#'   the `bibentry` object via \CRANpkg{cffr}. It could be:
-#'   * A missing value. That would retrieve the `DESCRIPTION`
-#'     file on your in-development package.
-#'   * An existing `cff` object created with [cff()], [cff_create()] or
+#' @param x The source used to generate
+#'   the `bibentry` object via \CRANpkg{cffr}. It can be:
+#'   - A missing value, which retrieves the `DESCRIPTION`
+#'     file from your in-development package.
+#'   - An existing `cff` object created with [cff()], [cff_create()], or
 #'     [as_cff()].
-#'   * Path to a CITATION.cff file (`"CITATION.cff"`),
-#'   * The name of an installed package (`"jsonlite"`), or
-#'   * Path to a DESCRIPTION file (`"DESCRIPTION"`).
+#'   - Path to a CITATION.cff file (`"CITATION.cff"`).
+#'   - The name of an installed package (`"jsonlite"`).
+#'   - Path to a DESCRIPTION file (`"DESCRIPTION"`).
 #' @param ... Additional arguments to be passed to or from methods.
 #'
 #' @param what Fields to extract from a full `cff` object. The value could be:
@@ -61,7 +61,6 @@
 #' @family bibtex
 #' @family s3method
 #'
-#'
 #' @details
 #'
 #' A **R** `bibentry` object is the representation of a BibTeX entry. These
@@ -69,8 +68,7 @@
 #' object of class `Bibtex` and can be printed and exported as a valid BibTeX
 #' entry.
 #'
-#'
-#' `as_bibtex()` tries to map the information of the source `x` into a `cff]
+#' `as_bibtex()` tries to map the information of the source `x` into a [`cff`]
 #' object and performs a mapping of the metadata to BibTeX, according to
 #' `vignette("bibtex_cff", "cffr")`.
 #'
@@ -111,7 +109,6 @@
 #' installed_package <- as_bibentry("jsonvalidate", what = "all")
 #'
 #' installed_package
-#'
 #'
 #' # Use a DESCRIPTION file
 #' path2 <- system.file("examples/DESCRIPTION_gitlab", package = "cffr")

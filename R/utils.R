@@ -2,7 +2,7 @@
 
 #' Clean strings
 #'
-#' @param str The string to be cleaned
+#' @param str A string to be cleaned.
 #' @noRd
 clean_str <- function(str) {
   # Collapse to single char
@@ -35,8 +35,8 @@ clean_str <- function(str) {
 }
 
 #' Drop nulls from list
-#' @source  https://github.com/cboettig/codemeta/blob/master/R/utils.R
-#' @param x The list to be cleaned
+#' @source https://github.com/cboettig/codemeta/blob/master/R/utils.R
+#' @param x A list to be cleaned.
 #' @noRd
 drop_null <- function(x) {
   # Already been here
@@ -45,7 +45,6 @@ drop_null <- function(x) {
   }
   x[lengths(x) != 0]
 }
-
 
 #' Pretty printing of snapshots
 #' @noRd
@@ -56,10 +55,10 @@ print_snapshot <- function(title = "----", obj) {
 }
 
 #' Search a package on available repos
-#' @param name name of the package
-#' @param avail Data frame with the packages available, See
+#' @param name Name of the package.
+#' @param avail Data frame with available packages. See
 #' [utils::available.packages()].
-#' @param repos vector of repos
+#' @param repos Vector of repositories.
 #' @noRd
 search_on_repos <- function(
   name,
@@ -77,7 +76,7 @@ search_on_repos <- function(
   # Try to find in CRAN
   cran_repo <- clean_str(repos["CRAN"])
 
-  if (length(grep(cran_repo, get) == 1)) {
+  if (length(grep(cran_repo, get)) == 1) {
     # Canonical url to CRAN
 
     repos <- paste0("https://CRAN.R-project.org/package=", name)
@@ -90,17 +89,17 @@ search_on_repos <- function(
 }
 
 
-#' Detect current repos
+#' Detect current repositories
 #'
-#' Detect the current repos of the user. If not set, use Cloud
-#' @param repos Current repos setup
+#' Detect the current repositories of the user. If not set, use CRAN.
+#' @param repos Current repositories setup.
 #' @noRd
 detect_repos <- function(repos = getOption("repos")) {
   # Not use RSPM
   repos <- repos[names(repos) != "RSPM"]
-  repos <- repos[!grepl("rspm", repos)]
-  repos <- repos[!grepl("posit", repos)]
-  repos <- repos[!grepl("rstudio", repos)]
+  repos <- repos[!grepl("rspm", repos, fixed = TRUE)]
+  repos <- repos[!grepl("posit", repos, fixed = TRUE)]
+  repos <- repos[!grepl("rstudio", repos, fixed = TRUE)]
 
   # If not set use 0-Cloud
   if (!is_url(repos["CRAN"])) {

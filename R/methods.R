@@ -18,7 +18,6 @@ c.cff <- function(..., recursive = FALSE) {
   as_cff(rval)
 }
 
-
 # Just for pretty printing on extract
 
 # Based in person method
@@ -58,7 +57,7 @@ as.data.frame.cff <- function(x, row.names = NULL, optional = FALSE, ...) {
   df_l <- lapply(key_len, function(y) {
     el <- x[[y]]
     nm <- ref_n[y]
-    nm <- gsub("-", "_", nm)
+    nm <- gsub("-", "_", nm, fixed = TRUE)
 
     if (nm == "preferred_citation") {
       return(as.data.frame(el, prefix = nm))
@@ -134,7 +133,7 @@ as.data.frame.cff_pers <- function(
 
   vals <- unlist(x)
   nm <- names(vals)
-  nm <- gsub("-", "_", nm)
+  nm <- gsub("-", "_", nm, fixed = TRUE)
   amat <- matrix(vals, nrow = 1, ncol = length(vals))
   m <- as.data.frame(amat)
 
@@ -303,7 +302,7 @@ as.person.cff_pers_lst <- function(x) {
     )
   }
   end <- do.call(c, pers)
-  if (any(duplicated(end))) {
+  if (anyDuplicated(end) > 0) {
     cli::cli_alert_info("Removing duplicate {.cls person} objects.")
     end <- end[!duplicated(end)]
   }

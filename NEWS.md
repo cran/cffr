@@ -1,3 +1,8 @@
+# cffr 1.3.0
+
+-   Minimum **R** version required now is **4.1.0**.
+-   Migrate vignettes to Quarto.
+
 # cffr 1.2.1
 
 -   `cff_gha_update()` action now runs in `ubuntu-latest` by default to save
@@ -9,8 +14,8 @@
 
 # cffr 1.2.0
 
--   New parameter `r_citation` in `cff_write()`. When it is set to `TRUE` a
-    **R** citation file (`inst/CITATION`) would be generated/updated with the
+-   New argument `r_citation` in `cff_write()`. When it is set to `TRUE` a **R**
+    citation file (`inst/CITATION`) would be generated/updated with the
     information of the generated `CITATION.cff` file. **No backup copy would be
     created**, for more control use `cff_write_citation()` (#79).
 -   `repository-code` now also recognizes [Codeberg](https://codeberg.org/) as a
@@ -45,8 +50,8 @@
 # cffr 1.0.0
 
 This is a major release with some notable changes. The change mainly **affects
-to non-core functions**, hence the natural workflow (`cff_create()` →
-`cff_write()` → `cff_validate()`) shouldn't be affected.
+non-core functions**, hence the natural workflow (`cff_create()` → `cff_write()`
+→ `cff_validate()`) shouldn't be affected.
 
 ## Major changes
 
@@ -66,7 +71,7 @@ objects:
     `contact`) has class `cff_pers_lst, cff` and individual elements (e.g
     `publisher` or each member of `authors`) has class `cff_pers, cff`.
 
-This change allow to write specific [S3
+This change allows writing specific [S3
 Methods](https://adv-r.hadley.nz/s3.html) and extend the capabilities of the
 package.
 
@@ -92,9 +97,9 @@ package.
 ### API
 
 The API has been completely reviewed to provide more clarity on functions naming
-and to facilitate internal maintenance. This change **only** **affects to
-non-core functions**. Now each function does less things but does it better. The
-old API [has been
+and to facilitate internal maintenance. This change **only** **affects non-core
+functions**. Now each function does fewer things but does it better. The old API
+[has been
 deprecated](https://lifecycle.r-lib.org/articles/stages.html#deprecated) and it
 would warn when used, providing advice on the replacement function.
 
@@ -149,7 +154,7 @@ would warn when used, providing advice on the replacement function.
 ## Enhancements
 
 -   Additional authors of a **R** package can be now included based on the role
-    on the `DESCRIPTION` file, via the parameter `authors_roles` (#49).
+    on the `DESCRIPTION` file, via the argument `authors_roles` (#49).
 
 -   New message interface based on [**cli**](https://cli.r-lib.org/)
     capabilities.
@@ -198,10 +203,10 @@ would warn when used, providing advice on the replacement function.
 
 # cffr 0.2.0
 
--   Now **cffr** extracts also information of the package dependencies and adds
+-   Now **cffr** also extracts information of the package dependencies and adds
     the main citation of the dependencies to the `references` field, using
     `citation(auto = TRUE)`.
-    -   New `dependencies` parameter on `cff_create()` and `cff_write()`.
+    -   New `dependencies` argument on `cff_create()` and `cff_write()`.
 -   Other improvements on `cff_parse_citation():`
     -   `cff_parse_citation()` extracts more information of authors, based on
         the fields provided on the `DESCRIPTION` file.
@@ -224,7 +229,7 @@ would warn when used, providing advice on the replacement function.
 -   Accepted on JOSS
     [![DOI](https://joss.theoj.org/papers/10.21105/joss.03900/status.svg)](https://doi.org/10.21105/joss.03900)
 -   Include `pages` on `cff_parse_citation()` .
--   New `gh_keywords` parameter on `cff_create()` /`cff_write()`. If `TRUE`, it
+-   New `gh_keywords` argument on `cff_create()` /`cff_write()`. If `TRUE`, it
     would include GitHub repo topics as keywords.
 
 # cffr 0.1.0
@@ -235,7 +240,7 @@ would warn when used, providing advice on the replacement function.
 
 -   **cffr** is part now of rOpenSci.
 -   Update on docs and README.
--   Add fuzzy match on `keys` parameter.
+-   Add fuzzy match on `keys` argument.
 -   New dataset: `cran_to_spdx`.
 -   Add DOI <https://doi.org/10.5281/zenodo.5509766>
 -   Citation of installed packages extracted using `citation().`

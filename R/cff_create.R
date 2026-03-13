@@ -3,10 +3,10 @@
 #' @description
 #'
 #' Create a full and possibly valid [`cff`] object from a given source. This
-#' object can be written to a `*.cff ` file with [cff_write()],
+#' object can be written to a `*.cff` file with [cff_write()],
 #' see **Examples**.
 #'
-#' Most of the heavy lifting of \CRANpkg{cffr} is done via this function.
+#' Most of the heavy lifting of \CRANpkg{cffr} is done by this function.
 #'
 #' @return A [`cff`] object.
 #'
@@ -14,13 +14,13 @@
 #'
 #' @export
 #'
-#' @param x The source that would be used for generating
-#'   the [`cff`] object. It could be:
-#'   * A missing value. That would retrieve the `DESCRIPTION` file on your
+#' @param x The source used to generate
+#'   the [`cff`] object. It can be:
+#'   - A missing value, which retrieves the `DESCRIPTION` file from your
 #'     in-development **R** package.
-#'   * An existing [`cff`] object.
-#'   * The name of an installed package (`"jsonlite"`).
-#'   * Path to a `DESCRIPTION` file (`"./DESCRIPTION"`).
+#'   - An existing [`cff`] object.
+#'   - The name of an installed package (`"jsonlite"`).
+#'   - Path to a `DESCRIPTION` file (`"./DESCRIPTION"`).
 #'
 #' @param keys
 #'   List of additional keys to add to the [`cff`] object. See
@@ -29,8 +29,8 @@
 #'   `CITATION.cff` file adheres to for providing the citation metadata.
 #' @param gh_keywords Logical `TRUE/FALSE`. If the package is hosted on
 #'   GitHub, would you like to add the repo topics as keywords?
-#' @param dependencies Logical `TRUE/FALSE`. Would you like to add the
-#'   of your package to the `references` CFF key?
+#' @param dependencies Logical `TRUE/FALSE`. Should the dependencies of your
+#'   package be added to the `references` CFF key?
 #' @param authors_roles Roles to be considered as authors of the package when
 #'   generating the `CITATION.cff` file. See **Details**.
 #'
@@ -41,28 +41,26 @@
 #'            "(https://github.com/citation-file-format/",
 #'            "citation-file-format/blob/main/schema-guide.md)."))
 #'
-#'
 #' ```
 #'
 #' - [cff_modify()] as the recommended way to modify a `cff` object.
 #' - [cff_write()] for creating a CFF file.
 #' - `vignette("cffr", "cffr")` shows an introduction on how manipulate
-#'   `cff` objects.
+#'   [`cff`] objects.
 #' - `vignette("crosswalk", package = "cffr")` provides details on how the
 #'  metadata of a package is mapped to produce a `cff` object.
 #'
 #' @details
 #'
-#' If `x` is a path to a `DESCRIPTION` file or `inst/CITATION`, is not present
+#' If `x` is a path to a `DESCRIPTION` file or if `inst/CITATION` is not present
 #' on your package, \CRANpkg{cffr} would auto-generate a `preferred-citation`
 #' key using the information provided on that file.
 #'
 #' By default, only persons whose role in the `DESCRIPTION` file of the package
 #' is author (`"aut"`) or maintainer (`"cre"`) are considered to be authors
 #' of the package. The default setting can be controlled via the `authors_roles`
-#' parameter. See **Details** on [person()] to get additional insights
+#' argument. See **Details** on [person()] to get additional insights
 #' on person roles.
-#'
 #'
 #' @examples
 #' \donttest{
@@ -84,7 +82,7 @@
 #'
 #' cff_create(demo_file, keys = newkeys)
 #'
-#' # Update a field on a list - i,e: authors, contacts, etc.
+#' # Update a field on a list - i.e., authors, contacts, etc.
 #' # We are adding a new contact here
 #'
 #' old <- cff_create(demo_file)
@@ -96,7 +94,6 @@
 #'     family = "New Contact"
 #'   ))
 #' )
-#'
 #'
 #' cff_create(demo_file, keys = list("contact" = new_contact))
 #' }

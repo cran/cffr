@@ -1,14 +1,14 @@
 #' Modify a [`cff`] object
 #'
-#' Add new keys or modify existing ones on a [`cff`] object.
+#' Add new keys or modify existing ones in a [`cff`] object.
 #'
 #' @param x A [`cff`] object.
-#' @param ... Named arguments to be used for modifying `x`. See also `...`
+#' @param ... Named arguments used to modify `x`. See also the `...`
 #'   argument in [cff()].
 #'
 #' @details
 #'
-#' Keys provided in `...` would override the corresponding key in `x`.
+#' Keys provided in `...` override the corresponding key in `x`.
 #'
 #' @returns
 #'
@@ -17,21 +17,20 @@
 #' @family core
 #' @export
 #' @seealso
-#' This function is wrapper of [utils::modifyList()].
+#' This function is a wrapper of [utils::modifyList()].
 #'
 #' See [cff()] for creating [`cff`] objects from scratch.
 #'
 #' @details
 #'
-#' It is possible to add additional keys not detected by [cff_create()] using
+#' You can add additional keys not detected by [cff_create()] using
 #' the `keys` argument. A list of valid keys can be retrieved with
-#' [cff_schema_keys()]. Please refer to
+#' [cff_schema_keys()]. For details, refer to
 #' ```{r, echo=FALSE, results='asis'}
 #'
 #' cat(paste0("\n", "[Guide to Citation File Format schema version 1.2.0]",
 #'            "(https://github.com/citation-file-format/",
 #'            "citation-file-format/blob/main/schema-guide.md)."))
-#'
 #'
 #' ```
 #' for additional details.
@@ -41,7 +40,6 @@
 #' x
 #'
 #' cff_validate(x)
-#'
 #'
 #' x_mod <- cff_modify(x,
 #'   contact = as_cff_person("A contact"),
@@ -78,7 +76,7 @@ modify_cff <- function(x, keys, argname = "...") {
 
   new_keys <- validate_extra_keys(keys, argname)
   new_keys <- fuzzy_keys(new_keys)
-  if (any(duplicated(names(new_keys)))) {
+  if (anyDuplicated(names(new_keys)) > 0) {
     cli::cli_alert_warning("Removing duplicated keys.")
     new_keys <- new_keys[!duplicated(names(new_keys))]
   }

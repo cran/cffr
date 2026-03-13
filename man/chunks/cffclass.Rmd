@@ -1,13 +1,12 @@
-## The `cff` class
-
-[**cffr**](https://cran.r-project.org/package=cffr) implements a S3 object with
-[`class`] `cff`, that it is used to represent the information of a
-`CITATION.cff` file in **R**.
+[**cffr**](https://cran.r-project.org/package=cffr) implements an S3 object with
+[`class`] `cff`, which is used to represent the information of a `CITATION.cff`
+file in **R**.
 
 Under the hood, a `cff` object is simply a named [`list`] to which we added
 additional methods, most notably [`print`] and [as_cff()].
 
-```{r include=FALSE}
+```{r}
+#| include: false
 library(cffr)
 ```
 
@@ -36,20 +35,18 @@ is.list(a_cff_object)
 representing two special types of objects defined in the [CFF
 Schema](https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md):
 
--   `definition.person` and `definition.entity`: CFF definition for sub-lists
-    representing persons or entities. In **cffr** the sub-class `cff_pers_lst`
+-   `definition.person` and `definition.entity`: CFF definitions for sub-lists
+    representing persons or entities. In **cffr**, the sub-class `cff_pers_lst`
     has been implemented to collect an array of `definition.person/entity`,
-    where each individual person or entity of the array has a sub-class
-    `cff_pers`.
+    where each individual person or entity has a sub-class `cff_pers`.
 
--   Similarly, `definition.reference` is the definition of CFF for collecting
+-   Similarly, `definition.reference` is the CFF definition for collecting
     references to related works and other articles of software used in the
     development of the main work of the CFF file. This is implemented in
     **cffr** as a sub-class named `cff_ref_lst` for arrays of
-    `definition.reference` where each element of the array has a sub-class named
-    `cff_ref`.
+    `definition.reference`, where each element has a sub-class named `cff_ref`.
 
-These two sub-classes does not provide full valid `cff` objects, but adapts
+These two sub-classes do not provide full valid `cff` objects, but adapt
 information to the schema required by CFF:
 
 ```{r}
@@ -101,7 +98,7 @@ class(a_cff_object)
 cff_validate(a_cff_object)
 ```
 
-[cff_validate()] gives minimal messages of what's wrong with our `cff` and
+[cff_validate()] gives minimal messages about what's wrong with our `cff` and
 (invisibly) returns the result of the validation (`TRUE/FALSE`).
 
 We can use [cff_modify()] to add more keys:
@@ -125,8 +122,8 @@ cff_validate(cff_valid)
 
 ## Base methods provided by **cffr**
 
-**cffr** version 1.0.0 provides additional S3 Methods for common coercing
-functions of the **base** and **utils** package.
+**cffr** version 1.0.0 provides additional S3 methods for common coercion
+functions of the **base** and **utils** packages.
 
 ### [as.data.frame()]
 

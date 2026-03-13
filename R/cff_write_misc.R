@@ -2,17 +2,17 @@
 #'
 #' @description
 #'
-#' Export **R** objects representing citations to specific file types:
+#' Export **R** objects representing citations to specific file formats:
 #' - [cff_write_bib()] creates a `.bib` file.
-#' - [cff_write_citation()] creates a **R** citation file as explained in
-#'   Section 1.9 CITATION files of *Writing R Extensions* (R Core Team 2023).
+#' - [cff_write_citation()] creates an **R** citation file as described in
+#'   Section 1.9 of *Writing R Extensions* (R Core Team 2023).
 #'
 #' @param x A [`bibentry`] or a [`cff`] object.
-#' @param file Name of the file to be created. If `NULL` it would display the
-#'   lines to be written.
-#' @param append Whether to append the entries to an existing file or not.
-#' @param verbose Display informative messages
-#' @param ascii Whether to write the entries using ASCII characters only or not.
+#' @param file Name of the file to be created. If `NULL`, the lines are
+#'   displayed instead.
+#' @param append Logical. Should entries be appended to an existing file?
+#' @param verbose Logical. Display informative messages.
+#' @param ascii Logical. Should entries be written using ASCII characters only?
 #' @inheritDotParams as_bibentry.cff what
 #' @inheritDotParams as_bibentry.cff_ref
 #' @inheritDotParams as_bibentry.cff_ref_lst
@@ -28,15 +28,15 @@
 #' @family writing
 #'
 #' @return
-#' Writes the corresponding file specified on the `file` parameter.
+#' Writes the corresponding file specified on the `file` argument.
 #'
 #' @details
 #'
-#' When `x` is a `cff` object it would be converted to `Bibtex` using
+#' When `x` is a `cff` object, it is converted to BibTeX using
 #' [toBibtex.cff()].
 #'
-#' For security reasons, if the file already exists the function would create
-#' a backup copy on the same directory.
+#' For security reasons, if the file already exists, the function creates
+#' a backup copy in the same directory.
 #'
 #' @seealso
 #' `vignette("bibtex_cff", "cffr")`, [knitr::write_bib()] and the

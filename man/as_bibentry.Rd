@@ -28,15 +28,15 @@ as_bibentry(x, ...)
 \method{as_bibentry}{cff_ref}(x, ...)
 }
 \arguments{
-\item{x}{The source that would be used for generating
-the \code{bibentry} object via \CRANpkg{cffr}. It could be:
+\item{x}{The source used to generate
+the \code{bibentry} object via \CRANpkg{cffr}. It can be:
 \itemize{
-\item A missing value. That would retrieve the \code{DESCRIPTION}
-file on your in-development package.
-\item An existing \code{cff} object created with \code{\link[=cff]{cff()}}, \code{\link[=cff_create]{cff_create()}} or
+\item A missing value, which retrieves the \code{DESCRIPTION}
+file from your in-development package.
+\item An existing \code{cff} object created with \code{\link[=cff]{cff()}}, \code{\link[=cff_create]{cff_create()}}, or
 \code{\link[=as_cff]{as_cff()}}.
-\item Path to a CITATION.cff file (\code{"CITATION.cff"}),
-\item The name of an installed package (\code{"jsonlite"}), or
+\item Path to a CITATION.cff file (\code{"CITATION.cff"}).
+\item The name of an installed package (\code{"jsonlite"}).
 \item Path to a DESCRIPTION file (\code{"DESCRIPTION"}).
 }}
 
@@ -62,7 +62,7 @@ This function creates \code{\link{bibentry}} objects from different metadata sou
 (\code{bibentry} object to \code{\link{cff_ref_lst}}) can be done with the corresponding
 \code{\link[=as_cff.bibentry]{as_cff.bibentry()}} method.
 
-With \code{\link[=toBibtex.cff]{toBibtex()}} it is possible to convert \code{cff} objects
+With \code{\link[=toBibtex.cff]{toBibtex()}} it is possible to convert \code{\link{cff}} objects
 to BibTeX markup on the fly, see \strong{Examples}.
 }
 \details{
@@ -71,7 +71,9 @@ objects can be converted to BibTeX markup with \code{\link[=toBibtex]{toBibtex()
 object of class \code{Bibtex} and can be printed and exported as a valid BibTeX
 entry.
 
-\code{as_bibtex()} tries to map the information of the source \code{x} into a \verb{cff] object and performs a mapping of the metadata to BibTeX, according to }vignette("bibtex_cff", "cffr")`.
+\code{as_bibtex()} tries to map the information of the source \code{x} into a \code{\link{cff}}
+object and performs a mapping of the metadata to BibTeX, according to
+\code{vignette("bibtex_cff", "cffr")}.
 }
 \examples{
 \donttest{
@@ -105,7 +107,6 @@ cff_file
 installed_package <- as_bibentry("jsonvalidate", what = "all")
 
 installed_package
-
 
 # Use a DESCRIPTION file
 path2 <- system.file("examples/DESCRIPTION_gitlab", package = "cffr")

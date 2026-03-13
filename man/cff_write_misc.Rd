@@ -25,14 +25,14 @@ cff_write_citation(
 \arguments{
 \item{x}{A \code{\link{bibentry}} or a \code{\link{cff}} object.}
 
-\item{file}{Name of the file to be created. If \code{NULL} it would display the
-lines to be written.}
+\item{file}{Name of the file to be created. If \code{NULL}, the lines are
+displayed instead.}
 
-\item{append}{Whether to append the entries to an existing file or not.}
+\item{append}{Logical. Should entries be appended to an existing file?}
 
-\item{verbose}{Display informative messages}
+\item{verbose}{Logical. Display informative messages.}
 
-\item{ascii}{Whether to write the entries using ASCII characters only or not.}
+\item{ascii}{Logical. Should entries be written using ASCII characters only?}
 
 \item{...}{
   Arguments passed on to \code{\link[=as_bibentry.cff]{as_bibentry.cff}}, \code{\link[=as_bibentry.cff_ref]{as_bibentry.cff_ref}}, \code{\link[=as_bibentry.cff_ref_lst]{as_bibentry.cff_ref_lst}}
@@ -50,22 +50,22 @@ See \code{vignette("crosswalk", package = "cffr")}.}
   }}
 }
 \value{
-Writes the corresponding file specified on the \code{file} parameter.
+Writes the corresponding file specified on the \code{file} argument.
 }
 \description{
-Export \strong{R} objects representing citations to specific file types:
+Export \strong{R} objects representing citations to specific file formats:
 \itemize{
 \item \code{\link[=cff_write_bib]{cff_write_bib()}} creates a \code{.bib} file.
-\item \code{\link[=cff_write_citation]{cff_write_citation()}} creates a \strong{R} citation file as explained in
-Section 1.9 CITATION files of \emph{Writing R Extensions} (R Core Team 2023).
+\item \code{\link[=cff_write_citation]{cff_write_citation()}} creates an \strong{R} citation file as described in
+Section 1.9 of \emph{Writing R Extensions} (R Core Team 2023).
 }
 }
 \details{
-When \code{x} is a \code{cff} object it would be converted to \code{Bibtex} using
+When \code{x} is a \code{cff} object, it is converted to BibTeX using
 \code{\link[=toBibtex.cff]{toBibtex.cff()}}.
 
-For security reasons, if the file already exists the function would create
-a backup copy on the same directory.
+For security reasons, if the file already exists, the function creates
+a backup copy in the same directory.
 }
 \examples{
 

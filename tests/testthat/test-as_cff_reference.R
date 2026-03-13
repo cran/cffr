@@ -31,7 +31,6 @@ test_that("Article", {
   expect_identical(fld1, fld2)
 })
 
-
 test_that("Book", {
   bib <- bibentry(
     "Book",
@@ -108,10 +107,6 @@ test_that("Conference", {
     key = "inproceedings-full",
     author = "Alfred V. Oaho and Jeffrey D. Ullman and Mihalis Yannakakis",
     title = "On Notions of Information Transfer in {VLSI} Circuits",
-    title = paste(
-      "{Statistical Machine Translation: Rapid Development",
-      "with Limited Resources"
-    ),
     booktitle = "Proc. Fifteenth Annual ACM STOC",
     year = "1983",
     # Optional
@@ -234,10 +229,6 @@ test_that("InProceedings", {
     key = "inproceedings-full",
     author = "Alfred V. Oaho and Jeffrey D. Ullman and Mihalis Yannakakis",
     title = "On Notions of Information Transfer in {VLSI} Circuits",
-    title = paste(
-      "{Statistical Machine Translation: Rapid",
-      "Development with Limited Resources"
-    ),
     booktitle = "Proc. Fifteenth Annual ACM STOC",
     year = "1983",
     # Optional
@@ -506,7 +497,7 @@ test_that("InBook with booktitle", {
     address = "Boca Raton, Florida",
     series = "The {R} Series",
     isbn = "9780367563837",
-    url = "https://bookdown.org/yihui/rmarkdown-cookbook",
+    url = "https://yihui.org/rmarkdown-cookbook/",
     chapter = "4.5"
   )
 
@@ -728,7 +719,7 @@ test_that("Duplicate entries", {
     address = "Boca Raton, Florida",
     series = "The {R} Series",
     isbn = "9780367563837",
-    url = "https://bookdown.org/yihui/rmarkdown-cookbook",
+    url = "https://yihui.org/rmarkdown-cookbook/",
     chapter = "4.5"
   )
 

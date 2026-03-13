@@ -24,7 +24,7 @@ as_cff_person(x, ...)
 \code{as_cff_person()} returns an object of classes
 \code{\link[=cff_pers_lst]{cff_pers_lst, cff}} according to the \code{definitions.person}
 or \code{definitions.entity} specified in the \href{https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md}{Citation File Format schema}.
-Each element of the \code{cff_pers_lst} object would have classes
+Each element of the \code{cff_pers_lst} object has classes
 \code{\link[=cff_pers]{cff_pers, cff}}.
 }
 \description{
@@ -34,21 +34,21 @@ Each element of the \code{cff_pers_lst} object would have classes
 
 \code{as_cff_person} is an S3 generic, with methods for:
 \itemize{
-\item \code{person}: objects created with \code{\link[=person]{person()}}.
-\item \code{character}: String with the definition of an author or several authors,
-using the standard BibTeX notation (see Markey, 2007) and others, like
+\item \code{person}: Objects created with \code{\link[=person]{person()}}.
+\item \code{character}: Strings with the definition of an author or multiple authors,
+using the standard BibTeX notation (see Markey, 2007) and others, such as
 the output of \code{\link[=format]{format()}} for person (see \code{\link[=person]{format.person()}}).
 \item Default: Other inputs are first coerced with \code{\link[=as.character]{as.character()}}.
 }
 
-The inverse transformation (\code{cff_pers_lst} to \code{person}) can be done with
+The inverse transformation (\code{cff_pers_lst} to \code{person}) can be done using
 the methods \code{\link[=as.person.cff_pers]{as.person.cff_pers()}} and \code{\link[=as.person.cff_pers_lst]{as.person.cff_pers_lst()}}.
 }
 \details{
-\code{as_cff_person()} would recognize if the input should be converted using the
-CFF reference for \code{definition.person} or \code{definition.entity}.
+\code{as_cff_person()} recognizes whether the input should be converted using the
+CFF reference for \code{definitions.person} or \code{definitions.entity}.
 
-\code{as_cff_person()} uses a custom algorithm that tries to break a name as
+\code{as_cff_person()} uses a custom algorithm that breaks a name as
 explained in Section 11 of "Tame the BeaST" (Markey, 2007) (see also
 Decoret, 2007):
 \itemize{
@@ -65,8 +65,8 @@ Mapping is performed as follows:
 \item \code{Jr} is mapped to the CFF field \code{name-suffix}.
 }
 
-In the case of entities, the whole \code{character} would be mapped to \code{name}.
-It is a good practice to "protect" entity's names with \code{{}}:
+For entities, the entire \code{character} is mapped to \code{name}.
+It is recommended to "protect" entity names with \code{{}}:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{# Don't do
 entity <- "Elephant and Castle"
@@ -80,9 +80,9 @@ as_cff_person(entity_protect)
 - name: Elephant and Castle
 }\if{html}{\out{</div>}}
 
-\code{as_cff_person()} would try to add as many information as possible.
-On \code{character} string coming from \code{\link[utils:person]{format.person()}} the
-email and the ORCID would be retrieved as well.
+\code{as_cff_person()} attempts to extract as much information as possible.
+For \code{character} strings from \code{\link[utils:person]{format.person()}}, the
+email and ORCID are also extracted.
 }
 \examples{
 # Create a person object
@@ -133,7 +133,6 @@ toBibtex(a_cff)
 
 # Or as person object
 as.person(a_cff)
-
 
 # Or you can use BibTeX style as input if you prefer
 

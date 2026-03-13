@@ -12,19 +12,18 @@
 #'
 #' @family writing
 #'
-#'
 #' @param outfile The name and path of the `CITATION.cff` to be created.
 #'
-#' @param r_citation Logical `TRUE/FALSE`. On `TRUE` the **R** package citation
-#'   (i.e. `inst/CITATION`) would be created or updated.
-#'   **No backup copy would be created**, for more control use
+#' @param r_citation Logical `TRUE/FALSE`. When `TRUE`, the **R** package
+#'   citation (i.e., `inst/CITATION`) is created or updated.
+#'   **No backup copy is created**. For more control, use
 #'   [cff_write_citation()].
 #'
-#' @param verbose Logical `TRUE/FALSE`. On `TRUE` the function would display
+#' @param verbose Logical `TRUE/FALSE`. When `TRUE`, the function displays
 #'   informative messages.
 #'
-#' @param validate validate Logical `TRUE/FALSE`. Should the new file be
-#'   validated using `cff_validate()`?
+#' @param validate Logical `TRUE/FALSE`. Should the new file be validated
+#'   using `cff_validate()`?
 #'
 #' @param encoding The name of the encoding to be assumed. Default is `"UTF-8"`,
 #'   but it can be any other value as accepted by [iconv()], such as
@@ -35,7 +34,6 @@
 #'
 #' @export
 #'
-#'
 #' @return A `CITATION.cff` file and an (invisible) `cff` object.
 #'
 #' @seealso
@@ -44,7 +42,6 @@
 #' cat(paste0("[Guide to Citation File Format schema version 1.2.0]",
 #'            "(https://github.com/citation-file-format/",
 #'            "citation-file-format/blob/main/schema-guide.md)."))
-#'
 #'
 #' ```
 #' This function unifies the workflow [cff_create()] + [cff_validate()] +

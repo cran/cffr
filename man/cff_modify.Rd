@@ -9,21 +9,21 @@ cff_modify(x, ...)
 \arguments{
 \item{x}{A \code{\link{cff}} object.}
 
-\item{...}{Named arguments to be used for modifying \code{x}. See also \code{...}
+\item{...}{Named arguments used to modify \code{x}. See also the \code{...}
 argument in \code{\link[=cff]{cff()}}.}
 }
 \value{
 A \code{\link{cff}} object.
 }
 \description{
-Add new keys or modify existing ones on a \code{\link{cff}} object.
+Add new keys or modify existing ones in a \code{\link{cff}} object.
 }
 \details{
-Keys provided in \code{...} would override the corresponding key in \code{x}.
+Keys provided in \code{...} override the corresponding key in \code{x}.
 
-It is possible to add additional keys not detected by \code{\link[=cff_create]{cff_create()}} using
+You can add additional keys not detected by \code{\link[=cff_create]{cff_create()}} using
 the \code{keys} argument. A list of valid keys can be retrieved with
-\code{\link[=cff_schema_keys]{cff_schema_keys()}}. Please refer to
+\code{\link[=cff_schema_keys]{cff_schema_keys()}}. For details, refer to
 \href{https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md}{Guide to Citation File Format schema version 1.2.0}.
 for additional details.
 }
@@ -32,7 +32,6 @@ x <- cff()
 x
 
 cff_validate(x)
-
 
 x_mod <- cff_modify(x,
   contact = as_cff_person("A contact"),
@@ -48,7 +47,7 @@ cff_validate(x_mod)
 
 }
 \seealso{
-This function is wrapper of \code{\link[utils:modifyList]{utils::modifyList()}}.
+This function is a wrapper of \code{\link[utils:modifyList]{utils::modifyList()}}.
 
 See \code{\link[=cff]{cff()}} for creating \code{\link{cff}} objects from scratch.
 

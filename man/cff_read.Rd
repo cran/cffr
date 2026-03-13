@@ -27,7 +27,7 @@ cff_read_bib(path, encoding = "UTF-8", ...)
 \arguments{
 \item{path}{Path to a file.}
 
-\item{...}{Arguments to be passed to other functions (i.e. to
+\item{...}{Arguments to be passed to other functions (i.e., to
 \code{\link[yaml:read_yaml]{yaml::read_yaml()}}, \code{\link[bibtex:read.bib]{bibtex::read.bib()}}, etc.).}
 
 \item{cff_version}{The Citation File Format schema version that the
@@ -46,9 +46,9 @@ generating the \code{CITATION.cff} file. See \strong{Details}.}
 }
 \value{
 \itemize{
-\item \code{cff_read_cff_citation()} and \code{cff_read_description()} returns a object
+\item \code{cff_read_cff_citation()} and \code{cff_read_description()} return an object
 with class \code{cff}.
-\item \code{cff_read_citation()} and \code{cff_read_bib()} returns an object of classes
+\item \code{cff_read_citation()} and \code{cff_read_bib()} return an object of classes
 \code{\link[=cff_ref_lst]{cff_ref_lst, cff}} according to the \code{definitions.references}
 specified in the \href{https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md}{Citation File Format schema}.
 }
@@ -65,13 +65,13 @@ are:
 \item BibTeX files (with extension \verb{*.bib}).
 }
 
-\code{\link[=cff_read]{cff_read()}} would try to guess the type of file provided in \code{path}. However
-we provide a series of alias for each specific type of file:
+\code{\link[=cff_read]{cff_read()}} attempts to guess the type of file provided in \code{path}. However,
+we provide aliases for each specific file type:
 \itemize{
-\item \code{\link[=cff_read_cff_citation]{cff_read_cff_citation()}}, that uses \code{\link[yaml:read_yaml]{yaml::read_yaml()}}.
-\item \code{\link[=cff_read_description]{cff_read_description()}}, using \code{\link[desc:desc]{desc::desc()}}.
-\item \code{\link[=cff_read_citation]{cff_read_citation()}} uses \code{\link[utils:citation]{utils::readCitationFile()}}.
-\item \code{\link[=cff_read_bib]{cff_read_bib()}}  requires \CRANpkg{bibtex} (>= 0.5.0) and uses
+\item \code{\link[=cff_read_cff_citation]{cff_read_cff_citation()}}, which uses \code{\link[yaml:read_yaml]{yaml::read_yaml()}}.
+\item \code{\link[=cff_read_description]{cff_read_description()}}, which uses \code{\link[desc:desc]{desc::desc()}}.
+\item \code{\link[=cff_read_citation]{cff_read_citation()}}, which uses \code{\link[utils:citation]{utils::readCitationFile()}}.
+\item \code{\link[=cff_read_bib]{cff_read_bib()}}, which requires \CRANpkg{bibtex} (>= 0.5.0) and uses
 \code{\link[bibtex:read.bib]{bibtex::read.bib()}}.
 }
 }

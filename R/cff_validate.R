@@ -8,7 +8,6 @@
 #'            "(https://github.com/citation-file-format/",
 #'            "citation-file-format/blob/main/schema.json)."))
 #'
-#'
 #' ```
 #' @export
 #'
@@ -21,24 +20,22 @@
 #'            "(https://github.com/citation-file-format/",
 #'            "citation-file-format/blob/main/schema-guide.md)."))
 #'
-#'
 #' ```
 #'
 #' @return
 #'
 #' A message indicating the result of the validation and an invisible value
-#' `TRUE/FALSE`. On error, the results would have an attribute `"errors"`
+#' `TRUE/FALSE`. On error, the result has an attribute `"errors"`
 #' containing the error summary (see **Examples** and [attr()]).
 #'
 #' @param x This is expected to be either a full `cff` object created
 #'   with [cff_create()] or the path to a `CITATION.cff` file to be validated.
-#'   In the case of a `*cff` file it would read with [cff_read_cff_citation()].
+#'   In the case of a `*.cff` file it would read with [cff_read_cff_citation()].
 #' @inheritParams cff_write
 #'
 #' @seealso
 #' [jsonvalidate::json_validate()], that is the function that performs the
 #' validation.
-#'
 #'
 #' @examples
 #' \donttest{
@@ -90,7 +87,7 @@ cff_validate <- function(x = "CITATION.cff", verbose = TRUE) {
   # Validate
   result <- validate_schema(cit_temp, schema_local)
 
-  if (result == FALSE) {
+  if (!result) {
     get_errors <- attr(result, "errors")
     get_errors$field <- gsub("^data", "cff", get_errors$field)
 

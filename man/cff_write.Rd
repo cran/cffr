@@ -19,10 +19,10 @@ cff_write(
 )
 }
 \arguments{
-\item{x}{The source that would be used for generating
-the \code{\link{cff}} object. It could be:
+\item{x}{The source used to generate
+the \code{\link{cff}} object. It can be:
 \itemize{
-\item A missing value. That would retrieve the \code{DESCRIPTION} file on your
+\item A missing value, which retrieves the \code{DESCRIPTION} file from your
 in-development \strong{R} package.
 \item An existing \code{\link{cff}} object.
 \item The name of an installed package (\code{"jsonlite"}).
@@ -40,18 +40,18 @@ in-development \strong{R} package.
 \item{gh_keywords}{Logical \code{TRUE/FALSE}. If the package is hosted on
 GitHub, would you like to add the repo topics as keywords?}
 
-\item{r_citation}{Logical \code{TRUE/FALSE}. On \code{TRUE} the \strong{R} package citation
-(i.e. \code{inst/CITATION}) would be created or updated.
-\strong{No backup copy would be created}, for more control use
+\item{r_citation}{Logical \code{TRUE/FALSE}. When \code{TRUE}, the \strong{R} package
+citation (i.e., \code{inst/CITATION}) is created or updated.
+\strong{No backup copy is created}. For more control, use
 \code{\link[=cff_write_citation]{cff_write_citation()}}.}
 
-\item{dependencies}{Logical \code{TRUE/FALSE}. Would you like to add the
-of your package to the \code{references} CFF key?}
+\item{dependencies}{Logical \code{TRUE/FALSE}. Should the dependencies of your
+package be added to the \code{references} CFF key?}
 
-\item{validate}{validate Logical \code{TRUE/FALSE}. Should the new file be
-validated using \code{cff_validate()}?}
+\item{validate}{Logical \code{TRUE/FALSE}. Should the new file be validated
+using \code{cff_validate()}?}
 
-\item{verbose}{Logical \code{TRUE/FALSE}. On \code{TRUE} the function would display
+\item{verbose}{Logical \code{TRUE/FALSE}. When \code{TRUE}, the function displays
 informative messages.}
 
 \item{authors_roles}{Roles to be considered as authors of the package when

@@ -8,12 +8,12 @@
 #' - **R** citation files (usually located in `inst/CITATION`).
 #' - BibTeX files (with extension `*.bib`).
 #'
-#' [cff_read()] would try to guess the type of file provided in `path`. However
-#' we provide a series of alias for each specific type of file:
-#' - [cff_read_cff_citation()], that uses [yaml::read_yaml()].
-#' - [cff_read_description()], using [desc::desc()].
-#' - [cff_read_citation()] uses [utils::readCitationFile()].
-#' - [cff_read_bib()]  requires \CRANpkg{bibtex} (>= 0.5.0) and uses
+#' [cff_read()] attempts to guess the type of file provided in `path`. However,
+#' we provide aliases for each specific file type:
+#' - [cff_read_cff_citation()], which uses [yaml::read_yaml()].
+#' - [cff_read_description()], which uses [desc::desc()].
+#' - [cff_read_citation()], which uses [utils::readCitationFile()].
+#' - [cff_read_bib()], which requires \CRANpkg{bibtex} (>= 0.5.0) and uses
 #'   [bibtex::read.bib()].
 #'
 #' @export
@@ -27,21 +27,20 @@
 #' - [utils::readCitationFile()] for **R** citation files.
 #' - [bibtex::read.bib()] for BibTeX files (extension `*.bib`).
 #'
-#'
 #' @param path Path to a file.
 #' @param encoding Encoding to be assumed for `path`. See [readLines()].
 #' @param meta A list of package metadata as obtained by
 #'   [utils::packageDescription()] or `NULL` (the default). See **Details**.
-#' @param ... Arguments to be passed to other functions (i.e. to
+#' @param ... Arguments to be passed to other functions (i.e., to
 #'   [yaml::read_yaml()], [bibtex::read.bib()], etc.).
 #'
 #' @inheritParams cff_create
 #'
 #' @return
 #'
-#' * `cff_read_cff_citation()` and `cff_read_description()` returns a object
+#' * `cff_read_cff_citation()` and `cff_read_description()` return an object
 #'   with class `cff`.
-#' * `cff_read_citation()` and `cff_read_bib()` returns an object of classes
+#' * `cff_read_citation()` and `cff_read_bib()` return an object of classes
 #'   [`cff_ref_lst, cff`][cff_ref_lst] according to the `definitions.references`
 #'   specified in the
 #' ```{r, echo=FALSE, results='asis'}
@@ -49,7 +48,6 @@
 #' cat(paste0(" [Citation File Format schema]",
 #'            "(https://github.com/citation-file-format/",
 #'            "citation-file-format/blob/main/schema-guide.md)."))
-#'
 #'
 #' ```
 #'

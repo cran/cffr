@@ -7,11 +7,11 @@
 cff_from_bibtex(x, encoding = "UTF-8", ...)
 }
 \arguments{
-\item{x}{The source that would be used for generating the
-\code{\link{cff}} object. Must be \code{character} object indicating either:
+\item{x}{The source used to generate the
+\code{\link{cff}} object. Must be a \code{character} object indicating either:
 \itemize{
 \item The path to a BibTeX file.
-\item A vector of characters with the full BibTeX string. See \strong{Examples}.
+\item A vector of characters with a complete BibTeX string. See \strong{Examples}.
 }}
 
 \item{encoding}{Encoding to be assumed for \code{x}. See \code{\link[=readLines]{readLines()}}.}
@@ -19,7 +19,7 @@ cff_from_bibtex(x, encoding = "UTF-8", ...)
 \item{...}{Other arguments passed to \code{\link[bibtex:read.bib]{bibtex::read.bib()}}.}
 }
 \value{
-See \code{\link[=cff_read_bib]{cff_read_bib()}} from reading \verb{*.bib} files and \code{\link[=cff_read_bib_text]{cff_read_bib_text()}}
+See \code{\link[=cff_read_bib]{cff_read_bib()}} for reading \verb{*.bib} files and \code{\link[=cff_read_bib_text]{cff_read_bib_text()}}
 for reading a \code{character} object representing a BibTeX entry.
 }
 \description{

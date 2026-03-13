@@ -13,11 +13,11 @@ encoded_utf_to_latex(x)
 A string with the corresponding transformations.
 }
 \description{
-Transform a UTF-8 string to LaTeX special characters.
+Transform a UTF-8 string into LaTeX special characters.
 }
 \details{
-This is a variation of \code{\link[tools:encoded]{tools::encoded_text_to_latex()}} performing some
-additional replacements to increase compatibility.
+This is a variation of \code{\link[tools:encoded]{tools::encoded_text_to_latex()}} with some
+additional replacements for better compatibility.
 }
 \examples{
 # Full range of supported characters on R

@@ -10,7 +10,7 @@ cff(path, ...)
 \item{path}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} \code{path} is no longer supported,
 use \code{\link[=cff_read_cff_citation]{cff_read_cff_citation()}} instead.}
 
-\item{...}{Named arguments to be used for creating a \code{cff} object. If no
+\item{...}{Named arguments to be used for creating a \code{\link{cff}} object. If no
 arguments are supplied (the default behavior), a minimal valid \code{cff}
 object is created.}
 }
@@ -23,10 +23,10 @@ A class and utility methods for reading, creating and holding CFF
 information. See \link{cff_class} to learn more about \code{cff} objects.
 }
 \details{
-\code{cff()} would convert \verb{_} in the name of the argument to \code{-}, e.g.
-\verb{cff_version = "1.2.0'} would be converted to \verb{cff-version = "1.2.0'}.
+\code{cff()} converts \verb{_} in the argument name to \code{-}. For example,
+\code{cff_version = "1.2.0"} is converted to \code{cff-version = "1.2.0"}.
 
-Valid parameters are those specified on \code{\link[=cff_schema_keys]{cff_schema_keys()}}:
+Valid arguments are those specified on \code{\link[=cff_schema_keys]{cff_schema_keys()}}:
 \itemize{
 \item \code{cff-version}
 \item \code{message}

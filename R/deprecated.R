@@ -60,20 +60,17 @@ cff_to_bibtex <- function(x, what = c("preferred", "references", "all")) {
 #' @keywords internal
 #' @family deprecated
 #'
-#' @param x The source that would be used for generating the
-#'   [`cff`] object. Must be `character` object indicating either:
+#' @param x The source used to generate the
+#'   [`cff`] object. Must be a `character` object indicating either:
 #'   - The path to a BibTeX file.
-#'   - A vector of characters with the full BibTeX string. See **Examples**.
+#'   - A vector of characters with a complete BibTeX string. See **Examples**.
 #' @param encoding Encoding to be assumed for `x`. See [readLines()].
 #' @param ... Other arguments passed to [bibtex::read.bib()].
 #'
-#'
 #' @return
 #'
-#' See [cff_read_bib()] from reading `*.bib` files and [cff_read_bib_text()]
+#' See [cff_read_bib()] for reading `*.bib` files and [cff_read_bib_text()]
 #' for reading a `character` object representing a BibTeX entry.
-#'
-#'
 #'
 #' @examples
 #' if (requireNamespace("bibtex", quietly = TRUE)) {
@@ -211,7 +208,7 @@ write_citation <- function(
 #' @export
 #' @keywords internal
 #' @family deprecated
-#' @param person  It can be either:
+#' @param person It can be either:
 #'   - A `person` or list of `person` object created with [utils::person()].
 #'   - A `character` object or vector representing a person or persons.
 #'
@@ -295,7 +292,7 @@ cff_parse_person_bibtex <- function(person) {
 #' @family deprecated
 #'
 #' @param bib A `bibentry` object.
-#' @return A `bibentry` in format `cff`.
+#' @return A `bibentry` in format [`cff`].
 #'
 #' @seealso [as_cff.bibentry()]
 #'
@@ -303,7 +300,6 @@ cff_parse_person_bibtex <- function(person) {
 #'
 #' bib <- citation("base")
 #' bib
-#'
 #'
 #' # To cff
 #' bib_to_cff <- as_cff(bib)

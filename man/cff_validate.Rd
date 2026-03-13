@@ -9,14 +9,14 @@ cff_validate(x = "CITATION.cff", verbose = TRUE)
 \arguments{
 \item{x}{This is expected to be either a full \code{cff} object created
 with \code{\link[=cff_create]{cff_create()}} or the path to a \code{CITATION.cff} file to be validated.
-In the case of a \verb{*cff} file it would read with \code{\link[=cff_read_cff_citation]{cff_read_cff_citation()}}.}
+In the case of a \verb{*.cff} file it would read with \code{\link[=cff_read_cff_citation]{cff_read_cff_citation()}}.}
 
-\item{verbose}{Logical \code{TRUE/FALSE}. On \code{TRUE} the function would display
+\item{verbose}{Logical \code{TRUE/FALSE}. When \code{TRUE}, the function displays
 informative messages.}
 }
 \value{
 A message indicating the result of the validation and an invisible value
-\code{TRUE/FALSE}. On error, the results would have an attribute \code{"errors"}
+\code{TRUE/FALSE}. On error, the result has an attribute \code{"errors"}
 containing the error summary (see \strong{Examples} and \code{\link[=attr]{attr()}}).
 }
 \description{

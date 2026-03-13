@@ -1,7 +1,7 @@
 #' Read BibTeX markup as a [`cff_ref_lst`] object
 #'
 #' @description
-#' Convert a [`character`][character()] representing a BibTeX entry to a
+#' Convert a `character` string representing a BibTeX entry into a
 #' [`cff_ref_lst`] object.
 #'
 #' @family bibtex
@@ -13,9 +13,9 @@
 #'
 #' @export
 #'
-#' @param x A vector of `character` objects with the full BibTeX string.
-#' @param encoding Encoding to be assumed for `x`, see [readLines()].
-#' @param ... Arguments passed on to [cff_read_bib()].
+#' @param x A `character` vector with one or more complete BibTeX entries.
+#' @param encoding Encoding to be assumed for `x`. See [readLines()].
+#' @param ... Arguments passed to [cff_read_bib()].
 #'
 #' @return
 #'
@@ -26,21 +26,19 @@
 #'
 #' cat(paste0(" [Citation File Format schema]",
 #'            "(https://github.com/citation-file-format/",
-#'            "citation-file-format/blob/main/schema-guide.md). "))
-#'
+#'            "citation-file-format/blob/main/schema-guide.md)."))
 #'
 #' ```
-#' Each element of the `cff_ref_lst` object would have classes
+#' Each element of the `cff_ref_lst` object has classes
 #' [`cff_ref, cff`][cff_ref].
-#'
 #'
 #' @details
 #'
-#' This is a helper function that writes `x` to a `*.bib` file and reads it with
+#' This function writes `x` to a temporary `*.bib` file and reads it using
 #' [cff_read_bib()].
 #'
 #' This function requires \CRANpkg{bibtex} (>= 0.5.0) and uses
-#' [bibtex::read.bib()].
+#' [bibtex::read.bib()] for parsing.
 #'
 #' @examples
 #' if (requireNamespace("bibtex", quietly = TRUE)) {
@@ -62,7 +60,6 @@
 #'       howpublished = {Handed out at O'Hare}
 #'   }"
 #'   )
-#'
 #'
 #'   cff_read_bib_text(x)
 #' }

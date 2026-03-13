@@ -18,14 +18,14 @@ write_citation(
 \arguments{
 \item{x}{A \code{\link{bibentry}} or a \code{\link{cff}} object.}
 
-\item{file}{Name of the file to be created. If \code{NULL} it would display the
-lines to be written.}
+\item{file}{Name of the file to be created. If \code{NULL}, the lines are
+displayed instead.}
 
-\item{append}{Whether to append the entries to an existing file or not.}
+\item{append}{Logical. Should entries be appended to an existing file?}
 
-\item{verbose}{Display informative messages}
+\item{verbose}{Logical. Display informative messages.}
 
-\item{ascii}{Whether to write the entries using ASCII characters only or not.}
+\item{ascii}{Logical. Should entries be written using ASCII characters only?}
 }
 \value{
 Write a file.

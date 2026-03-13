@@ -3,13 +3,13 @@
 #' @description
 #' `as_cff()` turns an existing list-like **R** object into a so-called
 #' [`cff`], a list with class `cff`, with the corresponding
-#' [sub-class][cff_class] if applicable, .
+#' [sub-class][cff_class] if applicable.
 #'
 #' `as_cff` is an S3 generic, with methods for:
 #' - `person` objects as produced by [utils::person()].
 #' - `bibentry` objects as produced by [utils::bibentry()].
-#' - `Bibtex` object as produced by [toBibtex()].
-#' -  Default: Other inputs are first coerced with [as.list()].
+#' - `Bibtex` objects as produced by [toBibtex()].
+#' - Default: Other inputs are first coerced with [as.list()].
 #'
 #' @param x A `person`, `bibentry` or other object that could be coerced to a
 #'   list.
@@ -21,11 +21,11 @@
 #'
 #' - `as_cff.person()` returns an object with classes
 #'   [`cff_pers_lst, cff`][cff_pers_lst].
-#' - `as_cff.bibentry()` and `as_cff.Bibtex()` returns an object with classes
+#' - `as_cff.bibentry()` and `as_cff.Bibtex()` return an object with classes
 #'   [`cff_ref_lst, cff`][cff_ref_lst].
-#' * The rest of methods returns usually an object of class `cff`. However if
-#'   `x` have an structure compatible with `definitions.person`,
-#'   `definitions.entity` or `definitions.reference` the object would have the
+#' - The remaining methods return an object of class `cff`. However, if
+#'   `x` has a structure compatible with `definitions.person`,
+#'   `definitions.entity` or `definitions.reference`, the object has the
 #'   corresponding subclass.
 #'
 #' Learn more about the \CRANpkg{cffr} class system in [cff_class].
@@ -156,7 +156,6 @@ as.cff <- function(x) {
 # Helper----
 
 #' Recursively clean lists
-#'
 #'
 #' @noRd
 rapply_drop_null <- function(x) {

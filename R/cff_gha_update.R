@@ -2,16 +2,16 @@
 #'
 #' @description
 #'
-#' This function would install a [GitHub
-#' Action](https://github.com/features/actions) on your repo. The action will
-#' update your `CITATION.cff` when any of these events occur:
+#' This function installs a [GitHub
+#' Action](https://github.com/features/actions) on your repository. The action
+#' updates your `CITATION.cff` when any of these events occur:
 #' - You publish a new release of the package.
-#' - Your `DESCRIPTION` or `inst/CITATION` are modified.
-#' - The action can be run also manually.
+#' - Your `DESCRIPTION` or `inst/CITATION` file is modified.
+#' - The action can be run manually.
 #'
 #' @param path Project root directory.
-#' @param overwrite Logical. If already present, do you want to overwrite your
-#'   action?
+#' @param overwrite Logical. If the action already exists, should it be
+#'   overwritten?
 #'
 #' @return Invisible, this function is called by its side effects.
 #'

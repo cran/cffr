@@ -7,29 +7,29 @@
 cff_read_bib_text(x, encoding = "UTF-8", ...)
 }
 \arguments{
-\item{x}{A vector of \code{character} objects with the full BibTeX string.}
+\item{x}{A \code{character} vector with one or more complete BibTeX entries.}
 
-\item{encoding}{Encoding to be assumed for \code{x}, see \code{\link[=readLines]{readLines()}}.}
+\item{encoding}{Encoding to be assumed for \code{x}. See \code{\link[=readLines]{readLines()}}.}
 
-\item{...}{Arguments passed on to \code{\link[=cff_read_bib]{cff_read_bib()}}.}
+\item{...}{Arguments passed to \code{\link[=cff_read_bib]{cff_read_bib()}}.}
 }
 \value{
 An object of classes \code{\link[=cff_ref_lst]{cff_ref_lst, cff}} according to the
 \code{definitions.references} specified in
 the \href{https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md}{Citation File Format schema}.
-Each element of the \code{cff_ref_lst} object would have classes
+Each element of the \code{cff_ref_lst} object has classes
 \code{\link[=cff_ref]{cff_ref, cff}}.
 }
 \description{
-Convert a \code{\link[=character]{character}} representing a BibTeX entry to a
+Convert a \code{character} string representing a BibTeX entry into a
 \code{\link{cff_ref_lst}} object.
 }
 \details{
-This is a helper function that writes \code{x} to a \verb{*.bib} file and reads it with
+This function writes \code{x} to a temporary \verb{*.bib} file and reads it using
 \code{\link[=cff_read_bib]{cff_read_bib()}}.
 
 This function requires \CRANpkg{bibtex} (>= 0.5.0) and uses
-\code{\link[bibtex:read.bib]{bibtex::read.bib()}}.
+\code{\link[bibtex:read.bib]{bibtex::read.bib()}} for parsing.
 }
 \examples{
 if (requireNamespace("bibtex", quietly = TRUE)) {
@@ -51,7 +51,6 @@ if (requireNamespace("bibtex", quietly = TRUE)) {
       howpublished = {Handed out at O'Hare}
   }"
   )
-
 
   cff_read_bib_text(x)
 }

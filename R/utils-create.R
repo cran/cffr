@@ -9,7 +9,7 @@ merge_desc_cit <- function(cffobj, citobj) {
   # Play with cran DOI
   cran_doi <- NULL
   has_cran_doi <- FALSE
-  if (all(!is.null(cffobj$doi), grepl("CRAN", cffobj$doi))) {
+  if (all(!is.null(cffobj$doi), grepl("CRAN", cffobj$doi, fixed = TRUE))) {
     has_cran_doi <- TRUE
     cran_doi <- cffobj$doi
     # First the citation object
@@ -92,7 +92,6 @@ enhance_pref_authors <- function(cffobjend) {
 
   enhancedauth
 }
-
 
 get_dependencies <- function(
   desc_path,

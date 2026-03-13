@@ -1,7 +1,7 @@
 #' Encode UTF-8 text to LaTeX
 #'
 #' @description
-#' Transform a UTF-8 string to LaTeX special characters.
+#' Transform a UTF-8 string into LaTeX special characters.
 #'
 #' @return A string with the corresponding transformations.
 #'
@@ -15,8 +15,8 @@
 #'
 #' @details
 #'
-#' This is a variation of [tools::encoded_text_to_latex()] performing some
-#' additional replacements to increase compatibility.
+#' This is a variation of [tools::encoded_text_to_latex()] with some
+#' additional replacements for better compatibility.
 #'
 #' @keywords internal
 #' @export

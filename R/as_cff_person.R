@@ -10,17 +10,16 @@
 #'            "(https://github.com/citation-file-format/",
 #'            "citation-file-format/blob/main/schema-guide.md)."))
 #'
-#'
 #' ```
 #'
 #' `as_cff_person` is an S3 generic, with methods for:
-#' - `person`: objects created with [person()].
-#' - `character`: String with the definition of an author or several authors,
-#'   using the standard BibTeX notation (see Markey, 2007) and others, like
+#' - `person`: Objects created with [person()].
+#' - `character`: Strings with the definition of an author or multiple authors,
+#'   using the standard BibTeX notation (see Markey, 2007) and others, such as
 #'   the output of [format()] for person (see [`format.person()`][person()]).
-#' -  Default: Other inputs are first coerced with [as.character()].
+#' - Default: Other inputs are first coerced with [as.character()].
 #'
-#' The inverse transformation (`cff_pers_lst` to `person`) can be done with
+#' The inverse transformation (`cff_pers_lst` to `person`) can be done using
 #' the methods [as.person.cff_pers()] and [as.person.cff_pers_lst()].
 #'
 #' @seealso
@@ -46,20 +45,18 @@
 #'
 #' cat(paste0(" [Citation File Format schema]",
 #'            "(https://github.com/citation-file-format/",
-#'            "citation-file-format/blob/main/schema-guide.md). "))
-#'
+#'            "citation-file-format/blob/main/schema-guide.md)."))
 #'
 #' ```
-#' Each element of the `cff_pers_lst` object would have classes
+#' Each element of the `cff_pers_lst` object has classes
 #' [`cff_pers, cff`][cff_pers].
-#'
 #'
 #' @details
 #'
-#' `as_cff_person()` would recognize if the input should be converted using the
-#' CFF reference for `definition.person` or `definition.entity`.
+#' `as_cff_person()` recognizes whether the input should be converted using the
+#' CFF reference for `definitions.person` or `definitions.entity`.
 #'
-#' `as_cff_person()` uses a custom algorithm that tries to break a name as
+#' `as_cff_person()` uses a custom algorithm that breaks a name as
 #' explained in Section 11 of "Tame the BeaST" (Markey, 2007) (see also
 #' Decoret, 2007):
 #'
@@ -73,14 +70,14 @@
 #'  - `Last` is mapped to the CFF field `family-names`.
 #'  - `Jr` is mapped to the CFF field `name-suffix`.
 #'
-#'  In the case of entities, the whole `character` would be mapped to `name`.
-#'  It is a good practice to "protect" entity's names with `{}`:
+#'  For entities, the entire `character` is mapped to `name`.
+#'  It is recommended to "protect" entity names with `{}`:
 #'
 #' ```{r child = "man/chunks/person.Rmd"}
 #' ```
-#' `as_cff_person()` would try to add as many information as possible.
-#' On `character` string coming from [`format.person()`][utils::person()] the
-#' email and the ORCID would be retrieved as well.
+#' `as_cff_person()` attempts to extract as much information as possible.
+#' For `character` strings from [`format.person()`][utils::person()], the
+#' email and ORCID are also extracted.
 #'
 #' @references
 #' - Patashnik, Oren. "BIBTEXTING" February 1988.
@@ -99,7 +96,6 @@
 #' ```
 #'
 #' See **Examples** for more information.
-#'
 #'
 #' @examples
 #' # Create a person object
@@ -150,7 +146,6 @@
 #'
 #' # Or as person object
 #' as.person(a_cff)
-#'
 #'
 #' # Or you can use BibTeX style as input if you prefer
 #'
@@ -343,7 +338,7 @@ create_person_from_txt <- function(as_bib_text) {
   protected <- gsub(",(?![^\\}]*(\\{|$))", "@comma@", person_only, perl = TRUE)
 
   commas <- as.character(
-    lengths(regmatches(protected, gregexpr(",", protected)))
+    lengths(regmatches(protected, gregexpr(",", protected, fixed = TRUE)))
   )
 
   # Assign the corresponding fun
