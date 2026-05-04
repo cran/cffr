@@ -1,22 +1,19 @@
-# Utils functions used on the package
+# Utility functions used in the package.
 
 #' Clean strings
 #'
 #' @param str A string to be cleaned.
 #' @noRd
 clean_str <- function(str) {
-  # Collapse to single char
-  str <- paste(str, collapse = " ")
-  str <- unlist(str)
-  if (is.null(str) || is.na(str)) {
-    return(NULL)
-  }
+  # Collapse to a single string.
+  str <- unlist(paste(str, collapse = " "))
 
   clean <- gsub("[\n\r]", " ", str)
   clean <- gsub("\\s+", " ", clean)
   clean <- gsub("\\{", "", clean)
   clean <- gsub("\\}", "", clean)
   clean <- gsub("^NA$", "", clean)
+  clean <- gsub("\\s{2,}", " ", clean)
   clean <- trimws(clean)
   # Collapse to single char
   clean <- paste(clean, collapse = " ")
@@ -54,7 +51,7 @@ print_snapshot <- function(title = "----", obj) {
   cat("\n---")
 }
 
-#' Search a package on available repos
+#' Search for a package in available repositories.
 #' @param name Name of the package.
 #' @param avail Data frame with available packages. See
 #' [utils::available.packages()].

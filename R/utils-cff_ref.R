@@ -160,7 +160,6 @@ get_bibtex_inst <- function(field_list) {
 
   # Rest of cases remove bibtex institution and rename
   nms <- names(field_list)
-
   field_list <- field_list["institution" != nms]
 
   # Rename
@@ -275,13 +274,19 @@ fallback_dates <- function(cit_list) {
   cit_list
 }
 
-#' BB for doi
+#' Build the DOI field list.
 #' @noRd
 get_bibtex_doi <- function(cit_list) {
   dois <- unlist(cit_list[names(cit_list) == "doi"])
 
+  # Check urls as well
+  url_for_doi <- unlist(cit_list$url)
+  if (all(!is.null(url_for_doi), grepl("doi.org", url_for_doi))) {
+    dois <- c(dois, url_for_doi)
+  }
+
   dois <- unlist(lapply(dois, function(x) {
-    x <- gsub("^https://doi.org/", "", x)
+    x <- gsub("^.*doi.org/", "", x)
     x <- clean_str(x)
   }))
 
@@ -307,7 +312,7 @@ get_bibtex_doi <- function(cit_list) {
   doi_list
 }
 
-#' BB for month
+#' Build the month field.
 #' @noRd
 get_bibtex_month <- function(cit_list) {
   mnt <- clean_str(cit_list$month)
@@ -335,7 +340,7 @@ get_bibtex_month <- function(cit_list) {
   clean_str(res[1])
 }
 
-#' BB for URL
+#' Build the URL field list.
 #' @noRd
 get_bibtex_url <- function(cit_list) {
   ## Get url: see bug with cff_create("rgeos")
@@ -371,20 +376,10 @@ get_bibtex_url <- function(cit_list) {
   url_list
 }
 
-#' BB for other persons
+#' Build fields for additional people.
 #' @noRd
 get_bibtex_other_pers <- function(field_list) {
   others <- drop_null(field_list[other_persons()])
-
-  # If any is person type (example, editors) then paste and collapse
-
-  others <- lapply(others, function(x) {
-    if (inherits(x, "person")) {
-      x <- paste(x, collapse = " and ")
-    } else {
-      x
-    }
-  })
 
   # Select subsets
   all_pers <- other_persons()
@@ -394,22 +389,54 @@ get_bibtex_other_pers <- function(field_list) {
   toauto_end <- all_pers[!all_pers %in% c(toent, toent_pers)]
   toent_end <- toent[!toent %in% toent_pers]
 
-  # Entity
-  toentity <- others[names(others) %in% toent_end]
-  toentity <- lapply(toentity, function(x) {
-    list(name = clean_str(x))
-  })
-
   # As persons or entities using bibtex
   toentity_pers <- others[names(others) %in% toent_pers]
   toentity_pers <- lapply(toentity_pers, function(x) {
+    if (inherits(x, "person")) {
+      x <- format(
+        x,
+        include = c("given", "family")
+      )
+    }
+
     bibtex <- paste(x, collapse = " and ")
     end <- as_cff_person(bibtex)
 
     end
   })
 
-  toperson <- others[names(others) %in% toauto_end]
+  # Rest
+
+  rest <- others[!names(others) %in% toent_pers]
+
+  # If any has several persons then paste and collapse
+  rest <- lapply(others, function(x) {
+    if (length(x) > 1) {
+      and <- paste(
+        format(
+          x,
+          include = c("given", "family")
+        ),
+        collapse = " and "
+      )
+      and
+    } else if (inherits(x, "person")) {
+      as_cff(x)
+    } else {
+      x
+    }
+  })
+
+  # Entity
+  toentity <- rest[names(rest) %in% toent_end]
+  toentity <- lapply(toentity, function(x) {
+    if (inherits(x, "cff")) {
+      return(unclass(unlist(x, recursive = FALSE)))
+    }
+    list(name = clean_str(x))
+  })
+
+  toperson <- rest[names(rest) %in% toauto_end]
   toperson <- lapply(toperson, as_cff_person)
 
   # Bind and reorder

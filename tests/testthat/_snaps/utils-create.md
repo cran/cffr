@@ -701,6 +701,79 @@
       merged
     Output
       cff-version: 1.2.0
+      message: 'To cite package "quint" in publications use:'
+      type: software
+      title: 'quint: Qualitative Interaction Trees'
+      version: 2.2.2
+      authors:
+      - family-names: Dusseldorp
+        given-names: Elise
+        email: elise.dusseldorp@fsw.leidenuniv.nl
+      - family-names: Doove
+        given-names: Lisa
+        email: lisa.doove@kuleuven.be
+      - family-names: Put
+        given-names: Jeanne
+        name-particle: van de
+        email: jmms1991@gmail.com
+      - family-names: Van Mechelen
+        given-names: Iven
+        email: iven.vanmechelen@kuleuven.be
+      - family-names: Claramunt Gonzalez
+        given-names: Juan
+        email: j.claramunt.gonzalez@fsw.leidenuniv.nl
+      abstract: Grows a qualitative interaction tree. Quint is a tool for subgroup analysis,
+        suitable for data from a two-arm randomized controlled trial. More information in
+        Dusseldorp, E., Doove, L., & Van Mechelen, I. (2016) <https://doi.org/10.3758/s13428-015-0594-z>.
+      repository: https://CRAN.R-project.org/package=quint
+      date-released: '2022-07-01'
+      contact:
+      - family-names: Dusseldorp
+        given-names: Elise
+        email: elise.dusseldorp@fsw.leidenuniv.nl
+      license: GPL-3.0-or-later
+      commit: 2.2.2
+      doi: 10.1111/2041-210X.12469
+      preferred-citation:
+        type: article
+        title: 'RNeXML: A Package for Reading and Writing Richly Annotated Phylogenetic,
+          Character, and Trait Data in R'
+        authors:
+        - family-names: Boettiger
+          given-names: Carl
+        - family-names: Chamberlain
+          given-names: Scott
+        - family-names: Vos
+          given-names: Rutger
+        - family-names: Lapp
+          given-names: Hilmar
+        journal: Methods in Ecology and Evolution
+        year: '2016'
+        volume: '7'
+        doi: 10.1111/2041-210X.12469
+        start: '352'
+        end: '357'
+      identifiers:
+      - type: doi
+        value: 10.32614/CRAN.package.quint
+      references:
+      - type: book
+        title: 'ggplot2: Elegant Graphics for Data Analysis'
+        authors:
+        - family-names: Wickham
+          given-names: Hadley
+        publisher:
+          name: Springer-Verlag New York
+        year: '2016'
+        isbn: 978-3-319-24277-4
+        url: https://ggplot2.tidyverse.org
+
+---
+
+    Code
+      merged
+    Output
+      cff-version: 1.2.0
       message: 'To cite package "codemetar" in publications use:'
       type: software
       title: 'codemetar: Generate ''CodeMeta'' Metadata for R Packages'

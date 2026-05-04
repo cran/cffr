@@ -1,0 +1,14 @@
+citHeader("To cite 'spaMM' in publications use")
+
+bibentry(bibtype ="Article",
+  title = "Testing environmental and genetic effects in the presence of spatial autocorrelation",
+  author = c(person(given="François", family="Rousset"), 
+             person(given="Jean-Baptiste", family="Ferdy")),
+  journal      = "Ecography",
+  year         = "2014",
+  volume       = "37",
+  number       = "8",
+  pages        = "781-790",
+  url          = "https://dx.doi.org/10.1111/ecog.00566"
+)
+

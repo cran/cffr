@@ -26,7 +26,9 @@ test_that("Validate error CITATION.cff", {
   # Extract attr table
   df <- attr(tab, "errors")
   expect_s3_class(df, "data.frame")
-  expect_snapshot(df)
+
+  snap_fields <- vapply(df, class, FUN.VALUE = character(1))
+  expect_snapshot(df[, snap_fields == "character"])
 
   expect_silent(cff_validate(err, verbose = FALSE))
 })

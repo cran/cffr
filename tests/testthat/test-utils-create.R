@@ -1,6 +1,6 @@
 test_that("Merge all DESCRIPTION files with CITATION_basic", {
   rvers <- getRversion()
-  skip_if(!grepl("^4.5", rvers), "Snapshot created with R 4.5.*")
+  skip_if(!grepl("^4.6", rvers), "Snapshot created with R 4.6.*")
   skip_on_cran()
 
   allfiles <- list.files(
@@ -34,4 +34,28 @@ test_that("Check dependencies", {
 
   class(selected) <- "cff"
   expect_snapshot(print(selected))
+})
+
+test_that("Merge DESCRIPTION wrong url with CITATION_dx", {
+  rvers <- getRversion()
+  skip_if(!grepl("^4.6", rvers), "Snapshot created with R 4.6.*")
+  skip_on_cran()
+
+  dd <- list.files(
+    system.file("examples", package = "cffr"),
+    pattern = "wrong",
+    full.names = TRUE
+  )
+
+  citpath <- system.file("examples/CITATION_dx_doi", package = "cffr")
+  desc_cff <- cff_read_description(dd, gh_keywords = FALSE)
+  generate_cit <- cff_safe_read_citation(dd, citpath)
+  merged <- merge_desc_cit(desc_cff, generate_cit)
+  merged <- as_cff(merged)
+
+  expect_true(cff_validate(merged, verbose = FALSE))
+  expect_identical(
+    paste0("https://dx.doi.org/", merged$doi),
+    merged[["preferred-citation"]]$url
+  )
 })

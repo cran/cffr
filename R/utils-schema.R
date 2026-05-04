@@ -17,7 +17,7 @@
 #'   [SPDX license identifier(s)](https://spdx.org/licenses/) to be used on the
 #'   `CITATION.cff` file.
 #' - [cff_schema_definitions_person()] and [cff_schema_definitions_entity()]
-#'   returns the valid fields to be included when defining a
+#'   return the valid fields to include when defining a
 #'   person or entity.
 #' - [cff_schema_definitions_refs()] provides the valid
 #'   keys to be used on the `preferred-citation` and `references` keys.
@@ -34,13 +34,14 @@
 #' @family schemas
 #'
 #' @export
+#' @encoding UTF-8
 #'
 #' @return
-#' A vector of characters with the names of the valid keys to be used on a
-#'  Citation File Format version 1.2.0
+#' A character vector with the names of valid keys for Citation File Format
+#'   version 1.2.0.
 #'
 #' @param sorted Logical `TRUE/FALSE`. Should the keys be arranged
-#'  alphabetically?
+#'   alphabetically?
 #'
 #' @examples
 #'
@@ -103,6 +104,7 @@ cff_schema_keys <- function(sorted = FALSE) {
 
 #' @rdname cff_schema
 #' @export
+#' @encoding UTF-8
 #' @examples
 #'
 #' # Valid Licenses keys
@@ -119,6 +121,7 @@ cff_schema_keys_license <- function() {
 
 #' @rdname cff_schema
 #' @export
+#' @encoding UTF-8
 #' @examples
 #'
 #' cff_schema_definitions_person()
@@ -147,6 +150,7 @@ cff_schema_definitions_person <- function() {
 
 #' @rdname cff_schema
 #' @export
+#' @encoding UTF-8
 #' @examples
 #'
 #' cff_schema_definitions_entity()
@@ -174,6 +178,7 @@ cff_schema_definitions_entity <- function() {
 
 #' @rdname cff_schema
 #' @export
+#' @encoding UTF-8
 #' @examples
 #'
 #' cff_schema_definitions_refs()

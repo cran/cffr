@@ -25,9 +25,10 @@
 #' @seealso
 #' Examples in `vignette("cffr", "cffr")` and [utils::person()].
 #'
-#' Learn more about the classes `cff_pers_lst, cff_pers` classes in [cff_class].
+#' Learn more about the `cff_pers_lst` and `cff_pers` classes in [cff_class].
 #'
 #' @export
+#' @encoding UTF-8
 #' @rdname as_cff_person
 #' @name as_cff_person
 #' @order 1
@@ -162,6 +163,7 @@ as_cff_person <- function(x, ...) {
 
 
 #' @export
+#' @encoding UTF-8
 #' @rdname as_cff_person
 #' @order 2
 as_cff_person.default <- function(x, ...) {
@@ -179,6 +181,7 @@ as_cff_person.default <- function(x, ...) {
 }
 
 #' @export
+#' @encoding UTF-8
 #' @rdname as_cff_person
 #' @order 3
 as_cff_person.person <- function(x, ...) {
@@ -192,6 +195,7 @@ as_cff_person.person <- function(x, ...) {
 }
 
 #' @export
+#' @encoding UTF-8
 #' @rdname as_cff_person
 #' @order 4
 as_cff_person.character <- function(x, ...) {
@@ -318,6 +322,9 @@ create_person_from_txt <- function(as_bib_text) {
     person_only <- as_bib_text
     comm_cff <- list()
   }
+
+  # Clean several spaces (issue with quint package)
+  person_only <- gsub("\\s{2,}", " ", person_only)
 
   # Special case for Bioconductor
   if (is_substring(tolower(person_only), "bioconductor")) {

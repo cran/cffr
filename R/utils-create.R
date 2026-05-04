@@ -150,7 +150,7 @@ get_dependencies <- function(
       )
 
       if (inherits(mod, "try-error")) {
-        return(NULL)
+        return(NULL) # nocov
       }
 
       # Simplified version of the cff obj

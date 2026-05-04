@@ -563,3 +563,46 @@
         - type: url
           value: https://google.com/
 
+# Test R 2026
+
+    Code
+      as_cff(sin)
+    Output
+      type: manual
+      title: 'R: A Language and Environment for Statistical Computing'
+      authors:
+      - name: R Core Team
+        website: https://ror.org/02zz1nj61
+      institution:
+        name: R Foundation for Statistical Computing
+        website: https://ror.org/05qewa988
+        address: Vienna, Austria
+      year: '2026'
+      doi: 10.32614/R.manuals
+      url: https://www.R-project.org/
+
+---
+
+    Code
+      cffobj
+    Output
+      cff-version: 1.2.0
+      message: If you use this software, please cite it using these metadata.
+      title: My Research Software
+      authors:
+      - family-names: Doe
+        given-names: John
+      references:
+      - type: manual
+        title: 'R: A Language and Environment for Statistical Computing'
+        authors:
+        - name: R Core Team
+          website: https://ror.org/02zz1nj61
+        institution:
+          name: R Foundation for Statistical Computing
+          website: https://ror.org/05qewa988
+          address: Vienna, Austria
+        year: '2026'
+        doi: 10.32614/R.manuals
+        url: https://www.R-project.org/
+

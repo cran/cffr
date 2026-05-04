@@ -754,3 +754,33 @@ test_that("Identifiers and dois", {
   expect_snapshot(cffobj)
   expect_true(cff_validate(cffobj, verbose = FALSE))
 })
+
+test_that("Test R 2026", {
+  rvers <- getRversion()
+  skip_if(!grepl("^4.6", rvers), "Snapshot created with R 4.6.*")
+
+  # https://github.com/wch/r-source/blob/trunk/src/library/base/inst/CITATION
+
+  bib <- bibentry(
+    "Manual",
+    title = "R: A Language and Environment for Statistical Computing",
+    author = person("R Core Team", comment = c(ROR = "02zz1nj61")),
+    organization = person(
+      "R Foundation for Statistical Computing",
+      comment = c(ROR = "05qewa988")
+    ),
+    address = "Vienna, Austria",
+    year = 2026,
+    doi = "10.32614/R.manuals",
+    url = "https://www.R-project.org/"
+  )
+
+  bib_cff <- as_cff(bib)
+  sin <- bib_cff[[1]]
+  expect_snapshot(as_cff(sin))
+
+  cffobj <- cff_modify(cff(), references = bib_cff)
+
+  expect_snapshot(cffobj)
+  expect_true(cff_validate(cffobj, verbose = FALSE))
+})

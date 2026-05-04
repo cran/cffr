@@ -1,54 +1,11 @@
 ## -----------------------------------------------------------------------------
 #| include: false
+library(cffr)
 # Load the table of tables
 
 p2file <- system.file("extdata/crosswalk_tables.csv", package = "cffr")
 
 table_master <- read.csv(p2file)
-
-
-## -----------------------------------------------------------------------------
-#| label: bibentry
-#| comment: '#>'
-entry <- bibentry(
-  "book",
-  key = "einstein1921",
-  title = "Relativity: The Special and the General Theory",
-  author = person("A.", "Einstein"),
-  year = 1920,
-  publisher = "Henry Holt and Company",
-  address = "London, United Kingdom",
-  isbn = 9781587340925,
-)
-
-toBibtex(entry)
-
-
-## -----------------------------------------------------------------------------
-#| echo: false
-#| results: asis
-print(entry, style = "html")
-
-
-## -----------------------------------------------------------------------------
-#| label: cffbibread
-#| comment: '#>'
-string <- "@book{einstein1921,
-    title        = {Relativity: The Special and the General Theory},
-    author       = {Einstein, A.},
-    year         = 1920,
-    publisher    = {Henry Holt and Company},
-    address      = {London, United Kingdom},
-    isbn         = 9781587340925}"
-
-# To cff
-library(cffr)
-cff_format <- cff_read_bib_text(string)
-
-cff_format
-
-# To BibTeX with S3 method
-toBibtex(cff_format)
 
 
 ## -----------------------------------------------------------------------------
@@ -105,11 +62,11 @@ knitr::kable(
 #| message: false
 #| warning: false
 #| results: asis
-#| tbl-cap: "Valid keys on [CFF]{.underline} `definition-reference` objects"
+#| tbl-cap: "Valid keys in CFF `definition-reference` objects"
 library(cffr)
 
 # Fill with whites
-init <- paste0("[", cff_schema_definitions_refs(), "]{.underline}")
+init <- paste0("`", cff_schema_definitions_refs(), "`")
 
 l <- c(init, rep("", 4))
 
@@ -123,11 +80,31 @@ knitr::kable(
 
 
 ## -----------------------------------------------------------------------------
+#| label: cffbibread
+#| comment: '#>'
+string <- "@book{einstein1921,
+    title        = {Relativity: The Special and the General Theory},
+    author       = {Einstein, A.},
+    year         = 1920,
+    publisher    = {Henry Holt and Company},
+    address      = {London, United Kingdom},
+    isbn         = 9781587340925}"
+
+# To cff
+library(cffr)
+cff_format <- cff_read_bib_text(string)
+
+cff_format
+
+# To BibTeX with S3 method
+toBibtex(cff_format)
+
+
+## -----------------------------------------------------------------------------
 #| label: tbl-entry_bib2cff
 #| echo: false
 #| results: asis
-#| tbl-cap: "Entry/Type crosswalk: From **BibTeX** to [CFF]{.underline}"
-
+#| tbl-cap: "Entry/Type crosswalk: From BibTeX to CFF"
 df_table <- table_master[table_master$table == "entry_bib2cff", c(2:4)]
 df_table[is.na(df_table)] <- ""
 # fix links
@@ -136,7 +113,7 @@ row.names(df_table) <- NULL
 
 knitr::kable(
   df_table,
-  col.names = c("**BibTeX** Entry", "[CFF key: type]{.underline}", "Notes"),
+  col.names = c("BibTeX Entry", "CFF key: `type`", "Notes"),
   row.names = NA
 )
 
@@ -145,7 +122,7 @@ knitr::kable(
 #| label: tbl-entry_cff2bib
 #| echo: false
 #| results: asis
-#| tbl-cap: "Entry/Type crosswalk: From [CFF]{.underline} to **BibTeX**"
+#| tbl-cap: "Entry/Key `type` crosswalk: From CFF to BibTeX"
 df_table <- table_master[table_master$table == "entry_cff2bib", c(2:4)]
 df_table[is.na(df_table)] <- ""
 # fix links
@@ -154,7 +131,7 @@ row.names(df_table) <- NULL
 
 knitr::kable(
   df_table,
-  col.names = c("[CFF key: type]{.underline}", "**BibTeX** Entry", "Notes")
+  col.names = c("CFF key `type`", "BibTeX Entry", "Notes")
 )
 
 
@@ -162,7 +139,7 @@ knitr::kable(
 #| label: tbl-fields_bib2cff
 #| echo: false
 #| results: asis
-#| tbl-cap: "**BibTeX** - [CFF]{.underline} Field/Key crosswalk"
+#| tbl-cap: "BibTeX - CFF key crosswalk"
 df_table <- table_master[table_master$table == "fields_bib2cff", c(2:4)]
 df_table[is.na(df_table)] <- ""
 # fix links
@@ -171,7 +148,7 @@ row.names(df_table) <- NULL
 
 knitr::kable(
   df_table,
-  col.names = c("**BibTeX Field**", "[CFF key]{.underline}", "Notes")
+  col.names = c("BibTeX **Field**", "CFF key", "Notes")
 )
 
 
@@ -179,8 +156,7 @@ knitr::kable(
 #| label: tbl-fields_biblatex2cff
 #| echo: false
 #| results: asis
-#| tbl-cap: "**BibLaTeX** - [CFF]{.underline} Field/Key crosswalk"
-
+#| tbl-cap: "BibLaTeX - CFF Field/Key crosswalk"
 df_table <- table_master[table_master$table == "fields_biblatex2cff", c(2:3)]
 df_table[is.na(df_table)] <- ""
 # fix links
@@ -189,7 +165,7 @@ row.names(df_table) <- NULL
 
 knitr::kable(
   df_table,
-  col.names = c("**BibLaTeX Field**", "[CFF key]{.underline}")
+  col.names = c("**BibLaTeX Field**", "CFF key")
 )
 
 
@@ -197,7 +173,6 @@ knitr::kable(
 #| label: tbl-model_article
 #| echo: false
 #| results: asis
-
 df_table <- table_master[table_master$table == "model_article", c(2:4)]
 df_table[is.na(df_table)] <- ""
 
@@ -210,13 +185,12 @@ df_table$f3 <- gsub("link_to_book", "#book-inbook", df_table$f3)
 row.names(df_table) <- NULL
 knitr::kable(
   df_table,
-  col.names = c("**BibTeX**", "[CFF]{.underline}", "Notes"),
+  col.names = c("BibTeX", "CFF", "Notes"),
   caption = "**\\@article** Model"
 )
 
 
 ## -----------------------------------------------------------------------------
-#| echo: false
 bib <- "@article{article-full,
     title        = {The Gnats and Gnus Document Preparation System},
     author       = {Leslie A. Aamport},
@@ -230,9 +204,6 @@ bib <- "@article{article-full,
 
 cff_read_bib_text(bib)
 
-
-## -----------------------------------------------------------------------------
-#| echo: false
 toBibtex(cff_read_bib_text(bib))
 
 
@@ -252,13 +223,12 @@ df_table$f3 <- gsub("link_to_book", "#book-inbook", df_table$f3)
 row.names(df_table) <- NULL
 knitr::kable(
   df_table,
-  col.names = c("**BibTeX**", "[CFF]{.underline}", "Notes"),
+  col.names = c("BibTeX", "CFF", "Notes"),
   caption = "**\\@book / \\@inbook** Model"
 )
 
 
 ## -----------------------------------------------------------------------------
-#| echo: false
 bib <- "@book{book-full,
     title        = {Seminumerical Algorithms},
     author       = {Donald E. Knuth},
@@ -274,14 +244,10 @@ bib <- "@book{book-full,
 
 cff_read_bib_text(bib)
 
-
-## -----------------------------------------------------------------------------
-#| echo: false
 toBibtex(cff_read_bib_text(bib))
 
 
 ## -----------------------------------------------------------------------------
-#| echo: false
 bib <- "@inbook{inbook-full,
     title        = {Fundamental Algorithms},
     author       = {Donald E. Knuth},
@@ -300,9 +266,6 @@ bib <- "@inbook{inbook-full,
 
 cff_read_bib_text(bib)
 
-
-## -----------------------------------------------------------------------------
-#| echo: false
 toBibtex(cff_read_bib_text(bib))
 
 
@@ -322,13 +285,12 @@ df_table$f3 <- gsub("link_to_book", "#book-inbook", df_table$f3)
 row.names(df_table) <- NULL
 knitr::kable(
   df_table,
-  col.names = c("**BibTeX**", "[CFF]{.underline}", "Notes"),
+  col.names = c("BibTeX", "CFF", "Notes"),
   caption = "**\\@booklet** Model"
 )
 
 
 ## -----------------------------------------------------------------------------
-#| echo: false
 bib <- "@booklet{booklet-full,
     title        = {The Programming of Computer Art},
     author       = {Jill C. Knvth},
@@ -341,9 +303,6 @@ bib <- "@booklet{booklet-full,
 
 cff_read_bib_text(bib)
 
-
-## -----------------------------------------------------------------------------
-#| echo: false
 toBibtex(cff_read_bib_text(bib))
 
 
@@ -363,13 +322,12 @@ df_table$f3 <- gsub("link_to_book", "#book-inbook", df_table$f3)
 row.names(df_table) <- NULL
 knitr::kable(
   df_table,
-  col.names = c("**BibTeX**", "[CFF]{.underline}", "Notes"),
+  col.names = c("BibTeX", "CFF", "Notes"),
   caption = "**\\@conference / \\@inproceedings** Model"
 )
 
 
 ## -----------------------------------------------------------------------------
-#| echo: false
 bib <- "@inproceedings{inproceedings-full,
     title        = {On Notions of Information Transfer in {VLSI} Circuits},
     author       = {Alfred V. Oaho and Jeffrey D. Ullman and Mihalis Yannakakis},
@@ -387,9 +345,6 @@ bib <- "@inproceedings{inproceedings-full,
 
 cff_read_bib_text(bib)
 
-
-## -----------------------------------------------------------------------------
-#| echo: false
 toBibtex(cff_read_bib_text(bib))
 
 
@@ -409,13 +364,12 @@ df_table$f3 <- gsub("link_to_book", "#book-inbook", df_table$f3)
 row.names(df_table) <- NULL
 knitr::kable(
   df_table,
-  col.names = c("**BibTeX**", "[CFF]{.underline}", "Notes"),
+  col.names = c("BibTeX", "CFF", "Notes"),
   caption = "**\\@incollection** Model"
 )
 
 
 ## -----------------------------------------------------------------------------
-#| echo: false
 bib <- "@incollection{incollection-full,
     title        = {Semigroups of Recurrences},
     author       = {Daniel D. Lincoll},
@@ -436,9 +390,6 @@ bib <- "@incollection{incollection-full,
 
 cff_read_bib_text(bib)
 
-
-## -----------------------------------------------------------------------------
-#| echo: false
 toBibtex(cff_read_bib_text(bib))
 
 
@@ -458,13 +409,12 @@ df_table$f3 <- gsub("link_to_book", "#book-inbook", df_table$f3)
 row.names(df_table) <- NULL
 knitr::kable(
   df_table,
-  col.names = c("**BibTeX**", "[CFF]{.underline}", "Notes"),
+  col.names = c("BibTeX", "CFF", "Notes"),
   caption = "**\\@manual** Model"
 )
 
 
 ## -----------------------------------------------------------------------------
-#| echo: false
 bib <- "@manual{manual-full,
   title        = {The Definitive Computer Manual},
     author       = {Larry Manmaker},
@@ -478,9 +428,6 @@ bib <- "@manual{manual-full,
 
 cff_read_bib_text(bib)
 
-
-## -----------------------------------------------------------------------------
-#| echo: false
 toBibtex(cff_read_bib_text(bib))
 
 
@@ -500,13 +447,12 @@ df_table$f3 <- gsub("link_to_book", "#book-inbook", df_table$f3)
 row.names(df_table) <- NULL
 knitr::kable(
   df_table,
-  col.names = c("**BibTeX**", "[CFF]{.underline}", "Notes"),
+  col.names = c("BibTeX", "CFF", "Notes"),
   caption = "**\\@mastersthesis / \\@phdthesis** Model"
 )
 
 
 ## -----------------------------------------------------------------------------
-#| echo: false
 bib <- "@mastersthesis{mastersthesis-full,
     title        = {Mastering Thesis Writing},
     author       = {Edouard Masterly},
@@ -520,14 +466,10 @@ bib <- "@mastersthesis{mastersthesis-full,
 
 cff_read_bib_text(bib)
 
-
-## -----------------------------------------------------------------------------
-#| echo: false
 toBibtex(cff_read_bib_text(bib))
 
 
 ## -----------------------------------------------------------------------------
-#| echo: false
 bib <- "@phdthesis{phdthesis-full,
     title        = {Fighting Fire with Fire: Festooning {F}rench Phrases},
     author       = {F. Phidias Phony-Baloney},
@@ -541,9 +483,6 @@ bib <- "@phdthesis{phdthesis-full,
 
 cff_read_bib_text(bib)
 
-
-## -----------------------------------------------------------------------------
-#| echo: false
 toBibtex(cff_read_bib_text(bib))
 
 
@@ -563,13 +502,12 @@ df_table$f3 <- gsub("link_to_book", "#book-inbook", df_table$f3)
 row.names(df_table) <- NULL
 knitr::kable(
   df_table,
-  col.names = c("**BibTeX**", "[CFF]{.underline}", "Notes"),
+  col.names = c("BibTeX", "CFF", "Notes"),
   caption = "**\\@misc** Model"
 )
 
 
 ## -----------------------------------------------------------------------------
-#| echo: false
 bib <- "@misc{misc-full,
     title        = {Handing out random pamphlets in airports},
     author       = {Joe-Bob Missilany},
@@ -581,9 +519,6 @@ bib <- "@misc{misc-full,
 
 cff_read_bib_text(bib)
 
-
-## -----------------------------------------------------------------------------
-#| echo: false
 toBibtex(cff_read_bib_text(bib))
 
 
@@ -603,13 +538,12 @@ df_table$f3 <- gsub("link_to_book", "#book-inbook", df_table$f3)
 row.names(df_table) <- NULL
 knitr::kable(
   df_table,
-  col.names = c("**BibTeX**", "[CFF]{.underline}", "Notes"),
+  col.names = c("BibTeX", "CFF", "Notes"),
   caption = "**\\@proceedings** Model"
 )
 
 
 ## -----------------------------------------------------------------------------
-#| echo: false
 bib <- "@proceedings{proceedings-full,
     title        = {Proc. Fifteenth Annual ACM Symposium on the Theory of Computing},
     year         = 1983,
@@ -625,9 +559,6 @@ bib <- "@proceedings{proceedings-full,
 
 cff_read_bib_text(bib)
 
-
-## -----------------------------------------------------------------------------
-#| echo: false
 toBibtex(cff_read_bib_text(bib))
 
 
@@ -647,13 +578,12 @@ df_table$f3 <- gsub("link_to_book", "#book-inbook", df_table$f3)
 row.names(df_table) <- NULL
 knitr::kable(
   df_table,
-  col.names = c("**BibTeX**", "[CFF]{.underline}", "Notes"),
+  col.names = c("BibTeX", "CFF", "Notes"),
   caption = "**\\@techreport** Model"
 )
 
 
 ## -----------------------------------------------------------------------------
-#| echo: false
 bib <- "@techreport{techreport-full,
     title        = {A Sorting Algorithm},
     author       = {Tom Terrific},
@@ -668,9 +598,6 @@ bib <- "@techreport{techreport-full,
 
 cff_read_bib_text(bib)
 
-
-## -----------------------------------------------------------------------------
-#| echo: false
 toBibtex(cff_read_bib_text(bib))
 
 
@@ -690,13 +617,12 @@ df_table$f3 <- gsub("link_to_book", "#book-inbook", df_table$f3)
 row.names(df_table) <- NULL
 knitr::kable(
   df_table,
-  col.names = c("**BibTeX**", "[CFF]{.underline}", "Notes"),
+  col.names = c("BibTeX", "CFF", "Notes"),
   caption = "**\\@unpublished** Model"
 )
 
 
 ## -----------------------------------------------------------------------------
-#| echo: false
 bib <- "@unpublished{unpublished-minimal,
     title        = {Lower Bounds for Wishful Research Results},
     author       = {Ulrich Underwood and Ned Net and Paul Pot},
@@ -705,14 +631,10 @@ bib <- "@unpublished{unpublished-minimal,
 
 cff_read_bib_text(bib)
 
-
-## -----------------------------------------------------------------------------
-#| echo: false
 toBibtex(cff_read_bib_text(bib))
 
 
 ## -----------------------------------------------------------------------------
-#| echo: false
 bib <- "@inbook{inbook-biblatex,
 	author       = {Yihui Xie and Christophe Dervieux and Emily Riederer},
 	title        = {Bibliographies and citations},
@@ -728,9 +650,6 @@ bib <- "@inbook{inbook-biblatex,
 
 cff_read_bib_text(bib)
 
-
-## -----------------------------------------------------------------------------
-#| echo: false
 toBibtex(cff_read_bib_text(bib))
 
 
@@ -738,10 +657,12 @@ toBibtex(cff_read_bib_text(bib))
 #| label: tbl-cff_types
 #| echo: false
 #| results: asis
-#| tbl-cap: "Complete list of [CFF]{.underline} reference types"
+#| tbl-cap: "Complete list of CFF reference types"
 df_table <- table_master[table_master$table == "cff_types", c(2:3)]
 df_table[is.na(df_table)] <- ""
+
 row.names(df_table) <- NULL
+
 knitr::kable(
   df_table,
   col.names = c("Reference type string", "Description"),

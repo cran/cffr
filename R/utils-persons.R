@@ -439,6 +439,12 @@ extract_person_comments45 <- function(person) {
     comm_cff$website <- clean_str(web[is_url(web)])
   }
 
+  # Fallback: ROR if website not present
+  ror <- comm_cff$ror
+  if (all(!is.null(ror), is.null(comm_cff$website))) {
+    comm_cff$website <- clean_str(ror[is_url(ror)])
+  }
+
   # Add also email
   # Check if several mails (MomTrunc 6.0)
   look_emails <- c(unlist(p$email), comm_cff$email)

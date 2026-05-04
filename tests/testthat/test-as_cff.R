@@ -28,7 +28,7 @@ test_that("as_cff.person", {
   expect_s3_class(aa[[1]], c("cff_pers", "cff"), exact = TRUE)
   expect_identical(aa, as_cff_person(pers))
   rvers <- getRversion()
-  skip_if(!grepl("^4.5", rvers), "Snapshot created with R 4.5.*")
+  skip_if(!grepl("^4.6", rvers), "Snapshot created with R 4.6.*")
   expect_snapshot(as_cff(pers))
 
   # Check a single person
@@ -128,6 +128,7 @@ test_that("]] cff_pers", {
 test_that("Reading full cff", {
   full <- system.file("examples/CITATION_complete.cff", package = "cffr")
   cff_complete <- cff_read(full)
+  expect_true(cff_validate(cff_complete, verbose = FALSE))
 
   nm <- names(cff_complete)
 
@@ -164,4 +165,83 @@ test_that("Reading full cff", {
 
   expect_false(inherits(asl, "cff"))
   expect_identical(cff_complete, as_cff(asl))
+})
+test_that("Reading languages", {
+  # full cff has two languages in preferred-citation
+  full <- system.file("examples/CITATION_complete.cff", package = "cffr")
+  cff_complete <- cff_read(full)
+  expect_true(cff_validate(cff_complete, verbose = FALSE))
+
+  expect_identical(
+    cff_complete[["preferred-citation"]]$languages,
+    c("aaa", "zu")
+  )
+
+  # Several languages
+  lang_file <- system.file("examples/CITATION_lang.cff", package = "cffr")
+
+  cff_lang <- cff_read(lang_file)
+  expect_true(cff_validate(cff_lang, verbose = FALSE))
+
+  expect_identical(
+    cff_lang[["preferred-citation"]]$languages,
+    list("en")
+  )
+
+  expect_identical(
+    cff_lang[["references"]][[1]]$languages,
+    list("en")
+  )
+
+  expect_identical(
+    cff_lang[["references"]][[2]]$languages,
+    c("en", "es", "fr")
+  )
+})
+
+test_that("Language round-trip", {
+  lang_file <- system.file("examples/CITATION_lang.cff", package = "cffr")
+
+  cff_lang <- cff_read(lang_file)
+  expect_true(cff_validate(cff_lang, verbose = FALSE))
+
+  expect_identical(
+    cff_lang[["preferred-citation"]]$languages,
+    list("en")
+  )
+
+  expect_identical(
+    cff_lang[["references"]][[1]]$languages,
+    list("en")
+  )
+
+  expect_identical(
+    cff_lang[["references"]][[2]]$languages,
+    c("en", "es", "fr")
+  )
+
+  # Write
+  tmp <- tempfile(fileext = ".cff")
+  cff_write(cff_lang, tmp)
+
+  # And re-check
+  cff_lang <- cff_read(tmp)
+  expect_true(cff_validate(cff_lang, verbose = FALSE))
+
+  expect_identical(
+    cff_lang[["preferred-citation"]]$languages,
+    list("en")
+  )
+
+  expect_identical(
+    cff_lang[["references"]][[1]]$languages,
+    list("en")
+  )
+
+  expect_identical(
+    cff_lang[["references"]][[2]]$languages,
+    c("en", "es", "fr")
+  )
+
+  unlink(tmp)
 })

@@ -32,7 +32,7 @@ modobject <- cff_modify(
   url = "https://ropensci.org/",
   version = "0.0.1",
   repository = "https://github.com/ropensci/cffr",
-  # If the field is already present, it would be overridden
+  # If the field is already present, it is overridden
   title = "Modifying a 'cff' object"
 )
 
@@ -141,7 +141,7 @@ allkeys <- list(
   "url" = "https://ropensci.org/",
   "version" = "0.0.1",
   "repository" = "https://github.com/ropensci/cffr",
-  # If the field is already present, it would be overridden
+  # If the field is already present, it is overridden
   title = "Modifying a 'cff' object",
   authors = newauthors,
   references = refs_cff

@@ -1,6 +1,5 @@
 ## -----------------------------------------------------------------------------
 #| include: false
-
 library(cffr)
 
 
@@ -42,7 +41,7 @@ origin[
     )
 ] <- "CITATION file"
 
-origin[origin == FALSE] <- "Ignored by cffr"
+origin[origin == "FALSE"] <- "Ignored by cffr"
 
 df <- data.frame(
   key = paste0("<a href='#", keys, "'>", keys, "</a>"),
