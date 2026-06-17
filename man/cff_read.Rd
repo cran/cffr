@@ -26,16 +26,16 @@ cff_read_citation(path, meta = NULL, ...)
 cff_read_bib(path, encoding = "UTF-8", ...)
 }
 \arguments{
-\item{path}{Path to a file.}
+\item{path}{A path to a file.}
 
-\item{...}{Arguments to be passed to other functions, for example to
+\item{...}{Arguments passed to other functions, for example to
 \code{\link[yaml:read_yaml]{yaml::read_yaml()}} or \code{\link[bibtex:read.bib]{bibtex::read.bib()}}.}
 
 \item{cff_version}{The Citation File Format schema version that the
 \code{CITATION.cff} file adheres to for providing the citation metadata.}
 
 \item{gh_keywords}{Logical \code{TRUE/FALSE}. If the package is hosted on
-GitHub, would you like to add the repo topics as keywords?}
+GitHub, whether to add the repository topics as keywords.}
 
 \item{authors_roles}{Roles to be considered as authors of the package when
 generating the \code{CITATION.cff} file. See \strong{Details}.}
@@ -50,19 +50,18 @@ generating the \code{CITATION.cff} file. See \strong{Details}.}
 \item \code{cff_read_cff_citation()} and \code{cff_read_description()} return an object
 with class \code{cff}.
 \item \code{cff_read_citation()} and \code{cff_read_bib()} return an object of classes
-\code{\link[=cff_ref_lst]{cff_ref_lst, cff}} according to the \code{definitions.references}
+\code{\link[=cff_ref_lst]{cff_ref_lst, cff}} according to the \code{definitions.reference}
 specified in the \href{https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md}{Citation File Format schema}.
 }
 
 Learn more about the \CRANpkg{cffr} class system in \link{cff_class}.
 }
 \description{
-Read files and convert them to \code{\link{cff}} objects. Files supported
-are:
+Read files and convert them to \code{\link{cff}} objects. Supported files are:
 \itemize{
 \item \code{CITATION.cff} files.
 \item \code{DESCRIPTION} files.
-\item \strong{R} citation files (usually located in \code{inst/CITATION}).
+\item \R citation files (usually located in \code{inst/CITATION}).
 \item BibTeX files (with extension \verb{*.bib}).
 }
 
@@ -77,46 +76,43 @@ we provide aliases for each specific file type:
 }
 }
 \details{
-For details of \code{cff_read_description()} see \code{\link[=cff_create]{cff_create()}}.
+For details of \code{cff_read_description()}, see \code{\link[=cff_create]{cff_create()}}.
 \subsection{The \code{meta} object}{
 
 Section 1.9 CITATION files of \emph{Writing R Extensions} (R Core Team 2023)
-specifies how to create dynamic \code{CITATION} files using \code{meta} object, hence
-the \code{meta} argument in \code{\link[=cff_read_citation]{cff_read_citation()}} may be needed for reading
-some files correctly.
+specifies how to create dynamic \code{CITATION} files using a \code{meta} object.
+Therefore, the \code{meta} argument in \code{\link[=cff_read_citation]{cff_read_citation()}} may be needed to
+read some files correctly.
 }
 }
 \examples{
-
-# Create cff object from cff file
-
+# Create a `cff` object from a `CITATION.cff` file.
 from_cff_file <- cff_read(system.file("examples/CITATION_basic.cff",
   package = "cffr"
 ))
 
 head(from_cff_file, 7)
 
-# Create cff object from DESCRIPTION
+# Create a `cff` object from DESCRIPTION.
 from_desc <- cff_read(system.file("examples/DESCRIPTION_basic",
   package = "cffr"
 ))
 
 from_desc
 
-# Create cff object from BibTex
-
+# Create a `cff` object from BibTeX.
 if (requireNamespace("bibtex", quietly = TRUE)) {
   from_bib <- cff_read(system.file("examples/example.bib",
     package = "cffr"
   ))
 
-  # First item only
+  # First item only.
   from_bib[[1]]
 }
-# Create cff object from CITATION
+# Create a `cff` object from CITATION.
 from_citation <- cff_read(system.file("CITATION", package = "cffr"))
 
-# First item only
+# First item only.
 from_citation[[1]]
 
 }
@@ -134,14 +130,14 @@ The underlying functions used for reading external files:
 \itemize{
 \item \code{\link[yaml:read_yaml]{yaml::read_yaml()}} for \code{CITATION.cff} files.
 \item \code{\link[desc:desc]{desc::desc()}} for \code{DESCRIPTION} files.
-\item \code{\link[utils:readCitationFile]{utils::readCitationFile()}} for \strong{R} citation files.
+\item \code{\link[utils:readCitationFile]{utils::readCitationFile()}} for \R citation files.
 \item \code{\link[bibtex:read.bib]{bibtex::read.bib()}} for BibTeX files (extension \verb{*.bib}).
 }
 
-Other functions for reading external files:
+Read external citation metadata:
 \code{\link[=cff_read_bib_text]{cff_read_bib_text()}}
 
-Other functions for working with BibTeX format:
+Work with BibTeX metadata:
 \code{\link[=as_bibentry]{as_bibentry()}},
 \code{\link[=cff_read_bib_text]{cff_read_bib_text()}},
 \code{\link[=cff_write_bib]{cff_write_bib()}},

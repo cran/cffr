@@ -462,7 +462,7 @@ test_that("Unpublished", {
     note = "Unpublished manuscript, UCLA",
     # Optional
     year = "1977",
-    month = "aug",
+    month = "aug"
   )
 
   bib_cff <- as_cff(bib)
@@ -536,15 +536,12 @@ test_that("Test entry without author", {
     venue = "Leuven, Belgium",
     month = "apr",
     year = 2006,
-    isbn = "1-59593-322-02",
+    isbn = "1-59593-322-02"
   )
 
   bib_cff <- as_cff(bib)
 
-  expect_identical(
-    bib_cff[[1]]$authors[[1]]$name,
-    "anonymous"
-  )
+  expect_identical(bib_cff[[1]]$authors[[1]]$name, "anonymous")
 
   expect_snapshot(bib_cff)
 
@@ -567,15 +564,12 @@ test_that("Test entry without author but has a key", {
     venue = "Leuven, Belgium",
     month = "apr",
     year = 2006,
-    isbn = "1-59593-322-02",
+    isbn = "1-59593-322-02"
   )
 
   bib_cff <- as_cff(bib)
 
-  expect_identical(
-    bib_cff[[1]]$authors[[1]]$name,
-    "anonymous"
-  )
+  expect_identical(bib_cff[[1]]$authors[[1]]$name, "anonymous")
 
   expect_snapshot(bib_cff)
 
@@ -598,15 +592,12 @@ test_that("Test entry without author and key", {
     venue = "Leuven, Belgium",
     month = "apr",
     year = 2006,
-    isbn = "1-59593-322-02",
+    isbn = "1-59593-322-02"
   )
 
   bib_cff <- as_cff(bib)
 
-  expect_identical(
-    bib_cff[[1]]$authors[[1]]$name,
-    "anonymous"
-  )
+  expect_identical(bib_cff[[1]]$authors[[1]]$name, "anonymous")
 
   expect_snapshot(bib_cff)
 
@@ -728,6 +719,7 @@ test_that("Duplicate entries", {
 })
 
 test_that("Identifiers and dois", {
+  # jarl-ignore-start duplicated_arguments: Testing edge case.
   bib <- bibentry(
     bibtype = "Manual",
     title = "A Language and Environment for Statistical Computing",
@@ -743,6 +735,7 @@ test_that("Identifiers and dois", {
     doi = "10.5281/zenodo.5366602",
     identifiers = "a,b"
   )
+  # jarl-ignore-end duplicated_arguments
 
   bib_cff <- as_cff(bib)
   sin <- bib_cff[[1]]

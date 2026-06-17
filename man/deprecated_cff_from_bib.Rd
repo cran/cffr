@@ -9,7 +9,7 @@ cff_from_bibtex(x, encoding = "UTF-8", ...)
 }
 \arguments{
 \item{x}{The source used to generate the
-\code{\link{cff}} object. Must be a \code{character} object indicating either:
+\code{\link{cff}} object. It must be a \code{character} object indicating either:
 \itemize{
 \item The path to a BibTeX file.
 \item A vector of characters with a complete BibTeX string. See \strong{Examples}.
@@ -17,15 +17,15 @@ cff_from_bibtex(x, encoding = "UTF-8", ...)
 
 \item{encoding}{Encoding to be assumed for \code{x}. See \code{\link[=readLines]{readLines()}}.}
 
-\item{...}{Other arguments passed to \code{\link[bibtex:read.bib]{bibtex::read.bib()}}.}
+\item{...}{Arguments passed to \code{\link[=cff_read_bib]{cff_read_bib()}}.}
 }
 \value{
 See \code{\link[=cff_read_bib]{cff_read_bib()}} for reading \verb{*.bib} files and \code{\link[=cff_read_bib_text]{cff_read_bib_text()}}
 for reading a \code{character} object representing a BibTeX entry.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Please use either \code{\link[=cff_read_bib]{cff_read_bib()}} or
-\code{\link[=cff_read_bib_text]{cff_read_bib_text()}} instead.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Use either \code{\link[=cff_read_bib]{cff_read_bib()}} or
+\code{\link[=cff_read_bib_text]{cff_read_bib_text()}}.
 }
 \examples{
 if (requireNamespace("bibtex", quietly = TRUE)) {
@@ -50,14 +50,14 @@ if (requireNamespace("bibtex", quietly = TRUE)) {
 
   cff_read_bib_text(x)
 
-  # From a file
+  # From a file.
 
   x2 <- system.file("examples/example.bib", package = "cffr")
   cff_read_bib(x2)
 }
 }
 \seealso{
-Other deprecated functions:
+Deprecated functions:
 \code{\link[=cff_extract_to_bibtex]{cff_extract_to_bibtex()}},
 \code{\link[=cff_parse_citation]{cff_parse_citation()}},
 \code{\link[=cff_parse_person]{cff_parse_person()}},

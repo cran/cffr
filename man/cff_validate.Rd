@@ -8,56 +8,54 @@
 cff_validate(x = "CITATION.cff", verbose = TRUE)
 }
 \arguments{
-\item{x}{This is expected to be either a full \code{cff} object created
-with \code{\link[=cff_create]{cff_create()}} or the path to a \code{CITATION.cff} file to be validated.
-In the case of a \verb{*.cff} file it would read with \code{\link[=cff_read_cff_citation]{cff_read_cff_citation()}}.}
+\item{x}{A full \code{cff} object created with \code{\link[=cff_create]{cff_create()}} or the path to a
+\code{CITATION.cff} file to be validated. A \verb{*.cff} file is read with
+\code{\link[=cff_read_cff_citation]{cff_read_cff_citation()}}.}
 
 \item{verbose}{Logical \code{TRUE/FALSE}. When \code{TRUE}, the function displays
 informative messages.}
 }
 \value{
-A message indicating the result of the validation and an invisible value
-\code{TRUE/FALSE}. On error, the result has an attribute \code{"errors"}
-containing the error summary (see \strong{Examples} and \code{\link[=attr]{attr()}}).
+A message indicating the validation result and an invisible
+\code{TRUE/FALSE} value. On error, the result has an \code{"errors"} attribute with
+the error summary. See \strong{Examples} and \code{\link[=attr]{attr()}}.
 }
 \description{
 Validate a \code{CITATION.cff} file or a \code{\link{cff}} object using the corresponding \href{https://github.com/citation-file-format/citation-file-format/blob/main/schema.json}{validation schema}.
 }
 \examples{
 \donttest{
-# Full .cff example
+# Full `.cff` example.
 cff_validate(system.file("examples/CITATION_complete.cff", package = "cffr"))
 
-# Validate a cffr object
+# Validate a `cff` object.
 cffr <- cff_create("jsonlite")
 class(cffr)
 cff_validate(cffr)
 }
 
-# .cff with errors
+# `.cff` with errors.
 err_f <- system.file("examples/CITATION_error.cff", package = "cffr")
-# Can manipulate the errors as data frame
+# You can manipulate the errors as a data frame.
 res <- try(cff_validate(err_f))
 
 isTRUE(res)
 isFALSE(res)
 
-# Detailed results
+# Detailed results.
 df_errors <- attr(res, "errors")
 
 df_errors[, c("field", "message")]
 
-# If a CITATION file is supplied (note that it is not a .cff file), it
-# throws an error
+# An R citation file is not a `.cff` file, so it throws an error.
 try(cff_validate(system.file("CITATION", package = "cffr")))
 }
 \seealso{
-\href{https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md}{Guide to Citation File Format schema version 1.2.0}.
-
 \code{\link[jsonvalidate:json_validate]{jsonvalidate::json_validate()}}, which is the function that performs the
 validation.
+\href{https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md}{Guide to Citation File Format schema version 1.2.0}.
 
-Other core functions of \CRANpkg{cffr}:
+Core \CRANpkg{cffr} workflow:
 \code{\link[=cff]{cff()}},
 \code{\link[=cff_create]{cff_create()}},
 \code{\link[=cff_modify]{cff_modify()}}

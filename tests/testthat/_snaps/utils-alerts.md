@@ -20,7 +20,7 @@
       file_exist_abort(nonexits, abort = TRUE)
     Condition
       Error in `file_exist_abort()`:
-      ! 'aaaaaaaa' doesn't exist. Check the '.' directory
+      ! 'aaaaaaaa' does not exist. Check the '.' directory.
 
 ---
 
@@ -28,7 +28,7 @@
       file_exist_abort(non_with_path, abort = TRUE)
     Condition
       Error in `file_exist_abort()`:
-      ! './R/no/existe' doesn't exist. Check the './R/no' directory
+      ! './R/no/existe' does not exist. Check the './R/no' directory.
 
 # Check match_cff_arg
 
@@ -36,7 +36,7 @@
       match_cff_arg("a", "b", "...")
     Condition
       Error in `match_cff_arg()`:
-      ! `...` should be "b", not "a".
+      ! `...` must be "b", not "a".
 
 ---
 
@@ -44,7 +44,7 @@
       match_cff_arg("a", c("b", "c", "d"), "what")
     Condition
       Error in `match_cff_arg()`:
-      ! `what` should be "b", "c", or "d", not "a".
+      ! `what` must be "b", "c", or "d", not "a".
 
 ---
 
@@ -52,5 +52,5 @@
       my_fun()
     Condition
       Error in `my_fun()`:
-      ! `aa` should be "A", "B", "C", "D", or "E", not "a".
+      ! `aa` must be "A", "B", "C", "D", or "E", not "a".
 

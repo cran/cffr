@@ -919,7 +919,7 @@
     Code
       end <- as.person(malf)
     Message
-      i Can't create <person> for some elements of `x`.
+      i Cannot create <person> for some elements of `x`.
 
 ---
 
@@ -945,7 +945,7 @@
       as.person(the_cff)
     Condition
       Error in `as.person()`:
-      ! (cffr) `as.person.cff()` method not implemented yet.
+      ! The `as.person.cff()` method is not implemented yet.
 
 ---
 
@@ -953,7 +953,7 @@
       as.person(key)
     Condition
       Error in `as.person()`:
-      ! (cffr) `as.person.cff_ref_lst()` method not implemented yet.
+      ! The `as.person.cff_ref_lst()` method is not implemented yet.
 
 ---
 
@@ -961,7 +961,7 @@
       as.person(key)
     Condition
       Error in `as.person()`:
-      ! (cffr) `as.person.cff_ref()` method not implemented yet.
+      ! The `as.person.cff_ref()` method is not implemented yet.
 
 # head and tail
 

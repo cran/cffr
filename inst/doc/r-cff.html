@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Diego Hernangómez">
-<meta name="description" content="A comprehensive description of the internal mappings performed by the cffr package.">
+<meta name="description" content="A comprehensive description of the internal mappings performed by cffr.">
 
 <title>From R to CFF</title>
 <style>
@@ -266,9 +266,9 @@ text-decoration: underline; }
   <li><a href="#references-1" id="toc-references-1">References</a></li>
   </ul>
 </nav>
-<p>The goal of this vignette is to provide an explicit map between the metadata fields used by <strong>cffr</strong> and each valid key in the <a href="https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#valid-keys">Citation File Format schema version 1.2.0</a>.</p>
+<p>This vignette provides an explicit map between the metadata sources used by <strong>cffr</strong> and each valid key in the <a href="https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#valid-keys">Citation File Format schema version 1.2.0</a>.</p>
 <h2 id="summary">Summary</h2>
-<p>We summarize here the fields that <strong>cffr</strong> can coerce and the original source of information for each of them. The details for each key are presented in the next section of the document. The assessment of fields is based on the <a href="https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#valid-keys">Guide to Citation File Format schema version 1.2.0</a> <span class="citation" data-cites="druskat_citation_2021">(<a href="#ref-druskat_citation_2021" role="doc-biblioref">Druskat et al. 2021</a>)</span>.</p>
+<p>This section summarizes the keys that <strong>cffr</strong> can coerce and the source of information for each one. Details for each key are presented in the next section. The assessment is based on the <a href="https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#valid-keys">Guide to Citation File Format schema version 1.2.0</a> <span class="citation" data-cites="druskat_citation_2021">(<a href="#ref-druskat_citation_2021" role="doc-biblioref">Druskat et al. 2021</a>)</span>.</p>
 <div class="cell">
 <div id="tbl-summary" class="cell quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-tbl">
@@ -276,8 +276,8 @@ text-decoration: underline; }
 <div class="cell-output-display">
 <table class="cell">
 <colgroup>
-<col style="width: 67%">
-<col style="width: 32%">
+<col style="width: 64%">
+<col style="width: 35%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -296,7 +296,7 @@ text-decoration: underline; }
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a href="#cff-version">cff-version</a></td>
-<td style="text-align: left;">argument on function</td>
+<td style="text-align: left;">function argument</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a href="#commit">commit</a></td>
@@ -312,11 +312,11 @@ text-decoration: underline; }
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a href="#doi">doi</a></td>
-<td style="text-align: left;">CITATION file</td>
+<td style="text-align: left;">inst/CITATION</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a href="#identifiers">identifiers</a></td>
-<td style="text-align: left;">DESCRIPTION/CITATION files</td>
+<td style="text-align: left;">DESCRIPTION and inst/CITATION</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a href="#keywords">keywords</a></td>
@@ -336,11 +336,11 @@ text-decoration: underline; }
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a href="#preferred-citation">preferred-citation</a></td>
-<td style="text-align: left;">CITATION file</td>
+<td style="text-align: left;">inst/CITATION</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a href="#references">references</a></td>
-<td style="text-align: left;">DESCRIPTION/CITATION files</td>
+<td style="text-align: left;">DESCRIPTION and inst/CITATION</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a href="#repository">repository</a></td>
@@ -388,11 +388,11 @@ Table 1: cffr and R packages: Conversion table
 <summary><strong>Example</strong></summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cffr)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create cffr for yaml</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a `cff` object for YAML.</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>cff_obj <span class="ot">&lt;-</span> <span class="fu">cff_create</span>(<span class="st">&quot;rmarkdown&quot;</span>)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Get DESCRIPTION of rmarkdown to check</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the DESCRIPTION of **rmarkdown** to check.</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>pkg <span class="ot">&lt;-</span> desc<span class="sc">::</span><span class="fu">desc</span>(<span class="fu">file.path</span>(<span class="fu">find.package</span>(<span class="st">&quot;rmarkdown&quot;</span>), <span class="st">&quot;DESCRIPTION&quot;</span>))</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
@@ -405,15 +405,15 @@ Table 1: cffr and R packages: Conversion table
 </div>
 <p>Back to <a href="#tbl-summary" class="quarto-xref">Table 1</a>.</p>
 <h3 id="authors">authors</h3>
-<p>This key is coerced from the <code>&quot;Authors&quot;</code> or <code>&quot;Authors@R&quot;</code> field of the <code>DESCRIPTION</code> file. By default, persons with the role <code>&quot;aut&quot;</code> or <code>&quot;cre&quot;</code> are considered, however this can be modified via the <code>authors_roles</code> argument.</p>
+<p>This key is coerced from the <code>&quot;Authors&quot;</code> or <code>&quot;Authors@R&quot;</code> field of the <code>DESCRIPTION</code> file. By default, persons with the role <code>&quot;aut&quot;</code> or <code>&quot;cre&quot;</code> are considered, but this can be modified with the <code>authors_roles</code> argument.</p>
 <div class="cell">
 <details class="code-fold">
 <summary><strong>Example</strong></summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># An example DESCRIPTION</span></span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># An example DESCRIPTION.</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;examples/DESCRIPTION_many_persons&quot;</span>, <span class="at">package =</span> <span class="st">&quot;cffr&quot;</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>pkg <span class="ot">&lt;-</span> desc<span class="sc">::</span><span class="fu">desc</span>(path)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># See persons listed</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># See the listed persons.</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>pkg<span class="sc">$</span><span class="fu">get_authors</span>()</span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Diego Hernangómez &lt;fake@gmail.com&gt; [aut, cre] (ORCID: &lt;https://orcid.org/0000-0001-8457-4658&gt;, email: error, not-valid: error)&quot;</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2] &quot;Joe Doe &lt;I am a wrong email&gt; [aut] (affiliation: This One, country: ES, date-end: error)&quot;                                      </span></span>
@@ -422,7 +422,7 @@ Table 1: cffr and R packages: Conversion table
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5] &quot;ERROR entity [cph] (for the administrative boundaries.)&quot;                                                                       </span></span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [6] &quot;ERROR person [cph] (ORCID: &lt;https://orcid.org/0000-0003-2042-7063&gt;, for the gisco_countrycode dataset.)&quot;</span></span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Default behaviour, use authors and creators (maintainers)</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Default behavior: use authors and creators (maintainers).</span></span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>cff_obj <span class="ot">&lt;-</span> <span class="fu">cff_create</span>(path)</span>
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>cff_obj<span class="sc">$</span>authors</span>
 <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - family-names: Hernangómez</span></span>
@@ -439,7 +439,7 @@ Table 1: cffr and R packages: Conversion table
 <span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - name: I am an entity</span></span>
 <span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   date-end: &#39;2020-01-01&#39;</span></span>
 <span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Use now Copyright holders and maintainers</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Use copyright holders and maintainers.</span></span>
 <span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>cff_obj_alt <span class="ot">&lt;-</span> <span class="fu">cff_create</span>(path, <span class="at">authors_roles =</span> <span class="fu">c</span>(<span class="st">&quot;cre&quot;</span>, <span class="st">&quot;cph&quot;</span>))</span>
 <span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>cff_obj_alt<span class="sc">$</span>authors</span>
 <span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - family-names: Hernangómez</span></span>
@@ -456,7 +456,7 @@ Table 1: cffr and R packages: Conversion table
 </div>
 <p>Back to <a href="#tbl-summary" class="quarto-xref">Table 1</a>.</p>
 <h3 id="cff-version">cff-version</h3>
-<p>This key can be set via the arguments of the <code>cff_create()</code>/<code>cff_write()</code> functions:</p>
+<p>This key can be set with the arguments of the <code>cff_create()</code>/<code>cff_write()</code> functions:</p>
 <div class="cell">
 <details class="code-fold">
 <summary><strong>Example</strong></summary>
@@ -472,11 +472,11 @@ Table 1: cffr and R packages: Conversion table
 <div class="cell">
 <details class="code-fold">
 <summary><strong>Example</strong></summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># An example DESCRIPTION</span></span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># An example DESCRIPTION.</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;examples/DESCRIPTION_r_universe&quot;</span>, <span class="at">package =</span> <span class="st">&quot;cffr&quot;</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>pkg <span class="ot">&lt;-</span> desc<span class="sc">::</span><span class="fu">desc</span>(path)</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># See RemoteSha</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># See `RemoteSha`.</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>pkg<span class="sc">$</span><span class="fu">get</span>(<span class="st">&quot;RemoteSha&quot;</span>)</span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                                  RemoteSha </span></span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &quot;bdd9a29d7eabcc43c3195fe461f884932eba763c&quot;</span></span>
@@ -527,7 +527,7 @@ Table 1: cffr and R packages: Conversion table
 </div>
 <p>Back to <a href="#tbl-summary" class="quarto-xref">Table 1</a>.</p>
 <h3 id="contact">contact</h3>
-<p>This key is coerced from the <code>&quot;Authors&quot;</code> or <code>&quot;Authors@R&quot;</code> field of the <code>DESCRIPTION</code> file. Only persons with the role <code>&quot;cre&quot;</code> (i.e., the maintainer(s)) are considered.</p>
+<p>This key is coerced from the <code>&quot;Authors&quot;</code> or <code>&quot;Authors@R&quot;</code> field of the <code>DESCRIPTION</code> file. Only persons with the role <code>&quot;cre&quot;</code> (that is, maintainers) are considered.</p>
 <div class="cell">
 <details class="code-fold">
 <summary><strong>Example</strong></summary>
@@ -546,7 +546,7 @@ Table 1: cffr and R packages: Conversion table
 </div>
 <p>Back to <a href="#tbl-summary" class="quarto-xref">Table 1</a>.</p>
 <h3 id="date-released">date-released</h3>
-<p>This key is extracted from the <code>DESCRIPTION</code> file following this logic:</p>
+<p>This key is extracted from the <code>DESCRIPTION</code> file using this logic:</p>
 <ul>
 <li>The <code>&quot;Date&quot;</code> field.</li>
 <li>If not present, <code>&quot;Date/Publication&quot;</code>. This field is present in packages built on <strong>CRAN</strong> and <strong>Bioconductor</strong>.</li>
@@ -555,7 +555,7 @@ Table 1: cffr and R packages: Conversion table
 <div class="cell">
 <details class="code-fold">
 <summary><strong>Example</strong></summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># From an installed package</span></span>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use an installed package.</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>cff_obj <span class="ot">&lt;-</span> <span class="fu">cff_create</span>(<span class="st">&quot;rmarkdown&quot;</span>)</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>pkg <span class="ot">&lt;-</span> desc<span class="sc">::</span><span class="fu">desc</span>(<span class="fu">file.path</span>(<span class="fu">find.package</span>(<span class="st">&quot;rmarkdown&quot;</span>), <span class="st">&quot;DESCRIPTION&quot;</span>))</span>
@@ -566,18 +566,18 @@ Table 1: cffr and R packages: Conversion table
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(cff_obj<span class="sc">$</span><span class="st">`</span><span class="at">date-released</span><span class="st">`</span>)</span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2026-03-26</span></span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co"># A DESCRIPTION file without a Date</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co"># A DESCRIPTION file without a `Date`.</span></span>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>nodate <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;examples/DESCRIPTION_basic&quot;</span>, <span class="at">package =</span> <span class="st">&quot;cffr&quot;</span>)</span>
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="st">&quot;DESCRIPTION&quot;</span>)</span>
 <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a temporary file</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a temporary file.</span></span>
 <span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="fu">file.copy</span>(nodate, tmp)</span>
 <span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
 <span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>pkgnodate <span class="ot">&lt;-</span> desc<span class="sc">::</span><span class="fu">desc</span>(tmp)</span>
 <span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>cffnodate <span class="ot">&lt;-</span> <span class="fu">cff_create</span>(tmp)</span>
 <span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Won&#39;t appear</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="co"># No value is returned.</span></span>
 <span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(cffnodate<span class="sc">$</span><span class="st">`</span><span class="at">date-released</span><span class="st">`</span>)</span>
 <span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>pkgnodate</span>
@@ -595,7 +595,7 @@ Table 1: cffr and R packages: Conversion table
 <span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; LazyData: true</span></span>
 <span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; RoxygenNote: 6.0.1.9000</span></span>
 <span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Adding a Date</span></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a `Date`.</span></span>
 <span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>desc<span class="sc">::</span><span class="fu">desc_set</span>(<span class="st">&quot;Date&quot;</span>, <span class="st">&quot;1999-01-01&quot;</span>, <span class="at">file =</span> tmp)</span>
 <span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type: Package</span></span>
@@ -636,9 +636,9 @@ Table 1: cffr and R packages: Conversion table
 <h3 id="identifiers">identifiers</h3>
 <p>This key includes all the possible identifiers of the package:</p>
 <ul>
-<li><p>From the <code>DESCRIPTION</code> field, it includes all the URLs not included in <a href="#url">url</a> or <a href="#repository-code">repository-code</a>.</p></li>
-<li><p>From the <code>CITATION</code> file, it includes all the DOIs not included in <a href="#doi">doi</a> and the identifiers (if any) not included in the <code>&quot;identifiers&quot;</code> key of <a href="#preferred-citation">preferred-citation</a>.</p></li>
-<li><p>If the package is on <strong>CRAN</strong> and it has a <code>CITATION</code> file providing a doi, the doi provided by <strong>CRAN</strong> is added as well.</p></li>
+<li>From the <code>DESCRIPTION</code> field, it includes all the URLs not included in <a href="#url">url</a> or <a href="#repository-code">repository-code</a>.</li>
+<li>From the <code>CITATION</code> file, it includes all the DOIs not included in <a href="#doi">doi</a> and the identifiers (if any) not included in the <code>&quot;identifiers&quot;</code> key of <a href="#preferred-citation">preferred-citation</a>.</li>
+<li>If the package is on <strong>CRAN</strong> and it has a <code>CITATION</code> file providing a DOI, the DOI provided by <strong>CRAN</strong> is added as well.</li>
 </ul>
 <div class="cell">
 <details class="code-fold">
@@ -677,14 +677,14 @@ X-schema.org-keywords: keyword1, keyword2, keyword3</code></pre>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>nokeywords <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;examples/DESCRIPTION_basic&quot;</span>, <span class="at">package =</span> <span class="st">&quot;cffr&quot;</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>tmp2 <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="st">&quot;DESCRIPTION&quot;</span>)</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a temporary file</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a temporary file.</span></span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">file.copy</span>(nokeywords, tmp2)</span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>pkgnokeywords <span class="ot">&lt;-</span> desc<span class="sc">::</span><span class="fu">desc</span>(tmp2)</span>
 <span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>cffnokeywords <span class="ot">&lt;-</span> <span class="fu">cff_create</span>(tmp2)</span>
 <span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Won&#39;t appear</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co"># No value is returned.</span></span>
 <span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(cffnokeywords<span class="sc">$</span>keywords)</span>
 <span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>pkgnokeywords</span>
@@ -702,7 +702,7 @@ X-schema.org-keywords: keyword1, keyword2, keyword3</code></pre>
 <span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; LazyData: true</span></span>
 <span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; RoxygenNote: 6.0.1.9000</span></span>
 <span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Adding Keywords</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Add keywords.</span></span>
 <span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>desc<span class="sc">::</span><span class="fu">desc_set</span>(</span>
 <span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;X-schema.org-keywords&quot;</span>,</span>
@@ -728,15 +728,15 @@ X-schema.org-keywords: keyword1, keyword2, keyword3</code></pre>
 <span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; keyword1 keyword2 keyword3</span></span></code></pre></div>
 </details>
 </div>
-<p>Additionally, if the source code of the package is hosted on GitHub, <strong>cffr</strong> can retrieve the topics of the repository via the <a href="https://docs.github.com/en/rest">GitHub API</a> and include those topics as keywords. This option is controlled via the <code>gh_keywords</code> argument:</p>
+<p>Additionally, if the source code of the package is hosted on GitHub, <strong>cffr</strong> can retrieve the topics of the repository with the <a href="https://docs.github.com/en/rest">GitHub API</a> and include those topics as keywords. This option is controlled with the <code>gh_keywords</code> argument:</p>
 <div class="cell">
 <details class="code-fold">
 <summary><strong>Example</strong></summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get cff object from jsonvalidate</span></span>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get a `cff` object from **jsonvalidate**.</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>jsonval <span class="ot">&lt;-</span> <span class="fu">cff_create</span>(<span class="st">&quot;jsonvalidate&quot;</span>)</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Keywords are retrieved from the GitHub repo</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Keywords are retrieved from the GitHub repository.</span></span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>jsonval</span>
 <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cff-version: 1.2.0</span></span>
@@ -907,12 +907,12 @@ X-schema.org-keywords: keyword1, keyword2, keyword3</code></pre>
 <span id="cb11-173"><a href="#cb11-173" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   year: &#39;2026&#39;</span></span>
 <span id="cb11-174"><a href="#cb11-174" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   doi: 10.32614/CRAN.package.withr</span></span>
 <span id="cb11-175"><a href="#cb11-175" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-176"><a href="#cb11-176" aria-hidden="true" tabindex="-1"></a><span class="co"># Check keywords</span></span>
+<span id="cb11-176"><a href="#cb11-176" aria-hidden="true" tabindex="-1"></a><span class="co"># Check keywords.</span></span>
 <span id="cb11-177"><a href="#cb11-177" aria-hidden="true" tabindex="-1"></a>jsonval<span class="sc">$</span>keywords</span>
 <span id="cb11-178"><a href="#cb11-178" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;json&quot;            &quot;json-validation&quot; &quot;jsonvalidate&quot;    &quot;r&quot;              </span></span>
 <span id="cb11-179"><a href="#cb11-179" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5] &quot;r-package&quot;       &quot;rstats&quot;</span></span>
 <span id="cb11-180"><a href="#cb11-180" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-181"><a href="#cb11-181" aria-hidden="true" tabindex="-1"></a><span class="co"># The repo</span></span>
+<span id="cb11-181"><a href="#cb11-181" aria-hidden="true" tabindex="-1"></a><span class="co"># The repository.</span></span>
 <span id="cb11-182"><a href="#cb11-182" aria-hidden="true" tabindex="-1"></a>jsonval<span class="sc">$</span><span class="st">`</span><span class="at">repository-code</span><span class="st">`</span></span>
 <span id="cb11-183"><a href="#cb11-183" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;https://github.com/ropensci/jsonvalidate&quot;</span></span></code></pre></div>
 </details>
@@ -936,7 +936,7 @@ X-schema.org-keywords: keyword1, keyword2, keyword3</code></pre>
 </div>
 <p>Back to <a href="#tbl-summary" class="quarto-xref">Table 1</a>.</p>
 <h3 id="license-url">license-url</h3>
-<p>This key is not extracted from the metadata of the package. See the description on the <a href="https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#license-url">Guide to CFF schema v1.2.0</a>.</p>
+<p>This key is not extracted from package metadata. See its description in the <a href="https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#license-url">Guide to CFF schema v1.2.0</a>.</p>
 <blockquote>
 <ul>
 <li><p><strong>description</strong>: The URL of the license text under which the software or dataset is licensed (only for non-standard licenses not included in the <a href="https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#definitionslicense-enum">SPDX License List</a>).</p></li>
@@ -946,7 +946,7 @@ X-schema.org-keywords: keyword1, keyword2, keyword3</code></pre>
 </blockquote>
 <p>Back to <a href="#tbl-summary" class="quarto-xref">Table 1</a>.</p>
 <h3 id="message">message</h3>
-<p>This key is extracted from the <code>DESCRIPTION</code> field, specifically as:</p>
+<p>This key is generated from the package metadata with this template:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>msg <span class="ot">&lt;-</span> <span class="fu">paste0</span>(</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;To cite package &quot;&#39;</span>,</span>
@@ -963,7 +963,7 @@ X-schema.org-keywords: keyword1, keyword2, keyword3</code></pre>
 </div>
 <p>Back to <a href="#tbl-summary" class="quarto-xref">Table 1</a>.</p>
 <h3 id="preferred-citation">preferred-citation</h3>
-<p>This key is extracted from the <code>CITATION</code> file. If several references are provided, it selects the first citation as the <code>&quot;preferred-citation&quot;</code> and the rest of them as <a href="#references">references</a>.</p>
+<p>This key is extracted from <code>inst/CITATION</code>. If multiple references are provided, it selects the first citation as the <code>&quot;preferred-citation&quot;</code> and the rest of them as <a href="#references">references</a>.</p>
 <div class="cell">
 <details class="code-fold">
 <summary><strong>Example</strong></summary>
@@ -1031,7 +1031,7 @@ X-schema.org-keywords: keyword1, keyword2, keyword3</code></pre>
 </div>
 <p>Back to <a href="#tbl-summary" class="quarto-xref">Table 1</a>.</p>
 <h3 id="references">references</h3>
-<p>This key is extracted from the <code>CITATION</code> file if several references are provided. The first citation is considered as the <a href="#preferred-citation">preferred-citation</a> and the rest of them as <code>&quot;references&quot;</code>. It also extracts package dependencies and adds them to this field using <code>citation(auto = TRUE)</code> on each dependency.</p>
+<p>This key is extracted from <code>inst/CITATION</code> if multiple references are provided. The first citation is considered as the <a href="#preferred-citation">preferred-citation</a> and the rest of them as <code>&quot;references&quot;</code>. It also extracts package dependencies and adds them to this field using <code>citation(auto = TRUE)</code> on each dependency.</p>
 <div class="cell">
 <details class="code-fold">
 <summary><strong>Example</strong></summary>
@@ -1507,20 +1507,20 @@ X-schema.org-keywords: keyword1, keyword2, keyword3</code></pre>
 </div>
 <p>Back to <a href="#tbl-summary" class="quarto-xref">Table 1</a>.</p>
 <h3 id="repository">repository</h3>
-<p>This key is extracted from the <code>&quot;Repository&quot;</code> field of the <code>DESCRIPTION</code> file. Usually, this field is auto-populated when a package is hosted on a repository (like <strong>CRAN</strong> or the <a href="https://r-universe.dev/search">r-universe</a>). For packages without this field on the <code>DESCRIPTION</code> (which is the typical case for an in-development package), <strong>cffr</strong> tries to search the package on any of the default repositories specified on <code>options(&quot;repos&quot;)</code>.</p>
-<p>In the case of <a href="https://bioconductor.org/">Bioconductor</a> packages, those are identified if a <a href="https://contributions.bioconductor.org/description.html#biocviews">“biocViews”</a> is present on the <code>DESCRIPTION</code> file.</p>
-<p>If <strong>cffr</strong> detects that the package is available on <strong>CRAN</strong>, it returns the canonical URL form of the package (i.e. <a href="https://CRAN.R-project.org/package=jsonlite" class="uri">https://CRAN.R-project.org/package=jsonlite</a>).</p>
+<p>This key is extracted from the <code>&quot;Repository&quot;</code> field of the <code>DESCRIPTION</code> file. Usually, this field is automatically populated when a package is hosted on a repository (like <strong>CRAN</strong> or the <a href="https://r-universe.dev/search">r-universe</a>). For packages without this field in the <code>DESCRIPTION</code> (which is the typical case for an in-development package), <strong>cffr</strong> tries to find the package in any of the default repositories specified in <code>options(&quot;repos&quot;)</code>.</p>
+<p>In the case of <a href="https://bioconductor.org/">Bioconductor</a> packages, those are identified if a <a href="https://contributions.bioconductor.org/description.html#biocviews">“biocViews”</a> is present in the <code>DESCRIPTION</code> file.</p>
+<p>If <strong>cffr</strong> detects that the package is available on <strong>CRAN</strong>, it returns the canonical URL form of the package (that is, <a href="https://CRAN.R-project.org/package=jsonlite" class="uri">https://CRAN.R-project.org/package=jsonlite</a>).</p>
 <div class="cell">
 <details class="code-fold">
 <summary><strong>Example</strong></summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Installed package</span></span>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use an installed package.</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>inst <span class="ot">&lt;-</span> <span class="fu">cff_create</span>(<span class="st">&quot;jsonlite&quot;</span>)</span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(inst<span class="sc">$</span>repository)</span>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; https://CRAN.R-project.org/package=jsonlite</span></span>
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Demo file downloaded from the r-universe</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Demo file downloaded from the r-universe.</span></span>
 <span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>runiv <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;examples/DESCRIPTION_r_universe&quot;</span>, <span class="at">package =</span> <span class="st">&quot;cffr&quot;</span>)</span>
 <span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>runiv_cff <span class="ot">&lt;-</span> <span class="fu">cff_create</span>(runiv)</span>
@@ -1532,22 +1532,22 @@ X-schema.org-keywords: keyword1, keyword2, keyword3</code></pre>
 <span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                        Repository </span></span>
 <span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &quot;https://ropensci.r-universe.dev&quot;</span></span>
 <span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="co"># For in development package</span></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="co"># For an in-development package.</span></span>
 <span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>norepo <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;examples/DESCRIPTION_basic&quot;</span>, <span class="at">package =</span> <span class="st">&quot;cffr&quot;</span>)</span>
 <span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a><span class="co"># No repo</span></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a><span class="co"># No repository is available.</span></span>
 <span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>norepo_cff <span class="ot">&lt;-</span> <span class="fu">cff_create</span>(norepo)</span>
 <span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(norepo_cff[[<span class="st">&quot;repository&quot;</span>]])</span>
 <span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Change the name to a known package on CRAN: ggplot2</span></span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Change the name to a known package on CRAN: ggplot2.</span></span>
 <span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="st">&quot;DESCRIPTION&quot;</span>)</span>
 <span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a><span class="fu">file.copy</span>(norepo, tmp)</span>
 <span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
 <span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Change name</span></span>
+<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Change the package name.</span></span>
 <span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a>desc<span class="sc">::</span><span class="fu">desc_set</span>(<span class="st">&quot;Package&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>, <span class="at">file =</span> tmp)</span>
 <span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type: Package</span></span>
 <span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Package: ggplot2</span></span>
@@ -1569,7 +1569,7 @@ X-schema.org-keywords: keyword1, keyword2, keyword3</code></pre>
 </div>
 <p>Back to <a href="#tbl-summary" class="quarto-xref">Table 1</a>.</p>
 <h3 id="repository-artifact">repository-artifact</h3>
-<p>This key is not extracted from the metadata of the package. See the description on the <a href="https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#repository-artifact">Guide to CFF schema v1.2.0</a>.</p>
+<p>This key is not extracted from package metadata. See its description in the <a href="https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#repository-artifact">Guide to CFF schema v1.2.0</a>.</p>
 <blockquote>
 <ul>
 <li><p><strong>description</strong>: The URL of the work in a build artifact/binary repository (when the work is software).</p></li>
@@ -1579,7 +1579,7 @@ X-schema.org-keywords: keyword1, keyword2, keyword3</code></pre>
 </blockquote>
 <p>Back to <a href="#tbl-summary" class="quarto-xref">Table 1</a>.</p>
 <h3 id="repository-code">repository-code</h3>
-<p>This key is extracted from the <code>&quot;BugReports&quot;</code> or <code>&quot;URL&quot;</code> fields on the <code>DESCRIPTION</code> file. <strong>cffr</strong> tries to identify the URL of the source on the following repositories:</p>
+<p>This key is extracted from the <code>&quot;BugReports&quot;</code> or <code>&quot;URL&quot;</code> fields in the <code>DESCRIPTION</code> file. <strong>cffr</strong> tries to identify the URL of the source on the following repositories:</p>
 <ul>
 <li><a href="https://github.com/">GitHub</a>.</li>
 <li><a href="https://about.gitlab.com/">GitLab</a>.</li>
@@ -1590,7 +1590,7 @@ X-schema.org-keywords: keyword1, keyword2, keyword3</code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary><strong>Example</strong></summary>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Installed package on GitHub</span></span>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Installed package on GitHub.</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">cff_create</span>(<span class="st">&quot;jsonlite&quot;</span>)<span class="sc">$</span><span class="st">`</span><span class="at">repository-code</span><span class="st">`</span>)</span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; https://github.com/jeroen/jsonlite</span></span>
@@ -1618,7 +1618,7 @@ X-schema.org-keywords: keyword1, keyword2, keyword3</code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary><strong>Example</strong></summary>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Installed package</span></span>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use an installed package.</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">cff_create</span>(<span class="st">&quot;testthat&quot;</span>)<span class="sc">$</span>title)</span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; testthat: Unit Testing for R</span></span></code></pre></div>
@@ -1629,17 +1629,17 @@ X-schema.org-keywords: keyword1, keyword2, keyword3</code></pre>
 <p>Fixed value equal to <code>&quot;software&quot;</code>. The other possible value is <code>&quot;dataset&quot;</code>. See the description on the <a href="https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#type">Guide to CFF schema v1.2.0</a>.</p>
 <p>Back to <a href="#tbl-summary" class="quarto-xref">Table 1</a>.</p>
 <h3 id="url">url</h3>
-<p>This key is extracted from the <code>&quot;BugReports&quot;</code> or <code>&quot;URL&quot;</code> fields on the <code>DESCRIPTION</code> file. It corresponds to the first URL that is different from <a href="#repository-code">repository-code</a>.</p>
+<p>This key is extracted from the <code>&quot;BugReports&quot;</code> or <code>&quot;URL&quot;</code> fields in the <code>DESCRIPTION</code> file. It corresponds to the first URL that is different from <a href="#repository-code">repository-code</a>.</p>
 <div class="cell">
 <details class="code-fold">
 <summary><strong>Example</strong></summary>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Many urls</span></span>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Many URLs.</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>manyurls <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;examples/DESCRIPTION_many_urls&quot;</span>, <span class="at">package =</span> <span class="st">&quot;cffr&quot;</span>)</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">cff_create</span>(manyurls)<span class="sc">$</span>url)</span>
 <span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; https://test.github.io/package/</span></span>
 <span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Check</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the source metadata.</span></span>
 <span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>desc<span class="sc">::</span><span class="fu">desc</span>(manyurls)</span>
 <span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Type: Package</span></span>
@@ -1661,9 +1661,9 @@ X-schema.org-keywords: keyword1, keyword2, keyword3</code></pre>
 </div>
 <p>Back to <a href="#tbl-summary" class="quarto-xref">Table 1</a>.</p>
 <h3 id="version">version</h3>
-<p>This key is extracted from the <code>&quot;Version&quot;</code> field on the <code>DESCRIPTION</code> file.</p>
+<p>This key is extracted from the <code>&quot;Version&quot;</code> field in the <code>DESCRIPTION</code> file.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Should be (&gt;= 3.0.0)</span></span>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Should be (&gt;= 3.0.0).</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">cff_create</span>(<span class="st">&quot;testthat&quot;</span>)<span class="sc">$</span>version)</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3.3.2</span></span></code></pre></div>
 </div>

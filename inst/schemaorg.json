@@ -12,9 +12,9 @@
     "familyName": "Hernangómez",
     "givenName": "Diego"
   },
-  "description": "The Citation File Format version 1.2.0 <doi:10.5281/zenodo.5171937> is a human and machine readable file format which provides citation metadata for software. This package provides core utilities to generate and validate this metadata.",
+  "description": "Citation File Format ('CFF') version 1.2.0 <doi:10.5281/zenodo.5171937> is a human- and machine-readable file format for software citation metadata. Core utilities generate, read, write and validate Citation File Format metadata for R packages.",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "name": "cffr: Generate Citation File Format ('cff') Metadata for R Packages",
+  "name": "cffr: Generate Citation File Format ('CFF') Metadata for R Packages",
   "programmingLanguage": {
     "type": "ComputerLanguage",
     "name": "R",
@@ -27,5 +27,5 @@
     "url": "https://cran.r-project.org"
   },
   "runtimePlatform": "R version 4.6.0 (2026-04-24 ucrt)",
-  "version": "1.4.0"
+  "version": "1.4.1"
 }

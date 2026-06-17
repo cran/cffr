@@ -17,7 +17,7 @@ argument in \code{\link[=cff]{cff()}}.}
 A \code{\link{cff}} object.
 }
 \description{
-Add new keys or modify existing ones in a \code{\link{cff}} object.
+Add new keys to a \code{\link{cff}} object or modify existing ones.
 }
 \details{
 Keys provided in \code{...} override the corresponding key in \code{x}.
@@ -36,7 +36,7 @@ cff_validate(x)
 
 x_mod <- cff_modify(x,
   contact = as_cff_person("A contact"),
-  message = "This overwrites fields",
+  message = "This overwrites keys",
   title = "New Title",
   abstract = "New abstract",
   doi = "10.21105/joss.03900"
@@ -48,11 +48,10 @@ cff_validate(x_mod)
 
 }
 \seealso{
-This function is a wrapper of \code{\link[utils:modifyList]{utils::modifyList()}}.
+This function is a wrapper of \code{\link[utils:modifyList]{utils::modifyList()}}. See \code{\link[=cff]{cff()}} for
+creating \code{\link{cff}} objects from scratch.
 
-See \code{\link[=cff]{cff()}} for creating \code{\link{cff}} objects from scratch.
-
-Other core functions of \CRANpkg{cffr}:
+Core \CRANpkg{cffr} workflow:
 \code{\link[=cff]{cff()}},
 \code{\link[=cff_create]{cff_create()}},
 \code{\link[=cff_validate]{cff_validate()}}

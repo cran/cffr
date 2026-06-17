@@ -6,7 +6,7 @@
 \alias{as_cff_person.default}
 \alias{as_cff_person.person}
 \alias{as_cff_person.character}
-\title{Coerce \strong{R} objects to \code{\link{cff_pers_lst}} objects (\code{cff} persons)}
+\title{Coerce \R objects to \code{\link{cff_pers_lst}} objects}
 \usage{
 as_cff_person(x, ...)
 
@@ -17,7 +17,7 @@ as_cff_person(x, ...)
 \method{as_cff_person}{character}(x, ...)
 }
 \arguments{
-\item{x}{Any \strong{R} object.}
+\item{x}{Any \R object.}
 
 \item{...}{Ignored by this method.}
 }
@@ -29,29 +29,29 @@ Each element of the \code{cff_pers_lst} object has classes
 \code{\link[=cff_pers]{cff_pers, cff}}.
 }
 \description{
-\code{as_cff_person()} turns an existing list-like \strong{R} object into a
+\code{as_cff_person()} turns an existing list-like \R object into a
 \code{\link{cff_pers_lst}} object representing a list of \code{definitions.person} or
 \code{definitions.entity}, as defined by the \href{https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md}{Citation File Format schema}.
 
-\code{as_cff_person} is an S3 generic, with methods for:
+\code{as_cff_person()} is an S3 generic, with methods for:
 \itemize{
 \item \code{person}: Objects created with \code{\link[=person]{person()}}.
-\item \code{character}: Strings with the definition of an author or multiple authors,
-using the standard BibTeX notation (see Markey, 2007) and others, such as
-the output of \code{\link[=format]{format()}} for person (see \code{\link[=person]{format.person()}}).
+\item \code{character}: Strings with the definition for one or more authors, using
+the standard BibTeX notation (see Markey, 2007) and related formats, such
+as the output of \code{\link[=format]{format()}} for \code{person} objects (see
+\code{\link[=person]{format.person()}}).
 \item Default: Other inputs are first coerced with \code{\link[=as.character]{as.character()}}.
 }
 
-The inverse transformation (\code{cff_pers_lst} to \code{person}) can be done using
-the methods \code{\link[=as.person.cff_pers]{as.person.cff_pers()}} and \code{\link[=as.person.cff_pers_lst]{as.person.cff_pers_lst()}}.
+The inverse transformation (\code{cff_pers_lst} to \code{person}) can be done with the
+methods \code{\link[=as.person.cff_pers]{as.person.cff_pers()}} and \code{\link[=as.person.cff_pers_lst]{as.person.cff_pers_lst()}}.
 }
 \details{
-\code{as_cff_person()} recognizes whether the input should be converted using the
+\code{as_cff_person()} recognizes whether the input should be converted with the
 CFF reference for \code{definitions.person} or \code{definitions.entity}.
 
-\code{as_cff_person()} uses a custom algorithm that breaks a name as
-explained in Section 11 of "Tame the BeaST" (Markey, 2007) (see also
-Decoret, 2007):
+\code{as_cff_person()} uses a custom algorithm that parses names as explained in
+Section 11 of "Tame the BeaST" (Markey, 2007) (see also Decoret, 2007):
 \itemize{
 \item \verb{First von Last}.
 \item \verb{von Last, First}.
@@ -60,22 +60,22 @@ Decoret, 2007):
 
 Mapping is performed as follows:
 \itemize{
-\item \code{First} is mapped to the CFF field \code{given-names}.
-\item \code{von} is mapped to the CFF field \code{name-particle}.
-\item \code{Last} is mapped to the CFF field \code{family-names}.
-\item \code{Jr} is mapped to the CFF field \code{name-suffix}.
+\item \code{First} is mapped to the CFF key \code{given-names}.
+\item \code{von} is mapped to the CFF key \code{name-particle}.
+\item \code{Last} is mapped to the CFF key \code{family-names}.
+\item \code{Jr} is mapped to the CFF key \code{name-suffix}.
 }
 
 For entities, the entire \code{character} is mapped to \code{name}.
-It is recommended to "protect" entity names with \code{{}}:
+We recommend "protecting" entity names with \code{{}}:
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{# Don't do
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{# Avoid unprotected entity names.
 entity <- "Elephant and Castle"
 as_cff_person(entity)
 - name: Elephant
 - name: Castle
 
-# Do
+# Protect entity names with braces.
 entity_protect <- "\{Elephant and Castle\}"
 as_cff_person(entity_protect)
 - name: Elephant and Castle
@@ -86,7 +86,7 @@ For \code{character} strings from \code{\link[utils:person]{format.person()}}, t
 email and ORCID are also extracted.
 }
 \examples{
-# Create a person object
+# Create a person object.
 a_person <- person(
   given = "First", family = "Author",
   role = c("aut", "cre"),
@@ -100,26 +100,26 @@ a_person
 
 cff_person <- as_cff_person(a_person)
 
-# Class cff_pers_lst / cff
+# Class cff_pers_lst / cff.
 class(cff_person)
 
-# With each element with class cff_pers / cff
+# Each element has class cff_pers / cff.
 class(cff_person[[1]])
 
-# Print
+# Print.
 cff_person
 
-# Back to person object with S3 Method
+# Back to person object with S3 method.
 as.person(cff_person)
 
-# Coerce a string
+# Coerce a string.
 a_str <- paste0(
   "Julio Iglesias <fake@email.com> ",
   "(city: Miami, region: California, country: US)"
 )
 as_cff_person(a_str)
 
-# Several persons
+# Several persons.
 persons <- c(
   person("Clark", "Kent", comment = c(affiliation = "Daily Planet")),
   person("Lois", "Lane"), person("Oscorp Inc.")
@@ -129,13 +129,13 @@ a_cff <- as_cff_person(persons)
 
 a_cff
 
-# Printed as Bibtex thanks to the method
+# Printed as BibTeX thanks to the method.
 toBibtex(a_cff)
 
-# Or as person object
+# Or as person object.
 as.person(a_cff)
 
-# Or you can use BibTeX style as input if you prefer
+# Or use BibTeX style as input.
 
 x <- "Frank Sinatra and Dean Martin and Davis, Jr., Sammy and Joey Bishop"
 
@@ -152,17 +152,16 @@ toBibtex(as_cff_person("Herbert von Karajan"))
 \item Markey, Nicolas. "Tame the BeaST"
 \emph{The B to X of BibTeX, Version 1.4} (October 2007).
 \url{https://osl.ugr.es/CTAN/info/bibtex/tamethebeast/ttb_en.pdf}.
-\item Decoret X (2007). "A summary of BibTex."\url{https://maverick.inria.fr/~Xavier.Decoret/resources/xdkbibtex/bibtex_summary.html#names}
+\item Decoret X (2007). "A summary of BibTeX."\url{https://maverick.inria.fr/~Xavier.Decoret/resources/xdkbibtex/bibtex_summary.html#names}
 }
 
 See \strong{Examples} for more information.
 }
 \seealso{
-Examples in \code{vignette("cffr", "cffr")} and \code{\link[utils:person]{utils::person()}}.
-
+Examples in \code{vignette("cffr", package = "cffr")} and \code{\link[utils:person]{utils::person()}}.
 Learn more about the \code{cff_pers_lst} and \code{cff_pers} classes in \link{cff_class}.
 
-Coercing between \strong{R} classes with \strong{S3 Methods}:
+Coerce between \R classes:
 \code{\link[=as_bibentry]{as_bibentry()}},
 \code{\link[=as_cff]{as_cff()}},
 \code{\link{cff_class}}

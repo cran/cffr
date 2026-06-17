@@ -3,21 +3,23 @@
 \encoding{UTF-8}
 \name{cff_gha_update}
 \alias{cff_gha_update}
-\title{Install a \CRANpkg{cffr} GitHub Action}
+\title{Install a \CRANpkg{cffr} GitHub Actions workflow}
 \usage{
 cff_gha_update(path = ".", overwrite = FALSE)
 }
 \arguments{
 \item{path}{Project root directory.}
 
-\item{overwrite}{Logical. If the action already exists, should it be
-overwritten?}
+\item{overwrite}{Logical. If the workflow already exists, whether to
+overwrite it.}
 }
 \value{
-Invisible, this function is called by its side effects.
+Invisible. This function is called for its side effects.
 }
 \description{
-This function installs a \href{https://github.com/features/actions}{GitHub Action} on your repository. The action
+This function installs a
+\href{https://github.com/features/actions}{GitHub Actions} workflow in your
+repository. The workflow
 updates your \code{CITATION.cff} when any of these events occur:
 \itemize{
 \item You publish a new release of the package.
@@ -26,7 +28,7 @@ updates your \code{CITATION.cff} when any of these events occur:
 }
 }
 \details{
-Triggers on your action can be modified, see \href{https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows}{Events that trigger workflows}.
+Triggers on your action can be modified. See \href{https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows}{Events that trigger workflows}.
 }
 \examples{
 \dontrun{
@@ -34,7 +36,7 @@ cff_gha_update()
 }
 }
 \seealso{
-Other Git/GitHub helpers provided by \CRANpkg{cffr}:
+Keep \file{CITATION.cff} up to date:
 \code{\link{cff_git_hook}}
 }
 \concept{git}

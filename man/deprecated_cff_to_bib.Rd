@@ -4,55 +4,54 @@
 \name{cff_extract_to_bibtex}
 \alias{cff_extract_to_bibtex}
 \alias{cff_to_bibtex}
-\title{Previous API: Create BibTeX entries from several sources}
+\title{Previous API: Create BibTeX entries from multiple sources}
 \usage{
 cff_extract_to_bibtex(x, what = c("preferred", "references", "all"))
 
 cff_to_bibtex(x, what = c("preferred", "references", "all"))
 }
 \arguments{
-\item{x}{The source used to generate
-the \code{bibentry} object via \CRANpkg{cffr}. It can be:
+\item{x}{The source used to generate the \code{bibentry} object with
+\CRANpkg{cffr}. It can be:
 \itemize{
-\item A missing value, which retrieves the \code{DESCRIPTION}
-file from your in-development package.
+\item A missing value, which retrieves the \code{DESCRIPTION} file from your
+in-development package.
 \item An existing \code{cff} object created with \code{\link[=cff]{cff()}}, \code{\link[=cff_create]{cff_create()}}, or
 \code{\link[=as_cff]{as_cff()}}.
-\item Path to a CITATION.cff file (\code{"CITATION.cff"}).
+\item A path to a \code{CITATION.cff} file (\code{"CITATION.cff"}).
 \item The name of an installed package (\code{"jsonlite"}).
-\item Path to a DESCRIPTION file (\code{"DESCRIPTION"}).
+\item A path to a \code{DESCRIPTION} file (\code{"DESCRIPTION"}).
 }}
 
-\item{what}{Fields to extract from a full \code{cff} object. The value could be:
+\item{what}{Fields to extract from a full \code{cff} object. It can be:
 \itemize{
-\item \code{preferred}: This would create a single entry with the main citation
-info of the package (key \code{preferred-citation}).
-\item \code{references}: Extract all the entries of \code{references} key.
-\item \code{all}: A combination of the previous two options. This would extract
-both the \code{preferred-citation} and the \code{references} key.
+\item \code{preferred}: Create a single entry with the main citation information
+of the package (key \code{preferred-citation}).
+\item \code{references}: Extract all entries of the \code{references} key.
+\item \code{all}: Extract both the \code{preferred-citation} and \code{references} keys.
 }
 
-See \code{vignette("crosswalk", package = "cffr")}.}
+See \code{vignette("r-cff", package = "cffr")}.}
 }
 \value{
 See \code{\link[=as_bibentry]{as_bibentry()}}.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Please use \code{\link[=as_bibentry]{as_bibentry()}} instead.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Use \code{\link[=as_bibentry]{as_bibentry()}} instead.
 }
 \examples{
 \donttest{
-# From a cff object
+# From a `cff` object.
 cff_object <- cff()
 
 cff_object
 
-# bibentry object
+# A bibentry object.
 bib <- as_bibentry(cff_object)
 }
 }
 \seealso{
-Other deprecated functions:
+Deprecated functions:
 \code{\link[=cff_from_bibtex]{cff_from_bibtex()}},
 \code{\link[=cff_parse_citation]{cff_parse_citation()}},
 \code{\link[=cff_parse_person]{cff_parse_person()}},

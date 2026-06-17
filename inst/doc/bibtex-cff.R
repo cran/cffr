@@ -1,7 +1,9 @@
 ## -----------------------------------------------------------------------------
 #| include: false
+# jarl-ignore-file fixed_regex: Not production code.
+
 library(cffr)
-# Load the table of tables
+# Load the table of tables.
 
 p2file <- system.file("extdata/crosswalk_tables.csv", package = "cffr")
 
@@ -62,14 +64,13 @@ knitr::kable(
 #| message: false
 #| warning: false
 #| results: asis
-#| tbl-cap: "Valid keys in CFF `definition-reference` objects"
+#| tbl-cap: "Valid keys in CFF `definitions.reference` objects"
 library(cffr)
 
-# Fill with whites
+# Fill with blanks.
 init <- paste0("`", cff_schema_definitions_refs(), "`")
 
 l <- c(init, rep("", 4))
-
 
 refkeys <- matrix(l, ncol = 5, byrow = TRUE)
 
@@ -90,13 +91,13 @@ string <- "@book{einstein1921,
     address      = {London, United Kingdom},
     isbn         = 9781587340925}"
 
-# To cff
+# Convert to `cff`.
 library(cffr)
 cff_format <- cff_read_bib_text(string)
 
 cff_format
 
-# To BibTeX with S3 method
+# Convert to BibTeX with the S3 method.
 toBibtex(cff_format)
 
 
@@ -107,13 +108,13 @@ toBibtex(cff_format)
 #| tbl-cap: "Entry/Type crosswalk: From BibTeX to CFF"
 df_table <- table_master[table_master$table == "entry_bib2cff", c(2:4)]
 df_table[is.na(df_table)] <- ""
-# fix links
+# Fix links.
 df_table$f3 <- gsub("link_to_entry_models", "#entrymodels", df_table$f3)
 row.names(df_table) <- NULL
 
 knitr::kable(
   df_table,
-  col.names = c("BibTeX Entry", "CFF key: `type`", "Notes"),
+  col.names = c("BibTeX entry", "CFF key: `type`", "Notes"),
   row.names = NA
 )
 
@@ -125,13 +126,13 @@ knitr::kable(
 #| tbl-cap: "Entry/Key `type` crosswalk: From CFF to BibTeX"
 df_table <- table_master[table_master$table == "entry_cff2bib", c(2:4)]
 df_table[is.na(df_table)] <- ""
-# fix links
+# Fix links.
 df_table$f3 <- gsub("link_to_entry_models", "#entrymodels", df_table$f3)
 row.names(df_table) <- NULL
 
 knitr::kable(
   df_table,
-  col.names = c("CFF key `type`", "BibTeX Entry", "Notes")
+  col.names = c("CFF key `type`", "BibTeX entry", "Notes")
 )
 
 
@@ -142,7 +143,7 @@ knitr::kable(
 #| tbl-cap: "BibTeX - CFF key crosswalk"
 df_table <- table_master[table_master$table == "fields_bib2cff", c(2:4)]
 df_table[is.na(df_table)] <- ""
-# fix links
+# Fix links.
 df_table$f3 <- gsub("link_to_entry_models", "#entrymodels", df_table$f3)
 row.names(df_table) <- NULL
 
@@ -156,10 +157,10 @@ knitr::kable(
 #| label: tbl-fields_biblatex2cff
 #| echo: false
 #| results: asis
-#| tbl-cap: "BibLaTeX - CFF Field/Key crosswalk"
+#| tbl-cap: "BibLaTeX - CFF field/key crosswalk"
 df_table <- table_master[table_master$table == "fields_biblatex2cff", c(2:3)]
 df_table[is.na(df_table)] <- ""
-# fix links
+# Fix links.
 df_table$f2 <- gsub("link_to_entry_models", "#entrymodels", df_table$f2)
 row.names(df_table) <- NULL
 
@@ -186,7 +187,7 @@ row.names(df_table) <- NULL
 knitr::kable(
   df_table,
   col.names = c("BibTeX", "CFF", "Notes"),
-  caption = "**\\@article** Model"
+  caption = "**\\@article** model"
 )
 
 
@@ -214,7 +215,7 @@ toBibtex(cff_read_bib_text(bib))
 df_table <- table_master[table_master$table == "model_book", c(2:4)]
 df_table[is.na(df_table)] <- ""
 
-# fix links
+# Fix links.
 df_table$f3 <- gsub("link_to_entry_models", "#entrymodels", df_table$f3)
 df_table$f3 <- gsub("link_to_article", "#article", df_table$f3)
 df_table$f3 <- gsub("link_to_booklet", "#booklet", df_table$f3)
@@ -224,7 +225,7 @@ row.names(df_table) <- NULL
 knitr::kable(
   df_table,
   col.names = c("BibTeX", "CFF", "Notes"),
-  caption = "**\\@book / \\@inbook** Model"
+  caption = "**\\@book / \\@inbook** model"
 )
 
 
@@ -276,7 +277,7 @@ toBibtex(cff_read_bib_text(bib))
 df_table <- table_master[table_master$table == "model_booklet", c(2:4)]
 df_table[is.na(df_table)] <- ""
 
-# fix links
+# Fix links.
 df_table$f3 <- gsub("link_to_entry_models", "#entrymodels", df_table$f3)
 df_table$f3 <- gsub("link_to_article", "#article", df_table$f3)
 df_table$f3 <- gsub("link_to_booklet", "#booklet", df_table$f3)
@@ -286,7 +287,7 @@ row.names(df_table) <- NULL
 knitr::kable(
   df_table,
   col.names = c("BibTeX", "CFF", "Notes"),
-  caption = "**\\@booklet** Model"
+  caption = "**\\@booklet** model"
 )
 
 
@@ -313,7 +314,7 @@ toBibtex(cff_read_bib_text(bib))
 df_table <- table_master[table_master$table == "model_inproceedings", c(2:4)]
 df_table[is.na(df_table)] <- ""
 
-# fix links
+# Fix links.
 df_table$f3 <- gsub("link_to_entry_models", "#entrymodels", df_table$f3)
 df_table$f3 <- gsub("link_to_article", "#article", df_table$f3)
 df_table$f3 <- gsub("link_to_booklet", "#booklet", df_table$f3)
@@ -323,7 +324,7 @@ row.names(df_table) <- NULL
 knitr::kable(
   df_table,
   col.names = c("BibTeX", "CFF", "Notes"),
-  caption = "**\\@conference / \\@inproceedings** Model"
+  caption = "**\\@conference / \\@inproceedings** model"
 )
 
 
@@ -355,7 +356,7 @@ toBibtex(cff_read_bib_text(bib))
 df_table <- table_master[table_master$table == "model_incollection", c(2:4)]
 df_table[is.na(df_table)] <- ""
 
-# fix links
+# Fix links.
 df_table$f3 <- gsub("link_to_entry_models", "#entrymodels", df_table$f3)
 df_table$f3 <- gsub("link_to_article", "#article", df_table$f3)
 df_table$f3 <- gsub("link_to_booklet", "#booklet", df_table$f3)
@@ -365,7 +366,7 @@ row.names(df_table) <- NULL
 knitr::kable(
   df_table,
   col.names = c("BibTeX", "CFF", "Notes"),
-  caption = "**\\@incollection** Model"
+  caption = "**\\@incollection** model"
 )
 
 
@@ -400,7 +401,7 @@ toBibtex(cff_read_bib_text(bib))
 df_table <- table_master[table_master$table == "model_manual", c(2:4)]
 df_table[is.na(df_table)] <- ""
 
-# fix links
+# Fix links.
 df_table$f3 <- gsub("link_to_entry_models", "#entrymodels", df_table$f3)
 df_table$f3 <- gsub("link_to_article", "#article", df_table$f3)
 df_table$f3 <- gsub("link_to_booklet", "#booklet", df_table$f3)
@@ -410,7 +411,7 @@ row.names(df_table) <- NULL
 knitr::kable(
   df_table,
   col.names = c("BibTeX", "CFF", "Notes"),
-  caption = "**\\@manual** Model"
+  caption = "**\\@manual** model"
 )
 
 
@@ -438,7 +439,7 @@ toBibtex(cff_read_bib_text(bib))
 df_table <- table_master[table_master$table == "model_thesis", c(2:4)]
 df_table[is.na(df_table)] <- ""
 
-# fix links
+# Fix links.
 df_table$f3 <- gsub("link_to_entry_models", "#entrymodels", df_table$f3)
 df_table$f3 <- gsub("link_to_article", "#article", df_table$f3)
 df_table$f3 <- gsub("link_to_booklet", "#booklet", df_table$f3)
@@ -448,7 +449,7 @@ row.names(df_table) <- NULL
 knitr::kable(
   df_table,
   col.names = c("BibTeX", "CFF", "Notes"),
-  caption = "**\\@mastersthesis / \\@phdthesis** Model"
+  caption = "**\\@mastersthesis / \\@phdthesis** model"
 )
 
 
@@ -493,7 +494,7 @@ toBibtex(cff_read_bib_text(bib))
 df_table <- table_master[table_master$table == "model_misc", c(2:4)]
 df_table[is.na(df_table)] <- ""
 
-# fix links
+# Fix links.
 df_table$f3 <- gsub("link_to_entry_models", "#entrymodels", df_table$f3)
 df_table$f3 <- gsub("link_to_article", "#article", df_table$f3)
 df_table$f3 <- gsub("link_to_booklet", "#booklet", df_table$f3)
@@ -503,7 +504,7 @@ row.names(df_table) <- NULL
 knitr::kable(
   df_table,
   col.names = c("BibTeX", "CFF", "Notes"),
-  caption = "**\\@misc** Model"
+  caption = "**\\@misc** model"
 )
 
 
@@ -529,7 +530,7 @@ toBibtex(cff_read_bib_text(bib))
 df_table <- table_master[table_master$table == "model_proceedings", c(2:4)]
 df_table[is.na(df_table)] <- ""
 
-# fix links
+# Fix links.
 df_table$f3 <- gsub("link_to_entry_models", "#entrymodels", df_table$f3)
 df_table$f3 <- gsub("link_to_article", "#article", df_table$f3)
 df_table$f3 <- gsub("link_to_booklet", "#booklet", df_table$f3)
@@ -539,7 +540,7 @@ row.names(df_table) <- NULL
 knitr::kable(
   df_table,
   col.names = c("BibTeX", "CFF", "Notes"),
-  caption = "**\\@proceedings** Model"
+  caption = "**\\@proceedings** model"
 )
 
 
@@ -569,7 +570,7 @@ toBibtex(cff_read_bib_text(bib))
 df_table <- table_master[table_master$table == "model_techreport", c(2:4)]
 df_table[is.na(df_table)] <- ""
 
-# fix links
+# Fix links.
 df_table$f3 <- gsub("link_to_entry_models", "#entrymodels", df_table$f3)
 df_table$f3 <- gsub("link_to_article", "#article", df_table$f3)
 df_table$f3 <- gsub("link_to_booklet", "#booklet", df_table$f3)
@@ -579,7 +580,7 @@ row.names(df_table) <- NULL
 knitr::kable(
   df_table,
   col.names = c("BibTeX", "CFF", "Notes"),
-  caption = "**\\@techreport** Model"
+  caption = "**\\@techreport** model"
 )
 
 
@@ -608,7 +609,7 @@ toBibtex(cff_read_bib_text(bib))
 df_table <- table_master[table_master$table == "model_unpublished", c(2:4)]
 df_table[is.na(df_table)] <- ""
 
-# fix links
+# Fix links.
 df_table$f3 <- gsub("link_to_entry_models", "#entrymodels", df_table$f3)
 df_table$f3 <- gsub("link_to_article", "#article", df_table$f3)
 df_table$f3 <- gsub("link_to_booklet", "#booklet", df_table$f3)
@@ -618,7 +619,7 @@ row.names(df_table) <- NULL
 knitr::kable(
   df_table,
   col.names = c("BibTeX", "CFF", "Notes"),
-  caption = "**\\@unpublished** Model"
+  caption = "**\\@unpublished** model"
 )
 
 

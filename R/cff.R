@@ -1,16 +1,7 @@
 #' Create [`cff`] objects from direct inputs
 #'
-#' A class and utility methods for reading, creating and holding CFF
+#' A class and utility methods for reading, creating and storing CFF
 #' information. See [cff_class] to learn more about `cff` objects.
-#'
-#' @rdname cff
-#' @name cff
-#' @return
-#'
-#' A [`cff`] object. Under the hood, a `cff` object is a regular [`list`]
-#' object with a special [`print`][print.cff()] method.
-#'
-#' @family core
 #'
 #' @param path `r lifecycle::badge("deprecated")` `path` is no longer supported,
 #'   use [cff_read_cff_citation()] instead.
@@ -18,8 +9,11 @@
 #'   arguments are supplied (the default behavior), a minimal valid `cff`
 #'   object is created.
 #'
-#' @details
+#' @return
+#' A [`cff`] object. Under the hood, a `cff` object is a regular [`list`]
+#' object with a special [`print`][print.cff()] method.
 #'
+#' @details
 #' `cff()` converts `_` in the argument name to `-`. For example,
 #' `cff_version = "1.2.0"` is converted to `cff-version = "1.2.0"`.
 #'
@@ -31,13 +25,17 @@
 #' cat(p)
 #'
 #' ```
+#'
+#' @family core
+#' @rdname cff
+#' @name cff
 #' @export
 #' @encoding UTF-8
 #' @examples
-#' # Blank cff
+#' # Blank `cff` object.
 #' cff()
 #'
-#' # Use custom params
+#' # Use custom parameters.
 #' test <- cff(
 #'   title = "Manipulating files",
 #'   keywords = c("A", "new", "list", "of", "keywords"),
@@ -45,21 +43,19 @@
 #' )
 #' test
 #' \donttest{
-#' # Would fail
+#' # This would fail.
 #' cff_validate(test)
 #' }
 #'
-#' # Modify with cff_create
+#' # Modify with cff_create().
 #' new <- cff_create(test, keys = list(
 #'   "cff_version" = "1.2.0",
 #'   message = "A blank file"
 #' ))
 #' new
 #'
-#' # Would pass
+#' # This would pass.
 #' cff_validate(new)
-#'
-#' @export
 cff <- function(path, ...) {
   if (!missing(path)) {
     src <- detect_x_source(path)
@@ -77,19 +73,19 @@ cff <- function(path, ...) {
 
   cffobj <- list(...)
   if (length(cffobj) == 0) {
-    # If nothing is provided use a minimal cff
+    # Use a minimal `cff` object when nothing is provided.
     path <- system.file("examples/CITATION_skeleton.cff", package = "cffr")
 
     return(cff_read_cff_citation(path))
   }
 
-  # Check names
+  # Check names.
 
   cffobj <- validate_extra_keys(cffobj)
   cffobj <- fuzzy_keys(cffobj)
 
   if (anyDuplicated(names(cffobj)) > 0) {
-    cli::cli_alert_warning("Removing duplicated keys.")
+    cli::cli_alert_warning("Removing duplicate keys.")
     cffobj <- cffobj[!duplicated(names(cffobj))]
   }
 

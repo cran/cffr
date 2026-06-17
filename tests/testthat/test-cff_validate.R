@@ -47,7 +47,8 @@ test_that("Validate error for invalid input", {
 })
 
 test_that("File that is not cff", {
-  expect_error(
-    cff_validate(system.file("examples/DESCRIPTION_basic", package = "cffr"))
-  )
+  expect_error(cff_validate(system.file(
+    "examples/DESCRIPTION_basic",
+    package = "cffr"
+  )))
 })

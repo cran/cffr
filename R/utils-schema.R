@@ -1,8 +1,8 @@
-#' Schema utils
+#' Inspect CFF schema values
 #'
-#' @name cff_schema
 #' @description
-#' Helper functions with the valid values of different fields, according to the
+#' Helper functions with valid values for different keys and definition fields,
+#' according to the
 #' ```{r, echo=FALSE, results='asis'}
 #'
 #' cat(paste0("\n", "[Citation File Format schema version 1.2.0]",
@@ -13,14 +13,21 @@
 #'
 #' - [cff_schema_keys()] provides the valid high-level keys of the Citation
 #'   File Format.
-#' - [cff_schema_keys_license()] provides the valid
+#' - [cff_schema_keys_license()] provides valid
 #'   [SPDX license identifier(s)](https://spdx.org/licenses/) to be used on the
 #'   `CITATION.cff` file.
 #' - [cff_schema_definitions_person()] and [cff_schema_definitions_entity()]
 #'   return the valid fields to include when defining a
 #'   person or entity.
 #' - [cff_schema_definitions_refs()] provides the valid
-#'   keys to be used on the `preferred-citation` and `references` keys.
+#'   keys to use in the `preferred-citation` and `references` keys.
+#'
+#' @param sorted Logical `TRUE/FALSE`. Whether to arrange the keys
+#'   alphabetically.
+#'
+#' @return
+#' A character vector with the names of valid keys for Citation File Format
+#' version 1.2.0.
 #'
 #' @source
 #' ```{r, echo=FALSE, results='asis'}
@@ -32,23 +39,14 @@
 #' ```
 #'
 #' @family schemas
-#'
+#' @name cff_schema
 #' @export
 #' @encoding UTF-8
-#'
-#' @return
-#' A character vector with the names of valid keys for Citation File Format
-#'   version 1.2.0.
-#'
-#' @param sorted Logical `TRUE/FALSE`. Should the keys be arranged
-#'   alphabetically?
-#'
 #' @examples
-#'
 #' cff_schema_keys(sorted = TRUE)
 cff_schema_keys <- function(sorted = FALSE) {
   if (sorted) {
-    # Alphabetically
+    # Sort alphabetically.
     schema_keys <- c(
       "abstract",
       "authors",
@@ -73,7 +71,7 @@ cff_schema_keys <- function(sorted = FALSE) {
       "version"
     )
   } else {
-    # Arranged arbitrarily
+    # Keep the preferred schema order.
     schema_keys <- c(
       "cff-version",
       "message",
@@ -106,8 +104,7 @@ cff_schema_keys <- function(sorted = FALSE) {
 #' @export
 #' @encoding UTF-8
 #' @examples
-#'
-#' # Valid Licenses keys
+#' # Valid license keys.
 #' head(cff_schema_keys_license(), 20)
 cff_schema_keys_license <- function() {
   license <- read.csv(system.file(
@@ -123,7 +120,6 @@ cff_schema_keys_license <- function() {
 #' @export
 #' @encoding UTF-8
 #' @examples
-#'
 #' cff_schema_definitions_person()
 cff_schema_definitions_person <- function() {
   definitions_person <- c(
@@ -152,7 +148,6 @@ cff_schema_definitions_person <- function() {
 #' @export
 #' @encoding UTF-8
 #' @examples
-#'
 #' cff_schema_definitions_entity()
 cff_schema_definitions_entity <- function() {
   definitions_entity <- c(
@@ -175,12 +170,10 @@ cff_schema_definitions_entity <- function() {
   definitions_entity
 }
 
-
 #' @rdname cff_schema
 #' @export
 #' @encoding UTF-8
 #' @examples
-#'
 #' cff_schema_definitions_refs()
 cff_schema_definitions_refs <- function() {
   definitions_reference <- c(
@@ -259,10 +252,9 @@ cff_schema_definitions_refs <- function() {
   definitions_reference
 }
 
-
 # Helper lists and vectors ----
 
-#' Vector other persons
+#' Vector of other persons
 #' @noRd
 other_persons <- function() {
   pers_ent <- c(
@@ -274,16 +266,12 @@ other_persons <- function() {
     "translators"
   )
 
-  pers_ent <- sort(unique(c(
-    pers_ent,
-    other_persons_entity(),
-    entity_person()
-  )))
+  pers_ent <- sort(unique(c(pers_ent, other_persons_entity(), entity_person())))
 
   pers_ent
 }
 
-#' Vector other persons to be coerced as entities
+#' Vector of other persons to be coerced as entities
 #' @noRd
 other_persons_entity <- function() {
   entities <- c(
@@ -300,9 +288,6 @@ other_persons_entity <- function() {
 #' This may be entities or persons
 #' @noRd
 entity_person <- function() {
-  forced <- c(
-    "editors",
-    "editors-series"
-  )
+  forced <- c("editors", "editors-series")
   forced
 }

@@ -1,28 +1,16 @@
 #' Modify a [`cff`] object
 #'
-#' Add new keys or modify existing ones in a [`cff`] object.
+#' Add new keys to a [`cff`] object or modify existing ones.
 #'
 #' @param x A [`cff`] object.
 #' @param ... Named arguments used to modify `x`. See also the `...`
 #'   argument in [cff()].
 #'
-#' @details
-#'
-#' Keys provided in `...` override the corresponding key in `x`.
-#'
 #' @return
-#'
 #' A [`cff`] object.
 #'
-#' @family core
-#' @export
-#' @encoding UTF-8
-#' @seealso
-#' This function is a wrapper of [utils::modifyList()].
-#'
-#' See [cff()] for creating [`cff`] objects from scratch.
-#'
 #' @details
+#' Keys provided in `...` override the corresponding key in `x`.
 #'
 #' You can add additional keys not detected by [cff_create()] using
 #' the `keys` argument. A list of valid keys can be retrieved with
@@ -36,6 +24,13 @@
 #' ```
 #' for additional details.
 #'
+#' @seealso
+#' This function is a wrapper of [utils::modifyList()]. See [cff()] for
+#' creating [`cff`] objects from scratch.
+#'
+#' @family core
+#' @export
+#' @encoding UTF-8
 #' @examples
 #' x <- cff()
 #' x
@@ -44,7 +39,7 @@
 #'
 #' x_mod <- cff_modify(x,
 #'   contact = as_cff_person("A contact"),
-#'   message = "This overwrites fields",
+#'   message = "This overwrites keys",
 #'   title = "New Title",
 #'   abstract = "New abstract",
 #'   doi = "10.21105/joss.03900"
@@ -57,12 +52,12 @@
 cff_modify <- function(x, ...) {
   if (!inherits(x, "cff")) {
     cli::cli_abort(
-      "{.arg x} should be a {.cls cff} object, not {.cls {class(x)}}."
+      "{.arg x} must be a {.cls cff} object, not {.cls {class(x)}}."
     )
   }
   new_keys <- list(...)
   if (length(new_keys) == 0) {
-    cli::cli_alert_info("Args {.arg ...} empty. Returning {.arg x}.")
+    cli::cli_alert_info("No {.arg ...} arguments supplied, returning {.arg x}.")
     return(x)
   }
 
@@ -70,7 +65,7 @@ cff_modify <- function(x, ...) {
 }
 
 modify_cff <- function(x, keys, argname = "...") {
-  # Don't throw message here, these cases are coming from cff_create
+  # Do not show a message here because these cases come from cff_create().
   if (all(argname == "keys", length(keys) == 0)) {
     return(x)
   }
@@ -78,7 +73,7 @@ modify_cff <- function(x, keys, argname = "...") {
   new_keys <- validate_extra_keys(keys, argname)
   new_keys <- fuzzy_keys(new_keys)
   if (anyDuplicated(names(new_keys)) > 0) {
-    cli::cli_alert_warning("Removing duplicated keys.")
+    cli::cli_alert_warning("Removing duplicate keys.")
     new_keys <- new_keys[!duplicated(names(new_keys))]
   }
 
@@ -87,35 +82,32 @@ modify_cff <- function(x, keys, argname = "...") {
   xmod <- x[setdiff(names(x), names(new_keys))]
   xend <- modifyList(xmod, new_keys, keep.null = FALSE)
 
-  # Name order
+  # Name order.
   sorted_nm <- unique(c(init_ord, names(xend)))
 
-  # Relist and add classes
+  # Relist and add classes.
   xend <- as.list(xend[sorted_nm])
   as_cff(xend)
 }
 
-
-# Check names
+# Check names.
 validate_extra_keys <- function(cffobj, argname = "...") {
   has_names <- names(cffobj)
   if (is.null(has_names)) {
-    cli::cli_abort(
-      "Elements in {.arg {argname}} should be named."
-    )
+    cli::cli_abort("Elements in {.arg {argname}} must be named.")
   }
 
-  if (any(has_names == "")) {
+  if (!all(nzchar(has_names))) {
     # nolint start
-    # For printing only
+    # For printing only.
     index <- as.character(which(has_names %in% ""))
     # nolint end
 
     cli::cli_alert_warning(
-      "Found {length(index)} not-named argument{?s} in position{?s} {index}."
+      "Found {length(index)} unnamed argument{?s} in position{?s} {index}."
     )
-    cli::cli_alert_info("Removing unnamed arguments")
-    cffobj <- cffobj[has_names != ""]
+    cli::cli_alert_info("Removing unnamed arguments.")
+    cffobj <- cffobj[nzchar(has_names)]
   }
   cffobj
 }

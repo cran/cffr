@@ -9,7 +9,7 @@
 \alias{as_cff.bibentry}
 \alias{as_cff.Bibtex}
 \alias{as.cff}
-\title{Coerce lists, \code{person} and \code{bibentry} objects to \code{\link{cff}}}
+\title{Coerce lists and citation objects to \code{\link{cff}}}
 \usage{
 as_cff(x, ...)
 
@@ -24,10 +24,10 @@ as_cff(x, ...)
 \method{as_cff}{Bibtex}(x, ...)
 }
 \arguments{
-\item{x}{A \code{person}, \code{bibentry} or other object that could be coerced to a
+\item{x}{A \code{person}, \code{bibentry} or other object that can be coerced to a
 list.}
 
-\item{...}{Additional arguments to be passed on to other methods.}
+\item{...}{Additional arguments passed on to other methods.}
 }
 \value{
 \itemize{
@@ -44,11 +44,11 @@ corresponding subclass.
 Learn more about the \CRANpkg{cffr} class system in \link{cff_class}.
 }
 \description{
-\code{as_cff()} turns an existing list-like \strong{R} object into a so-called
-\code{\link{cff}}, a list with class \code{cff}, with the corresponding
-\link[=cff_class]{sub-class} if applicable.
+\code{as_cff()} turns an existing list-like \R object into a \code{\link{cff}} object,
+a list with class \code{cff} and the corresponding \link[=cff_class]{subclass} when
+applicable.
 
-\code{as_cff} is an S3 generic, with methods for:
+\code{as_cff()} is an S3 generic, with methods for:
 \itemize{
 \item \code{person} objects as produced by \code{\link[utils:person]{utils::person()}}.
 \item \code{bibentry} objects as produced by \code{\link[utils:bibentry]{utils::bibentry()}}.
@@ -58,15 +58,15 @@ Learn more about the \CRANpkg{cffr} class system in \link{cff_class}.
 }
 \details{
 For \code{as_cff.bibentry()} and \code{as_cff.Bibtex()}, see
-\code{vignette("bibtex_cff", "cffr")} to understand how the mapping is performed.
+\code{vignette("bibtex-cff", package = "cffr")} to understand how the mapping is
+performed.
 
-\code{\link[=as_cff_person]{as_cff_person()}} is preferred over \code{as_cff.person()}, since it can handle
+\code{\link[=as_cff_person]{as_cff_person()}} is preferred over \code{as_cff.person()} because it can handle
 \code{character} inputs such as \code{"Davis, Jr., Sammy"}. For \code{person} objects both
-functions are similar.
+functions behave similarly.
 }
 \examples{
-
-# Convert a list to "cff" object
+# Convert a list to a `cff` object.
 cffobj <- as_cff(list(
   "cff-version" = "1.2.0",
   title = "Manipulating files"
@@ -74,17 +74,17 @@ cffobj <- as_cff(list(
 
 class(cffobj)
 
-# Nice display thanks to yaml package
+# Nice display thanks to the yaml package.
 cffobj
 
-# bibentry method
+# `bibentry` method.
 a_cit <- citation("cffr")[[1]]
 
 a_cit
 
 as_cff(a_cit)
 
-# Bibtex method
+# BibTeX method.
 a_bib <- toBibtex(a_cit)
 
 a_bib
@@ -96,14 +96,14 @@ as_cff(a_cit)
 \itemize{
 \item \code{\link[=cff]{cff()}}: Create a full \code{cff} object from scratch.
 \item \code{\link[=cff_modify]{cff_modify()}}: Modify a \code{cff} object.
-\item \code{\link[=cff_create]{cff_create()}}: Create a \code{cff} object for an \strong{R} package.
+\item \code{\link[=cff_create]{cff_create()}}: Create a \code{cff} object for an \R package.
 \item \code{\link[=cff_read]{cff_read()}}: Create a \code{cff} object from an external file.
-\item \code{\link[=as_cff_person]{as_cff_person()}}: Recommended way to create persons in CFF format.
+\item \code{\link[=as_cff_person]{as_cff_person()}}: Recommended way to create CFF person metadata.
 }
 
 Learn more about the \CRANpkg{cffr} class system in \link{cff_class}.
 
-Coercing between \strong{R} classes with \strong{S3 Methods}:
+Coerce between \R classes:
 \code{\link[=as_bibentry]{as_bibentry()}},
 \code{\link[=as_cff_person]{as_cff_person()}},
 \code{\link{cff_class}}

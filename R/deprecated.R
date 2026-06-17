@@ -1,24 +1,25 @@
-#' Previous API: Create BibTeX entries from several sources
+#' Previous API: Create BibTeX entries from multiple sources
 #'
 #' @description
-#' `r lifecycle::badge('deprecated')` Please use [as_bibentry()] instead.
+#' `r lifecycle::badge('deprecated')` Use [as_bibentry()] instead.
 #'
-#' @rdname deprecated_cff_to_bib
 #' @inheritParams as_bibentry
-#' @export
-#' @encoding UTF-8
-#' @keywords internal
-#' @family deprecated
 #'
 #' @return See [as_bibentry()].
+#'
+#' @family deprecated
+#' @rdname deprecated_cff_to_bib
+#' @keywords internal
+#' @export
+#' @encoding UTF-8
 #' @examples
 #' \donttest{
-#' # From a cff object
+#' # From a `cff` object.
 #' cff_object <- cff()
 #'
 #' cff_object
 #'
-#' # bibentry object
+#' # A bibentry object.
 #' bib <- as_bibentry(cff_object)
 #' }
 cff_extract_to_bibtex <- function(
@@ -36,9 +37,9 @@ cff_extract_to_bibtex <- function(
 }
 
 #' @rdname deprecated_cff_to_bib
+#' @keywords internal
 #' @export
 #' @encoding UTF-8
-#' @keywords internal
 cff_to_bibtex <- function(x, what = c("preferred", "references", "all")) {
   if (requireNamespace("lifecycle", quietly = TRUE)) {
     lifecycle::deprecate_warn(
@@ -53,28 +54,24 @@ cff_to_bibtex <- function(x, what = c("preferred", "references", "all")) {
 #' Previous API: Create a [`cff`] object from BibTeX entries
 #'
 #' @description
-#'
-#' `r lifecycle::badge('deprecated')` Please use either [cff_read_bib()] or
-#' [cff_read_bib_text()] instead.
-#'
-#' @rdname deprecated_cff_from_bib
-#' @export
-#' @encoding UTF-8
-#' @keywords internal
-#' @family deprecated
+#' `r lifecycle::badge('deprecated')` Use either [cff_read_bib()] or
+#' [cff_read_bib_text()].
 #'
 #' @param x The source used to generate the
-#'   [`cff`] object. Must be a `character` object indicating either:
+#'   [`cff`] object. It must be a `character` object indicating either:
 #'   - The path to a BibTeX file.
 #'   - A vector of characters with a complete BibTeX string. See **Examples**.
-#' @param encoding Encoding to be assumed for `x`. See [readLines()].
-#' @param ... Other arguments passed to [bibtex::read.bib()].
+#' @inheritParams cff_read_bib_text
 #'
 #' @return
-#'
 #' See [cff_read_bib()] for reading `*.bib` files and [cff_read_bib_text()]
 #' for reading a `character` object representing a BibTeX entry.
 #'
+#' @family deprecated
+#' @rdname deprecated_cff_from_bib
+#' @keywords internal
+#' @export
+#' @encoding UTF-8
 #' @examples
 #' if (requireNamespace("bibtex", quietly = TRUE)) {
 #'   x <- c(
@@ -98,7 +95,7 @@ cff_to_bibtex <- function(x, what = c("preferred", "references", "all")) {
 #'
 #'   cff_read_bib_text(x)
 #'
-#'   # From a file
+#'   # From a file.
 #'
 #'   x2 <- system.file("examples/example.bib", package = "cffr")
 #'   cff_read_bib(x2)
@@ -106,14 +103,10 @@ cff_to_bibtex <- function(x, what = c("preferred", "references", "all")) {
 cff_from_bibtex <- function(x, encoding = "UTF-8", ...) {
   if (length(x) == 1 && file_exist_abort(x)) {
     if (requireNamespace("lifecycle", quietly = TRUE)) {
-      lifecycle::deprecate_warn(
-        "1.0.0",
-        "cff_from_bibtex()",
-        "cff_read_bib()"
-      )
+      lifecycle::deprecate_warn("1.0.0", "cff_from_bibtex()", "cff_read_bib()")
     }
 
-    # Read bib file
+    # Read the BibTeX file.
     return(cff_read_bib(x, encoding = encoding, ...))
   }
 
@@ -127,29 +120,26 @@ cff_from_bibtex <- function(x, encoding = "UTF-8", ...) {
   cff_read_bib_text(x, encoding = encoding, ...)
 }
 
-
 #' Previous API: Write files
 #'
 #' @description
+#' `r lifecycle::badge('deprecated')` Use [cff_write_bib()] or
+#' [cff_write_citation()].
 #'
-#' `r lifecycle::badge('deprecated')` Please use [cff_write_bib()] or
-#' [cff_write_citation()] instead.
-#'
-#' @rdname deprecated_write
-#' @export
-#' @encoding UTF-8
-#' @keywords internal
-#' @family deprecated
 #' @inheritParams cff_write_bib
 #'
-#' @return Write a file.
+#' @return Writes a file.
 #'
 #' @seealso
 #' - [cff_write_bib()] for writing `*.bib` files.
-#' - [cff_write_citation()] for writing **R** `CITATION` files.
+#' - [cff_write_citation()] for writing \R `CITATION` files.
 #'
+#' @family deprecated
+#' @rdname deprecated_write
+#' @keywords internal
+#' @export
+#' @encoding UTF-8
 #' @examples
-#'
 #' bib <- bibentry("Misc",
 #'   title = "My title",
 #'   author = "Fran Pérez"
@@ -172,11 +162,7 @@ write_bib <- function(
   ascii = FALSE
 ) {
   if (requireNamespace("lifecycle", quietly = TRUE)) {
-    lifecycle::deprecate_warn(
-      "1.0.0",
-      "write_bib()",
-      "cff_write_bib()"
-    )
+    lifecycle::deprecate_warn("1.0.0", "write_bib()", "cff_write_bib()")
   }
 
   cff_write_bib(x, file, append, verbose, ascii)
@@ -202,28 +188,27 @@ write_citation <- function(
   cff_write_citation(x, file, append, verbose, ...)
 }
 
-
 #' Previous API: Parse a `person` to [`cff`]
 #'
 #' @description
+#' `r lifecycle::badge('deprecated')` Use [as_cff_person()] instead.
 #'
-#' `r lifecycle::badge('deprecated')` Please use [as_cff_person()]
-#'
-#' @rdname deprecated_cff_person
-#' @export
-#' @encoding UTF-8
-#' @keywords internal
-#' @family deprecated
 #' @param person It can be either:
-#'   - A `person` or list of `person` object created with [utils::person()].
+#'   - A `person` object or list of `person` objects created with
+#'     [utils::person()].
 #'   - A `character` object or vector representing a person or persons.
 #'
-#' @return A person in format `cff`.
+#' @return A person in `cff` format.
 #'
 #' @seealso [as_cff_person()]
 #'
+#' @family deprecated
+#' @rdname deprecated_cff_person
+#' @keywords internal
+#' @export
+#' @encoding UTF-8
 #' @examples
-#' # Create a person object
+#' # Create a person object.
 #' a_person <- person(
 #'   given = "First", family = "Author",
 #'   role = c("aut", "cre"),
@@ -239,22 +224,22 @@ write_citation <- function(
 #'
 #' cff_person
 #'
-#' # Back to person object with S3 Method
+#' # Back to person object with S3 method.
 #' as.person(cff_person)
 #'
-#' # Parse a string
+#' # Parse a string.
 #' a_str <- paste0(
 #'   "Julio Iglesias <fake@email.com> ",
 #'   "(<https://orcid.org/0000-0001-8457-4658>)"
 #' )
 #' as_cff_person(a_str)
 #'
-#' # Several persons
+#' # Several persons.
 #' persons <- c(person("Clark", "Kent"), person("Lois", "Lane"))
 #'
 #' as_cff_person(persons)
 #'
-#' # Or you can use BibTeX style if you prefer
+#' # Or use BibTeX style.
 #'
 #' x <- "Frank Sinatra and Dean Martin and Davis, Jr., Sammy and Joey Bishop"
 #'
@@ -263,11 +248,7 @@ write_citation <- function(
 #' as_cff_person("Herbert von Karajan")
 cff_parse_person <- function(person) {
   if (requireNamespace("lifecycle", quietly = TRUE)) {
-    lifecycle::deprecate_warn(
-      "1.0.0",
-      "cff_parse_person()",
-      "as_cff_person()"
-    )
+    lifecycle::deprecate_warn("1.0.0", "cff_parse_person()", "as_cff_person()")
   }
   as_cff_person(person)
 }
@@ -287,29 +268,27 @@ cff_parse_person_bibtex <- function(person) {
   as_cff_person(person)
 }
 
-#' Previous API: Parse a `bibentry` to `cff`
+#' Previous API: Parse a `bibentry` object to `cff`
 #'
 #' @description
-#'
-#' `r lifecycle::badge('deprecated')` Please use [as_cff.bibentry()] method
-#'
-#' @rdname deprecated_cff_bibentry
-#' @export
-#' @encoding UTF-8
-#' @keywords internal
-#' @family deprecated
+#' `r lifecycle::badge('deprecated')` Use the [as_cff.bibentry()]
+#' method instead.
 #'
 #' @param bib A `bibentry` object.
-#' @return A `bibentry` in format [`cff`].
+#' @return A `bibentry` object in [`cff`] format.
 #'
 #' @seealso [as_cff.bibentry()]
 #'
+#' @family deprecated
+#' @rdname deprecated_cff_bibentry
+#' @keywords internal
+#' @export
+#' @encoding UTF-8
 #' @examples
-#'
 #' bib <- citation("base")
 #' bib
 #'
-#' # To cff
+#' # To cff.
 #' bib_to_cff <- as_cff(bib)
 #' bib_to_cff
 #'

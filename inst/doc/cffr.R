@@ -10,7 +10,7 @@ library(cffr)
 # 
 # cff_write()
 # 
-# # You are done!
+# # Done.
 
 
 ## -----------------------------------------------------------------------------
@@ -32,24 +32,24 @@ modobject <- cff_modify(
   url = "https://ropensci.org/",
   version = "0.0.1",
   repository = "https://github.com/ropensci/cffr",
-  # If the field is already present, it is overridden
+  # If the key is already present, it is overridden.
   title = "Modifying a 'cff' object"
 )
 
 modobject
 
-# Validate against the schema
+# Validate against the schema.
 
 cff_validate(modobject)
 
 
 ## -----------------------------------------------------------------------------
 #| label: includeauthor
-# Valid person keys
+# Valid person keys.
 
 cff_schema_definitions_person()
 
-# Create the person
+# Create the person.
 
 chiquito <- person(
   "Gregorio",
@@ -65,11 +65,11 @@ chiquito <- person(
 
 chiquito
 
-# To cff
+# Convert to `cff`.
 chiquito_cff <- as_cff_person(chiquito)
 chiquito_cff
 
-# Append to previous authors
+# Append to previous authors.
 
 newauthors <- c(modobject$authors, chiquito_cff)
 newauthors
@@ -83,11 +83,11 @@ cff_validate(newauthorobject)
 
 ## -----------------------------------------------------------------------------
 #| label: parsingcits
-# Valid reference keys
+# Valid reference keys.
 
 cff_schema_definitions_refs()
 
-# Auto coercion from another R package
+# Automatic coercion from another **R** package.
 base_r <- citation("base")
 
 bib <- bibentry(
@@ -103,7 +103,7 @@ refs <- c(base_r, bib)
 
 refs
 
-# Now to cff
+# Convert to `cff`.
 
 refs_cff <- as_cff(refs)
 
@@ -121,7 +121,7 @@ cff_validate(finalobject)
 
 ## -----------------------------------------------------------------------------
 #| label: write
-# For example
+# Create a temporary output file.
 tmp <- tempfile(fileext = ".cff")
 
 see_res <- cff_write(finalobject, outfile = tmp)
@@ -141,7 +141,7 @@ allkeys <- list(
   "url" = "https://ropensci.org/",
   "version" = "0.0.1",
   "repository" = "https://github.com/ropensci/cffr",
-  # If the field is already present, it is overridden
+  # If the key is already present, it is overridden.
   title = "Modifying a 'cff' object",
   authors = newauthors,
   references = refs_cff
@@ -156,7 +156,7 @@ res
 
 ## -----------------------------------------------------------------------------
 #| include: false
-# Clean temps
+# Clean temporary files.
 unlink(tmp)
 unlink(tmp2)
 

@@ -3,27 +3,23 @@
 #' @description
 #' Transform a UTF-8 string into LaTeX special characters.
 #'
+#' @param x A string, possibly encoded in UTF-8.
+#'
 #' @return A string with the corresponding transformations.
 #'
-#' @param x A string, possibly encoded in UTF-8 encoding system.
-#'
-#' @family bibtex
-#'
-#' @seealso [tools::encoded_text_to_latex()]
-#'
-#' @importFrom tools encoded_text_to_latex
-#'
 #' @details
-#'
 #' This is a variation of [tools::encoded_text_to_latex()] with some
 #' additional replacements for better compatibility.
 #'
+#' @seealso [tools::encoded_text_to_latex()]
+#'
+#' @family bibtex
 #' @keywords internal
+#' @importFrom tools encoded_text_to_latex
 #' @export
 #' @encoding UTF-8
-#'
 #' @examples
-#' # Full range of supported characters on R
+#' # Full range of supported characters in R.
 #' library(tools)
 #'
 #' range <- 1:511
@@ -33,12 +29,12 @@
 #'   utf8 = intToUtf8(range, multiple = TRUE)
 #' )
 #'
-#' # Add latex using base approach
+#' # Add LaTeX using the base approach.
 #' ascii_table$latex_base <- encoded_text_to_latex(ascii_table$utf8,
 #'   encoding = "UTF-8"
 #' )
 #'
-#' # With cffr
+#' # With cffr.
 #' ascii_table$latex_cffr <- encoded_utf_to_latex(ascii_table$utf8)
 #'
 #' ascii_table

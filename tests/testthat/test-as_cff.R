@@ -1,8 +1,5 @@
 test_that("as.cff still works", {
-  l <- list(
-    "cff-version" = "1.2.0",
-    title = "Manipulating files"
-  )
+  l <- list("cff-version" = "1.2.0", title = "Manipulating files")
 
   expect_silent(l1 <- as_cff(l))
   expect_silent(l2 <- as.cff(l))
@@ -183,20 +180,11 @@ test_that("Reading languages", {
   cff_lang <- cff_read(lang_file)
   expect_true(cff_validate(cff_lang, verbose = FALSE))
 
-  expect_identical(
-    cff_lang[["preferred-citation"]]$languages,
-    list("en")
-  )
+  expect_identical(cff_lang[["preferred-citation"]]$languages, list("en"))
 
-  expect_identical(
-    cff_lang[["references"]][[1]]$languages,
-    list("en")
-  )
+  expect_identical(cff_lang[["references"]][[1]]$languages, list("en"))
 
-  expect_identical(
-    cff_lang[["references"]][[2]]$languages,
-    c("en", "es", "fr")
-  )
+  expect_identical(cff_lang[["references"]][[2]]$languages, c("en", "es", "fr"))
 })
 
 test_that("Language round-trip", {
@@ -205,20 +193,11 @@ test_that("Language round-trip", {
   cff_lang <- cff_read(lang_file)
   expect_true(cff_validate(cff_lang, verbose = FALSE))
 
-  expect_identical(
-    cff_lang[["preferred-citation"]]$languages,
-    list("en")
-  )
+  expect_identical(cff_lang[["preferred-citation"]]$languages, list("en"))
 
-  expect_identical(
-    cff_lang[["references"]][[1]]$languages,
-    list("en")
-  )
+  expect_identical(cff_lang[["references"]][[1]]$languages, list("en"))
 
-  expect_identical(
-    cff_lang[["references"]][[2]]$languages,
-    c("en", "es", "fr")
-  )
+  expect_identical(cff_lang[["references"]][[2]]$languages, c("en", "es", "fr"))
 
   # Write
   tmp <- tempfile(fileext = ".cff")
@@ -228,20 +207,11 @@ test_that("Language round-trip", {
   cff_lang <- cff_read(tmp)
   expect_true(cff_validate(cff_lang, verbose = FALSE))
 
-  expect_identical(
-    cff_lang[["preferred-citation"]]$languages,
-    list("en")
-  )
+  expect_identical(cff_lang[["preferred-citation"]]$languages, list("en"))
 
-  expect_identical(
-    cff_lang[["references"]][[1]]$languages,
-    list("en")
-  )
+  expect_identical(cff_lang[["references"]][[1]]$languages, list("en"))
 
-  expect_identical(
-    cff_lang[["references"]][[2]]$languages,
-    c("en", "es", "fr")
-  )
+  expect_identical(cff_lang[["references"]][[2]]$languages, c("en", "es", "fr"))
 
   unlink(tmp)
 })

@@ -20,7 +20,7 @@ A \code{\link{cff}} object. Under the hood, a \code{cff} object is a regular \co
 object with a special \code{\link[=print.cff]{print}} method.
 }
 \description{
-A class and utility methods for reading, creating and holding CFF
+A class and utility methods for reading, creating and storing CFF
 information. See \link{cff_class} to learn more about \code{cff} objects.
 }
 \details{
@@ -53,10 +53,10 @@ Valid arguments are those specified on \code{\link[=cff_schema_keys]{cff_schema_
 }
 }
 \examples{
-# Blank cff
+# Blank `cff` object.
 cff()
 
-# Use custom params
+# Use custom parameters.
 test <- cff(
   title = "Manipulating files",
   keywords = c("A", "new", "list", "of", "keywords"),
@@ -64,23 +64,22 @@ test <- cff(
 )
 test
 \donttest{
-# Would fail
+# This would fail.
 cff_validate(test)
 }
 
-# Modify with cff_create
+# Modify with cff_create().
 new <- cff_create(test, keys = list(
   "cff_version" = "1.2.0",
   message = "A blank file"
 ))
 new
 
-# Would pass
+# This would pass.
 cff_validate(new)
-
 }
 \seealso{
-Other core functions of \CRANpkg{cffr}:
+Core \CRANpkg{cffr} workflow:
 \code{\link[=cff_create]{cff_create()}},
 \code{\link[=cff_modify]{cff_modify()}},
 \code{\link[=cff_validate]{cff_validate()}}

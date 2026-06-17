@@ -1708,7 +1708,7 @@
     Code
       cff(tittle = "a", cff_version = "ar", version = "200", messange = "Fix my keys")
     Message
-      i Found misspelled keys. Trying to map:
+      i Found misspelled keys, trying to map them:
       v tittle: title
       v messange: message
     Output
@@ -1723,7 +1723,7 @@
       cffobj <- cff(tittle = "a", cff_version = "1.2.0", version = "200", messange = "aa",
         anthor = list(list(`family-names` = "a", `given-names` = "b")))
     Message
-      i Found misspelled keys. Trying to map:
+      i Found misspelled keys, trying to map them:
       v tittle: title
       v messange: message
       v anthor: authors
@@ -1733,11 +1733,11 @@
     Code
       ss <- cff(tittle = "a", tittle = "ar", version = "200", messange = "Fix my keys")
     Message
-      i Found misspelled keys. Trying to map:
+      i Found misspelled keys, trying to map them:
       v tittle: title
       v tittle: title
       v messange: message
-      ! Removing duplicated keys.
+      ! Removing duplicate keys.
 
 # unnamed
 
@@ -1748,7 +1748,7 @@
       The `path` argument of `cff()` is deprecated as of cffr 1.0.0.
       i Argument ignored.
       Error in `validate_extra_keys()`:
-      ! Elements in `...` should be named.
+      ! Elements in `...` must be named.
 
 ---
 
@@ -1759,8 +1759,8 @@
       The `path` argument of `cff()` is deprecated as of cffr 1.0.0.
       i Argument ignored.
     Message
-      ! Found 1 not-named argument in position 2.
-      i Removing unnamed arguments
+      ! Found 1 unnamed argument in position 2.
+      i Removing unnamed arguments.
 
 ---
 
@@ -1772,6 +1772,6 @@
       The `path` argument of `cff()` is deprecated as of cffr 1.0.0.
       i Argument ignored.
     Message
-      ! Found 6 not-named arguments in positions 2, 3, 4, 5, 7, and 8.
-      i Removing unnamed arguments
+      ! Found 6 unnamed arguments in positions 2, 3, 4, 5, 7, and 8.
+      i Removing unnamed arguments.
 

@@ -3,9 +3,9 @@
     Code
       s <- as_bibentry(x)
     Message
-      x Can't convert to `bibentry()`: 
+      x Cannot convert to `utils::bibentry()`.
       i A bibentry of bibtype 'Book' has to specify the field: publisher
-      ! Returning empty <bibentry>
+      ! Returning an empty <bibentry>.
 
 # preferred-citation-book
 

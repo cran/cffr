@@ -1,24 +1,21 @@
-#' Coerce lists, `person` and `bibentry` objects to [`cff`]
+#' Coerce lists and citation objects to [`cff`]
 #'
 #' @description
-#' `as_cff()` turns an existing list-like **R** object into a so-called
-#' [`cff`], a list with class `cff`, with the corresponding
-#' [sub-class][cff_class] if applicable.
+#' `as_cff()` turns an existing list-like \R object into a [`cff`] object,
+#' a list with class `cff` and the corresponding [subclass][cff_class] when
+#' applicable.
 #'
-#' `as_cff` is an S3 generic, with methods for:
+#' `as_cff()` is an S3 generic, with methods for:
 #' - `person` objects as produced by [utils::person()].
 #' - `bibentry` objects as produced by [utils::bibentry()].
 #' - `Bibtex` objects as produced by [toBibtex()].
 #' - Default: Other inputs are first coerced with [as.list()].
 #'
-#' @param x A `person`, `bibentry` or other object that could be coerced to a
+#' @param x A `person`, `bibentry` or other object that can be coerced to a
 #'   list.
-#' @param ... Additional arguments to be passed on to other methods.
-#'
-#' @rdname as_cff
+#' @param ... Additional arguments passed on to other methods.
 #'
 #' @return
-#'
 #' - `as_cff.person()` returns an object with classes
 #'   [`cff_pers_lst, cff`][cff_pers_lst].
 #' - `as_cff.bibentry()` and `as_cff.Bibtex()` return an object with classes
@@ -30,31 +27,30 @@
 #'
 #' Learn more about the \CRANpkg{cffr} class system in [cff_class].
 #'
-#' @family s3method
-#'
 #' @details
 #' For `as_cff.bibentry()` and `as_cff.Bibtex()`, see
-#' `vignette("bibtex_cff", "cffr")` to understand how the mapping is performed.
+#' `vignette("bibtex-cff", package = "cffr")` to understand how the mapping is
+#' performed.
 #'
-#' [as_cff_person()] is preferred over `as_cff.person()`, since it can handle
+#' [as_cff_person()] is preferred over `as_cff.person()` because it can handle
 #' `character` inputs such as `"Davis, Jr., Sammy"`. For `person` objects both
-#' functions are similar.
+#' functions behave similarly.
 #'
 #' @seealso
 #' - [cff()]: Create a full `cff` object from scratch.
 #' - [cff_modify()]: Modify a `cff` object.
-#' - [cff_create()]: Create a `cff` object for an **R** package.
+#' - [cff_create()]: Create a `cff` object for an \R package.
 #' - [cff_read()]: Create a `cff` object from an external file.
-#' - [as_cff_person()]: Recommended way to create persons in CFF format.
+#' - [as_cff_person()]: Recommended way to create CFF person metadata.
 #'
 #' Learn more about the \CRANpkg{cffr} class system in [cff_class].
 #'
+#' @family s3method
+#' @rdname as_cff
 #' @export
 #' @encoding UTF-8
-#'
 #' @examples
-#'
-#' # Convert a list to "cff" object
+#' # Convert a list to a `cff` object.
 #' cffobj <- as_cff(list(
 #'   "cff-version" = "1.2.0",
 #'   title = "Manipulating files"
@@ -62,17 +58,17 @@
 #'
 #' class(cffobj)
 #'
-#' # Nice display thanks to yaml package
+#' # Nice display thanks to the yaml package.
 #' cffobj
 #'
-#' # bibentry method
+#' # `bibentry` method.
 #' a_cit <- citation("cffr")[[1]]
 #'
 #' a_cit
 #'
 #' as_cff(a_cit)
 #'
-#' # Bibtex method
+#' # BibTeX method.
 #' a_bib <- toBibtex(a_cit)
 #'
 #' a_bib
@@ -90,12 +86,11 @@ as_cff.default <- function(x, ...) {
   as_cff(as.list(x), ...)
 }
 
-
 #' @rdname as_cff
 #' @export
 #' @encoding UTF-8
 as_cff.list <- function(x, ...) {
-  # Clean up empty values on top
+  # Clean up empty top-level values.
   clean_up <- vapply(x, is.null, FUN.VALUE = logical(1))
   x_clean <- x[!clean_up]
   new_cff(x_clean)
@@ -107,7 +102,6 @@ as_cff.list <- function(x, ...) {
 as_cff.person <- function(x, ...) {
   as_cff_person(x)
 }
-
 
 #' @rdname as_cff
 #' @export
@@ -121,7 +115,7 @@ as_cff.bibentry <- function(x, ...) {
 
   cff_refs <- as_cff(cff_ref, ...)
 
-  # Add clases
+  # Add classes.
   cff_refs_class <- lapply(cff_refs, function(x) {
     class(x) <- c("cff_ref", "cff")
     x
@@ -140,7 +134,7 @@ as_cff.Bibtex <- function(x, ...) {
   abib <- cff_read_bib(tmp)
   cff_refs <- as_cff(abib, ...)
 
-  # Add clases
+  # Add classes.
   cff_refs_class <- lapply(cff_refs, function(x) {
     class(x) <- c("cff_ref", "cff")
     x
@@ -151,16 +145,16 @@ as_cff.Bibtex <- function(x, ...) {
 }
 
 # nolint start
-#' @export
-#' @encoding UTF-8
 #' @rdname as_cff
 #' @usage NULL
+#' @export
+#' @encoding UTF-8
 as.cff <- function(x) {
   as_cff(x)
 }
 # nolint end
 
-# Helper----
+# Helper ----
 
 #' Recursively clean lists
 #'
@@ -174,7 +168,6 @@ rapply_drop_null <- function(x) {
     x
   }
 }
-
 
 rapply_class <- function(x) {
   if (is_named(x)) {
@@ -198,28 +191,24 @@ rapply_class <- function(x) {
       class(xelement) <- c("cff_pers_lst", "cff")
     }
 
-    # Languages: handle single value
-    if (all(guess == "cff_ref", "languages" %in% names(xelement))) {
-      if (length(xelement$languages) < 2) {
-        xelement$languages <- list(unlist(
-          xelement$languages,
-          use.names = FALSE
-        ))
-      }
+    # Handle single-value languages.
+    if (
+      (all(guess == "cff_ref", "languages" %in% names(xelement))) &&
+        (length(xelement$languages) < 2)
+    ) {
+      xelement$languages <- list(unlist(
+        xelement$languages,
+        use.names = FALSE
+      ))
     }
 
     if (guess == "cff_ref_lst") {
       xelement <- lapply(xelement, function(j) {
         j_in <- rapply_class(j)
         class(j_in) <- c("cff_ref", "cff")
-        # Languages: handle single value
-        if ("languages" %in% names(j_in)) {
-          if (length(j_in$languages) < 2) {
-            j_in$languages <- list(unlist(
-              j_in$languages,
-              use.names = FALSE
-            ))
-          }
+        # Handle single-value languages.
+        if (("languages" %in% names(j_in)) && (length(j_in$languages) < 2)) {
+          j_in$languages <- list(unlist(j_in$languages, use.names = FALSE))
         }
         j_in
       })
@@ -237,9 +226,9 @@ rapply_class <- function(x) {
 }
 
 # https://adv-r.hadley.nz/s3.html#s3-constructor
-# Constructor
+# Constructor.
 new_cff <- function(x) {
-  # Clean all strings recursively
+  # Clean all strings recursively.
 
   x <- rapply(
     x,
@@ -252,18 +241,18 @@ new_cff <- function(x) {
     how = "list"
   )
 
-  # Remove NULLs
+  # Remove `NULL` values.
   x <- drop_null(x)
 
-  # Remove duplicated names if named
+  # Remove duplicate names if named.
   if (is_named(x)) {
     x <- x[!duplicated(names(x))]
   }
 
-  # Now apply drop null to nested lists
+  # Apply drop null to nested lists.
   x <- lapply(x, rapply_drop_null)
 
-  # Reclass nested
+  # Reclass nested values.
   guess_x <- guess_cff_part(x)
   if (guess_x == "cff_ref_lst") {
     x2 <- lapply(x, function(j) {

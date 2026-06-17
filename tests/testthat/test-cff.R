@@ -66,10 +66,7 @@ test_that("Fuzzy matching of keys on cff", {
       cff_version = "1.2.0",
       version = "200",
       messange = "aa",
-      anthor = list(list(
-        "family-names" = "a",
-        "given-names" = "b"
-      ))
+      anthor = list(list("family-names" = "a", "given-names" = "b"))
     )
   )
 
@@ -78,6 +75,7 @@ test_that("Fuzzy matching of keys on cff", {
 })
 
 test_that("duplicated", {
+  # jarl-ignore-start duplicated_arguments: Testing edge case.
   expect_snapshot(
     ss <- cff(
       tittle = "a",
@@ -86,20 +84,14 @@ test_that("duplicated", {
       messange = "Fix my keys"
     )
   )
+  # jarl-ignore-end duplicated_arguments
 
   expect_s3_class(ss, "cff")
   expect_length(ss, 3)
 })
 
 test_that("unnamed", {
-  expect_snapshot(
-    ss <- cff(
-      path = "a",
-      "200",
-      "Fix my keys"
-    ),
-    error = TRUE
-  )
+  expect_snapshot(ss <- cff(path = "a", "200", "Fix my keys"), error = TRUE)
 
   expect_snapshot(s1 <- cff(path = NULL, title = "a", "b", version = 1))
   expect_snapshot(

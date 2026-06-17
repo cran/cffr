@@ -9,10 +9,10 @@ library(cffr)
 #| tbl-cap: "cffr and R packages: Conversion table"
 keys <- cff_schema_keys(sorted = TRUE)
 origin <- vector(length = length(keys))
-origin[keys == "cff-version"] <- "argument on function"
+origin[keys == "cff-version"] <- "function argument"
 origin[keys == "type"] <- "Fixed value: 'software'"
-origin[keys == "identifiers"] <- "DESCRIPTION/CITATION files"
-origin[keys == "references"] <- "DESCRIPTION/CITATION files"
+origin[keys == "identifiers"] <- "DESCRIPTION and inst/CITATION"
+origin[keys == "references"] <- "DESCRIPTION and inst/CITATION"
 
 origin[
   keys %in%
@@ -39,7 +39,7 @@ origin[
       "doi",
       "preferred-citation"
     )
-] <- "CITATION file"
+] <- "inst/CITATION"
 
 origin[origin == "FALSE"] <- "Ignored by cffr"
 
@@ -55,11 +55,11 @@ knitr::kable(df, escape = FALSE)
 #| label: abstract
 library(cffr)
 
-# Create cffr for yaml
+# Create a `cff` object for YAML.
 
 cff_obj <- cff_create("rmarkdown")
 
-# Get DESCRIPTION of rmarkdown to check
+# Get the DESCRIPTION of **rmarkdown** to check.
 
 pkg <- desc::desc(file.path(find.package("rmarkdown"), "DESCRIPTION"))
 
@@ -70,18 +70,18 @@ cat(pkg$get("Description"))
 
 ## -----------------------------------------------------------------------------
 #| label: authors
-# An example DESCRIPTION
+# An example DESCRIPTION.
 path <- system.file("examples/DESCRIPTION_many_persons", package = "cffr")
 pkg <- desc::desc(path)
 
-# See persons listed
+# See the listed persons.
 pkg$get_authors()
 
-# Default behaviour, use authors and creators (maintainers)
+# Default behavior: use authors and creators (maintainers).
 cff_obj <- cff_create(path)
 cff_obj$authors
 
-# Use now Copyright holders and maintainers
+# Use copyright holders and maintainers.
 cff_obj_alt <- cff_create(path, authors_roles = c("cre", "cph"))
 cff_obj_alt$authors
 
@@ -95,11 +95,11 @@ cat(cff_objv110$`cff-version`)
 
 ## -----------------------------------------------------------------------------
 #| label: commit
-# An example DESCRIPTION
+# An example DESCRIPTION.
 path <- system.file("examples/DESCRIPTION_r_universe", package = "cffr")
 pkg <- desc::desc(path)
 
-# See RemoteSha
+# See `RemoteSha`.
 pkg$get("RemoteSha")
 
 cff_read(path)
@@ -117,7 +117,7 @@ pkg$get_author()
 
 ## -----------------------------------------------------------------------------
 #| label: date-released
-# From an installed package
+# Use an installed package.
 
 cff_obj <- cff_create("rmarkdown")
 pkg <- desc::desc(file.path(find.package("rmarkdown"), "DESCRIPTION"))
@@ -126,22 +126,22 @@ cat(pkg$get("Date/Publication"))
 
 cat(cff_obj$`date-released`)
 
-# A DESCRIPTION file without a Date
+# A DESCRIPTION file without a `Date`.
 nodate <- system.file("examples/DESCRIPTION_basic", package = "cffr")
 tmp <- tempfile("DESCRIPTION")
 
-# Create a temporary file
+# Create a temporary file.
 file.copy(nodate, tmp)
 
 pkgnodate <- desc::desc(tmp)
 cffnodate <- cff_create(tmp)
 
-# Won't appear
+# No value is returned.
 cat(cffnodate$`date-released`)
 
 pkgnodate
 
-# Adding a Date
+# Add a `Date`.
 
 desc::desc_set("Date", "1999-01-01", file = tmp)
 
@@ -178,18 +178,18 @@ cff_create(file)$identifiers
 nokeywords <- system.file("examples/DESCRIPTION_basic", package = "cffr")
 tmp2 <- tempfile("DESCRIPTION")
 
-# Create a temporary file
+# Create a temporary file.
 file.copy(nokeywords, tmp2)
 
 pkgnokeywords <- desc::desc(tmp2)
 cffnokeywords <- cff_create(tmp2)
 
-# Won't appear
+# No value is returned.
 cat(cffnokeywords$keywords)
 
 pkgnokeywords
 
-# Adding Keywords
+# Add keywords.
 
 desc::desc_set(
   "X-schema.org-keywords",
@@ -202,18 +202,18 @@ cat(cff_create(tmp2)$keywords)
 
 ## -----------------------------------------------------------------------------
 #| label: ghkeyword
-# Get cff object from jsonvalidate
+# Get a `cff` object from **jsonvalidate**.
 
 jsonval <- cff_create("jsonvalidate")
 
-# Keywords are retrieved from the GitHub repo
+# Keywords are retrieved from the GitHub repository.
 
 jsonval
 
-# Check keywords
+# Check keywords.
 jsonval$keywords
 
-# The repo
+# The repository.
 jsonval$`repository-code`
 
 
@@ -263,13 +263,13 @@ citation("rmarkdown")[-1]
 
 ## -----------------------------------------------------------------------------
 #| label: repository
-# Installed package
+# Use an installed package.
 
 inst <- cff_create("jsonlite")
 
 cat(inst$repository)
 
-# Demo file downloaded from the r-universe
+# Demo file downloaded from the r-universe.
 
 runiv <- system.file("examples/DESCRIPTION_r_universe", package = "cffr")
 runiv_cff <- cff_create(runiv)
@@ -278,21 +278,21 @@ cat(runiv_cff$repository)
 
 desc::desc(runiv)$get("Repository")
 
-# For in development package
+# For an in-development package.
 
 norepo <- system.file("examples/DESCRIPTION_basic", package = "cffr")
 
-# No repo
+# No repository is available.
 norepo_cff <- cff_create(norepo)
 
 cat(norepo_cff[["repository"]])
 
-# Change the name to a known package on CRAN: ggplot2
+# Change the name to a known package on CRAN: ggplot2.
 
 tmp <- tempfile("DESCRIPTION")
 file.copy(norepo, tmp)
 
-# Change name
+# Change the package name.
 desc::desc_set("Package", "ggplot2", file = tmp)
 
 cat(cff_create(tmp)[["repository"]])
@@ -300,7 +300,7 @@ cat(cff_create(tmp)[["repository"]])
 
 ## -----------------------------------------------------------------------------
 #| label: repository-code
-# Installed package on GitHub
+# Installed package on GitHub.
 
 cat(cff_create("jsonlite")$`repository-code`)
 
@@ -324,19 +324,19 @@ cat(cff_create(codeberg)$`repository-code`)
 
 ## -----------------------------------------------------------------------------
 #| label: title
-# Installed package
+# Use an installed package.
 
 cat(cff_create("testthat")$title)
 
 
 ## -----------------------------------------------------------------------------
 #| label: url
-# Many urls
+# Many URLs.
 manyurls <- system.file("examples/DESCRIPTION_many_urls", package = "cffr")
 
 cat(cff_create(manyurls)$url)
 
-# Check
+# Check the source metadata.
 
 desc::desc(manyurls)
 
@@ -344,6 +344,6 @@ desc::desc(manyurls)
 ## -----------------------------------------------------------------------------
 #| label: version
 #| code-fold: false
-# Should be (>= 3.0.0)
+# Should be (>= 3.0.0).
 cat(cff_create("testthat")$version)
 

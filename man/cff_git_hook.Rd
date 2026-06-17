@@ -42,12 +42,12 @@ be triggered even if you have attempted to update your \code{CITATION.cff} file.
 
 This typically occurs when you have updated your \code{DESCRIPTION} or
 \code{inst/CITATION} files, but those changes do not affect your
-\code{CITATION.cff} file (for example, you are adding new dependencies).
+\code{CITATION.cff} file, for example, when you add new dependencies.
 
 In those cases, you can override the check by running
 \verb{git commit --no-verify} in the terminal.
 
-If you are using \strong{RStudio}, you can also run this command from an \strong{R}
+If you are using \strong{RStudio}, you can also run this command from an \R
 script by selecting that line and sending it to the terminal using:
 \itemize{
 \item Windows & Linux: \code{Ctrl+Alt+Enter}.
@@ -69,11 +69,11 @@ cff_git_hook_install()
 \itemize{
 \item \code{\link[usethis:use_git_hook]{usethis::use_git_hook()}}, which is the underlying function used by
 \code{cff_git_hook_install()}.
-\item \code{\link[usethis:use_git]{usethis::use_git()}} and related function of \CRANpkg{usethis} for using
-Git with \strong{R} packages.
+\item \code{\link[usethis:use_git]{usethis::use_git()}} and related functions of \CRANpkg{usethis} for using
+Git with \R packages.
 }
 
-Other Git/GitHub helpers provided by \CRANpkg{cffr}:
+Keep \file{CITATION.cff} up to date:
 \code{\link[=cff_gha_update]{cff_gha_update()}}
 }
 \concept{git}

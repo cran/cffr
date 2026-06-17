@@ -1,11 +1,10 @@
 #' Read an external file as a [`cff`] object
 #'
 #' @description
-#' Read files and convert them to [`cff`] objects. Files supported
-#' are:
+#' Read files and convert them to [`cff`] objects. Supported files are:
 #' - `CITATION.cff` files.
 #' - `DESCRIPTION` files.
-#' - **R** citation files (usually located in `inst/CITATION`).
+#' - \R citation files (usually located in `inst/CITATION`).
 #' - BibTeX files (with extension `*.bib`).
 #'
 #' [cff_read()] attempts to guess the type of file provided in `path`. However,
@@ -16,33 +15,20 @@
 #' - [cff_read_bib()], which requires \CRANpkg{bibtex} (>= 0.5.0) and uses
 #'   [bibtex::read.bib()].
 #'
-#' @export
-#' @encoding UTF-8
-#' @rdname cff_read
-#' @family reading
-#' @seealso
-#'
-#' The underlying functions used for reading external files:
-#' - [yaml::read_yaml()] for `CITATION.cff` files.
-#' - [desc::desc()] for `DESCRIPTION` files.
-#' - [utils::readCitationFile()] for **R** citation files.
-#' - [bibtex::read.bib()] for BibTeX files (extension `*.bib`).
-#'
-#' @param path Path to a file.
+#' @param path A path to a file.
 #' @param encoding Encoding to be assumed for `path`. See [readLines()].
 #' @param meta A list of package metadata as obtained by
 #'   [utils::packageDescription()] or `NULL` (the default). See **Details**.
-#' @param ... Arguments to be passed to other functions, for example to
+#' @param ... Arguments passed to other functions, for example to
 #'   [yaml::read_yaml()] or [bibtex::read.bib()].
 #'
 #' @inheritParams cff_create
 #'
 #' @return
-#'
-#' * `cff_read_cff_citation()` and `cff_read_description()` return an object
+#' - `cff_read_cff_citation()` and `cff_read_description()` return an object
 #'   with class `cff`.
-#' * `cff_read_citation()` and `cff_read_bib()` return an object of classes
-#'   [`cff_ref_lst, cff`][cff_ref_lst] according to the `definitions.references`
+#' - `cff_read_citation()` and `cff_read_bib()` return an object of classes
+#'   [`cff_ref_lst, cff`][cff_ref_lst] according to the `definitions.reference`
 #'   specified in the
 #' ```{r, echo=FALSE, results='asis'}
 #'
@@ -54,8 +40,17 @@
 #'
 #' Learn more about the \CRANpkg{cffr} class system in [cff_class].
 #'
-#' @references
+#' @details
+#' For details of `cff_read_description()`, see [cff_create()].
 #'
+#' ## The `meta` object
+#'
+#' Section 1.9 CITATION files of *Writing R Extensions* (R Core Team 2023)
+#' specifies how to create dynamic `CITATION` files using a `meta` object.
+#' Therefore, the `meta` argument in [cff_read_citation()] may be needed to
+#' read some files correctly.
+#'
+#' @references
 #' - R Core Team (2023). _Writing R Extensions_.
 #'   <https://cran.r-project.org/doc/manuals/r-release/R-exts.html>
 #'
@@ -63,54 +58,51 @@
 #'   *The cffr package, Vignettes*. \doi{10.21105/joss.03900},
 #'   <https://docs.ropensci.org/cffr/articles/bibtex-cff.html>.
 #'
-#' @details
+#' @seealso
+#' The underlying functions used for reading external files:
+#' - [yaml::read_yaml()] for `CITATION.cff` files.
+#' - [desc::desc()] for `DESCRIPTION` files.
+#' - [utils::readCitationFile()] for \R citation files.
+#' - [bibtex::read.bib()] for BibTeX files (extension `*.bib`).
 #'
-#' For details of `cff_read_description()` see [cff_create()].
-#'
-#' ## The `meta` object
-#'
-#' Section 1.9 CITATION files of *Writing R Extensions* (R Core Team 2023)
-#' specifies how to create dynamic `CITATION` files using `meta` object, hence
-#' the `meta` argument in [cff_read_citation()] may be needed for reading
-#' some files correctly.
-#'
+#' @family reading
+#' @rdname cff_read
+#' @export
+#' @encoding UTF-8
 #' @examples
-#'
-#' # Create cff object from cff file
-#'
+#' # Create a `cff` object from a `CITATION.cff` file.
 #' from_cff_file <- cff_read(system.file("examples/CITATION_basic.cff",
 #'   package = "cffr"
 #' ))
 #'
 #' head(from_cff_file, 7)
 #'
-#' # Create cff object from DESCRIPTION
+#' # Create a `cff` object from DESCRIPTION.
 #' from_desc <- cff_read(system.file("examples/DESCRIPTION_basic",
 #'   package = "cffr"
 #' ))
 #'
 #' from_desc
 #'
-#' # Create cff object from BibTex
-#'
+#' # Create a `cff` object from BibTeX.
 #' if (requireNamespace("bibtex", quietly = TRUE)) {
 #'   from_bib <- cff_read(system.file("examples/example.bib",
 #'     package = "cffr"
 #'   ))
 #'
-#'   # First item only
+#'   # First item only.
 #'   from_bib[[1]]
 #' }
-#' # Create cff object from CITATION
+#' # Create a `cff` object from CITATION.
 #' from_citation <- cff_read(system.file("CITATION", package = "cffr"))
 #'
-#' # First item only
+#' # First item only.
 #' from_citation[[1]]
 #'
 cff_read <- function(path, ...) {
   if (length(path) > 1) {
     cli::cli_abort(
-      "Use a single value, {.arg path} has length {.val {length(path)}}"
+      "Use a single value. {.arg path} has length {.val {length(path)}}."
     )
   }
 
@@ -118,12 +110,10 @@ cff_read <- function(path, ...) {
   filetype <- detect_x_source(path)
 
   if (filetype == "dontknow") {
-    cli::cli_abort(
-      paste0(
-        "Don't recognize the file type of {.file {path}}.",
-        " Use a specific function (e.g. {.fn cffr:cff_read_description}"
-      )
-    )
+    cli::cli_abort(paste0(
+      "Cannot recognize the file type of {.file {path}}.",
+      " Use a specific function, such as {.fn cffr::cff_read_description}."
+    ))
   }
 
   endobj <- switch(filetype,
@@ -131,22 +121,22 @@ cff_read <- function(path, ...) {
     "description" = cff_read_description(path, ...),
     "bib" = cff_read_bib(path, ...),
     "citation" = cff_read_citation(path, ...),
-    cli::cli_abort("Don't know how to read {.val {x}}.")
+    cli::cli_abort("Cannot read {.file {path}}.")
   )
 
   endobj
 }
 
+#' @rdname cff_read
 #' @export
 #' @encoding UTF-8
-#' @rdname cff_read
 cff_read_cff_citation <- function(path, ...) {
   file_exist_abort(path, abort = TRUE)
 
   cffobj <- yaml::read_yaml(
     path,
     ...,
-    # Read languages always as list (#105)
+    # Always read languages as a list (#105).
     handlers = list(map = function(x) {
       if (length(x$languages) == 1) {
         x$languages <- list(x$languages)
@@ -157,9 +147,9 @@ cff_read_cff_citation <- function(path, ...) {
   new_cff(cffobj)
 }
 
+#' @rdname cff_read
 #' @export
 #' @encoding UTF-8
-#' @rdname cff_read
 cff_read_description <- function(
   path,
   cff_version = "1.2.0",
@@ -200,44 +190,40 @@ cff_read_description <- function(
 
   if (gh_keywords) {
     ghtopics <- get_gh_topics(field_list)
-    field_list$keywords <- unique(c(field_list$keywords, ghtopics))
+    field_list$keywords <- desc_gh_keywords(field_list$keywords, ghtopics)
   }
 
   new_cff(field_list)
 }
 
+#' @rdname cff_read
 #' @export
 #' @encoding UTF-8
-#' @rdname cff_read
 cff_read_citation <- function(path, meta = NULL, ...) {
   file_exist_abort(path, abort = TRUE)
 
   if (!any(is.null(meta), inherits(meta, "packageDescription"))) {
     # nolint start
-    # Object for cli only
+    # Object for cli only.
     ex <- packageDescription("cffr")
     # nolint end
 
-    cli::cli_alert_warning(
-      paste0(
-        "{.arg meta} should be {.val NULL} or {.obj_type_friendly {ex}}",
-        " not {.obj_type_friendly {meta}}. Using {.arg meta = NULL}"
-      )
-    )
+    cli::cli_alert_warning(paste0(
+      "{.arg meta} must be {.val NULL} or {.obj_type_friendly {ex}}, ",
+      "not {.obj_type_friendly {meta}}. Using {.arg meta = NULL}."
+    ))
     meta <- NULL
   }
 
   new_meta <- clean_package_meta(meta)
   the_cit <- try(utils::readCitationFile(path, meta = new_meta), silent = TRUE)
 
-  # If error then new try
+  # If there is an error, try again.
   if (inherits(the_cit, "try-error")) {
-    cli::cli_alert_warning(
-      paste0(
-        "It was not possible to read {.file {path}} with the {.arg meta} ",
-        "provided. Trying with {.code packageDescription('base')}"
-      )
-    )
+    cli::cli_alert_warning(paste0(
+      "Could not read {.file {path}} with the provided {.arg meta}. ",
+      "Trying {.code packageDescription('base')}."
+    ))
     new_meta <- packageDescription("base")
     the_cit <- try(
       utils::readCitationFile(path, meta = new_meta),
@@ -246,7 +232,7 @@ cff_read_citation <- function(path, meta = NULL, ...) {
     # nocov start
     if (inherits(the_cit, "try-error")) {
       cli::cli_alert_danger(
-        "Can't read {.file path}, returning {.val NULL}"
+        "Cannot read {.file {path}}, returning {.val NULL}."
       )
       return(NULL)
     }
@@ -257,24 +243,24 @@ cff_read_citation <- function(path, meta = NULL, ...) {
   tocff
 }
 
-#' @export
-#' @encoding UTF-8
 #' @family bibtex
 #' @rdname cff_read
+#' @export
+#' @encoding UTF-8
 cff_read_bib <- function(path, encoding = "UTF-8", ...) {
   file_exist_abort(path, abort = TRUE)
 
   # nocov start
   if (!requireNamespace("bibtex", quietly = TRUE)) {
     msg <- paste0(
-      "{.pkg bibtex} package required for using this function: ",
+      "Package {.pkg bibtex} is required to use this function: ",
       '{.run install.packages("bibtex")}'
     )
     cli::cli_abort(msg)
   }
   # nocov end
 
-  # Read from tempfile
+  # Read from tempfile.
   read_bib <- bibtex::read.bib(file = path, encoding = encoding, ...)
 
   tocff <- as_cff(read_bib)
@@ -282,23 +268,23 @@ cff_read_bib <- function(path, encoding = "UTF-8", ...) {
 }
 
 # Internal safe ----
-#' Internal version of cff_read_citation, safe
+#' Internal safe version of cff_read_citation.
 #' @noRd
 cff_safe_read_citation <- function(desc_path, cit_path) {
   if (!file_exist_abort(cit_path) || !file_exist_abort(desc_path)) {
     return(NULL)
   }
-  # Create meta
+  # Create metadata.
   meta <- desc_to_meta(desc_path)
   meta <- clean_package_meta(meta)
 
   the_cit <- try(utils::readCitationFile(cit_path, meta = meta), silent = TRUE)
-  # Try
+  # Try to read the citation.
   if (inherits(the_cit, "try-error")) {
     return(NULL)
   }
 
-  # Need to be named here
+  # Need to be named here.
   tocff <- as_cff(the_cit)
   tocff
 }

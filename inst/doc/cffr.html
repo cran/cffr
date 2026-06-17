@@ -8,7 +8,7 @@
 
 <meta name="description" content="Learn how to modify cff objects.">
 
-<title>Manipulating Citations with cffr</title>
+<title>Manipulating citations with cffr</title>
 <style>
 
 code{white-space: pre-wrap;}
@@ -227,7 +227,7 @@ text-decoration: underline; }
 
 
 <header id="title-block-header">
-<h1 class="title">Manipulating Citations with cffr</h1>
+<h1 class="title">Manipulating citations with cffr</h1>
 
 </header>
 
@@ -236,24 +236,24 @@ text-decoration: underline; }
    
   <ul>
   <li><a href="#what-is-a-citation.cff-file" id="toc-what-is-a-citation.cff-file">What is a <code>CITATION.cff</code> file?</a></li>
-  <li><a href="#creating-a-citation.cff-file-for-my-r-package" id="toc-creating-a-citation.cff-file-for-my-r-package">Creating a <code>CITATION.cff</code> file for my R package</a></li>
+  <li><a href="#creating-a-citation.cff-file-for-your-r-package" id="toc-creating-a-citation.cff-file-for-your-r-package">Creating a <code>CITATION.cff</code> file for your R package</a></li>
   <li><a href="#modifying-your-citation.cff-file" id="toc-modifying-your-citation.cff-file">Modifying your <code>CITATION.cff</code> file</a>
   <ul>
-  <li><a href="#adding-new-fields" id="toc-adding-new-fields">Adding new fields</a></li>
+  <li><a href="#adding-new-keys" id="toc-adding-new-keys">Adding new keys</a></li>
   <li><a href="#persons-and-references" id="toc-persons-and-references">Persons and references</a></li>
   <li><a href="#create-your-modified-citation.cff-file" id="toc-create-your-modified-citation.cff-file">Create your modified <code>CITATION.cff</code> file</a></li>
   </ul></li>
   <li><a href="#references" id="toc-references">References</a></li>
   </ul>
 </nav>
-<p>The <strong>cffr</strong> package is designed for <strong>R</strong> package developers. The main goal of <strong>cffr</strong> is to create a <code>CITATION.cff</code> file using metadata from the following files:</p>
+<p><strong>cffr</strong> is designed for <strong>R</strong> package developers. Its main goal is to create a <code>CITATION.cff</code> file using metadata from the following files:</p>
 <ul>
 <li>Your <code>DESCRIPTION</code> file.</li>
-<li>If available, the citation information located in <code>inst/CITATION</code>.</li>
+<li>Citation information from <code>inst/CITATION</code>, when available.</li>
 </ul>
 <h2 id="what-is-a-citation.cff-file">What is a <code>CITATION.cff</code> file?</h2>
-<p><a href="https://citation-file-format.github.io/">Citation File Format (CFF)</a> <span class="citation" data-cites="druskat_citation_2021">(<a href="#ref-druskat_citation_2021" role="doc-biblioref">Druskat et al. 2021</a>)</span> (v1.2.0) files are plain text files with human- and machine-readable citation information for software (and datasets). Code developers can include them in their repositories to let others know how to correctly cite their software.</p>
-<p>This format is gaining popularity within the software citation ecosystem. Recently, <a href="https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-citation-files">GitHub</a>, <a href="https://citation-file-format.github.io/#/supported-by-zenodo-">Zenodo</a> and <a href="https://citation-file-format.github.io/#/supported-by-zotero-">Zotero</a> have fully supported this citation format <span class="citation" data-cites="druskat_stephan_making_2021">(<a href="#ref-druskat_stephan_making_2021" role="doc-biblioref">Druskat 2021</a>)</span>.</p>
+<p><a href="https://citation-file-format.github.io/">Citation File Format (CFF)</a> <span class="citation" data-cites="druskat_citation_2021">(<a href="#ref-druskat_citation_2021" role="doc-biblioref">Druskat et al. 2021</a>)</span> (v1.2.0) files are plain text files with human- and machine-readable citation information for software (and datasets). Software developers can include them in their repositories to let others know how to correctly cite their software.</p>
+<p>This format is increasingly used in the software citation ecosystem. <a href="https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-citation-files">GitHub</a>, <a href="https://citation-file-format.github.io/#/supported-by-zenodo-">Zenodo</a> and <a href="https://citation-file-format.github.io/#/supported-by-zotero-">Zotero</a> support this citation format <span class="citation" data-cites="druskat_stephan_making_2021">(<a href="#ref-druskat_stephan_making_2021" role="doc-biblioref">Druskat 2021</a>)</span>.</p>
 <p>GitHub support is of special interest:</p>
 <figure>
 <div class="quarto-figure quarto-figure-center">
@@ -269,27 +269,27 @@ text-decoration: underline; }
 <figcaption class="blockquote-footer">Nat Friedman (@natfriedman) July 27, 2021</figcaption>
 </figure>
 <p>See <a href="https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-citation-files">GitHub’s guide to CITATION files</a> for more information.</p>
-<h2 id="creating-a-citation.cff-file-for-my-r-package">Creating a <code>CITATION.cff</code> file for my R package</h2>
+<h2 id="creating-a-citation.cff-file-for-your-r-package">Creating a <code>CITATION.cff</code> file for your R package</h2>
 <p>Creating a <code>CITATION.cff</code> file with <strong>cffr</strong> is straightforward. You only need to run <code>cff_write()</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cffr)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cff_write</span>()</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># You are done!</span></span></code></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Done.</span></span></code></pre></div>
 </div>
-<p>Under the hood, <code>cff_write()</code> performs the following tasks:</p>
+<p>Under the hood, <code>cff_write()</code> performs these tasks:</p>
 <ul>
-<li>It extracts the metadata using <code>cff_create()</code>.</li>
+<li>Extracts the metadata using <code>cff_create()</code>.</li>
 <li>Optionally modifies it with <code>cff_modify()</code>.</li>
 <li>Writes a <code>CITATION.cff</code> file.</li>
 <li>Validates the result using <code>cff_validate()</code>.</li>
 </ul>
-<p>Congratulations! Now you have a full <code>CITATION.cff</code> file for your <strong>R</strong> package.</p>
+<p>You now have a complete <code>CITATION.cff</code> file for your <strong>R</strong> package.</p>
 <h2 id="modifying-your-citation.cff-file">Modifying your <code>CITATION.cff</code> file</h2>
-<p>You can easily customize the <code>cff</code> object (a custom <strong>cffr</strong> class) using the coercion system provided in the package, as well as the <code>keys</code> argument.</p>
-<p>We create a <code>cff</code> object using <code>cff()</code> (for demonstration only) and then add or modify its contents.</p>
-<h3 id="adding-new-fields">Adding new fields</h3>
+<p>You can customize a <code>cff</code> object (a custom <strong>cffr</strong> S3 class) using the coercion system provided in the package and the <code>keys</code> argument.</p>
+<p>For demonstration, we create a <code>cff</code> object using <code>cff()</code> and then add or modify its contents.</p>
+<h3 id="adding-new-keys">Adding new keys</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>newobject <span class="ot">&lt;-</span> <span class="fu">cff</span>()</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -301,7 +301,7 @@ text-decoration: underline; }
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - family-names: Doe</span></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   given-names: John</span></span></code></pre></div>
 </div>
-<p>The valid keys of the <a href="https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md">Citation File Format schema version 1.2.0</a> can be displayed with <code>cff_schema_keys()</code>:</p>
+<p>The valid keys from the <a href="https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md">Citation File Format schema version 1.2.0</a> can be displayed with <code>cff_schema_keys()</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cff_schema_keys</span>()</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;cff-version&quot;         &quot;message&quot;             &quot;type&quot;               </span></span>
@@ -312,14 +312,14 @@ text-decoration: underline; }
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [16] &quot;url&quot;                 &quot;date-released&quot;       &quot;contact&quot;            </span></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [19] &quot;keywords&quot;            &quot;references&quot;          &quot;license-url&quot;</span></span></code></pre></div>
 </div>
-<p>In this case, we add <code>url</code>, <code>version</code>, and <code>repository</code>. We also overwrite the <code>title</code> key. We add these arguments to <code>cff_modify()</code>:</p>
+<p>In this case, we add <code>url</code>, <code>version</code> and <code>repository</code>. We also overwrite the <code>title</code> key by passing these arguments to <code>cff_modify()</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>modobject <span class="ot">&lt;-</span> <span class="fu">cff_modify</span>(</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  newobject,</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">url =</span> <span class="st">&quot;https://ropensci.org/&quot;</span>,</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">version =</span> <span class="st">&quot;0.0.1&quot;</span>,</span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">repository =</span> <span class="st">&quot;https://github.com/ropensci/cffr&quot;</span>,</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># If the field is already present, it is overridden</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># If the key is already present, it is overridden.</span></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">&quot;Modifying a &#39;cff&#39; object&quot;</span></span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
@@ -334,17 +334,17 @@ text-decoration: underline; }
 <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; version: 0.0.1</span></span>
 <span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; repository: https://github.com/ropensci/cffr</span></span>
 <span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Validate against the schema</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Validate against the schema.</span></span>
 <span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="fu">cff_validate</span>(modobject)</span>
 <span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ══ Validating cff ══════════════════════════════════════════════════════════════</span></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ Congratulations! This &lt;cff&gt; is valid</span></span></code></pre></div>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ This &lt;cff&gt; is valid.</span></span></code></pre></div>
 </div>
 <h3 id="persons-and-references">Persons and references</h3>
-<p><strong>cffr</strong> provides two functions that convert <code>person</code> and <code>bibentry</code> objects (see <code>?person</code> and <code>?bibentry</code>) according to the <a href="https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md">Citation File Format schema</a>.</p>
+<p><strong>cffr</strong> provides two functions that convert <code>person</code> and <code>bibentry</code> objects (see <code>?person</code> and <code>?bibentry</code>) to objects that follow the <a href="https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md">Citation File Format schema</a>.</p>
 <p>Following the previous example, we first add a new author. To do that, we need to extract the current author of the package and append the coerced person:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Valid person keys</span></span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Valid person keys.</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cff_schema_definitions_person</span>()</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;address&quot;       &quot;affiliation&quot;   &quot;alias&quot;         &quot;city&quot;         </span></span>
@@ -352,7 +352,7 @@ text-decoration: underline; }
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [9] &quot;given-names&quot;   &quot;name-particle&quot; &quot;name-suffix&quot;   &quot;orcid&quot;        </span></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [13] &quot;post-code&quot;     &quot;region&quot;        &quot;tel&quot;           &quot;website&quot;</span></span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the person</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the person.</span></span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>chiquito <span class="ot">&lt;-</span> <span class="fu">person</span>(</span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Gregorio&quot;</span>,</span>
@@ -369,7 +369,7 @@ text-decoration: underline; }
 <span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>chiquito</span>
 <span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Gregorio Sánchez Fernández &lt;fake@email2.com&gt; (alias: Chiquito de la Calzada, city: Malaga, country: ES, ORCID: &lt;https://orcid.org/0000-0000-0000-0001&gt;)&quot;</span></span>
 <span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="co"># To cff</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to `cff`.</span></span>
 <span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>chiquito_cff <span class="ot">&lt;-</span> <span class="fu">as_cff_person</span>(chiquito)</span>
 <span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>chiquito_cff</span>
 <span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - family-names: Sánchez Fernández</span></span>
@@ -380,7 +380,7 @@ text-decoration: underline; }
 <span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   country: ES</span></span>
 <span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   orcid: https://orcid.org/0000-0000-0000-0001</span></span>
 <span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Append to previous authors</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Append to previous authors.</span></span>
 <span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>newauthors <span class="ot">&lt;-</span> <span class="fu">c</span>(modobject<span class="sc">$</span>authors, chiquito_cff)</span>
 <span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>newauthors</span>
@@ -416,11 +416,11 @@ text-decoration: underline; }
 <span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a><span class="fu">cff_validate</span>(newauthorobject)</span>
 <span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ══ Validating cff ══════════════════════════════════════════════════════════════</span></span>
-<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ Congratulations! This &lt;cff&gt; is valid</span></span></code></pre></div>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ This &lt;cff&gt; is valid.</span></span></code></pre></div>
 </div>
-<p>Now, we may want to add <code>references</code> to our data. In the following example, we add two references, one created with <code>bibentry()</code> and another with <code>citation()</code>:</p>
+<p>Next, we add <code>references</code> to our data. In the following example, we add two references, one created with <code>bibentry()</code> and another with <code>citation()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Valid reference keys</span></span>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Valid reference keys.</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cff_schema_definitions_refs</span>()</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;abbreviation&quot;        &quot;abstract&quot;            &quot;authors&quot;            </span></span>
@@ -448,7 +448,7 @@ text-decoration: underline; }
 <span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [67] &quot;version&quot;             &quot;volume&quot;              &quot;volume-title&quot;       </span></span>
 <span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [70] &quot;year&quot;                &quot;year-original&quot;</span></span>
 <span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Auto coercion from another R package</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Automatic coercion from another **R** package.</span></span>
 <span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>base_r <span class="ot">&lt;-</span> <span class="fu">citation</span>(<span class="st">&quot;base&quot;</span>)</span>
 <span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>bib <span class="ot">&lt;-</span> <span class="fu">bibentry</span>(</span>
@@ -470,7 +470,7 @@ text-decoration: underline; }
 <span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Lee L (1980). _This is a book_, volume 2. McGraw Hill.</span></span>
 <span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a><span class="co"># Now to cff</span></span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to `cff`.</span></span>
 <span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>refs_cff <span class="ot">&lt;-</span> <span class="fu">as_cff</span>(refs)</span>
 <span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a></span>
@@ -497,7 +497,7 @@ text-decoration: underline; }
 <span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     name: McGraw Hill</span></span>
 <span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   volume: &#39;2&#39;</span></span></code></pre></div>
 </div>
-<p>Now the process is similar to the example with <code>person</code>: we just modify our <code>cff</code> object:</p>
+<p>The process is similar to the example with <code>person</code>: we modify our <code>cff</code> object:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>finalobject <span class="ot">&lt;-</span> <span class="fu">cff_modify</span>(newauthorobject, <span class="at">references =</span> refs_cff)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -543,18 +543,18 @@ text-decoration: underline; }
 <span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a><span class="fu">cff_validate</span>(finalobject)</span>
 <span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ══ Validating cff ══════════════════════════════════════════════════════════════</span></span>
-<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ Congratulations! This &lt;cff&gt; is valid</span></span></code></pre></div>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ This &lt;cff&gt; is valid.</span></span></code></pre></div>
 </div>
 <h3 id="create-your-modified-citation.cff-file">Create your modified <code>CITATION.cff</code> file</h3>
-<p>The results can be written with <code>cff_write()</code>:</p>
+<p>The result can be written with <code>cff_write()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># For example</span></span>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a temporary output file.</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">&quot;.cff&quot;</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>see_res <span class="ot">&lt;-</span> <span class="fu">cff_write</span>(finalobject, <span class="at">outfile =</span> tmp)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ &#39;C:\Users\diego\AppData\Local\Temp\RtmpELdLrv\file46a84ba5781e.cff&#39; generated</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ &#39;C:\Users\diego\AppData\Local\Temp\Rtmpq8KzkA\file428039fa2f9f.cff&#39; generated.</span></span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ══ Validating cff ══════════════════════════════════════════════════════════════</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ Congratulations! &#39;C:\Users\diego\AppData\Local\Temp\RtmpELdLrv\file46a84ba5781e.cff&#39; is valid</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ &#39;C:\Users\diego\AppData\Local\Temp\Rtmpq8KzkA\file428039fa2f9f.cff&#39; is valid.</span></span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">readLines</span>(tmp), <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # --------------------------------------------</span></span>
@@ -601,7 +601,7 @@ text-decoration: underline; }
 <span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     name: McGraw Hill</span></span>
 <span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   volume: &#39;2&#39;</span></span></code></pre></div>
 </div>
-<p>And finally we can read our created <code>CITATION.cff</code> file using <code>cff_read()</code>:</p>
+<p>Finally, we can read the created <code>CITATION.cff</code> file using <code>cff_read()</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>reading <span class="ot">&lt;-</span> <span class="fu">cff_read</span>(tmp)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -651,7 +651,7 @@ text-decoration: underline; }
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;url&quot;</span> <span class="ot">=</span> <span class="st">&quot;https://ropensci.org/&quot;</span>,</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;version&quot;</span> <span class="ot">=</span> <span class="st">&quot;0.0.1&quot;</span>,</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;repository&quot;</span> <span class="ot">=</span> <span class="st">&quot;https://github.com/ropensci/cffr&quot;</span>,</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># If the field is already present, it is overridden</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># If the key is already present, it is overridden.</span></span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">&quot;Modifying a &#39;cff&#39; object&quot;</span>,</span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">authors =</span> newauthors,</span>
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">references =</span> refs_cff</span>
@@ -660,9 +660,9 @@ text-decoration: underline; }
 <span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>tmp2 <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">&quot;.cff&quot;</span>)</span>
 <span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">cff_write</span>(<span class="fu">cff</span>(), <span class="at">outfile =</span> tmp2, <span class="at">keys =</span> allkeys)</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ &#39;C:\Users\diego\AppData\Local\Temp\RtmpELdLrv\file46a8ce85085.cff&#39; generated</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ &#39;C:\Users\diego\AppData\Local\Temp\Rtmpq8KzkA\file428067ef3dd4.cff&#39; generated.</span></span>
 <span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ══ Validating cff ══════════════════════════════════════════════════════════════</span></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ Congratulations! &#39;C:\Users\diego\AppData\Local\Temp\RtmpELdLrv\file46a8ce85085.cff&#39; is valid</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ &#39;C:\Users\diego\AppData\Local\Temp\Rtmpq8KzkA\file428067ef3dd4.cff&#39; is valid.</span></span>
 <span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>res</span>
 <span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cff-version: 1.2.0</span></span>

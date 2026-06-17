@@ -4,7 +4,7 @@
 \name{cff_write_bib}
 \alias{cff_write_bib}
 \alias{cff_write_citation}
-\title{Export \strong{R} objects to different file types}
+\title{Export \R objects to multiple file types}
 \usage{
 cff_write_bib(
   x,
@@ -29,35 +29,34 @@ cff_write_citation(
 \item{file}{Name of the file to be created. If \code{NULL}, the lines are
 displayed instead.}
 
-\item{append}{Logical. Should entries be appended to an existing file?}
+\item{append}{Logical. Whether to append entries to an existing file.}
 
 \item{verbose}{Logical. Display informative messages.}
 
-\item{ascii}{Logical. Should entries be written using ASCII characters only?}
+\item{ascii}{Logical. Whether to write entries using ASCII characters only.}
 
 \item{...}{
   Arguments passed on to \code{\link{as_bibentry.cff}}, \code{\link{as_bibentry.cff_ref}}, \code{\link{as_bibentry.cff_ref_lst}}
   \describe{
-    \item{\code{what}}{Fields to extract from a full \code{cff} object. The value could be:
+    \item{\code{what}}{Fields to extract from a full \code{cff} object. It can be:
 \itemize{
-\item \code{preferred}: This would create a single entry with the main citation
-info of the package (key \code{preferred-citation}).
-\item \code{references}: Extract all the entries of \code{references} key.
-\item \code{all}: A combination of the previous two options. This would extract
-both the \code{preferred-citation} and the \code{references} key.
+\item \code{preferred}: Create a single entry with the main citation information
+of the package (key \code{preferred-citation}).
+\item \code{references}: Extract all entries of the \code{references} key.
+\item \code{all}: Extract both the \code{preferred-citation} and \code{references} keys.
 }
 
-See \code{vignette("crosswalk", package = "cffr")}.}
+See \code{vignette("r-cff", package = "cffr")}.}
   }}
 }
 \value{
-Writes the corresponding file specified on the \code{file} argument.
+Writes the corresponding file specified by the \code{file} argument.
 }
 \description{
-Export \strong{R} objects representing citations to specific file formats:
+Export \R objects representing citations to specific file formats:
 \itemize{
 \item \code{\link[=cff_write_bib]{cff_write_bib()}} creates a \code{.bib} file.
-\item \code{\link[=cff_write_citation]{cff_write_citation()}} creates an \strong{R} citation file as described in
+\item \code{\link[=cff_write_citation]{cff_write_citation()}} creates an \R citation file as described in
 Section 1.9 of \emph{Writing R Extensions} (R Core Team 2023).
 }
 }
@@ -69,7 +68,6 @@ For security reasons, if the file already exists, the function creates
 a backup copy in the same directory.
 }
 \examples{
-
 bib <- bibentry("Misc",
   title = "My title",
   author = "Fran Pérez"
@@ -84,17 +82,15 @@ cat(readLines(my_temp_bib), sep = "\n")
 cff_write_bib(bib, file = my_temp_bib, ascii = TRUE, append = TRUE)
 
 cat(readLines(my_temp_bib), sep = "\n")
-
-# Create a CITATION file
-
-# Use a system file
+# Create an R citation file.
+# Use a system file.
 f <- system.file("examples/preferred-citation-book.cff", package = "cffr")
 a_cff <- cff_read(f)
 
 out <- file.path(tempdir(), "CITATION")
 cff_write_citation(a_cff, file = out)
 
-# Check by reading, use meta object
+# Check by reading with a meta object.
 meta <- packageDescription("cffr")
 meta$Encoding <- "UTF-8"
 
@@ -107,21 +103,21 @@ utils::readCitationFile(out, meta)
 }
 }
 \seealso{
-\code{vignette("bibtex_cff", "cffr")}, \code{\link[knitr:write_bib]{knitr::write_bib()}} and the
+\code{vignette("bibtex-cff", package = "cffr")}, \code{\link[knitr:write_bib]{knitr::write_bib()}} and the
 following packages:
 \itemize{
 \item \CRANpkg{bibtex}.
-\item \CRANpkg{RefManageR}
-\item \CRANpkg{rbibutils}
+\item \CRANpkg{RefManageR}.
+\item \CRANpkg{rbibutils}.
 }
 
-Other functions for working with BibTeX format:
+Work with BibTeX metadata:
 \code{\link[=as_bibentry]{as_bibentry()}},
 \code{\link[=cff_read]{cff_read()}},
 \code{\link[=cff_read_bib_text]{cff_read_bib_text()}},
 \code{\link[=encoded_utf_to_latex]{encoded_utf_to_latex()}}
 
-Other functions for creating external files:
+Write citation metadata files:
 \code{\link[=cff_write]{cff_write()}}
 }
 \concept{bibtex}

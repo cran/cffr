@@ -13,7 +13,10 @@ test_that("Errors and messages", {
   expect_silent(aa <- cff_create("testthat", keys = NULL))
 
   # Duplicate args
+  # jarl-ignore-start duplicated_arguments: Testing edge case.
   expect_snapshot(dup <- cff_modify(a_cff, abstract = "a", abstract = "b"))
+  # jarl-ignore-end duplicated_arguments
+
   expect_length(dup, length(a_cff) + 1)
   expect_identical(dup$abstract, "a")
   expect_snapshot(cff_modify(a_cff, "a", "b"), error = TRUE)
@@ -27,10 +30,7 @@ test_that("Can reclass", {
 
   mod <- cff_modify(
     a_cff,
-    contact = list(list(
-      name = "a contact",
-      address = "here"
-    ))
+    contact = list(list(name = "a contact", address = "here"))
   )
 
   expect_true(cff_validate(mod, verbose = FALSE))

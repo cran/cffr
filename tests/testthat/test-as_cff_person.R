@@ -61,9 +61,7 @@ test_that("Coerce bibtex persons with masks", {
 
 
 test_that("Get same results with both", {
-  s3 <- as_cff_person(
-    c(person(family = "Entity"), person("A", "person"))
-  )
+  s3 <- as_cff_person(c(person(family = "Entity"), person("A", "person")))
 
   b3 <- as_cff_person("Entity and A person")
 
@@ -142,28 +140,13 @@ test_that("No valid emails", {
 
   p <- as_cff_person(pp)
 
-  expect_equal(
-    p,
-    as_cff_person(person(
-      given = "John",
-      family = "Doe"
-    ))
-  )
+  expect_equal(p, as_cff_person(person(given = "John", family = "Doe")))
 
-  pp2 <- person(
-    given = "John",
-    family = "Doe"
-  )
+  pp2 <- person(given = "John", family = "Doe")
 
   p2 <- as_cff_person(pp2)
 
-  expect_equal(
-    p,
-    as_cff_person(person(
-      given = "John",
-      family = "Doe"
-    ))
-  )
+  expect_equal(p, as_cff_person(person(given = "John", family = "Doe")))
 })
 
 test_that("Can extract comments from format", {

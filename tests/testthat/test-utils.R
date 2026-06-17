@@ -10,10 +10,7 @@ test_that("Try encoding conversion", {
 })
 
 test_that("Try cleaning string", {
-  expect_identical(
-    clean_str(c("a", "b")),
-    c("a b")
-  )
+  expect_identical(clean_str(c("a", "b")), c("a b"))
 
   expect_null(clean_str(NA))
   expect_null(clean_str(NULL))

@@ -20,37 +20,36 @@ cff_write(
 )
 }
 \arguments{
-\item{x}{The source used to generate
-the \code{\link{cff}} object. It can be:
+\item{x}{The source used to generate the \code{\link{cff}} object. It can be:
 \itemize{
 \item A missing value, which retrieves the \code{DESCRIPTION} file from your
-in-development \strong{R} package.
+in-development \R package.
 \item An existing \code{\link{cff}} object.
 \item The name of an installed package (\code{"jsonlite"}).
-\item Path to a \code{DESCRIPTION} file (\code{"./DESCRIPTION"}).
+\item A path to a \code{DESCRIPTION} file (\code{"./DESCRIPTION"}).
 }}
 
 \item{outfile}{The name and path of the \code{CITATION.cff} to be created.}
 
-\item{keys}{List of additional keys to add to the \code{\link{cff}} object. See
+\item{keys}{A list of additional keys to add to the \code{\link{cff}} object. See
 \code{\link[=cff_modify]{cff_modify()}}.}
 
 \item{cff_version}{The Citation File Format schema version that the
 \code{CITATION.cff} file adheres to for providing the citation metadata.}
 
 \item{gh_keywords}{Logical \code{TRUE/FALSE}. If the package is hosted on
-GitHub, would you like to add the repo topics as keywords?}
+GitHub, whether to add the repository topics as keywords.}
 
-\item{r_citation}{Logical \code{TRUE/FALSE}. When \code{TRUE}, the \strong{R} package
+\item{r_citation}{Logical \code{TRUE/FALSE}. When \code{TRUE}, the \R package
 citation (for example, \code{inst/CITATION}) is created or updated.
 \strong{No backup copy is created}. For more control, use
 \code{\link[=cff_write_citation]{cff_write_citation()}}.}
 
-\item{dependencies}{Logical \code{TRUE/FALSE}. Should the dependencies of your
-package be added to the \code{references} CFF key?}
+\item{dependencies}{Logical \code{TRUE/FALSE}. Whether to add your package
+dependencies to the \code{references} CFF key.}
 
-\item{validate}{Logical \code{TRUE/FALSE}. Should the new file be validated
-using \code{cff_validate()}?}
+\item{validate}{Logical \code{TRUE/FALSE}. Whether to validate the new file with
+\code{\link[=cff_validate]{cff_validate()}}.}
 
 \item{verbose}{Logical \code{TRUE/FALSE}. When \code{TRUE}, the function displays
 informative messages.}
@@ -63,21 +62,20 @@ but it can be any other value as accepted by \code{\link[=iconv]{iconv()}}, such
 \code{"ASCII//TRANSLIT"}.}
 }
 \value{
-A \code{CITATION.cff} file and an (invisible) \code{cff} object.
+A \code{CITATION.cff} file and an invisible \code{cff} object.
 }
 \description{
 \strong{This is the core function of the package and likely to be the only one
-you would need when developing a package}.
+you need when developing a package}.
 
-This function writes out a \code{CITATION.cff} file for a given package. This
-function is basically a wrapper around \code{\link[=cff_create]{cff_create()}} to both create the
-\code{\link{cff}} object and write it out to a YAML-formatted file in
-one command.
+This function writes a \code{CITATION.cff} file for a given package. It wraps
+\code{\link[=cff_create]{cff_create()}} to create the \code{\link{cff}} object, then writes it to a
+YAML-formatted file in one command.
 }
 \details{
-For details of \code{authors_roles} see \code{\link[=cff_create]{cff_create()}}.
+For details of \code{authors_roles}, see \code{\link[=cff_create]{cff_create()}}.
 
-When creating and writing a \code{CITATION.cff} for the first time, the function
+When creating and writing a \code{CITATION.cff} for the first time, this function
 adds the pattern \code{"^CITATION\\.cff$"} to your \code{.Rbuildignore} file.
 }
 \examples{
@@ -87,16 +85,16 @@ cff_obj <- cff_write("jsonlite", outfile = tmpfile)
 
 cff_obj
 
-# Force clean-up
+# Force cleanup.
 file.remove(tmpfile)
 }
 }
 \seealso{
 \href{https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md}{Guide to Citation File Format schema version 1.2.0}.
-This function unifies the workflow \code{\link[=cff_create]{cff_create()}} + \code{\link[=cff_validate]{cff_validate()}} +
-write a file.
+This function unifies the \code{\link[=cff_create]{cff_create()}} and \code{\link[=cff_validate]{cff_validate()}} workflow for
+writing a file.
 
-Other functions for creating external files:
+Write citation metadata files:
 \code{\link[=cff_write_bib]{cff_write_bib()}}
 }
 \concept{writing}
