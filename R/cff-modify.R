@@ -1,0 +1,107 @@
+#' Modify a [`cff`] object
+#'
+#' Add new keys to a [`cff`] object or modify existing ones.
+#'
+#' @param x A [`cff`] object.
+#' @param ... Named arguments used to modify `x`. See also the `...`
+#'   argument in [cff()].
+#'
+#' @return
+#' A [`cff`] object.
+#'
+#' @details
+#' Keys provided in `...` override the corresponding key in `x`.
+#'
+#' You can add additional keys not detected by [cff_create()] using
+#' the `keys` argument. A list of valid keys can be retrieved with
+#' [cff_schema_keys()]. See the following guide for additional details:
+#' ```{r child = "man/chunks/schema-guide.Rmd"}
+#' ```
+#'
+#' @seealso
+#' This function is a wrapper of [utils::modifyList()].
+#'
+#' @family core
+#' @export
+#' @encoding UTF-8
+#' @examples
+#' x <- cff()
+#' x
+#'
+#' cff_validate(x)
+#'
+#' x_mod <- cff_modify(x,
+#'   contact = as_cff_person("A contact"),
+#'   message = "This overwrites keys",
+#'   title = "New Title",
+#'   abstract = "New abstract",
+#'   doi = "10.21105/joss.03900"
+#' )
+#'
+#' x_mod
+#'
+#' cff_validate(x_mod)
+#'
+cff_modify <- function(x, ...) {
+  error_call <- environment()
+  if (!inherits(x, "cff")) {
+    cli::cli_abort(
+      "{.arg x} must be a {.cls cff} object, not {.obj_type_friendly {x}}."
+    )
+  }
+  new_keys <- list(...)
+  if (length(new_keys) == 0) {
+    cli::cli_alert_info("No {.arg ...} arguments supplied. Returning {.arg x}.")
+    return(x)
+  }
+
+  modify_cff(x, new_keys, "...", call = error_call)
+}
+
+modify_cff <- function(x, keys, argname = "...", call = environment()) {
+  # Do not show a message here because these cases come from cff_create().
+  if (all(argname == "keys", length(keys) == 0)) {
+    return(x)
+  }
+
+  new_keys <- validate_extra_keys(keys, argname, call = call)
+  new_keys <- fuzzy_keys(new_keys)
+  if (anyDuplicated(names(new_keys)) > 0) {
+    cli::cli_alert_warning("Removing duplicate keys.")
+    new_keys <- new_keys[!duplicated(names(new_keys))]
+  }
+
+  init_ord <- names(x)
+
+  xmod <- x[setdiff(names(x), names(new_keys))]
+  xend <- modifyList(xmod, new_keys, keep.null = FALSE)
+
+  # Name order.
+  sorted_nm <- unique(c(init_ord, names(xend)))
+
+  # Relist and add classes.
+  xend <- as.list(xend[sorted_nm])
+  as_cff(xend)
+}
+
+# Check names.
+validate_extra_keys <- function(cffobj, argname = "...", call = environment()) {
+  has_names <- names(cffobj)
+  if (is.null(has_names)) {
+    cli::cli_abort("Elements in {.arg {argname}} must be named.", call = call)
+  }
+
+  if (!all(nzchar(has_names))) {
+    # nolint start
+    index <- which(has_names %in% "")
+    # nolint end
+
+    cli::cli_alert_warning(paste(
+      "Found {length(index)} unnamed argument{?s}",
+      "in position{?s} {.val {index}}."
+    ))
+    cli::cli_alert_info("Removing unnamed arguments.")
+    cffobj <- cffobj[nzchar(has_names)]
+  }
+  cffobj
+}

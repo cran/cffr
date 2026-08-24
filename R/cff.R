@@ -5,12 +5,12 @@
 #'
 #' @param path `r lifecycle::badge("deprecated")` `path` is no longer supported,
 #'   use [cff_read_cff_citation()] instead.
-#' @param ... Named arguments to be used for creating a [`cff`] object. If no
+#' @param ... Named arguments used to create a [`cff`] object. If no
 #'   arguments are supplied (the default behavior), a minimal valid `cff`
 #'   object is created.
 #'
 #' @return
-#' A [`cff`] object. Under the hood, a `cff` object is a regular [`list`]
+#' A [`cff`] object. Under the hood, a `cff` object is a regular [base::list()]
 #' object with a special [`print`][print.cff()] method.
 #'
 #' @details
@@ -81,7 +81,7 @@ cff <- function(path, ...) {
 
   # Check names.
 
-  cffobj <- validate_extra_keys(cffobj)
+  cffobj <- validate_extra_keys(cffobj, call = environment())
   cffobj <- fuzzy_keys(cffobj)
 
   if (anyDuplicated(names(cffobj)) > 0) {

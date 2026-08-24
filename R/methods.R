@@ -16,7 +16,7 @@ c.cff <- function(..., recursive = FALSE) {
   rval <- do.call("c", args)
 
   rval <- as.list(rval)
-  # Reclass.
+  # Reclassify.
   as_cff(rval)
 }
 
@@ -199,10 +199,7 @@ cff_df_indexed <- function(
     do.call(as.data.frame, args)
   })
 
-  args <- c(
-    list(df_l = df_l, row.names = row.names, optional = optional),
-    dots
-  )
+  args <- c(list(df_l = df_l, row.names = row.names, optional = optional), dots)
   do.call(cff_df_bind, args)
 }
 
@@ -312,7 +309,7 @@ toBibtex.cff_pers <- function(object, ...) {
 #' @export
 #' @encoding UTF-8
 as.person.cff_pers <- function(x) {
-  # Enlist to dispatch to the next method.
+  # Wrap in a list to dispatch to the next method.
   x_l <- list(as.list(x))
   as.person(as_cff(x_l))
 }
@@ -326,9 +323,10 @@ as.person.cff_pers_lst <- function(x) {
 
   # Inform if not all were extracted.
   if (!all(lengths(pers) > 0)) {
-    cli::cli_alert_info(
-      "Cannot create {.cls person} for some elements of {.arg x}."
-    )
+    cli::cli_alert_warning(paste0(
+      "Cannot create {sum(lengths(pers) == 0)} {.cls person} ",
+      "object{?s} from {.arg x}."
+    ))
   }
   end <- do.call(c, pers)
   if (anyDuplicated(end) > 0) {
@@ -338,16 +336,14 @@ as.person.cff_pers_lst <- function(x) {
   end
 }
 
-# as.person methods not implemented ----
+# Unimplemented `as.person()` methods ----
 
 #' @rdname cff_class
 #' @usage NULL
 #' @export
 #' @encoding UTF-8
 as.person.cff <- function(x) {
-  cli::cli_abort(
-    "The {.fn as.person.cff} method is not implemented yet."
-  )
+  cli::cli_abort("The {.fn as.person.cff} method is not implemented yet.")
 }
 
 #' @rdname cff_class
@@ -355,9 +351,7 @@ as.person.cff <- function(x) {
 #' @export
 #' @encoding UTF-8
 as.person.cff_ref <- function(x) {
-  cli::cli_abort(
-    "The {.fn as.person.cff_ref} method is not implemented yet."
-  )
+  cli::cli_abort("The {.fn as.person.cff_ref} method is not implemented yet.")
 }
 
 #' @rdname cff_class

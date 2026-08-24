@@ -11,12 +11,12 @@ cff(path, ...)
 \item{path}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} \code{path} is no longer supported,
 use \code{\link[=cff_read_cff_citation]{cff_read_cff_citation()}} instead.}
 
-\item{...}{Named arguments to be used for creating a \code{\link{cff}} object. If no
+\item{...}{Named arguments used to create a \code{\link{cff}} object. If no
 arguments are supplied (the default behavior), a minimal valid \code{cff}
 object is created.}
 }
 \value{
-A \code{\link{cff}} object. Under the hood, a \code{cff} object is a regular \code{\link{list}}
+A \code{\link{cff}} object. Under the hood, a \code{cff} object is a regular \code{\link[base:list]{base::list()}}
 object with a special \code{\link[=print.cff]{print}} method.
 }
 \description{
@@ -82,6 +82,7 @@ cff_validate(new)
 Core \CRANpkg{cffr} workflow:
 \code{\link[=cff_create]{cff_create()}},
 \code{\link[=cff_modify]{cff_modify()}},
-\code{\link[=cff_validate]{cff_validate()}}
+\code{\link[=cff_validate]{cff_validate()}},
+\code{\link[=cff_write]{cff_write()}}
 }
 \concept{core}

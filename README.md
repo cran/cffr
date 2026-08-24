@@ -25,27 +25,27 @@ bytes](https://img.shields.io/github/languages/code-size/ropensci/cffr)
 
 <!-- badges: end -->
 
-**cffr** provides utilities to generate, coerce, modify and validate
-`CITATION.cff` files for **R** packages. It also includes tools and
-examples for working with `*.cff` files more generally.
+**cffr** provides utilities to generate, read, write, modify and
+validate Citation File Format metadata for **R** packages. It also
+includes tools and examples for working with `*.cff` files more
+generally.
 
 ## What is a `CITATION.cff` file?
 
-[Citation File Format (CFF)](https://citation-file-format.github.io/)
-([Druskat et al. 2021](#ref-druskat_citation_2021)) (v1.2.0) files are
-plain text files with human- and machine-readable citation information
-for software (and datasets). Software developers can include them in
-their repositories to let others know how to correctly cite their
-software.
+A `CITATION.cff` file follows the [Citation File Format
+(CFF)](https://citation-file-format.github.io/) ([Druskat et al.
+2021](#ref-druskat_citation_2021)) (v1.2.0). It contains human- and
+machine-readable citation metadata for software and datasets. Developers
+can include it in a repository to explain how to cite their software.
 
 This format is increasingly used in the software citation ecosystem.
-[GitHub](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-citation-files),
-[Zenodo](https://citation-file-format.github.io/#/supported-by-zenodo-)
+[**GitHub**](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-citation-files),
+[**Zenodo**](https://citation-file-format.github.io/#/supported-by-zenodo-)
 and
-[Zotero](https://citation-file-format.github.io/#/supported-by-zotero-)
+[**Zotero**](https://citation-file-format.github.io/#/supported-by-zotero-)
 support this citation format ([Druskat
-2021](#ref-druskat_stephan_making_2021)). GitHub support is of special
-interest:
+2021](#ref-druskat_stephan_making_2021)). **GitHub** support is of
+special interest:
 
 <figure>
 
@@ -57,7 +57,7 @@ alt="GitHub citation support announcement" />
 </figure>
 
 See [Enhanced support for citations on
-GitHub](https://github.blog/news-insights/company-news/enhanced-support-citations-github/)
+**GitHub**](https://github.blog/news-insights/company-news/enhanced-support-citations-github/)
 ([Smith 2021](#ref-smith2021)) for more information.
 
 ### Related projects
@@ -73,14 +73,13 @@ and Salmon 2021](#ref-codemeta)) and **codemetar** ([Boettiger and
 Salmon 2026](#ref-codemetar2021)) can generate `codemeta.json` files
 from **R** package metadata.
 
-## The cffr package
+## The **cffr** package
 
-**cffr** maximizes data extraction by using both the `DESCRIPTION` file
-and the `CITATION` file (if present) from your package. Note that
-**cffr** works best if your package passes
-`R CMD check/devtools::check()`.
+**cffr** uses metadata from both your package’s `DESCRIPTION` file and
+its `CITATION` file, if present. **cffr** works best if your package
+passes `R CMD check` or `devtools::check()`.
 
-As of 2026-06-17 there are at least 508 repositories on GitHub using
+As of 2026-08-24 there are at least 562 repositories on GitHub using
 **cffr**. [Browse the search
 results](https://github.com/search?q=cffr%20path%3A**%2FCITATION.cff&type=code).
 
@@ -99,7 +98,7 @@ pak::pak("ropensci/cffr")
 ```
 
 Alternatively, you can install **cffr** from
-[r-universe](https://ropensci.r-universe.dev/cffr):
+[**r-universe**](https://ropensci.r-universe.dev/cffr):
 
 ``` r
 # Install **cffr** in R.
@@ -700,15 +699,16 @@ documentation](https://docs.ropensci.org/cffr/reference/index.html) and
 
 ### Keep your `CITATION.cff` file up to date
 
-#### GitHub Actions
+#### **GitHub Actions**
 
 The easiest way to keep your `CITATION.cff` file up to date is to use
-**GitHub Actions**. Use `cff_gha_update()` to install a GitHub Actions
-workflow that updates your `CITATION.cff` file in the following cases:
+**GitHub Actions**. Use `cff_gha_update()` to install a **GitHub
+Actions** workflow that updates your `CITATION.cff` file in the
+following cases:
 
-- When you publish a new release of the package on GitHub.
+- When you publish a new release of the package on **GitHub**.
 - Each time you modify your `DESCRIPTION` or `inst/CITATION` files.
-- The action can also be run manually.
+- When you run the workflow manually.
 
 ``` r
 cff_gha_update()
@@ -717,12 +717,14 @@ cff_gha_update()
 #> ℹ Adding .github to .Rbuildignore.
 ```
 
-See the example workflow file
-[here](https://github.com/ropensci/cffr/blob/main/.github/workflows/update-citation-cff.yaml).
+See the [example workflow
+file](https://github.com/ropensci/cffr/blob/main/.github/workflows/update-citation-cff.yaml).
 
-#### Git pre-commit hook [![Experimental](https://lifecycle.r-lib.org/articles/figures/lifecycle-experimental.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+#### Git pre-commit hook
 
-You can also use a [git pre-commit
+[![](https://lifecycle.r-lib.org/articles/figures/lifecycle-experimental.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+
+You can also use a [Git pre-commit
 hook](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks#_committing_workflow_hooks):
 
 > The `pre-commit` hook is run first, before you even type in a commit
@@ -732,9 +734,8 @@ hook](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks#_committing_workf
 > non-zero from this hook aborts the commit, although you can bypass it
 > with `git commit --no-verify`.
 
-A specific pre-commit hook can be installed with
-`cff_git_hook_install()`. If you want to use a pre-commit hook, please
-make sure you have the **testthat** package installed.
+Install a pre-commit hook with `cff_git_hook_install()`. This function
+requires the **usethis** package.
 
 ### Learn more
 
@@ -743,14 +744,14 @@ Check the following articles to learn more about **cffr**:
 - [cffr: Create a CITATION.cff file for your R
   package](https://ropensci.org/blog/2021/11/23/cffr/) ([Hernangómez
   2021a](#ref-hernangomez_cffr_2021))
-- [How I test cffr on about 2,000 packages using GitHub Actions and
-  r-universe](https://ropensci.org/blog/2021/11/23/how-i-test-cffr/)
+- [How I test cffr on about 2,000 packages using **GitHub Actions** and
+  **r-universe**](https://ropensci.org/blog/2021/11/23/how-i-test-cffr/)
   ([Hernangómez 2021b](#ref-hernangomez_test_2021))
 
 ## Related packages
 
-- **citation** ([Dietrich and Leoncio 2025](#ref-citation22)) includes a
-  function `r2cff` that creates a `CITATION.cff` file (v1.1.0) using the
+- **citation** ([Dietrich and Leoncio 2025](#ref-citation22)) includes
+  an `r2cff()` function that creates a `CITATION.cff` file using the
   information in your `DESCRIPTION` file. It also provides minimal
   validity checks.
 - **handlr** ([Chamberlain and Wiernik 2025](#ref-handlr)) is a tool for
@@ -768,11 +769,11 @@ contributing to this project, you agree to abide by its terms.
 
 ## Citation
 
-Hernangómez, D., (2021). cffr: Generate Citation File Format Metadata
-for R Packages. Journal of Open Source Software, 6(67), 3900,
+Hernangómez D (2021). “cffr: Generate Citation File Format Metadata for
+R Packages.” *Journal of Open Source Software*, 6(67), 3900.
 <https://doi.org/10.21105/joss.03900>
 
-A BibTeX entry for LaTeX users is:
+A **BibTeX** entry for **LaTeX** users is:
 
 ``` bibtex
 @article{hernangomez2021,
@@ -790,9 +791,9 @@ A BibTeX entry for LaTeX users is:
 ```
 
 You can also use the [citation provided by
-GitHub](https://github.com/ropensci/cffr), which is generated from the
-information in a `CITATION.cff` file created with **cffr**. See [About
-CITATION
+**GitHub**](https://github.com/ropensci/cffr), which is generated from
+the information in a `CITATION.cff` file created with **cffr**. See
+[About CITATION
 files](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-citation-files)
 for more information.
 
@@ -836,7 +837,7 @@ Dietrich, Jan Philipp, and Waldir Leoncio. 2025.
 <div id="ref-druskat_stephan_making_2021" class="csl-entry">
 
 Druskat, Stephan. 2021. *Making Software Citation Easi(er) - The
-Citation File Format and Its Integrations*. Version 1.
+Citation File Format and Its Integrations*. Version 1. Zenodo.
 <https://doi.org/10.5281/zenodo.5529914>.
 
 </div>
@@ -844,7 +845,8 @@ Citation File Format and Its Integrations*. Version 1.
 <div id="ref-druskat_citation_2021" class="csl-entry">
 
 Druskat, Stephan, Jurriaan H. Spaaks, Neil Chue Hong, et al. 2021.
-*Citation File Format*. <https://doi.org/10.5281/zenodo.5171937>.
+*Citation File Format*. Version 1.2.0. Zenodo.
+<https://doi.org/10.5281/zenodo.5171937>.
 
 </div>
 
@@ -876,8 +878,8 @@ on about 2,000 Packages Using GitHub Actions and
 <div id="ref-jones2017" class="csl-entry">
 
 Jones, Matthew B, Carl Boettiger, Abby Cabunoc Mayes, et al. 2017.
-*CodeMeta: An Exchange Schema for Software Metadata*. KNB Data
-Repository. <https://doi.org/10.5063/SCHEMA/CODEMETA-2.0>.
+*CodeMeta: An Exchange Schema for Software Metadata*. Version 2.0. KNB
+Data Repository. <https://doi.org/10.5063/schema/codemeta-2.0>.
 
 </div>
 

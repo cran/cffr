@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.37">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,10 +12,13 @@
 <title>BibTeX and CFF</title>
 <style>
 
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -243,9 +246,9 @@ text-decoration: underline; }
    
   <ul>
   <li><a href="#citation" id="toc-citation">Citation</a></li>
-  <li><a href="#bibtex-and-r" id="toc-bibtex-and-r">BibTeX and R</a></li>
-  <li><a href="#conceptual-differences-between-bibtex-and-cff" id="toc-conceptual-differences-between-bibtex-and-cff">Conceptual differences between BibTeX and CFF</a></li>
-  <li><a href="#bibtex-definitions" id="toc-bibtex-definitions">BibTeX definitions</a>
+  <li><a href="#bibtex-and-r" id="toc-bibtex-and-r"><strong>BibTeX</strong> and <strong>R</strong></a></li>
+  <li><a href="#conceptual-differences-between-bibtex-and-cff" id="toc-conceptual-differences-between-bibtex-and-cff">Conceptual differences between <strong>BibTeX</strong> and CFF</a></li>
+  <li><a href="#bibtex-definitions" id="toc-bibtex-definitions"><strong>BibTeX</strong> definitions</a>
   <ul>
   <li><a href="#entries" id="toc-entries">Entries</a></li>
   <li><a href="#fields" id="toc-fields">Fields</a></li>
@@ -276,7 +279,7 @@ text-decoration: underline; }
   <li><a href="#unpublished" id="toc-unpublished">@unpublished</a></li>
   </ul></li>
   <li><a href="#conclusion" id="toc-conclusion">Conclusion</a></li>
-  <li><a href="#appendix_inbook" id="toc-appendix_inbook">Appendix A: <strong>@inbook</strong> in BibTeX and BibLaTeX</a></li>
+  <li><a href="#appendix_inbook" id="toc-appendix_inbook">Appendix A: <strong>@inbook</strong> in <strong>BibTeX</strong> and <strong>BibLaTeX</strong></a></li>
   <li><a href="#appendix_cff_type" id="toc-appendix_cff_type">Appendix B: CFF key: <code>type</code> values</a></li>
   <li><a href="#references" id="toc-references">References</a></li>
   </ul>
@@ -298,20 +301,20 @@ text-decoration: underline; }
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">doi</span>          = {10.21105/joss.03900},</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">url</span>          = {https://docs.ropensci.org/cffr/articles/bibtex-cff.html}</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<h2 id="bibtex-and-r">BibTeX and R</h2>
-<p><a href="https://en.wikipedia.org/wiki/BibTeX">BibTeX</a> is a widely used format for storing bibliographic references, originally designed in 1985 for document-centric workflows. It represents citations as relatively flat records with loosely constrained fields, relying on convention rather than an explicit schema.</p>
+<h2 id="bibtex-and-r"><strong>BibTeX</strong> and <strong>R</strong></h2>
+<p><a href="https://en.wikipedia.org/wiki/BibTeX"><strong>BibTeX</strong></a> is a widely used format for storing bibliographic references, originally designed in 1985 for document-centric workflows. It represents citations as relatively flat records with loosely constrained fields, relying on convention rather than an explicit schema.</p>
 <p>The Citation File Format (CFF) <span class="citation" data-cites="druskat_citation_2021">(<a href="#ref-druskat_citation_2021" role="doc-biblioref">Druskat et al. 2021</a>)</span> provides a structured and extensible alternative for representing citation metadata, particularly for software and research outputs. It supports explicit typing, nested objects and richer semantics, including contributor roles and identifiers.</p>
-<p>In modern research workflows, both formats frequently coexist. BibTeX remains dominant in academic publishing pipelines, while CFF is increasingly adopted by infrastructure platforms such as GitHub and Zenodo.</p>
-<p><strong>cffr</strong> <span class="citation" data-cites="hernangomez2021">(<a href="#ref-hernangomez2021" role="doc-biblioref">Hernangómez 2021</a>)</span> provides a deterministic mapping (crosswalk) between BibTeX and CFF, enabling practical interoperability. Due to fundamental differences in their data models, this mapping is not bijective and may involve structural transformations, heuristic parsing and controlled information loss.</p>
-<h2 id="conceptual-differences-between-bibtex-and-cff">Conceptual differences between BibTeX and CFF</h2>
-<p>At a conceptual level, BibTeX and CFF embody different design philosophies.</p>
-<p>BibTeX represents bibliographic information as flat records with loosely defined fields, optimized for citation rendering in documents. Semantics are largely implicit and contextual, depending on entry types and bibliography styles.</p>
+<p>In modern research workflows, both formats frequently coexist. <strong>BibTeX</strong> remains dominant in academic publishing pipelines, while CFF is increasingly adopted by infrastructure platforms such as <strong>GitHub</strong> and <strong>Zenodo</strong>.</p>
+<p><strong>cffr</strong> <span class="citation" data-cites="hernangomez2021">(<a href="#ref-hernangomez2021" role="doc-biblioref">Hernangómez 2021</a>)</span> provides a deterministic mapping (crosswalk) between <strong>BibTeX</strong> and CFF, enabling practical interoperability. Due to fundamental differences in their data models, this mapping is not bijective and may require structural transformations, heuristic parsing and controlled information loss.</p>
+<h2 id="conceptual-differences-between-bibtex-and-cff">Conceptual differences between <strong>BibTeX</strong> and CFF</h2>
+<p>At a conceptual level, <strong>BibTeX</strong> and CFF embody different design philosophies.</p>
+<p><strong>BibTeX</strong> represents bibliographic information as flat records with loosely defined fields, optimized for citation rendering in documents. Semantics are largely implicit and contextual, depending on entry types and bibliography styles.</p>
 <p>CFF, in contrast, defines a structured schema with explicit typing, nested objects and richer metadata support. It is designed for producing citations and for machine-actionable interoperability across platforms.</p>
-<p>These conceptual differences explain why a direct one-to-one correspondence between BibTeX and CFF is not possible. Any crosswalk must rely on explicit design decisions that balance fidelity, usability and schema constraints.</p>
-<h2 id="bibtex-definitions">BibTeX definitions</h2>
-<p><span class="citation" data-cites="patashnik1988">Patashnik (<a href="#ref-patashnik1988" role="doc-biblioref">1988</a>)</span> provides the canonical description of the BibTeX format. Two key concepts are central: <strong>entries</strong> and <strong>fields</strong>.</p>
+<p>These conceptual differences explain why a direct one-to-one correspondence between <strong>BibTeX</strong> and CFF is not possible. Any crosswalk must rely on explicit design decisions that balance fidelity, usability and schema constraints.</p>
+<h2 id="bibtex-definitions"><strong>BibTeX</strong> definitions</h2>
+<p><span class="citation" data-cites="patashnik1988">Patashnik (<a href="#ref-patashnik1988" role="doc-biblioref">1988</a>)</span> provides the canonical description of the <strong>BibTeX</strong> format. Two key concepts are central: <strong>entries</strong> and <strong>fields</strong>.</p>
 <h3 id="entries">Entries</h3>
-<p>The original BibTeX specification defines fourteen canonical entry types, each corresponding to a class of cited work:</p>
+<p>The original <strong>BibTeX</strong> specification defines fourteen canonical entry types, each corresponding to a class of cited work:</p>
 <ol type="1">
 <li><strong>@article</strong>: An article from a journal or magazine.</li>
 <li><strong>@book</strong>: A book with an explicit publisher.</li>
@@ -328,11 +331,11 @@ text-decoration: underline; }
 <li><strong>@techreport</strong>: A numbered technical report.</li>
 <li><strong>@unpublished</strong>: A work not formally published.</li>
 </ol>
-<p>Other implementations, notably BibLaTeX <span class="citation" data-cites="biblatexpack">(<a href="#ref-biblatexpack" role="doc-biblioref">Kime et al. 2023</a>)</span>, extend this set with additional entry types such as online resources, software and datasets. In standard BibTeX, such entries must typically be represented as <strong>@misc</strong>.</p>
+<p>Other implementations, notably <strong>BibLaTeX</strong> <span class="citation" data-cites="biblatexpack">(<a href="#ref-biblatexpack" role="doc-biblioref">Kime et al. 2025</a>)</span>, extend this set with additional entry types such as online resources, software and datasets. In standard <strong>BibTeX</strong>, such entries must typically be represented as <strong>@misc</strong>.</p>
 <p>In <strong>R</strong> <span class="citation" data-cites="R_2021">(<a href="#ref-R_2021" role="doc-biblioref">R Core Team 2026</a>)</span>, the base function <code>bibentry()</code> does not implement <strong>@conference</strong>. Instead, <strong>@inproceedings</strong> is used, as both share the same conceptual definition.</p>
 <h3 id="fields">Fields</h3>
-<p>BibTeX entries consist of fields whose relevance and requirement depend on the entry type. Some fields are mandatory, some are optional and others are ignored by standard bibliography styles but may still carry useful information.</p>
-<p>The following table summarizes the relationship between BibTeX <strong>entries</strong> and their <strong>required or optional fields</strong>, following <span class="citation" data-cites="patashnik1988">Patashnik (<a href="#ref-patashnik1988" role="doc-biblioref">1988</a>)</span>. Required fields are marked with <strong>x</strong> and optional fields with <strong>o</strong>.</p>
+<p><strong>BibTeX</strong> entries consist of fields whose relevance and requirements depend on the entry type. Some fields are mandatory, some are optional and others are ignored by standard bibliography styles while still carrying useful information.</p>
+<p>The following table summarizes the relationship between <strong>BibTeX</strong> <strong>entries</strong> and their <strong>required or optional fields</strong>, following <span class="citation" data-cites="patashnik1988">Patashnik (<a href="#ref-patashnik1988" role="doc-biblioref">1988</a>)</span>. Required fields are marked with <strong>x</strong> and optional fields with <strong>o</strong>.</p>
 <div class="cell">
 <div id="tbl-entry_fields1" class="cell quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-tbl">
@@ -846,7 +849,7 @@ Table 1: BibTeX entries
 </figure>
 </div>
 </div>
-<p>Only a subset of fields is required for any given entry. Fields such as <strong>title</strong>, <strong>author</strong> and <strong>year</strong> appear across most entry types, whereas others are optional or never mandatory. This strict coupling between entry types and fields is a defining feature of BibTeX and a key source of friction when interoperating with schema-driven formats such as CFF.</p>
+<p>Only a subset of fields is required for any given entry. Fields such as <strong>title</strong>, <strong>author</strong> and <strong>year</strong> appear across most entry types, whereas others are optional or never mandatory. This strict coupling between entry types and fields is a defining feature of <strong>BibTeX</strong> and a key source of friction when interoperating with schema-driven formats such as CFF.</p>
 <h2 id="citation-file-format">Citation File Format</h2>
 <p>Citation File Format (CFF) consists of plain-text, YAML-based files that encode human- and machine-readable citation metadata for software and datasets.</p>
 <p>Two keys play a central role in CFF reference modeling:</p>
@@ -854,7 +857,7 @@ Table 1: BibTeX entries
 <li><code>preferred-citation</code>: Identifies a work that should be cited instead of the software or dataset itself.</li>
 <li><code>references</code>: Lists related creative works, analogous to references in a scholarly article.</li>
 </ul>
-<p>Both keys expect <code>definitions.reference</code> objects, as defined in the <a href="https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#preferred-citation">CFF schema guide</a>. These objects support explicit typing, metadata nesting and structured identifiers, in contrast to BibTeX’s flat field model.</p>
+<p>Both keys expect <code>definitions.reference</code> objects, as defined in the <a href="https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#preferred-citation">CFF schema guide</a>. These objects support explicit typing, nested metadata and structured identifiers, unlike <strong>BibTeX</strong>’s flat field model.</p>
 <p>The following table summarizes the valid keys for CFF <code>definitions.reference</code> objects:</p>
 <div id="tbl-refkeys" class="cell quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-tbl">
@@ -981,15 +984,15 @@ Table 2: Valid keys in CFF <code>definitions.reference</code> objects
 </figcaption>
 </figure>
 </div>
-<p>Conceptually, most of these keys correspond to BibTeX <a href="#fields"><strong>fields</strong></a>, with one key playing a special role: <code>type</code>. In CFF, <code>type</code> explicitly identifies the kind of referenced work, making it conceptually analogous to a BibTeX <a href="#entries"><strong>entry</strong></a> type rather than a <strong>field</strong><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>Conceptually, most of these keys correspond to <strong>BibTeX</strong> <a href="#fields"><strong>fields</strong></a>, with one key playing a special role: <code>type</code>. In CFF, <code>type</code> explicitly identifies the kind of referenced work, making it conceptually analogous to a <strong>BibTeX</strong> <a href="#entries"><strong>entry</strong></a> type rather than a <strong>field</strong><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
 <h2 id="mapping-strategy">Mapping strategy</h2>
 <p>The mapping implemented in <strong>cffr</strong> follows a three-step pipeline:</p>
 <ol type="1">
-<li>Parse BibTeX entries into an intermediate representation.</li>
+<li>Parse <strong>BibTeX</strong> entries into an intermediate representation.</li>
 <li>Apply deterministic mapping rules to transform entry types and fields.</li>
 <li>Serialize the result into CFF (and vice versa).</li>
 </ol>
-<p>Whenever possible, mappings are deterministic. However, some fields require heuristic parsing, particularly when normalizing names, dates or page ranges. As a result, semantic round‑trip reversibility is not guaranteed, even when the conversion process itself is reproducible.</p>
+<p>Whenever possible, mappings are deterministic. However, some fields require heuristic parsing, especially when normalizing names, dates or page ranges. As a result, semantic round-trip reversibility is not guaranteed, even when the conversion process itself is reproducible.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>string <span class="ot">&lt;-</span> <span class="st">&quot;@book{einstein1921,</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="st">    title        = {Relativity: The Special and the General Theory},</span></span>
@@ -1041,7 +1044,7 @@ Table 2: Valid keys in CFF <code>definitions.reference</code> objects
 <div>
 <blockquote>
 <p><strong>Note</strong></p>
-<p>For clarity throughout this document, <strong>bold</strong> formatting (e.g., <strong>@book</strong>, <strong>edition</strong>) is used for BibTeX entries and fields, whereas inline code formatting (e.g., <code>book</code>, <code>edition</code>) is used for CFF keys.</p>
+<p>For clarity throughout this document, <strong>bold</strong> formatting (for example, <strong>@book</strong> and <strong>edition</strong>) is used for <strong>BibTeX</strong> entries and fields, whereas inline code formatting (for example, <code>book</code> and <code>edition</code>) is used for CFF keys.</p>
 </blockquote>
 </div>
 <div id="tbl-mapentry" class="quarto-float quarto-figure quarto-figure-center">
@@ -1378,14 +1381,14 @@ Table 7: CFF keys with no BibTeX equivalence
 </figure>
 </div>
 <h2 id="proposed-crosswalk">Proposed crosswalk</h2>
-<p><strong>cffr</strong> provides utilities for mapping BibTeX entries (with <code>bibentry()</code>) to CFF and back. This section describes how the crosswalk is implemented, partially informed by <span class="citation" data-cites="Haines_Ruby_CFF_Library_2021">Haines and The Ruby Citation File Format Developers (<a href="#ref-Haines_Ruby_CFF_Library_2021" role="doc-biblioref">2021</a>)</span><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
-<p>The crosswalk is primarily defined for BibTeX to CFF conversion. Reverse mapping is a best-effort approximation and may be lossy.</p>
-<p>After presenting the general mapping between BibTeX <strong>entries</strong> and <strong>fields</strong> and CFF keys, the next section introduces <a href="#entrymodels"><strong>entry models</strong></a> that refine these rules for specific BibTeX entry types.</p>
+<p><strong>cffr</strong> provides utilities for mapping <strong>BibTeX</strong> entries (with <code>bibentry()</code>) to CFF and back. This section describes how the crosswalk is implemented, partially informed by the <strong>Ruby</strong> implementation in <span class="citation" data-cites="Haines_Ruby_CFF_Library_2021">Haines and The Ruby Citation File Format Developers (<a href="#ref-Haines_Ruby_CFF_Library_2021" role="doc-biblioref">2022</a>)</span><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
+<p>The crosswalk is primarily defined for <strong>BibTeX</strong> to CFF conversion. Reverse mapping is a best-effort approximation and may be lossy.</p>
+<p>After presenting the general mapping between <strong>BibTeX</strong> <strong>entries</strong> and <strong>fields</strong> and CFF keys, the next section introduces <a href="#entrymodels"><strong>entry models</strong></a> that refine these rules for specific <strong>BibTeX</strong> entry types.</p>
 <p>The mapping is structured according to the transformation semantics defined below.</p>
 <h2 id="transformation-semantics">Transformation semantics</h2>
 <p>The crosswalk applies different transformation strategies:</p>
 <ul>
-<li><strong>Direct mapping</strong>: one-to-one correspondence between a BibTeX field and a CFF key.</li>
+<li><strong>Direct mapping</strong>: one-to-one correspondence between a <strong>BibTeX</strong> field and a CFF key.</li>
 <li><strong>Structural transformation</strong>: a single field is expanded into multiple keys, such as <strong>pages</strong> to <code>start</code> and <code>end</code>.</li>
 <li><strong>Heuristic mapping</strong>: equivalence is inferred based on entry type or context.</li>
 <li><strong>Lossy mapping</strong>: information is discarded due to lack of an equivalent representation.</li>
@@ -1393,7 +1396,7 @@ Table 7: CFF keys with no BibTeX equivalence
 <p>Unless stated otherwise, mappings are lossy in at least one direction.</p>
 <p>All mappings and examples in the following sections are instances of these transformation classes.</p>
 <h3 id="entrykey-type-crosswalk">Entry/key <code>type</code> crosswalk</h3>
-<p>For mapping general BibTeX entries to CFF key <code>type</code>, the following equivalence is proposed:</p>
+<p>To map general <strong>BibTeX</strong> entries to CFF key <code>type</code>, the following equivalence is proposed:</p>
 <div id="tbl-entry_bib2cff" class="cell quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-tbl">
 <div aria-describedby="tbl-entry_bib2cff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1481,11 +1484,11 @@ Table 8: Entry/Type crosswalk: From BibTeX to CFF
 </div>
 <p>The previous mapping has the following specifications:</p>
 <ul>
-<li><strong>@book</strong>, <strong>@inbook</strong> and <strong>@incollection</strong> are closely related in BibTeX<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. While <strong>@inbook</strong> and <strong>@incollection</strong> both reference parts of a <strong>@book</strong>, the former is used for citing sections, chapters, pages or other specific parts, whereas the latter is used for citing parts with a specific title. Since CFF allows keys <code>type: book</code> and <code>collection-type: book</code>, we can use a combination of these fields to tag each entry type in CFF accordingly.</li>
+<li><strong>@book</strong>, <strong>@inbook</strong> and <strong>@incollection</strong> are closely related in <strong>BibTeX</strong><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. While <strong>@inbook</strong> and <strong>@incollection</strong> both reference parts of a <strong>@book</strong>, the former is used for citing sections, chapters, pages or other specific parts, whereas the latter is used for citing parts with a specific title. Since CFF allows keys <code>type: book</code> and <code>collection-type: book</code>, we can use a combination of these fields to tag each entry type in CFF accordingly.</li>
 <li><strong>@mastersthesis</strong> and <strong>@phdthesis</strong> are tagged using a combination of <code>type: thesis</code> and <code>thesis-type</code> keys.</li>
 </ul>
-<p>Because CFF allows a wide range of values<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> for the key <code>type</code>, the following mapping is applied from CFF to BibTeX:</p>
-<p>The reverse mapping prioritizes BibTeX compatibility and normalization over exact round-trip preservation.</p>
+<p>Because CFF allows a wide range of values<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> for the key <code>type</code>, the following mapping is applied from CFF to <strong>BibTeX</strong>:</p>
+<p>The reverse mapping prioritizes <strong>BibTeX</strong> compatibility and normalization over exact round-trip preservation.</p>
 <div id="tbl-entry_cff2bib" class="cell quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-tbl">
 <div aria-describedby="tbl-entry_cff2bib-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1567,7 +1570,7 @@ Table 9: Entry/Key <code>type</code> crosswalk: From CFF to BibTeX
 </figure>
 </div>
 <h3 id="fieldskey-crosswalk">Fields/key crosswalk</h3>
-<p>Some BibTeX fields and CFF keys have similar names and definitions. The equivalence is straightforward in some cases, but some keys need to be processed depending on the <strong>entry</strong> type.</p>
+<p>Some <strong>BibTeX</strong> fields and CFF keys have similar names and definitions. The equivalence is straightforward in some cases, but some keys need to be processed depending on the <strong>entry</strong> type.</p>
 <div id="tbl-fields_bib2cff" class="cell quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-tbl">
 <div aria-describedby="tbl-fields_bib2cff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1705,15 +1708,15 @@ Table 10: BibTeX - CFF key crosswalk
 </div>
 <p>We provide more detail on some of the mappings presented in the table above:</p>
 <ul>
-<li>Some fields are not mapped because there is no clear equivalence with CFF keys (such as <strong>annote</strong>, <strong>crossref</strong> and <strong>key</strong>). Regarding the <strong>type</strong> field, the CFF key <code>type</code> corresponds to the identifier of the work, similar to an entry in BibTeX. Therefore, BibTeX <strong>type</strong> is not mapped. These fields are always optional in BibTeX.</li>
-<li>For the <strong>address</strong> field, its intended use in BibTeX varies depending on the entry type (e.g., for <strong>@inproceedings</strong>, it denotes the <strong>address</strong> of the <strong>conference</strong>, while for <strong>@mastersthesis/@phdthesis</strong>, it is the <strong>address</strong> of the <strong>school</strong>, etc.). Mapping between BibTeX and CFF becomes more complex when institutional metadata is involved. This results in varying final mappings in CFF. When mapping from CFF to BibTeX, we propose to follow the same entry-based logic, using the key <code>location</code> as a fallback value when mapping to <strong>address</strong>.</li>
+<li>Some fields are not mapped because they have no clear equivalent CFF keys (such as <strong>annote</strong>, <strong>crossref</strong> and <strong>key</strong>). Regarding the <strong>type</strong> field, the CFF key <code>type</code> corresponds to the identifier of the work, similar to an entry in <strong>BibTeX</strong>. Therefore, <strong>BibTeX</strong> <strong>type</strong> is not mapped. These fields are always optional in <strong>BibTeX</strong>.</li>
+<li>For the <strong>address</strong> field, its intended use in <strong>BibTeX</strong> varies depending on the entry type. For <strong>@inproceedings</strong>, it denotes the <strong>address</strong> of the <strong>conference</strong>, while for <strong>@mastersthesis/@phdthesis</strong>, it is the <strong>address</strong> of the <strong>school</strong>. Mapping between <strong>BibTeX</strong> and CFF becomes more complex when institutional metadata is involved. This results in varying final mappings in CFF. When mapping from CFF to <strong>BibTeX</strong>, we propose to follow the same entry-based logic, using the key <code>location</code> as a fallback value when mapping to <strong>address</strong>.</li>
 <li>Because of the complexity mentioned above, <strong>institution, organization</strong> and <strong>school</strong> are mapped to <code>institution</code>.</li>
 <li><strong>series</strong> is mapped to <code>collection-title</code> only on those entries that do not require <strong>booktitle</strong>. In practice, this means that <code>collection-title</code> corresponds to <strong>booktitle</strong> (for <strong>@incollection</strong> and <strong>@inproceedings</strong>), and in the other cases it corresponds to <strong>series</strong>. As a consequence, <strong>series</strong> information is lost for <strong>@incollection</strong> and <strong>@inproceedings</strong>, but in those cases it is an optional field.</li>
-<li>When mapping from CFF to BibTeX, we propose to use <code>date-published</code> as a fallback for extracting <strong>month</strong> and <strong>year</strong> fields.</li>
-<li>When <strong>pages</strong> is provided as a range separated by <code>--</code>, i.e. <strong>pages = {3–5}</strong>, it is coerced as <code>start: 3</code>, <code>end: 5</code> in CFF.</li>
+<li>When mapping from CFF to <strong>BibTeX</strong>, we propose to use <code>date-published</code> as a fallback for extracting <strong>month</strong> and <strong>year</strong> fields.</li>
+<li>When <strong>pages</strong> is provided as a range separated by <code>--</code>, that is, <strong>pages = {3–5}</strong>, it is coerced as <code>start: 3</code>, <code>end: 5</code> in CFF.</li>
 </ul>
-<h4 id="biblatex">BibLaTeX</h4>
-<p>Other CFF keys correspond to BibLaTeX fields. We include these fields in the crosswalk<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>, even though they are not part of the core BibTeX field definition.</p>
+<h4 id="biblatex"><strong>BibLaTeX</strong></h4>
+<p>Other CFF keys correspond to <strong>BibLaTeX</strong> fields. We include these fields in the crosswalk<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>, even though they are not part of the core <strong>BibTeX</strong> field definition.</p>
 <div id="tbl-fields_biblatex2cff" class="cell quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-tbl">
 <div aria-describedby="tbl-fields_biblatex2cff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1786,27 +1789,27 @@ Table 11: BibLaTeX - CFF field/key crosswalk
 </figure>
 </div>
 <h2 id="limitations">Limitations</h2>
-<p>The proposed crosswalk is subject to multiple structural limitations arising from differences between BibTeX and CFF schemas:</p>
+<p>The proposed crosswalk is subject to multiple structural limitations arising from differences between <strong>BibTeX</strong> and CFF schemas:</p>
 <ul>
-<li><strong>Lossy mappings</strong>: Some BibTeX fields (e.g., <strong>crossref</strong>, <strong>annote</strong>, <strong>key</strong>) have no equivalent in CFF and are omitted during conversion.</li>
-<li><strong>Ambiguous semantics</strong>: Certain fields (e.g., <strong>address</strong>, <strong>series</strong>) have context-dependent meanings in BibTeX, requiring heuristic mapping to CFF keys such as <code>institution</code>, <code>location</code> or <code>collection-title</code>.</li>
-<li><strong>Type collapsing</strong>: Multiple BibTeX entry types (e.g., <strong>@misc</strong>, <strong>@incollection</strong>) are mapped to a single CFF type (<code>generic</code>), which acts as a fallback when no more specific type is available.</li>
-<li><strong>Structural transformations</strong>: Some fields require transformation rather than direct mapping (e.g., <strong>pages</strong> → <code>start</code>/<code>end</code>), altering the representation of the original data.</li>
-<li><strong>Non-reversibility</strong>: Due to the above factors, round-trip conversion (BibTeX → CFF → BibTeX) is not guaranteed to preserve the original structure or semantics.</li>
+<li><strong>Lossy mappings</strong>: Some <strong>BibTeX</strong> fields, including <strong>crossref</strong>, <strong>annote</strong> and <strong>key</strong>, have no equivalent in CFF and are omitted during conversion.</li>
+<li><strong>Ambiguous semantics</strong>: Certain fields such as <strong>address</strong> and <strong>series</strong> have context-dependent meanings in <strong>BibTeX</strong>, requiring heuristic mapping to CFF keys such as <code>institution</code>, <code>location</code> or <code>collection-title</code>.</li>
+<li><strong>Type collapsing</strong>: Multiple <strong>BibTeX</strong> entry types, including <strong>@misc</strong> and <strong>@incollection</strong>, are mapped to a single CFF type (<code>generic</code>), which acts as a fallback when no more specific type is available.</li>
+<li><strong>Structural transformations</strong>: Some fields require transformation rather than direct mapping, such as <strong>pages</strong> → <code>start</code>/<code>end</code>, altering the representation of the original data.</li>
+<li><strong>Non-reversibility</strong>: Because of these factors, round-trip conversion (<strong>BibTeX</strong> → CFF → <strong>BibTeX</strong>) is not guaranteed to preserve the original structure or semantics.</li>
 </ul>
 <p>These limitations reflect fundamental differences between the two formats rather than implementation-specific constraints.</p>
 <h2 id="design-decisions">Design decisions</h2>
 <p>The mapping implemented in <strong>cffr</strong> is guided by the following principles:</p>
 <ul>
-<li>Prefer deterministic mappings whenever possible</li>
-<li>Use heuristics only when unavoidable</li>
-<li>Normalize metadata to align with CFF conventions</li>
-<li>Prioritize interoperability over exact round‑trip fidelity</li>
+<li>Prefer deterministic mappings whenever possible.</li>
+<li>Use heuristics only when unavoidable.</li>
+<li>Normalize metadata to align with CFF conventions.</li>
+<li>Prioritize interoperability over exact round-trip fidelity.</li>
 </ul>
 <h2 id="entrymodels">Entry models</h2>
-<p>This section documents entry-specific mapping behavior, expanding the general crosswalk into concrete and testable models. Examples are adapted from the <a href="https://tug.org/texmf-docs/bibtex/xampl.bib">xampl.bib</a> distributed with BibTeX <span class="citation" data-cites="patashnik">(<a href="#ref-patashnik" role="doc-biblioref">Patashnik and Berry 2010</a>)</span>.</p>
+<p>This section documents entry-specific mapping behavior, expanding the general crosswalk into concrete and testable models. Examples are adapted from the <a href="https://tug.org/texmf-docs/bibtex/xampl.bib">xampl.bib</a> distributed with <strong>BibTeX</strong> <span class="citation" data-cites="patashnik">(<a href="#ref-patashnik" role="doc-biblioref">Patashnik 2010</a>)</span>.</p>
 <h3 id="article">@article</h3>
-<p>The crosswalk for <strong>@article</strong> does not require any special treatment.</p>
+<p>The crosswalk for <strong>@article</strong> uses the default mapping rules.</p>
 <div id="tbl-model_article" class="cell quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-tbl">
 <div aria-describedby="tbl-model_article-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1923,7 +1926,7 @@ Table 12: <strong>@article</strong> model
 <span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; }</span></span></code></pre></div>
 </div>
 <h3 id="book-inbook">@book / @inbook</h3>
-<p>In terms of fields required in BibTeX, the primary difference between <strong>@book</strong> and <strong>@inbook</strong> is that <strong>@inbook</strong> requires a <strong>chapter</strong> or <strong>page</strong> field, while <strong>@book</strong> does not even allow these fields as optional. Therefore, we propose that an <strong>@inbook</strong> entry in CFF be treated as a <strong>@book</strong> with the following supplementary fields:</p>
+<p>In terms of fields required in <strong>BibTeX</strong>, the primary difference between <strong>@book</strong> and <strong>@inbook</strong> is that <strong>@inbook</strong> requires a <strong>chapter</strong> or <strong>page</strong> field, while <strong>@book</strong> does not allow these fields as optional. Therefore, we propose that an <strong>@inbook</strong> entry in CFF be treated as a <strong>@book</strong> with the following supplementary fields:</p>
 <ol type="1">
 <li><code>section</code>: To denote the specific <strong>chapter</strong> within the book.</li>
 <li><code>start</code>/<code>end</code>: To indicate the range of <strong>pages</strong> covered by the section.</li>
@@ -2034,7 +2037,7 @@ Table 13: <strong>@book / @inbook</strong> model
 </figcaption>
 </figure>
 </div>
-<p>There are notable differences in how BibTeX and <strong>BibLaTeX</strong> handle the <strong>@inbook</strong> entry (further discussed in the <a href="#appendix_inbook">Appendix A</a>). We propose to treat a BibLaTeX <strong>@inbook</strong> as a BibTeX <strong>@incollection</strong>.</p>
+<p>There are notable differences in how <strong>BibTeX</strong> and <strong>BibLaTeX</strong> handle the <strong>@inbook</strong> entry (discussed further in <a href="#appendix_inbook">Appendix A</a>). We propose treating a <strong>BibLaTeX</strong> <strong>@inbook</strong> as a <strong>BibTeX</strong> <strong>@incollection</strong>.</p>
 <p><strong>Round-trip: @book</strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>bib <span class="ot">&lt;-</span> <span class="st">&quot;@book{book-full,</span></span>
@@ -2136,7 +2139,7 @@ Table 13: <strong>@book / @inbook</strong> model
 <span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; }</span></span></code></pre></div>
 </div>
 <h3 id="booklet">@booklet</h3>
-<p>In <strong>@booklet</strong> <strong>address</strong> is mapped to <code>location</code>.</p>
+<p>In <strong>@booklet</strong>, <strong>address</strong> is mapped to <code>location</code>.</p>
 <div id="tbl-model_booklet" class="cell quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-tbl">
 <div aria-describedby="tbl-model_booklet-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -2689,7 +2692,7 @@ Table 17: <strong>@manual</strong> model
 <span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; }</span></span></code></pre></div>
 </div>
 <h3 id="mastersthesis-phdthesis">@mastersthesis / @phdthesis</h3>
-<p>In terms of fields required by BibTeX, it is identical for both <strong>@mastersthesis</strong> and <strong>@phdthesis.</strong></p>
+<p>The <strong>BibTeX</strong> field requirements are identical for <strong>@mastersthesis</strong> and <strong>@phdthesis</strong>.</p>
 <p>We propose here to identify each type of thesis using the key <code>thesis-type</code>. If <code>thesis-type</code> contains a <a href="https://regex101.com/r/mBWfbs/1">regex pattern</a> <code>(?i)(phd)</code>, it is recognized as <strong>@phdthesis</strong>.</p>
 <p>Additionally, <strong>school</strong> is mapped to <code>institution</code>.</p>
 <div id="tbl-model_thesis" class="cell quarto-float quarto-figure quarto-figure-center">
@@ -2839,8 +2842,8 @@ Table 18: <strong>@mastersthesis / @phdthesis</strong> model
 <span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; }</span></span></code></pre></div>
 </div>
 <h3 id="misc">@misc</h3>
-<p>The crosswalk for <strong>@misc</strong> does not require any special treatment. This <strong>entry</strong> does not require any <strong>field</strong>.</p>
-<p>Note also that it is mapped to <code>type: generic</code> as <a href="#incol"><strong>@incollection</strong></a>, but in this case <strong>booktitle</strong> is not even an option, so the proposed definition should cover both <strong>@misc</strong> and <strong>@incollection</strong> without problems.</p>
+<p>The crosswalk for <strong>@misc</strong> uses the default mapping rules. This <strong>entry</strong> does not require any <strong>field</strong>.</p>
+<p>Note also that it is mapped to <code>type: generic</code>, as with <a href="#incol"><strong>@incollection</strong></a>. In this case, <strong>booktitle</strong> is not an option, so the proposed definition should cover both <strong>@misc</strong> and <strong>@incollection</strong>.</p>
 <div id="tbl-model_misc" class="cell quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-tbl">
 <div aria-describedby="tbl-model_misc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -2929,7 +2932,7 @@ Table 19: <strong>@misc</strong> model
 <span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; }</span></span></code></pre></div>
 </div>
 <h3 id="proceedings">@proceedings</h3>
-<p>The proposed model is consistent with <a href="#conf_inproc"><strong>@conference</strong> / <strong>@inproceedings</strong></a>. Note that <strong>@proceedings</strong> does not prescribe an <strong>author</strong> field. In these cases, as <code>authors</code> is required in CFF, we use <em>anonymous</em><a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> when mapping to CFF and omit it when mapping from CFF to BibTeX.</p>
+<p>The proposed model is consistent with <a href="#conf_inproc"><strong>@conference</strong> / <strong>@inproceedings</strong></a>. Note that <strong>@proceedings</strong> does not prescribe an <strong>author</strong> field. In these cases, because <code>authors</code> is required in CFF, we use <em>anonymous</em><a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> when mapping to CFF and omit it when mapping from CFF to <strong>BibTeX</strong>.</p>
 <div id="tbl-model_proceedings" class="cell quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-tbl">
 <div aria-describedby="tbl-model_proceedings-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -3069,7 +3072,7 @@ Table 20: <strong>@proceedings</strong> model
 <span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; }</span></span></code></pre></div>
 </div>
 <h3 id="techreport">@techreport</h3>
-<p>The crosswalk for <strong>@techreport</strong> does not require any special treatment.</p>
+<p>The crosswalk for <strong>@techreport</strong> uses the default mapping rules.</p>
 <div id="tbl-model_techreport" class="cell quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-tbl">
 <div aria-describedby="tbl-model_techreport-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -3186,7 +3189,7 @@ Table 21: <strong>@techreport</strong> model
 <span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; }</span></span></code></pre></div>
 </div>
 <h3 id="unpublished">@unpublished</h3>
-<p>The crosswalk for <strong>@unpublished</strong> does not require any special treatment.</p>
+<p>The crosswalk for <strong>@unpublished</strong> uses the default mapping rules.</p>
 <div id="tbl-model_unpublished" class="cell quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-tbl">
 <div aria-describedby="tbl-model_unpublished-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -3265,24 +3268,24 @@ Table 22: <strong>@unpublished</strong> model
 <span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; }</span></span></code></pre></div>
 </div>
 <h2 id="conclusion">Conclusion</h2>
-<p>This article presents a practical and reproducible crosswalk between BibTeX and CFF.</p>
+<p>This article presents a practical and reproducible crosswalk between <strong>BibTeX</strong> and CFF.</p>
 <p>Although the formats are not fully equivalent, the deterministic mapping implemented in <strong>cffr</strong> enables consistent transformations across heterogeneous citation ecosystems. By making design decisions explicit and documenting limitations, this work supports interoperable citation workflows bridging legacy bibliographic systems and modern software-centric practices.</p>
-<h2 class="appendix" id="appendix_inbook">Appendix A: <strong>@inbook</strong> in BibTeX and BibLaTeX</h2>
-<p>The definition of <strong>@inbook</strong> and <strong>@incollection</strong> in BibTeX <span class="citation" data-cites="patashnik1988">(<a href="#ref-patashnik1988" role="doc-biblioref">Patashnik 1988</a>)</span> is as follows:</p>
+<h2 class="appendix" id="appendix_inbook">Appendix A: <strong>@inbook</strong> in <strong>BibTeX</strong> and <strong>BibLaTeX</strong></h2>
+<p>The definition of <strong>@inbook</strong> and <strong>@incollection</strong> in <strong>BibTeX</strong> <span class="citation" data-cites="patashnik1988">(<a href="#ref-patashnik1988" role="doc-biblioref">Patashnik 1988</a>)</span> is as follows:</p>
 <blockquote>
 <ul>
 <li><p><strong>@inbook</strong>: A part of a book, which may be a chapter (or section) and/or a range of pages. Required fields: author or editor, title, chapter and/or pages, publisher, year (…)</p></li>
 <li><p><strong>@incollection</strong>: A part of a book having its own title. Required fields: author, title, booktitle, publisher, year (…)</p></li>
 </ul>
 </blockquote>
-<p>Whereas BibLaTeX <span class="citation" data-cites="biblatexpack">(<a href="#ref-biblatexpack" role="doc-biblioref">Kime et al. 2023</a>)</span> specifies:</p>
+<p>Whereas <strong>BibLaTeX</strong> <span class="citation" data-cites="biblatexpack">(<a href="#ref-biblatexpack" role="doc-biblioref">Kime et al. 2025</a>)</span> specifies:</p>
 <blockquote>
 <ul>
-<li><strong>@inbook:</strong> A part of a book which forms a self-contained unit with its own title. Note that the <u>profile</u> of this entry type is <u>different from standard BibTeX</u>, see § 2.3.1. Required fields: author, title, booktitle, year/date (…).</li>
+<li><strong>@inbook:</strong> A part of a book which forms a self-contained unit with its own title. Note that the <u>profile</u> of this entry type is <u>different from standard <strong>BibTeX</strong></u>, see § 2.3.1. Required fields: author, title, booktitle, year/date (…).</li>
 </ul>
 </blockquote>
-<p>When considering required fields, an important difference is the <strong>booktitle</strong> requirement in BibLaTeX. Notably, BibTeX <strong>@incollection</strong> also requires this field. Moreover, both BibTeX <strong>@incollection</strong> and BibLaTeX <strong>@inbook</strong> emphasize its reference to <em>“a part of a book (…) with its own title”</em>.</p>
-<p>In this article, the proposed crosswalk ensures full compatibility with BibTeX. Therefore, we propose to consider a BibLaTeX <strong>@inbook</strong> entry as equivalent to a BibTeX <strong>@incollection</strong>, given the congruence in their definitions and field requirements.</p>
+<p>When considering required fields, an important difference is the <strong>booktitle</strong> requirement in <strong>BibLaTeX</strong>. Notably, <strong>BibTeX</strong> <strong>@incollection</strong> also requires this field. Moreover, both <strong>BibTeX</strong> <strong>@incollection</strong> and <strong>BibLaTeX</strong> <strong>@inbook</strong> emphasize its reference to <em>“a part of a book (…) with its own title”</em>.</p>
+<p>In this article, the proposed crosswalk ensures full compatibility with <strong>BibTeX</strong>. Therefore, we treat a <strong>BibLaTeX</strong> <strong>@inbook</strong> entry as equivalent to a <strong>BibTeX</strong> <strong>@incollection</strong>, given the close alignment in their definitions and field requirements.</p>
 <p><strong>Round-trip</strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>bib <span class="ot">&lt;-</span> <span class="st">&quot;@inbook{inbook-biblatex,</span></span>
@@ -3551,42 +3554,42 @@ Table 23: Complete list of CFF reference types
 <h2 class="unnumbered" id="references">References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-druskat_citation_2021" class="csl-entry" role="listitem">
-Druskat, Stephan, Jurriaan H. Spaaks, Neil Chue Hong, et al. 2021. <em>Citation <span>File</span> <span>Format</span></em>. <a href="https://doi.org/10.5281/zenodo.5171937">https://doi.org/10.5281/zenodo.5171937</a>.
+Druskat, Stephan, Jurriaan H. Spaaks, Neil Chue Hong, et al. 2021. <em>Citation <span>File</span> <span>Format</span></em>. Version 1.2.0. Zenodo. <a href="https://doi.org/10.5281/zenodo.5171937">https://doi.org/10.5281/zenodo.5171937</a>.
 </div>
 <div id="ref-druskat2019" class="csl-entry" role="listitem">
-Druskat, Stephan, Jurriaan H. Spaaks, Neil Chue Hong, Robert Haines, and James Baker. 2019. <em><span>Citation File Format (CFF)</span> - Specifications</em>. <a href="https://doi.org/10.5281/ZENODO.3515946">https://doi.org/10.5281/ZENODO.3515946</a>.
+Druskat, Stephan, Jurriaan H. Spaaks, Neil Chue Hong, Robert Haines, and James Baker. 2019. <em><span>Citation File Format (CFF)</span> - Specifications</em>. Versions 1.0.3-4. Zenodo. <a href="https://doi.org/10.5281/zenodo.3515946">https://doi.org/10.5281/zenodo.3515946</a>.
 </div>
 <div id="ref-Haines_Ruby_CFF_Library_2021" class="csl-entry" role="listitem">
-Haines, Robert, and The Ruby Citation File Format Developers. 2021. <em>Ruby <span>CFF</span> Library</em>. Zenodo. <a href="https://doi.org/10.5281/ZENODO.1184077">https://doi.org/10.5281/ZENODO.1184077</a>.
+Haines, Robert, and The Ruby Citation File Format Developers. 2022. <em>Ruby <span>CFF</span> Library</em>. Version 1.0.1. Zenodo. <a href="https://doi.org/10.5281/zenodo.7294987">https://doi.org/10.5281/zenodo.7294987</a>.
 </div>
 <div id="ref-hernangomez2021" class="csl-entry" role="listitem">
 Hernangómez, Diego. 2021. <span>“<span class="nocase">cffr</span>: Generate <span>Citation</span> <span>File</span> <span>Format</span> Metadata for <span>R</span> Packages.”</span> <em>Journal of Open Source Software</em> 6 (67): 3900. <a href="https://doi.org/10.21105/joss.03900">https://doi.org/10.21105/joss.03900</a>.
 </div>
 <div id="ref-biblatexpack" class="csl-entry" role="listitem">
-Kime, Philip, Moritz Wemheuer, and Philipp Lehman. 2023. <em>The <span class="nocase">biblatex</span> Package</em>. <a href="https://osl.ugr.es/CTAN/macros/latex/contrib/biblatex/doc/biblatex.pdf">https://osl.ugr.es/CTAN/macros/latex/contrib/biblatex/doc/biblatex.pdf</a>.
+Kime, Philip, Moritz Wemheuer, and Philipp Lehman. 2025. <em>The <span class="nocase">biblatex</span> Package</em>. <a href="https://osl.ugr.es/CTAN/macros/latex/contrib/biblatex/doc/biblatex.pdf">https://osl.ugr.es/CTAN/macros/latex/contrib/biblatex/doc/biblatex.pdf</a>.
 </div>
 <div id="ref-patashnik1988" class="csl-entry" role="listitem">
-Patashnik, Oren. 1988. <em><span>BIBTEXTING</span></em>. <a href="https://osl.ugr.es/CTAN/biblio/bibtex/base/btxdoc.pdf">https://osl.ugr.es/CTAN/biblio/bibtex/base/btxdoc.pdf</a>.
+Patashnik, Oren. 1988. <em><span>BIBTEXing</span></em>. <a href="https://osl.ugr.es/CTAN/biblio/bibtex/base/btxdoc.pdf">https://osl.ugr.es/CTAN/biblio/bibtex/base/btxdoc.pdf</a>.
 </div>
 <div id="ref-patashnik" class="csl-entry" role="listitem">
-Patashnik, Oren, and Karl Berry. 2010. <em>CTAN: Package Bibtex</em>. Version 0.99d. <a href="https://ctan.org/pkg/bibtex">https://ctan.org/pkg/bibtex</a>.
+Patashnik, Oren. 2010. <em>CTAN: Package Bibtex</em>. Version 0.99e. <a href="https://ctan.org/pkg/bibtex">https://ctan.org/pkg/bibtex</a>.
 </div>
 <div id="ref-R_2021" class="csl-entry" role="listitem">
 R Core Team. 2026. <em>R: A Language and Environment for Statistical Computing</em>. R Foundation for Statistical Computing. <a href="https://doi.org/10.32614/R.manuals">https://doi.org/10.32614/R.manuals</a>.
 </div>
 <div id="ref-biblatexcheatsheet" class="csl-entry" role="listitem">
-Rees, Clea F. 2017. <em><span>BibLaTeX</span> <span>Cheat</span> <span>Sheet</span></em>. <a href="https://osl.ugr.es/CTAN/info/biblatex-cheatsheet/biblatex-cheatsheet.pdf">https://osl.ugr.es/CTAN/info/biblatex-cheatsheet/biblatex-cheatsheet.pdf</a>.
+Rees, Clea F. 2017. <em><span>BibLaTeX</span> Cheat Sheet</em>. <a href="https://osl.ugr.es/CTAN/info/biblatex-cheatsheet/biblatex-cheatsheet.pdf">https://osl.ugr.es/CTAN/info/biblatex-cheatsheet/biblatex-cheatsheet.pdf</a>.
 </div>
 </div>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>See a complete list of possible values of CFF <code>type</code> in <a href="#appendix_cff_type">Appendix B</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>This software performs only the mapping from CFF to BibTeX, but <strong>cffr</strong> can perform the mapping in both directions.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>Note that BibLaTeX <span class="citation" data-cites="biblatexpack">(<a href="#ref-biblatexpack" role="doc-biblioref">Kime et al. 2023</a>)</span> handles <strong>@inbook</strong> differently, see <a href="#appendix_inbook">Appendix A</a>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>See a complete list of possible values of CFF <code>type</code> in <a href="#appendix_cff_type">Appendix B</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>This software performs only the mapping from CFF to <strong>BibTeX</strong>, but <strong>cffr</strong> can perform the mapping in both directions.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Note that <strong>BibLaTeX</strong> <span class="citation" data-cites="biblatexpack">(<a href="#ref-biblatexpack" role="doc-biblioref">Kime et al. 2025</a>)</span> handles <strong>@inbook</strong> differently, see <a href="#appendix_inbook">Appendix A</a>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>See <a href="#appendix_cff_type">Appendix B</a> for all possible values. Information extracted from <span class="citation" data-cites="druskat2019">Druskat et al. (<a href="#ref-druskat2019" role="doc-biblioref">2019</a>)</span>.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p>See <span class="citation" data-cites="biblatexcheatsheet">Rees (<a href="#ref-biblatexcheatsheet" role="doc-biblioref">2017</a>)</span> for a preview of the accepted BibLaTeX fields.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn6"><p>As proposed on <a href="https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#how-to-deal-with-unknown-individual-authors"><em>How to deal with unknown individual authors?</em></a>, <strong>(Guide to Citation File Format schema version 1.2.0)</strong>.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>See <span class="citation" data-cites="biblatexcheatsheet">Rees (<a href="#ref-biblatexcheatsheet" role="doc-biblioref">2017</a>)</span> for a preview of the accepted <strong>BibLaTeX</strong> fields.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>As proposed on <a href="https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#how-to-deal-with-unknown-individual-authors"><em>How to deal with unknown individual authors?</em></a>, (Guide to Citation File Format schema version 1.2.0).<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 

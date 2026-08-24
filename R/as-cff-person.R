@@ -1,0 +1,369 @@
+#' Coerce \R objects to [`cff_pers_lst`] objects
+#'
+#' @description
+#' `as_cff_person()` turns an existing list-like \R object into a
+#' [`cff_pers_lst`] object representing a list of `definitions.person` or
+#' `definitions.entity`, as defined in the following guide:
+#' ```{r child = "man/chunks/schema-guide.Rmd"}
+#' ```
+#'
+#' `as_cff_person()` is an S3 generic, with methods for:
+#' - `person`: Objects created with [utils::person()].
+#' - `character`: Strings with the definition for one or more authors, using
+#'   the standard BibTeX notation (see Markey, 2009) and related formats, such
+#'   as the output of [base::format()] for `person` objects (see
+#'   [`format.person()`][utils::person()]).
+#' - Default: Other inputs are first coerced with [base::as.character()].
+#'
+#' The inverse transformation (`cff_pers_lst` to `person`) can be performed
+#' with the methods [as.person.cff_pers()] and [as.person.cff_pers_lst()].
+#'
+#' @param x Any \R object.
+#' @param ... Ignored by this method.
+#'
+#' @return
+#' `as_cff_person()` returns an object of classes
+#' [`cff_pers_lst, cff`][cff_pers_lst] as defined by `definitions.person` or
+#' `definitions.entity` specified in the following guide:
+#' ```{r child = "man/chunks/schema-guide.Rmd"}
+#' ```
+#' Each element of the `cff_pers_lst` object has classes
+#' [`cff_pers, cff`][cff_pers].
+#'
+#' @details
+#' `as_cff_person()` recognizes whether the input should be converted with the
+#' CFF reference for `definitions.person` or `definitions.entity`.
+#'
+#' `as_cff_person()` uses a custom algorithm that parses names as explained in
+#' Section 11 of "Tame the BeaST" (Markey, 2009) (see also Decoret, 2007):
+#'
+#' - `First von Last`.
+#' - `von Last, First`.
+#' - `von Last, Jr, First`.
+#'
+#' Mapping is performed as follows:
+#' - `First` is mapped to the CFF key `given-names`.
+#' - `von` is mapped to the CFF key `name-particle`.
+#' - `Last` is mapped to the CFF key `family-names`.
+#' - `Jr` is mapped to the CFF key `name-suffix`.
+#'
+#' For entities, the entire `character` is mapped to `name`.
+#' We recommend "protecting" entity names with `{}`:
+#'
+#' ```{r child = "man/chunks/person.Rmd"}
+#' ```
+#' `as_cff_person()` attempts to extract as much information as possible.
+#' For `character` strings from [`format.person()`][utils::person()], the
+#' email and ORCID are also extracted.
+#'
+#' @references
+#' Patashnik O (1988). "BIBTEXing."
+#' <https://osl.ugr.es/CTAN/biblio/bibtex/base/btxdoc.pdf>.
+#'
+#' Markey N (2009). *Tame the BeaST: The B to X of BibTeX*.
+#' <https://osl.ugr.es/CTAN/info/bibtex/tamethebeast/ttb_en.pdf>.
+#'
+#' Decoret X (2007). "A summary of BibTeX."
+#' ```{r, echo=FALSE, results='asis'}
+#' cat(paste0(" <https://maverick.inria.fr/~Xavier.Decoret/resources/",
+#'   "xdkbibtex/bibtex_summary.html#names>."))
+#' ```
+#'
+#' @seealso
+#' Examples in `vignette("cffr", package = "cffr")` and [utils::person()].
+#' Learn more about the `cff_pers_lst` and `cff_pers` classes in [cff_class].
+#'
+#' @family conversions
+#' @rdname as_cff_person
+#' @name as_cff_person
+#' @order 1
+#' @export
+#' @encoding UTF-8
+#' @examples
+#' # Create a person object.
+#' a_person <- person(
+#'   given = "First", family = "Author",
+#'   role = c("aut", "cre"),
+#'   email = "first.last@example.com", comment = c(
+#'     ORCID = "0000-0001-8457-4658",
+#'     affiliation = "An affiliation"
+#'   )
+#' )
+#'
+#' a_person
+#'
+#' cff_person <- as_cff_person(a_person)
+#'
+#' # Classes `cff_pers_lst` and `cff`.
+#' class(cff_person)
+#'
+#' # Each element has classes `cff_pers` and `cff`.
+#' class(cff_person[[1]])
+#'
+#' # Print.
+#' cff_person
+#'
+#' # Back to person object with S3 method.
+#' as.person(cff_person)
+#'
+#' # Coerce a string.
+#' a_str <- paste0(
+#'   "Julio Iglesias <fake@email.com> ",
+#'   "(city: Miami, region: California, country: US)"
+#' )
+#' as_cff_person(a_str)
+#'
+#' # Several persons.
+#' persons <- c(
+#'   person("Clark", "Kent", comment = c(affiliation = "Daily Planet")),
+#'   person("Lois", "Lane"), person("Oscorp Inc.")
+#' )
+#'
+#' a_cff <- as_cff_person(persons)
+#'
+#' a_cff
+#'
+#' # Print as BibTeX with the method.
+#' toBibtex(a_cff)
+#'
+#' # Or as a `person` object.
+#' as.person(a_cff)
+#'
+#' # Or use BibTeX style as input.
+#'
+#' x <- "Frank Sinatra and Dean Martin and Davis, Jr., Sammy and Joey Bishop"
+#'
+#' as_cff_person(x)
+#'
+#' as_cff_person("Herbert von Karajan")
+#'
+#' toBibtex(as_cff_person("Herbert von Karajan"))
+as_cff_person <- function(x, ...) {
+  UseMethod("as_cff_person")
+}
+
+#' @rdname as_cff_person
+#' @order 2
+#' @export
+#' @encoding UTF-8
+as_cff_person.default <- function(x, ...) {
+  # Check whether this is protected.
+  if (!inherits(x, "Bibtex")) {
+    x <- clean_str(x)
+  }
+  if (is.null(x)) {
+    return(NULL)
+  }
+
+  x_char <- unname(as.character(x))
+
+  as_cff_person(x_char)
+}
+
+#' @rdname as_cff_person
+#' @order 3
+#' @export
+#' @encoding UTF-8
+as_cff_person.person <- function(x, ...) {
+  the_obj <- lapply(x, create_person_from_r)
+
+  if (!length(the_obj) > 0) {
+    return(NULL)
+  }
+  the_obj <- as_cff(the_obj)
+  the_obj
+}
+
+#' @rdname as_cff_person
+#' @order 4
+#' @export
+#' @encoding UTF-8
+as_cff_person.character <- function(x, ...) {
+  # It may already be protected.
+  if (any(grepl("{", x, fixed = TRUE))) {
+    test_x <- x
+  } else {
+    test_x <- clean_str(x)
+  }
+
+  if (is.null(test_x)) {
+    return(NULL)
+  }
+
+  # Split the character input.
+  person_split <- split_txt_persons(x)
+  the_obj <- lapply(person_split, create_person_from_txt)
+
+  the_obj <- as_cff(the_obj)
+  the_obj
+}
+
+create_person_from_r <- function(person) {
+  person <- as.person(person)
+
+  # Special case for Bioconductor.
+
+  if (is_substring(person$given, "Bioconductor")) {
+    person <- person(
+      given = paste(clean_str(person$given), clean_str(person$family)),
+      email = person$email,
+      role = person$role,
+      comment = person$comment
+    )
+  }
+
+  # Special case for R Core Team.
+  if (
+    all(
+      is_substring(clean_str(person$given), "R Core"),
+      is_substring(person$family, "Team")
+    )
+  ) {
+    person <- person(
+      given = paste(clean_str(person$given), clean_str(person$family)),
+      email = person$email,
+      role = person$role,
+      comment = person$comment
+    )
+  }
+
+  # Guess whether this is an entity or a person.
+  is_entity <- is.null(person$family) || is.null(person$given)
+
+  # Create a text version of the person to treat as BibTeX.
+
+  if (is_entity) {
+    as_bib_text <- paste(c(person$family, person$given), collapse = " ")
+    # Protect it.
+    as_bib_text <- protect_bib_braces(as_bib_text)
+  } else {
+    # Use von Family, Junior, Given.
+    # Protect given.
+    giv <- paste0(person$given, collapse = " ")
+    giv <- protect_bib_braces(giv)
+    as_bib_text <- paste0(c(person$family, giv), collapse = ", ")
+  }
+
+  pers_cff <- create_person_from_txt(as_bib_text)
+  if (getRversion() < "4.5.0") {
+    comm_cff <- extract_person_comments(person) # nocov
+  } else {
+    comm_cff <- extract_person_comments45(person)
+  }
+  # Add comments.
+  pers_cff <- c(pers_cff, comm_cff)
+
+  # Validate keys.
+  pers_cff <- validate_cff_person_fields(pers_cff)
+  pers_cff
+}
+
+create_person_from_txt <- function(as_bib_text) {
+  # Extract comments using R patterns.
+  # Locate comments with the default format.person() pattern.
+  # 'first last [role] <e@mail> (comment)
+  # Protect this if inside brackets.
+  comments_pattern <- "<|>|\\(|\\)|\\[|\\]"
+
+  protected <- gsub(
+    paste0("(", comments_pattern, ")(?![^\\}]*(\\{|$))"),
+    "0",
+    as_bib_text,
+    perl = TRUE
+  )
+
+  start_comment <- min(unlist(regexpr(comments_pattern, protected)))
+
+  if (start_comment > 0) {
+    # Comments are present.
+    person_only <- trimws(substr(as_bib_text, 1, start_comment - 1))
+    comment_only <- trimws(substr(
+      as_bib_text,
+      start_comment,
+      nchar(as_bib_text)
+    ))
+
+    # Fake a person object to extract comments.
+    fake_person <- paste0("{Fake} ", comment_only)
+    if (getRversion() < "4.5.0") {
+      comm_cff <- extract_person_comments(fake_person) # nocov
+    } else {
+      comm_cff <- extract_person_comments45(fake_person)
+    }
+  } else {
+    # Comments are absent.
+    person_only <- as_bib_text
+    comm_cff <- list()
+  }
+
+  # Collapse repeated spaces (issue with quint package).
+  person_only <- gsub("\\s{2,}", " ", person_only)
+
+  # Special case for Bioconductor.
+  if (is_substring(tolower(person_only), "bioconductor")) {
+    person_only <- protect_bib_braces(person_only)
+  }
+  # Special case for R Core Team.
+  if (is_substring(tolower(person_only), "r core")) {
+    person_only <- protect_bib_braces(person_only)
+  }
+
+  # Extract structure from the person_only string.
+  # It may be one of:
+  # A. Given von Family
+  # B. von Family, Given
+  # C. von Family, Junior, Given
+
+  # Protect commas inside brackets to avoid counting errors.
+  protected <- gsub(",(?![^\\}]*(\\{|$))", "@comma@", person_only, perl = TRUE)
+
+  commas <- as.character(lengths(regmatches(
+    protected,
+    gregexpr(",", protected, fixed = TRUE)
+  )))
+
+  # Assign the corresponding function.
+  bibtex_name_str <- switch(commas,
+    # Case A.
+    "0" = bibtex_pers_first_von_last(person_only),
+    # Case B.
+    "1" = bibtex_pers_von_last_first(person_only),
+    # Case C.
+    "2" = bibtex_pers_von_last_first_jr(person_only),
+    # Empty.
+    list(family = paste(person_only, collapse = " "))
+  )
+
+  # Clean.
+  bibtex_name_str <- lapply(bibtex_name_str, function(z) {
+    if (is.null(clean_str(z))) {
+      return(NULL)
+    }
+
+    cleaned <- gsub("\\{|\\}", "", z)
+    clean_str(cleaned)
+  })
+
+  # Final person.
+  if (is.null(bibtex_name_str$given)) {
+    ent <- c(bibtex_name_str$von, bibtex_name_str$family, bibtex_name_str$jr)
+    ent <- clean_str(paste(ent, collapse = " "))
+    pers_cff <- list(name = ent)
+  } else {
+    pers_cff <- list(
+      "family-names" = bibtex_name_str$family,
+      "given-names" = bibtex_name_str$given,
+      "name-particle" = bibtex_name_str$von,
+      "name-suffix" = bibtex_name_str$jr
+    )
+  }
+
+  pers_cff <- pers_cff[!lengths(pers_cff) == 0]
+
+  # Add comments.
+  pers_cff <- c(pers_cff, comm_cff)
+
+  # Validate keys.
+  pers_cff <- validate_cff_person_fields(pers_cff)
+  pers_cff
+}

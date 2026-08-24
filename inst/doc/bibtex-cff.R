@@ -177,7 +177,7 @@ knitr::kable(
 df_table <- table_master[table_master$table == "model_article", c(2:4)]
 df_table[is.na(df_table)] <- ""
 
-# fix links
+# Fix links.
 df_table$f3 <- gsub("link_to_entry_models", "#entrymodels", df_table$f3)
 df_table$f3 <- gsub("link_to_article", "#article", df_table$f3)
 df_table$f3 <- gsub("link_to_booklet", "#booklet", df_table$f3)

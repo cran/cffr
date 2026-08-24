@@ -1,4 +1,4 @@
-test_that("Test message on cff", {
+test_that("cff reports defaults and invalid file input", {
   expect_snapshot(def <- cff("abcde"))
 
   expect_identical(def, cff())
@@ -8,7 +8,7 @@ test_that("Test message on cff", {
   expect_identical(afile, cff())
 })
 
-test_that("Walk trough full lifecycle", {
+test_that("cff objects survive the full write and modify lifecycle", {
   complete <- system.file("examples/CITATION_complete.cff", package = "cffr")
 
   # Read
@@ -20,22 +20,20 @@ test_that("Walk trough full lifecycle", {
   # Modify
   modify <- cff_create(read, keys = list(title = "A new title"))
   expect_snapshot(modify)
-  expect_true(length(read) == length(modify))
-  expect_true(length((setdiff(names(read), names(modify)))) == 0)
-  expect_false(read$title == modify$title)
+  expect_length(read, length(modify))
+  expect_setequal(names(read), names(modify))
+  expect_false(identical(read$title, modify$title))
 
   # Write
-  tmp <- tempfile(fileext = ".cff")
+  tmp <- withr::local_tempfile(fileext = ".cff")
   cff_write(modify, outfile = tmp, validate = FALSE, verbose = FALSE)
-  expect_silent(file_exist_abort(tmp))
+  expect_true(file.exists(tmp))
 
   # Validate
   expect_true(cff_validate(tmp, verbose = FALSE))
-
-  file.remove(tmp)
 })
 
-test_that("Recursive parsing", {
+test_that("cff recursively parses complete files", {
   complete <- system.file("examples/CITATION_complete.cff", package = "cffr")
 
   # Read
@@ -52,7 +50,7 @@ test_that("Recursive parsing", {
 })
 
 
-test_that("Fuzzy matching of keys on cff", {
+test_that("cff fuzzy-matches misspelled keys", {
   expect_snapshot(cff(
     tittle = "a",
     cff_version = "ar",
@@ -72,9 +70,14 @@ test_that("Fuzzy matching of keys on cff", {
 
   expect_true(is_cff(cffobj))
   expect_true(cff_validate(cffobj, verbose = FALSE))
+
+  expect_message(
+    do.call(cff, stats::setNames(list("a"), "tit{tle}")),
+    "tit\\{tle\\}: No match"
+  )
 })
 
-test_that("duplicated", {
+test_that("cff removes duplicate keys", {
   # jarl-ignore-start duplicated_arguments: Testing edge case.
   expect_snapshot(
     ss <- cff(
@@ -90,7 +93,7 @@ test_that("duplicated", {
   expect_length(ss, 3)
 })
 
-test_that("unnamed", {
+test_that("cff removes unnamed arguments", {
   expect_snapshot(ss <- cff(path = "a", "200", "Fix my keys"), error = TRUE)
 
   expect_snapshot(s1 <- cff(path = NULL, title = "a", "b", version = 1))

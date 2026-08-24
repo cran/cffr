@@ -206,7 +206,7 @@ cat(cff_create(tmp2)$keywords)
 
 jsonval <- cff_create("jsonvalidate")
 
-# Keywords are retrieved from the GitHub repository.
+# Keywords are retrieved from the **GitHub** repository.
 
 jsonval
 

@@ -31,7 +31,7 @@ clean_str <- function(str) {
   clean
 }
 
-#' Drop nulls from a list
+#' Drop `NULL` values from a list
 #' @param x A list to be cleaned.
 #' @source https://github.com/cboettig/codemeta/blob/master/R/utils.R
 #' @noRd
@@ -43,7 +43,7 @@ drop_null <- function(x) {
   x[lengths(x) != 0]
 }
 
-#' Pretty printing of snapshots
+#' Pretty-print snapshots
 #' @noRd
 print_snapshot <- function(title = "----", obj) {
   cat("\n\n##", title, "\n\n")
@@ -51,11 +51,9 @@ print_snapshot <- function(title = "----", obj) {
   cat("\n---")
 }
 
-# nocov start
 get_avail_on_init <- function() {
-  avail_on_init
+  getOption("cffr.available_packages", avail_on_init) # nocov
 }
-# nocov end
 
 #' Search for a package in available repositories.
 #' @param name Name of the package.
@@ -66,7 +64,7 @@ get_avail_on_init <- function() {
 search_on_repos <- function(
   name,
   avail = get_avail_on_init(),
-  repos = detect_repos()
+  repos = getOption("cffr.repos", detect_repos())
 ) {
   get <- avail[name == avail$Package, "Repository"]
 
@@ -140,10 +138,10 @@ fuzzy_keys <- function(keys) {
       valid_keys,
       ignore.case = TRUE,
       value = TRUE,
-      fixed = FALSE
+      fixed = TRUE
     )
 
-    # Modify NULL correspondences.
+    # Replace missing correspondences.
     keys_match <- unlist(lapply(keys_match, function(x) {
       if (length(x) == 0) {
         return("No match, removing.")
@@ -151,16 +149,23 @@ fuzzy_keys <- function(keys) {
       x[1]
     }))
 
-    # Message.
-    ll <- paste0("{.dt ", names_fuzzy, "}{.dd ", keys_match, "}")
-
-    bullets <- rep("v", length(ll))
+    bullets <- rep("v", length(keys_match))
     bullets[keys_match == "No match, removing."] <- "x"
+    names_formatted <- paste0("{.field ", escape_cli_markup(names_fuzzy), "}")
+    matches_formatted <- ifelse(
+      keys_match == "No match, removing.",
+      keys_match,
+      paste0("{.field ", escape_cli_markup(keys_match), "}")
+    )
+    ll <- paste0(names_formatted, ": ", matches_formatted)
     names(ll) <- bullets
-    cli::cli_alert_info("Found misspelled keys, trying to map them:")
 
+    cli::cli_alert_info(paste0(
+      "Found {length(names_fuzzy)} unknown key{?s}. ",
+      "Trying to map {?it/them}:"
+    ))
     cli::cli_bullets(ll)
-    # Modify names.
+    # Update names.
     names[!is_valid_key] <- keys_match
   }
 
@@ -170,6 +175,11 @@ fuzzy_keys <- function(keys) {
   new_keys <- new_keys[names %in% valid_keys]
 
   new_keys
+}
+
+escape_cli_markup <- function(x) {
+  x <- gsub("{", "{{", x, fixed = TRUE)
+  gsub("}", "}}", x, fixed = TRUE)
 }
 
 guess_cff_named_part <- function(x) {
@@ -291,7 +301,7 @@ clean_package_meta <- function(meta) {
   meta
 }
 
-# Convert a DESCRIPTION object to a meta object using the desc package.
+# Convert a `DESCRIPTION` object to a metadata object with `desc`.
 desc_to_meta <- function(x) {
   src <- x
   my_meta <- desc::desc(src)

@@ -1,4 +1,4 @@
-#' Merge the information of a coerced description with a coerced citation
+#' Merge converted DESCRIPTION and CITATION metadata
 #' @noRd
 merge_desc_cit <- function(cffobj, citobj) {
   # Return the existing object if there is no citation object.
@@ -99,14 +99,12 @@ get_dependencies <- function(
   desc_path,
   instpack = as.character(installed.packages()[, "Package"])
 ) {
-  # nocov start
   if (!is.character(desc_path)) {
     return(NULL)
   }
   if (!file_exist_abort(desc_path)) {
     return(NULL)
   }
-  # nocov end
 
   getdeps <- desc::desc(desc_path)
 
@@ -146,7 +144,7 @@ cff_dependency_reference <- function(dep) {
   mod <- cff_dependency_citation(dep$package)
 
   if (is.null(mod)) {
-    return(NULL) # nocov
+    return(NULL)
   }
 
   mod$type <- "software"
@@ -165,18 +163,15 @@ cff_dependency_reference <- function(dep) {
 
 cff_dependency_citation <- function(package) {
   if (package == "R") {
-    mod <- as_cff(citation())[[1]]
+    mod <- as_cff(cff_citation())[[1]]
     mod$year <- format(Sys.Date(), "%Y")
     return(mod)
   }
 
-  mod <- try(
-    as_cff(citation(package, auto = TRUE)[1])[[1]],
-    silent = TRUE
-  )
+  mod <- try(as_cff(cff_citation(package, auto = TRUE)[1])[[1]], silent = TRUE)
 
   if (inherits(mod, "try-error")) {
-    return(NULL) # nocov
+    return(NULL)
   }
 
   # Simplify the `cff` object to avoid cluttering the output.
@@ -188,6 +183,10 @@ cff_dependency_citation <- function(package) {
   }
 
   mod
+}
+
+cff_citation <- function(...) {
+  citation(...)
 }
 
 is_cran_dependency <- function(package) {

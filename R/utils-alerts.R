@@ -1,8 +1,8 @@
 #' Error if it is not a `cff` file or object
 #'
-#' @param x File to be evaluated.
+#' @param x A file to evaluate.
 #' @noRd
-abort_if_not_cff <- function(x) {
+abort_if_not_cff <- function(x, call = environment()) {
   if (is_cff(x)) {
     return(invisible())
   }
@@ -10,28 +10,43 @@ abort_if_not_cff <- function(x) {
   # `x` should at least be a character vector.
   if (!inherits(x, "character")) {
     cli::cli_abort(
-      "{.arg x} is an object of class {.cls {class(x)}}, not {.cls cff}."
+      paste(
+        "{.arg x} must be a {.cls cff} object or a {.code *.cff} file path,",
+        "not {.obj_type_friendly {x}}."
+      ),
+      call = call
     )
   }
 
   guess <- detect_x_source(x)
 
   if (guess != "cff_citation") {
-    cli::cli_abort("{.arg x} is not a {.file *.cff} file.")
+    cli::cli_abort(
+      c(
+        "{.arg x} is not a {.code *.cff} file.",
+        "i" = "Supply a {.cls cff} object or a {.code *.cff} file path."
+      ),
+      call = call
+    )
   }
 }
 
 #' Throw an error if a file does not exist
 #'
-#' @param x A file to be evaluated.
-#' @param abort Logical. Whether to throw an error if the file does not exist.
+#' @param x A file to evaluate.
+#' @param abort A logical value. If `TRUE`, throw an error when the file does
+#'   not exist.
 #' @noRd
-file_exist_abort <- function(x, abort = FALSE) {
+file_exist_abort <- function(x, abort = FALSE, call = environment()) {
   res <- file.exists(x)
 
   if (all(abort, isFALSE(res))) {
     cli::cli_abort(
-      "{.file {x}} does not exist. Check the {.file {dirname(x)}} directory."
+      c(
+        "{.file {x}} does not exist.",
+        "i" = "Check the {.path {dirname(x)}} directory."
+      ),
+      call = call
     )
   }
   invisible(res)
@@ -69,7 +84,7 @@ write_lines_msg <- function(lines, file, verbose, append) {
     }
 
     if (verbose) {
-      cli::cli_alert_info("Creating a backup of {.file {file}} in {.file {f}}.")
+      cli::cli_alert_info("Saving a backup of {.file {file}} as {.file {f}}.")
     }
     file.copy(file, f)
   }
@@ -77,7 +92,7 @@ write_lines_msg <- function(lines, file, verbose, append) {
   fh <- file(file, encoding = "UTF-8", open = ifelse(append, "a+", "w+"))
   on.exit(if (isOpen(fh)) close(fh))
   if (verbose) {
-    cli::cli_alert_info("Writing {length(lines[lines != ''])} entr{?y/ies}.")
+    cli::cli_alert_info("Writing {length(lines)} line{?s}.")
   }
 
   writeLines(lines, fh)

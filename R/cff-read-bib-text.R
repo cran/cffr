@@ -1,0 +1,97 @@
+#' Read BibTeX markup as a [`cff_ref_lst`] object
+#'
+#' @description
+#' Convert one or more complete BibTeX entries supplied as a `character` vector
+#' into a [`cff_ref_lst`] object.
+#'
+#' @param x A `character` vector with one or more complete BibTeX entries.
+#' @param encoding Encoding to be assumed for `x`. See [base::readLines()].
+#' @param ... Arguments passed to [cff_read_bib()].
+#'
+#' @return
+#' An object of classes [`cff_ref_lst, cff`][cff_ref_lst] as defined by the
+#' `definitions.reference` specified in the following guide:
+#' ```{r child = "man/chunks/schema-guide.Rmd"}
+#' ```
+#' Each element of the `cff_ref_lst` object has classes
+#' [`cff_ref, cff`][cff_ref].
+#'
+#' @details
+#' This function writes `x` to a temporary `*.bib` file and reads it using
+#' [cff_read_bib()].
+#'
+#' This function requires \CRANpkg{bibtex} (>= 0.5.0) and uses
+#' [bibtex::read.bib()] for parsing.
+#'
+#' @seealso
+#' [cff_read_bib()] for reading `*.bib` files.
+#'
+#' @family bibtex
+#' @family reading
+#' @export
+#' @encoding UTF-8
+#' @examples
+#' if (requireNamespace("bibtex", quietly = TRUE)) {
+#'   x <- c(
+#'     "@book{einstein1921,
+#'       title        = {Relativity: The Special and the General Theory},
+#'       author       = {Einstein, Albert},
+#'       year         = 1920,
+#'       publisher    = {Henry Holt and Company},
+#'       address      = {London, United Kingdom},
+#'       isbn         = 9781587340925
+#'   }",
+#'     "@misc{misc-full,
+#'       title        = {Handing out random pamphlets in airports},
+#'       author       = {Joe-Bob Missilany},
+#'       year         = 1984,
+#'       month        = oct,
+#'       note         = {This is a full MISC entry},
+#'       howpublished = {Handed out at O'Hare}
+#'   }"
+#'   )
+#'
+#'   cff_read_bib_text(x)
+#' }
+cff_read_bib_text <- function(x, encoding = "UTF-8", ...) {
+  # Validate input.
+  if (!inherits(x, "character")) {
+    cli::cli_abort(
+      "{.arg x} must be a character vector, not {.obj_type_friendly {x}}."
+    )
+  }
+
+  is_bib_file <- grepl("\\.bib$", x, ignore.case = TRUE)
+
+  if (length(x) > 1 && any(is_bib_file)) {
+    cli::cli_abort(c(
+      "{.arg x} must contain BibTeX entries or one {.code *.bib} file path.",
+      "x" = paste0(
+        "Found {sum(is_bib_file)} file-like value{?s} at ",
+        "position{?s} {.val {which(is_bib_file)}}."
+      ),
+      "i" = "Read each file separately with {.fn cffr::cff_read_bib}."
+    ))
+  }
+
+  if (length(x) == 1 && is_bib_file) {
+    cli::cli_alert_warning(
+      "{.arg x} seems to be a {.code *.bib} file, not a BibTeX entry."
+    )
+    cli::cli_alert_info("Reading {.arg x} with {.fn cffr::cff_read_bib}.")
+    the_cff <- cff_read_bib(x, encoding = encoding, ...)
+    return(the_cff)
+  }
+
+  if (!any(grepl("^@", x))) {
+    cli::cli_alert_warning(
+      "{.arg x} does not look like a BibTeX entry. Check the results."
+    )
+  }
+  # Write `x` to a temporary file.
+  file <- tempfile(fileext = ".bib")
+  writeLines(x, file)
+  the_cff <- cff_read_bib(file, encoding = encoding, ...)
+  unlink(file)
+  the_cff
+}
