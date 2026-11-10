@@ -15,11 +15,11 @@
 #'   [cff_read_cff_citation()].
 #' @inheritParams cff_write
 #'
-#' @return
-#' Invisibly returns a logical value indicating the validation result. On
-#' error, the result has an `"errors"` attribute with the error summary. If
-#' `verbose` is `TRUE`, the function also displays the result. See **Examples**
-#' and [base::attr()].
+#' @returns
+#' Invisibly returns a [logical][base::logical] value indicating the validation
+#' result. On error, the result has an `"errors"` attribute with the error
+#' summary. If `verbose` is `TRUE`, the function also displays the result.
+#' See **Examples** and [base::attr()].
 #'
 #' @seealso
 #' [jsonvalidate::json_validate()], which is the function that performs the
@@ -59,15 +59,15 @@
 #' try(cff_validate(system.file("CITATION", package = "cffr")))
 cff_validate <- function(x = "CITATION.cff", verbose = TRUE) {
   # Read the file if the input is not a `cff` object.
-  if (!is_cff(x)) {
+  if (is_cff(x)) {
+    is_a <- "This {.cls cff} object"
+  } else {
     # Check the source.
     abort_if_not_cff(x, call = environment())
     file_exist_abort(x, abort = TRUE, call = environment())
     is_a <- escape_cli_markup(cli::format_inline("{.file {x}}"))
     # nolint end
     x <- cff_read_cff_citation(x)
-  } else {
-    is_a <- "This {.cls cff} object"
   }
 
   # Convert to a list.

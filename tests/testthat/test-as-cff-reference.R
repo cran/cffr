@@ -97,8 +97,7 @@ test_that("booklet bibentries round-trip through cff references", {
   fld1 <- sort(names(unclass(bib)[[1]]))
   fld2 <- sort(names(unclass(tobib)[[1]]))
 
-  # Keyword is not coerced
-  expect_identical(setdiff(fld1, fld2), "keywords")
+  expect_identical(fld1, fld2)
 })
 
 test_that("conference bibentries round-trip through cff references", {
@@ -750,7 +749,7 @@ test_that("references normalize identifiers and DOIs", {
 
 test_that("references support R 4.6 bibentry output", {
   rvers <- getRversion()
-  skip_if(!grepl("^4.6", rvers), "Snapshot created with R 4.6.*")
+  skip_if(rvers < "4.6.0", "Snapshots require R >= 4.6.0")
 
   # https://github.com/wch/r-source/blob/trunk/src/library/base/inst/CITATION
 

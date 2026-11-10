@@ -49,7 +49,7 @@ information to the structures required by the CFF schema.
 The examples below use [`utils::person()`].
 
 ```{r}
-## Array.
+# Array of persons.
 two_persons <- as_cff_person(
   c(
     person("A", "person", comment = c(ORCID = "0000-0001-8457-4658")),
@@ -61,7 +61,13 @@ two_persons
 
 class(two_persons)
 
-# Single element.
+# A subset remains an array.
+
+one_person <- two_persons[1]
+
+class(one_person)
+
+# Extract a single element.
 
 two_persons[[1]]
 
@@ -77,7 +83,13 @@ ref_list
 
 class(ref_list)
 
-# Single element.
+# A subset remains an array.
+
+one_ref <- ref_list[1]
+
+class(one_ref)
+
+# Extract a single element.
 
 ref_list[[1]]
 
@@ -120,7 +132,7 @@ cff_validate(cff_valid)
 ## Base methods provided by \CRANpkg{cffr}
 
 \CRANpkg{cffr} provides additional S3 methods for common coercion functions from
-the base and utils namespaces.
+the \pkg{base} and \pkg{utils} namespaces.
 
 ### [`as.data.frame()`]
 

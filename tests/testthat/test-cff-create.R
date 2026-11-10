@@ -236,7 +236,7 @@ test_that("cff_create recognizes GitLab repositories", {
   expect_s3_class(a_cff, "cff")
 
   rvers <- getRversion()
-  skip_if(!grepl("^4.6", rvers), "Snapshot created with R 4.6.*")
+  skip_if(rvers < "4.6.0", "Snapshots require R >= 4.6.0")
   expect_snapshot(a_cff)
   expect_true(cff_validate(a_cff, verbose = FALSE))
 })
@@ -258,7 +258,6 @@ test_that("cff_create parses multiple DESCRIPTION persons", {
   authors <- unlist(a_cff$authors)
 
   expect_length(grep("erro", authors, fixed = TRUE), 0)
-  names <- unlist(lapply(a_cff$authors, names))
 
   expect_s3_class(a_cff, "cff")
   expect_snapshot(a_cff)
@@ -270,7 +269,7 @@ test_that("cff_create ignores malformed DESCRIPTION URLs", {
   skip_on_cran()
 
   rvers <- getRversion()
-  skip_if(!grepl("^4.6", rvers), "Snapshot created with R 4.6.*")
+  skip_if(rvers < "4.6.0", "Snapshots require R >= 4.6.0")
 
   desc_path <- system.file("examples/DESCRIPTION_wrong_urls", package = "cffr")
 
@@ -308,7 +307,7 @@ test_that("cff_create handles multiple maintainers", {
   expect_s3_class(a_cff, "cff")
 
   rvers <- getRversion()
-  skip_if(!grepl("^4.6", rvers), "Snapshot created with R 4.6.*")
+  skip_if(rvers < "4.6.0", "Snapshots require R >= 4.6.0")
   expect_snapshot(a_cff)
   expect_true(cff_validate(a_cff, verbose = FALSE))
 })
@@ -325,8 +324,11 @@ test_that("cff_create recognizes R-universe repositories", {
   expect_length(a_cff$repository, 1)
 
   expect_s3_class(a_cff, "cff")
-  expect_snapshot(a_cff)
   expect_true(cff_validate(a_cff, verbose = FALSE))
+
+  rvers <- getRversion()
+  skip_if(rvers < "4.6.0", "Snapshots require R >= 4.6.0")
+  expect_snapshot(a_cff)
 })
 
 
@@ -348,7 +350,7 @@ test_that("cff_create recognizes Bioconductor packages", {
   expect_true(cff_validate(a_cff, verbose = FALSE))
 
   rvers <- getRversion()
-  skip_if(!grepl("^4.6", rvers), "Snapshot created with R 4.6.*")
+  skip_if(rvers < "4.6.0", "Snapshots require R >= 4.6.0")
 
   expect_snapshot(a_cff)
 })
@@ -370,7 +372,7 @@ test_that("cff_create recognizes Posit Package Manager repositories", {
   expect_s3_class(a_cff, "cff")
 
   rvers <- getRversion()
-  skip_if(!grepl("^4.6", rvers), "Snapshot created with R 4.6.*")
+  skip_if(rvers < "4.6.0", "Snapshots require R >= 4.6.0")
   expect_length(a_cff$repository, 1)
   expect_identical(
     a_cff$repository,
@@ -443,7 +445,7 @@ test_that("cff_create validates package keywords", {
 
   tmp <- withr::local_tempfile(pattern = "DESCRIPTION_keyword")
 
-  copy <- file.copy(desc_path, tmp)
+  file.copy(desc_path, tmp)
 
   cffobj <- cff_create(tmp)
   expect_null(cffobj$keywords)
@@ -451,7 +453,7 @@ test_that("cff_create validates package keywords", {
   expect_true(cff_validate(cffobj, verbose = FALSE))
 
   # Add keywords
-  silent <- desc::desc_set(
+  desc::desc_set(
     "X-schema.org-keywords",
     "keyword1, keyword1, keyword3",
     file = tmp
@@ -462,21 +464,32 @@ test_that("cff_create validates package keywords", {
   expect_true(cff_validate(cffobj2, verbose = FALSE))
 
   # Single keyword
-  silent <- desc::desc_set(
-    "X-schema.org-keywords",
-    "keyword1, keyword1",
-    file = tmp
-  )
+  desc::desc_set("X-schema.org-keywords", "keyword1, keyword1", file = tmp)
   cffobj3 <- cff_create(tmp)
-  expect_length(cffobj3$keywords, 2)
-  expect_equal(cffobj3$keywords, c("keyword1", "r-package"))
+  expect_identical(cffobj3$keywords, list("keyword1"))
   expect_true(cff_validate(cffobj3, verbose = FALSE))
 
-  # NULL case keyword
-  silent <- desc::desc_set("X-schema.org-keywords", "r-package", file = tmp)
+  # Single r-package keyword
+  desc::desc_set("X-schema.org-keywords", "r-package", file = tmp)
   cffobj4 <- cff_create(tmp)
-  expect_null(cffobj4$keywords)
+  expect_identical(cffobj4$keywords, list("r-package"))
   expect_true(cff_validate(cffobj4, verbose = FALSE))
+
+  # Normalize keyword separators without changing their content
+  desc::desc_set(
+    "X-schema.org-keywords",
+    " keyword1 , , keyword1,  keyword2 ",
+    file = tmp
+  )
+  cffobj5 <- cff_create(tmp)
+  expect_identical(cffobj5$keywords, c("keyword1", "keyword2"))
+  expect_true(cff_validate(cffobj5, verbose = FALSE))
+
+  # Omit keyword metadata when every separated value is empty
+  desc::desc_set("X-schema.org-keywords", ", ,", file = tmp)
+  cffobj6 <- cff_create(tmp)
+  expect_null(cffobj6$keywords)
+  expect_true(cff_validate(cffobj6, verbose = FALSE))
 })
 
 

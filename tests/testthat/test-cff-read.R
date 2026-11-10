@@ -24,6 +24,49 @@ test_that("cff_read_cff_citation reads and validates cff files", {
   expect_identical(f1, f2)
 })
 
+test_that("cff_read_cff_citation preserves one-item keyword sequences", {
+  valid <- withr::local_tempfile(
+    fileext = ".cff",
+    lines = c(
+      "cff-version: 1.2.0",
+      "message: Cite this work",
+      "title: Keyword sequence",
+      "authors:",
+      "  - family-names: Author",
+      "keywords:",
+      "  - citation",
+      "references:",
+      "  - type: generic",
+      "    title: Referenced work",
+      "    authors:",
+      "      - family-names: Author",
+      "    keywords:",
+      "      - metadata"
+    )
+  )
+
+  valid_cff <- cff_read_cff_citation(valid)
+  expect_identical(valid_cff$keywords, list("citation"))
+  expect_identical(valid_cff$references[[1]]$keywords, list("metadata"))
+  expect_true(cff_validate(valid_cff, verbose = FALSE))
+
+  invalid <- withr::local_tempfile(
+    fileext = ".cff",
+    lines = c(
+      "cff-version: 1.2.0",
+      "message: Cite this work",
+      "title: Keyword scalar",
+      "authors:",
+      "  - family-names: Author",
+      "keywords: citation"
+    )
+  )
+
+  invalid_cff <- cff_read_cff_citation(invalid)
+  expect_identical(invalid_cff$keywords, "citation")
+  expect_false(cff_validate(invalid_cff, verbose = FALSE))
+})
+
 test_that("cff_read_description reads DESCRIPTION files", {
   expect_snapshot(cff_read_description("a"), error = TRUE)
 
@@ -133,17 +176,23 @@ test_that("DESCRIPTION repository helpers accept fixtures", {
   expect_equal(get_desc_doi(pkg), "10.32614/CRAN.package.fixturepkg")
 })
 
-test_that("DESCRIPTION DOI returns NULL outside known repositories", {
+test_that("DESCRIPTION DOI returns NULL outside CRAN", {
   basic_path <- system.file("examples/DESCRIPTION_basic", package = "cffr")
 
   tmp <- withr::local_tempfile(pattern = "DESCRIPTION_basic")
   file.copy(basic_path, tmp)
 
   pkg <- desc::desc_set("Package", "fixturepkg", file = tmp)
-  empty_avail <- data.frame(Package = character(0), Repository = character(0))
+  avail <- data.frame(
+    Package = "fixturepkg",
+    Repository = "https://fixture.r-universe.dev/src/contrib"
+  )
   withr::local_options(
-    cffr.available_packages = empty_avail,
-    cffr.repos = c(CRAN = "https://cloud.r-project.org/")
+    cffr.available_packages = avail,
+    cffr.repos = c(
+      fixture = "https://fixture.r-universe.dev",
+      CRAN = "https://cloud.r-project.org/"
+    )
   )
 
   expect_null(get_desc_doi(pkg))
@@ -178,7 +227,7 @@ test_that("GitHub topics returns NULL outside GitHub repositories", {
   x <- c("repository-code" = "https://gitlab.com/ropensci/cffr")
 
   withr::local_options(cffr.fetch_gh_topics = function(...) {
-    stop("fetch_gh_topics() should not be called")
+    stop("fetch_gh_topics() should not be called", call. = FALSE)
   })
 
   expect_null(get_gh_topics(x))
@@ -222,13 +271,36 @@ test_that("GitHub topics can be fetched from the API response", {
   )
 })
 
-test_that("GitHub topics retry without token after authenticated fetch fails", {
+test_that("GitHub topic fetching removes its temporary response", {
   tmpfile <- withr::local_tempfile(fileext = ".json")
-  calls <- 0
+  unlink(tmpfile)
+  local_mocked_bindings(cff_tempfile = \(...) tmpfile)
+
   downloader <- function(api_url, destfile, ...) {
-    calls <<- calls + 1
-    if (calls == 1) {
-      stop("authenticated fetch failed")
+    jsonlite::write_json(list(topics = "citation"), destfile)
+    0
+  }
+
+  topics <- fetch_gh_topics(
+    "https://api.github.com/repos/ropensci/cffr",
+    downloader = downloader
+  )
+
+  expect_identical(topics, list("citation"))
+  expect_false(file.exists(tmpfile))
+
+  cffobj <- cff_create(cff(), keys = list(keywords = topics))
+  expect_true(cff_validate(cffobj, verbose = FALSE))
+})
+
+test_that("GitHub topics retry without token after authenticated fetch fails", {
+  state <- new.env(parent = emptyenv())
+  tmpfile <- withr::local_tempfile(fileext = ".json")
+  state$calls <- 0
+  downloader <- function(api_url, destfile, ...) {
+    state$calls <- state$calls + 1
+    if (state$calls == 1) {
+      stop("authenticated fetch failed", call. = FALSE)
     }
     jsonlite::write_json(list(topics = c("r", "citation")), destfile)
     0
@@ -242,13 +314,13 @@ test_that("GitHub topics retry without token after authenticated fetch fails", {
     ),
     list("r", "citation")
   )
-  expect_identical(calls, 2)
+  expect_identical(state$calls, 2)
 })
 
 test_that("GitHub topics return NULL when all fetch attempts fail", {
   tmpfile <- withr::local_tempfile(fileext = ".json")
   downloader <- function(...) {
-    stop("fetch failed")
+    stop("fetch failed", call. = FALSE)
   }
 
   expect_null(fetch_gh_topics(
@@ -288,7 +360,7 @@ test_that("cff_read_bib reads BibTeX files", {
   expect_identical(f1_2, f2_2)
 })
 
-test_that("cff_read_citation reports fallback attempts", {
+test_that("cff_read_citation reports read failures", {
   expect_snapshot(cff_read_citation("a"), error = TRUE)
 
   f <- system.file("examples/CITATION_basic", package = "cffr")
@@ -302,7 +374,7 @@ test_that("cff_read_citation reports fallback attempts", {
   f <- system.file("examples/CITATION_auto", package = "cffr")
 
   expect_message(s <- cff_read(f), "with the provided")
-  expect_s3_class(s, c("cff_ref_lst", "cff"), exact = TRUE)
+  expect_null(s)
 })
 
 test_that("cff_read reads basic CITATION files", {
@@ -354,6 +426,17 @@ test_that("cff_safe_read_citation reads basic CITATION files", {
   expect_length(a_cff, 2)
 })
 
+test_that("cff_safe_read_citation extracts a valid first issn", {
+  desc_path <- system.file("examples/DESCRIPTION_basic", package = "cffr")
+  cit_path <- system.file("examples/CITATION_biascorrector", package = "cffr")
+
+  res <- cff_safe_read_citation(desc_path, cit_path)
+  cffobj <- cff_create(desc_path, keys = list("preferred-citation" = res[[1]]))
+
+  expect_identical(res[[1]]$issn, "0020-7136")
+  expect_true(cff_validate(cffobj, verbose = FALSE))
+})
+
 test_that("cff_safe_read_citation handles missing encoding", {
   desc_path <- system.file("examples/DESCRIPTION_no_encoding", package = "cffr")
   cit_path <- system.file("examples/CITATION_basic", package = "cffr")
@@ -384,6 +467,38 @@ test_that("cff_safe_read_citation reads rmarkdown CITATION files", {
   expect_length(a_cff, 3)
 })
 
+test_that("cff_safe_read_citation preserves additional DESCRIPTION fields", {
+  dir <- withr::local_tempdir()
+  desc_path <- file.path(dir, "DESCRIPTION")
+  cit_path <- file.path(dir, "CITATION")
+  basic_path <- system.file("examples/DESCRIPTION_basic", package = "cffr")
+  file.copy(basic_path, desc_path)
+  desc::desc_set(
+    "Config/Citation-Title",
+    "Title from an additional field",
+    file = desc_path
+  )
+  writeLines(
+    c(
+      "bibentry(",
+      "  bibtype = 'Manual',",
+      "  title = meta[['Config/Citation-Title']],",
+      "  author = person('Jane', 'Doe'),",
+      "  year = '2024'",
+      ")"
+    ),
+    cit_path
+  )
+
+  meta <- desc_to_meta(desc_path)
+  result <- cff_safe_read_citation(desc_path, cit_path)
+
+  expect_identical(
+    unname(meta[["Config/Citation-Title"]]),
+    "Title from an additional field"
+  )
+  expect_identical(result[[1]]$title, "Title from an additional field")
+})
 
 test_that("cff_safe_read_citation returns NULL without readable files", {
   desc_path <- system.file("x", package = "cffr")
@@ -395,10 +510,7 @@ test_that("cff_safe_read_citation returns NULL without readable files", {
 test_that("cff_read returns NULL for corrupt CITATION files", {
   tmp <- withr::local_tempfile(pattern = "CITATION")
   writeLines("I am a bad CITATION", tmp)
-  expect_message(
-    expect_message(anull <- cff_read(tmp), "Could not read"),
-    "Cannot read"
-  )
+  expect_message(anull <- cff_read(tmp), "Cannot read")
   expect_null(anull)
 
   # Internal
@@ -408,24 +520,18 @@ test_that("cff_read returns NULL for corrupt CITATION files", {
   expect_null(anull)
 })
 
-test_that("cff_read_citation returns NULL when both read attempts fail", {
+test_that("cff_read_citation returns NULL when reading fails", {
   tmp <- withr::local_tempfile(pattern = "CITATION")
   writeLines("citEntry(entry = 'Manual')", tmp)
   local_mocked_bindings(cff_read_citation_file = function(...) {
-    stop("read failed")
+    stop("read failed", call. = FALSE)
   })
 
-  expect_message(
-    expect_message(anull <- cff_read_citation(tmp), "Could not read"),
-    "Cannot read"
-  )
+  expect_message(anull <- cff_read_citation(tmp), "Cannot read")
   expect_null(anull)
 })
 
 test_that("cff_read converts latin1 package metadata to UTF-8", {
-  rvers <- getRversion()
-  skip_if(rvers >= "4.7.0", "R 4.7.0 only uses UTF-8 in DESCRIPTION")
-
   # Surveillance package
   desc_path <- system.file(
     "examples/DESCRIPTION_surveillance",
@@ -444,7 +550,43 @@ test_that("cff_read converts latin1 package metadata to UTF-8", {
   # Create cff
   cffobj <- cff_create(desc_path, keys = list(references = bib))
 
+  expect_equal(cffobj$authors[[1]]$`family-names`, "Höhle")
+  expect_equal(cffobj$authors[[1]]$`given-names`, "Michael")
+  expect_match(cffobj$abstract, "Höhle and Paul", fixed = TRUE)
   expect_s3_class(cffobj, "cff")
   expect_snapshot(cffobj)
   expect_true(cff_validate(cffobj, verbose = FALSE))
+})
+
+test_that("DESCRIPTION reading preserves literal escapes and source bytes", {
+  path <- withr::local_tempfile(fileext = "DESCRIPTION")
+  text <- paste(
+    "Package: encodingfixture",
+    "Title: Höhle <f6>",
+    "Description: Höhle and Paul <f6>.",
+    "Version: 1.0",
+    'Authors@R: person("Michael", "Höhle", role = "cre", email = "a@b.org")',
+    "License: MIT",
+    "Encoding: latin1",
+    sep = "\n"
+  )
+  for (encoding in c("latin1", "UTF-8")) {
+    bytes <- charToRaw(iconv(text, from = "UTF-8", to = encoding))
+    writeBin(bytes, path)
+    result <- cff_read_description(path, gh_keywords = FALSE)
+    expect_equal(result$title, "encodingfixture: Höhle <f6>")
+    expect_equal(result$abstract, "Höhle and Paul <f6>.")
+    expect_equal(result$authors[[1]]$`family-names`, "Höhle")
+    expect_identical(readBin(path, "raw", n = file.info(path)$size), bytes)
+    meta <- clean_package_meta(desc_to_meta(path))
+    expect_equal(meta$Title, "Höhle <f6>")
+    expect_equal(meta$Encoding, "latin1")
+  }
+})
+
+test_that("cff_read_citation extract first issn", {
+  f <- system.file("examples/CITATION_biascorrector", package = "cffr")
+  res <- cff_read_citation(f)
+
+  expect_identical(res[[1]]$issn, "0020-7136")
 })

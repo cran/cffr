@@ -15,12 +15,12 @@
 #'   list.
 #' @param ... Additional arguments passed on to other methods.
 #'
-#' @return
+#' @returns
 #' - `as_cff.person()` returns an object with classes
-#'   [`cff_pers_lst, cff`][cff_pers_lst].
+#'   [`cff_pers_lst`] and [`cff`].
 #' - `as_cff.bibentry()` and `as_cff.Bibtex()` return an object with classes
-#'   [`cff_ref_lst, cff`][cff_ref_lst].
-#' - The remaining methods return an object of class `cff`. However, if
+#'   [`cff_ref_lst`] and `cff`.
+#' - The remaining methods return a `cff` object. However, if
 #'   `x` has a structure compatible with `definitions.person`,
 #'   `definitions.entity` or `definitions.reference`, the object has the
 #'   corresponding subclass.
@@ -28,12 +28,14 @@
 #' Learn more about the \CRANpkg{cffr} class system in [cff_class].
 #'
 #' @details
+#' `as.cff(x)` is an alias for `as_cff(x)`.
+#'
 #' For `as_cff.bibentry()` and `as_cff.Bibtex()`, see
 #' `vignette("bibtex-cff", package = "cffr")` to understand how the mapping is
 #' performed.
 #'
 #' [as_cff_person()] is preferred over `as_cff.person()` because it can handle
-#' `character` inputs such as `"Davis, Jr., Sammy"`. For `person` objects both
+#' `character` inputs such as `"Davis, Jr., Sammy"`. For `person` objects, both
 #' functions behave similarly.
 #'
 #' @seealso
@@ -112,6 +114,14 @@ as_cff.bibentry <- function(x, ...) {
 
   cff_refs <- as_cff(cff_ref, ...)
 
+  # Split issn
+  cff_refs <- lapply(cff_refs, function(x) {
+    if ("issn" %in% names(x)) {
+      x$issn <- clean_str(unlist(strsplit(x$issn, ","))[1])
+    }
+    x
+  })
+
   # Add classes.
   cff_refs_class <- lapply(cff_refs, function(x) {
     class(x) <- c("cff_ref", "cff")
@@ -126,7 +136,8 @@ as_cff.bibentry <- function(x, ...) {
 #' @export
 #' @encoding UTF-8
 as_cff.Bibtex <- function(x, ...) {
-  tmp <- tempfile(fileext = ".bib")
+  tmp <- cff_tempfile(fileext = ".bib")
+  on.exit(unlink(tmp), add = TRUE)
   writeLines(x, tmp)
   abib <- cff_read_bib(tmp)
   cff_refs <- as_cff(abib, ...)
@@ -143,7 +154,6 @@ as_cff.Bibtex <- function(x, ...) {
 
 # nolint start
 #' @rdname as_cff
-#' @usage NULL
 #' @export
 #' @encoding UTF-8
 as.cff <- function(x) {

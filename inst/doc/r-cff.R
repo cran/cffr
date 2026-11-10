@@ -11,7 +11,7 @@ keys <- cff_schema_keys(sorted = TRUE)
 origin <- vector(length = length(keys))
 origin[keys == "cff-version"] <- "function argument"
 origin[keys == "type"] <- "Fixed value: 'software'"
-origin[keys == "identifiers"] <- "DESCRIPTION and inst/CITATION"
+origin[keys == "identifiers"] <- "DESCRIPTION, inst/CITATION and CRAN"
 origin[keys == "references"] <- "DESCRIPTION and inst/CITATION"
 
 origin[
@@ -33,13 +33,8 @@ origin[
     )
 ] <- "DESCRIPTION file"
 
-origin[
-  keys %in%
-    c(
-      "doi",
-      "preferred-citation"
-    )
-] <- "inst/CITATION"
+origin[keys == "doi"] <- "inst/CITATION or CRAN"
+origin[keys == "preferred-citation"] <- "inst/CITATION"
 
 origin[origin == "FALSE"] <- "Ignored by cffr"
 
@@ -174,7 +169,7 @@ cff_create(file)$identifiers
 
 ## -----------------------------------------------------------------------------
 #| label: keyword
-# A DESCRIPTION file without keywords
+# A DESCRIPTION file without keywords.
 nokeywords <- system.file("examples/DESCRIPTION_basic", package = "cffr")
 tmp2 <- tempfile("DESCRIPTION")
 
@@ -269,7 +264,7 @@ inst <- cff_create("jsonlite")
 
 cat(inst$repository)
 
-# Demo file downloaded from the r-universe.
+# Example file downloaded from r-universe.
 
 runiv <- system.file("examples/DESCRIPTION_r_universe", package = "cffr")
 runiv_cff <- cff_create(runiv)
@@ -304,13 +299,13 @@ cat(cff_create(tmp)[["repository"]])
 
 cat(cff_create("jsonlite")$`repository-code`)
 
-# GitLab
+# GitLab.
 
 gitlab <- system.file("examples/DESCRIPTION_gitlab", package = "cffr")
 
 cat(cff_create(gitlab)$`repository-code`)
 
-# Codeberg
+# Codeberg.
 codeberg <- system.file("examples/DESCRIPTION_codeberg", package = "cffr")
 
 cat(cff_create(codeberg)$`repository-code`)

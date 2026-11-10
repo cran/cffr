@@ -25,7 +25,7 @@ test_that("as_cff converts person objects", {
   expect_s3_class(aa[[1]], c("cff_pers", "cff"), exact = TRUE)
   expect_identical(aa, as_cff_person(pers))
   rvers <- getRversion()
-  skip_if(!grepl("^4.6", rvers), "Snapshot created with R 4.6.*")
+  skip_if(rvers < "4.6.0", "Snapshots require R >= 4.6.0")
   expect_snapshot(as_cff(pers))
 
   # Check a single person
@@ -64,6 +64,21 @@ test_that("bibentries round-trip through as_cff and toBibtex", {
   expect_null(as_cff(s))
 })
 
+test_that("Bibtex conversion removes its temporary file after errors", {
+  tmp <- withr::local_tempfile(fileext = ".bib")
+  unlink(tmp)
+  local_mocked_bindings(
+    cff_tempfile = \(...) tmp,
+    cff_read_bib = function(...) {
+      stop("Unable to parse temporary BibTeX", call. = FALSE)
+    }
+  )
+
+  bib <- toBibtex(bibentry("Misc", title = "Temporary BibTeX"))
+  expect_snapshot(as_cff(bib), error = TRUE)
+  expect_false(file.exists(tmp))
+})
+
 
 test_that("as_cff converts named lists by default", {
   b <- c(a = 1)
@@ -99,9 +114,17 @@ test_that("cff references preserve class when subset", {
   expect_s3_class(bbb, c("cff_ref_lst", "cff"), exact = TRUE)
   expect_length(bbb, 2)
 
-  b2_reg <- bbb[2]
-  expect_length(b2_reg, 1)
-  expect_s3_class(b2_reg, c("cff_ref", "cff"), exact = TRUE)
+  b2_lst <- bbb[2]
+  expect_length(b2_lst, 1)
+  expect_s3_class(b2_lst, c("cff_ref_lst", "cff"), exact = TRUE)
+  expect_identical(b2_lst[[1]], bbb[[2]])
+
+  expect_s3_class(bbb[1:2], c("cff_ref_lst", "cff"), exact = TRUE)
+  expect_s3_class(bbb[-1], c("cff_ref_lst", "cff"), exact = TRUE)
+  expect_s3_class(bbb[integer()], c("cff_ref_lst", "cff"), exact = TRUE)
+
+  cffobj <- cff_create(cff(), keys = list(references = b2_lst))
+  expect_true(cff_validate(cffobj, verbose = FALSE))
 })
 
 test_that("cff persons preserve class when subset", {
@@ -116,9 +139,17 @@ test_that("cff persons preserve class when subset", {
   expect_s3_class(bbb, c("cff_pers_lst", "cff"), exact = TRUE)
   expect_length(bbb, 2)
 
-  b2_reg <- bbb[2]
-  expect_length(b2_reg, 1)
-  expect_s3_class(b2_reg, c("cff_pers", "cff"), exact = TRUE)
+  b2_lst <- bbb[2]
+  expect_length(b2_lst, 1)
+  expect_s3_class(b2_lst, c("cff_pers_lst", "cff"), exact = TRUE)
+  expect_identical(b2_lst[[1]], bbb[[2]])
+
+  expect_s3_class(bbb[1:2], c("cff_pers_lst", "cff"), exact = TRUE)
+  expect_s3_class(bbb[-1], c("cff_pers_lst", "cff"), exact = TRUE)
+  expect_s3_class(bbb[integer()], c("cff_pers_lst", "cff"), exact = TRUE)
+
+  cffobj <- cff_create(cff(), keys = list(authors = b2_lst))
+  expect_true(cff_validate(cffobj, verbose = FALSE))
 })
 
 # Check full classes with recursion
@@ -212,4 +243,34 @@ test_that("language fields survive cff round-trips", {
   expect_identical(cff_lang[["references"]][[1]]$languages, list("en"))
 
   expect_identical(cff_lang[["references"]][[2]]$languages, c("en", "es", "fr"))
+})
+
+test_that("cff references can handle issn", {
+  b1 <- bibentry(
+    "Misc",
+    title = "title",
+    author = "Author",
+    editor = "Editor",
+    issn = "xxxx-xxxx  , abcd"
+  )
+  b2 <- bibentry("Manual", author = "Another", title = "another title")
+
+  b_all <- c(b1, b2)
+
+  expect_s3_class(b_all, "bibentry", exact = TRUE)
+  bbb <- as_cff(b_all)
+
+  expect_s3_class(bbb, c("cff_ref_lst", "cff"), exact = TRUE)
+  expect_length(bbb, 2)
+
+  b1_reg <- bbb[[1]]
+  expect_s3_class(b1_reg, c("cff_ref", "cff"), exact = TRUE)
+  expect_identical(b1_reg$issn, "xxxx-xxxx")
+
+  b2_reg <- bbb[[2]]
+  expect_s3_class(b2_reg, c("cff_ref", "cff"), exact = TRUE)
+  expect_null(b2_reg$issn)
+
+  cffobj <- cff_create(cff(), keys = list(references = bbb))
+  expect_false(cff_validate(cffobj, verbose = FALSE))
 })

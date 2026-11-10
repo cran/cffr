@@ -1,6 +1,6 @@
 Package: cffr
 Title: Generate Citation File Format ('CFF') Metadata
-Version: 1.4.2
+Version: 1.4.3
 Authors@R: c(
     person("Diego", "Hernangómez", , "diego.hernangomezherrero@gmail.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0001-8457-4658")),
@@ -24,17 +24,18 @@ Suggests: bibtex (>= 0.5.0), knitr, lifecycle, quarto, rmarkdown,
 VignetteBuilder: quarto
 Config/Needs/website: devtools
 Config/roxygen2/markdown: TRUE
-Config/roxygen2/version: 8.1.0
+Config/roxygen2/version: 8.1.1
 Config/testthat/edition: 3
 Config/testthat/parallel: true
 Encoding: UTF-8
 LazyData: true
+X-schema.org-applicationCategory: Citation Management
 X-schema.org-isPartOf: https://ropensci.org
 X-schema.org-keywords: attribution, citation, credit, citation-files,
         cff, metadata, citation-file-format, cran, r, r-package,
         ropensci, rstats, r-cran
 NeedsCompilation: no
-Packaged: 2026-08-24 11:32:20 UTC; diego
+Packaged: 2026-11-10 08:14:23 UTC; diego
 Author: Diego Hernangómez [aut, cre, cph] (ORCID:
     <https://orcid.org/0000-0001-8457-4658>),
   João Martins [rev] (ORCID: <https://orcid.org/0000-0001-7961-4280>),
@@ -42,4 +43,4 @@ Author: Diego Hernangómez [aut, cre, cph] (ORCID:
     <https://orcid.org/0000-0003-1444-9135>)
 Maintainer: Diego Hernangómez <diego.hernangomezherrero@gmail.com>
 Repository: CRAN
-Date/Publication: 2026-08-24 12:10:02 UTC
+Date/Publication: 2026-11-10 10:20:12 UTC

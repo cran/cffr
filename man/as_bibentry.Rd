@@ -32,8 +32,8 @@ as_bibentry(x, ...)
 \item{x}{The source used to generate the \code{bibentry} object with
 \CRANpkg{cffr}. It can be:
 \itemize{
-\item A missing value, which retrieves the \code{DESCRIPTION} file from your
-in-development package.
+\item A missing or \code{NULL} value, which retrieves the \code{DESCRIPTION} file from
+your in-development package.
 \item An existing \code{cff} object created with \code{\link[=cff]{cff()}}, \code{\link[=cff_create]{cff_create()}} or
 \code{\link[=as_cff]{as_cff()}}.
 \item A path to a \code{CITATION.cff} file (\code{"CITATION.cff"}).
@@ -54,7 +54,7 @@ of the package (key \code{preferred-citation}).
 See \code{vignette("r-cff", package = "cffr")}.}
 }
 \value{
-\code{as_bibentry()} returns a \code{bibentry} object with one or more entries.
+A \code{\link[utils:bibentry]{bibentry}} object with one or more entries.
 }
 \description{
 This function creates \code{\link{bibentry}} objects from multiple metadata sources
@@ -96,7 +96,7 @@ toBibtex(bib)
 toBibtex(cff_object)
 
 # Other sources ----
-# From a CITATION.cff.
+# From a CITATION.cff file.
 
 path <- system.file("examples/CITATION_complete.cff", package = "cffr")
 cff_file <- as_bibentry(path)
@@ -118,7 +118,7 @@ toBibtex(desc_file)
 }
 \references{
 Patashnik O (1988). "BIBTEXing."
-\url{https://osl.ugr.es/CTAN/biblio/bibtex/base/btxdoc.pdf}.
+\url{https://ctan.math.illinois.edu/biblio/bibtex/base/btxdoc.pdf}.
 
 Haines R, The Ruby Citation File Format Developers (2022).
 "Ruby CFF Library." \doi{10.5281/zenodo.7294987}.

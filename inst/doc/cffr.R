@@ -124,7 +124,7 @@ cff_validate(finalobject)
 # Create a temporary output file.
 tmp <- tempfile(fileext = ".cff")
 
-see_res <- cff_write(finalobject, outfile = tmp)
+cff_write(finalobject, outfile = tmp)
 
 cat(readLines(tmp), sep = "\n")
 
@@ -156,7 +156,7 @@ res
 
 ## -----------------------------------------------------------------------------
 #| include: false
-# Clean temporary files.
+# Remove temporary files.
 unlink(tmp)
 unlink(tmp2)
 

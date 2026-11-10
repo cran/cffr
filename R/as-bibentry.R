@@ -11,8 +11,8 @@
 #'
 #' @param x The source used to generate the `bibentry` object with
 #'   \CRANpkg{cffr}. It can be:
-#'   - A missing value, which retrieves the `DESCRIPTION` file from your
-#'     in-development package.
+#'   - A missing or `NULL` value, which retrieves the `DESCRIPTION` file from
+#'     your in-development package.
 #'   - An existing `cff` object created with [cff()], [cff_create()] or
 #'     [as_cff()].
 #'   - A path to a `CITATION.cff` file (`"CITATION.cff"`).
@@ -28,8 +28,8 @@
 #'
 #' See `vignette("r-cff", package = "cffr")`.
 #'
-#' @return
-#' `as_bibentry()` returns a `bibentry` object with one or more entries.
+#' @returns
+#' A [`bibentry`][utils::bibentry] object with one or more entries.
 #'
 #' @details
 #' An \R `bibentry` object is the representation of a BibTeX entry. These
@@ -43,7 +43,7 @@
 #'
 #' @references
 #' Patashnik O (1988). "BIBTEXing."
-#' <https://osl.ugr.es/CTAN/biblio/bibtex/base/btxdoc.pdf>.
+#' <https://ctan.math.illinois.edu/biblio/bibtex/base/btxdoc.pdf>.
 #'
 #' Haines R, The Ruby Citation File Format Developers (2022).
 #' "Ruby CFF Library." \doi{10.5281/zenodo.7294987}.
@@ -90,7 +90,7 @@
 #' toBibtex(cff_object)
 #'
 #' # Other sources ----
-#' # From a CITATION.cff.
+#' # From a CITATION.cff file.
 #'
 #' path <- system.file("examples/CITATION_complete.cff", package = "cffr")
 #' cff_file <- as_bibentry(path)
@@ -171,7 +171,7 @@ as_bibentry.character <- function(
 #' @export
 #' @encoding UTF-8
 as_bibentry.NULL <- function(x, ...) {
-  cff_create()
+  as_bibentry(cff_create(), ...)
 }
 
 #' @rdname as_bibentry

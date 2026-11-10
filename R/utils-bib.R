@@ -2,7 +2,7 @@ protect_bib_braces <- function(x) {
   paste0("{", x, "}")
 }
 
-# Utils for as_bibentry() ----
+# Utilities for `as_bibentry()` ----
 get_bib_howpublised <- function(x) {
   howpublished <- x$medium
 
@@ -27,22 +27,7 @@ get_bib_note <- function(x) {
 }
 
 guess_bibtype <- function(x) {
-  init_guess <- switch(tolower(x$type),
-    "article" = "article",
-    "book" = "book",
-    "manual" = "manual",
-    "unpublished" = "unpublished",
-    "conference" = "inproceedings",
-    "conference-paper" = "inproceedings",
-    "proceedings" = "proceedings",
-    "magazine-article" = "article",
-    "newspaper-article" = "article",
-    "pamphlet" = "booklet",
-    "report" = "techreport",
-    "thesis" = "mastersthesis",
-    # Guess when no direct mapping is available.
-    "misc"
-  )
+  init_guess <- initial_bibtype(x$type)
 
   # Try to guess inbook ----
   # inbook is a book where chapter or pages are present.
@@ -78,7 +63,7 @@ guess_bibtype <- function(x) {
 get_bib_address <- function(x) {
   # BibTeX 'address' is taken from the publisher (book, others) or the
   # conference (inproceedings).
-  # Precedence is conference, institution, then publisher.
+  # Precedence is conference, institution and then publisher.
   if (!is.null(x$conference)) {
     addr_search <- x$conference
   } else if (!is.null(x$institution)) {
@@ -113,9 +98,7 @@ get_bib_booktitle <- function(x, bibtype) {
   book_series <- list()
   tag_value <- clean_str(x[["collection-title"]])
 
-  if (!bibtype %in% c("incollection", "inproceedings")) {
-    book_series$series <- tag_value
-  } else {
+  if (bibtype %in% c("incollection", "inproceedings")) {
     # Map booktitle only for incollection and inproceedings.
     book_series$booktitle <- tag_value
 
@@ -123,6 +106,8 @@ get_bib_booktitle <- function(x, bibtype) {
     if (all(bibtype == "inproceedings", is.null(tag_value))) {
       book_series$booktitle <- clean_str(x$conference$name)
     }
+  } else {
+    book_series$series <- tag_value
   }
   book_series
 }
@@ -153,7 +138,7 @@ get_bib_inst_org <- function(x, bibtype) {
 }
 
 make_bibkey <- function(tobibentry) {
-  # Be kind and provide a bibentry key.
+  # Provide a `bibentry` key.
 
   y <- tobibentry$year
 
@@ -195,8 +180,8 @@ make_bibkey <- function(tobibentry) {
     r <- tolower(paste0(r, collapse = ""))
   }
 
-  # Try hard to remove accents.
-  # First use iconv.
+  # Remove accents for compatibility.
+  # First use `iconv()`.
   r <- iconv(r, from = "UTF-8", to = "ASCII//TRANSLIT", sub = "?")
 
   # Then convert to LaTeX.
@@ -245,4 +230,23 @@ get_bib_year <- function(x) {
   }
 
   clean_str(year)
+}
+
+initial_bibtype <- function(type) {
+  switch(tolower(type),
+    "article" = "article",
+    "book" = "book",
+    "manual" = "manual",
+    "unpublished" = "unpublished",
+    "conference" = "inproceedings",
+    "conference-paper" = "inproceedings",
+    "proceedings" = "proceedings",
+    "magazine-article" = "article",
+    "newspaper-article" = "article",
+    "pamphlet" = "booklet",
+    "report" = "techreport",
+    "thesis" = "mastersthesis",
+    # Guess when no direct mapping is available.
+    "misc"
+  )
 }

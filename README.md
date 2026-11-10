@@ -2,7 +2,7 @@
 
 <!-- README.md is generated from README.qmd. Please edit that file -->
 
-# cffr <a href="https://docs.ropensci.org/cffr/"><img src="man/figures/logo.png" alt="cffr website" align="right" height="139"/></a>
+# cffr <a href="https://docs.ropensci.org/cffr/"><img src="man/figures/logo.png" alt="cffr logo: blue hexagon with a network of nodes shaped like a brain" align="right" height="139"/></a>
 
 <!-- badges: start -->
 
@@ -11,8 +11,6 @@
 [![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/cffr?color=blue)](https://cran.r-project.org/package=cffr)
 [![R-CMD-check](https://github.com/ropensci/cffr/actions/workflows/check-full.yaml/badge.svg)](https://github.com/ropensci/cffr/actions/workflows/check-full.yaml)
 [![codecov](https://codecov.io/gh/ropensci/cffr/branch/main/graph/badge.svg?token=YRO3XL8RWK)](https://app.codecov.io/gh/ropensci/cffr)
-[![Coverage
-Status](https://coveralls.io/repos/github/ropensci/cffr/badge.svg?branch=main)](https://coveralls.io/github/ropensci/cffr?branch=main)
 [![r-universe](https://ropensci.r-universe.dev/badges/cffr)](https://ropensci.r-universe.dev/cffr)
 [![CITATION-cff](https://github.com/ropensci/cffr/actions/workflows/cff-validator.yaml/badge.svg)](https://github.com/ropensci/cffr/actions/workflows/cff-validator.yaml)
 [![DOI](https://joss.theoj.org/papers/10.21105/joss.03900/status.svg)](https://doi.org/10.21105/joss.03900)
@@ -51,7 +49,7 @@ special interest:
 
 <img src="vignettes/tweet-1.png" class="mx-auto d-block"
 data-fig-align="center" width="400"
-alt="GitHub citation support announcement" />
+alt="Nat Friedman’s announcement that adding a CITATION.cff file to a repository enables GitHub’s Cite this repository menu, shown below the post." />
 
 <figcaption class="blockquote-footer">Nat Friedman (@natfriedman) July 27, 2021</figcaption>
 </figure>
@@ -79,7 +77,7 @@ from **R** package metadata.
 its `CITATION` file, if present. **cffr** works best if your package
 passes `R CMD check` or `devtools::check()`.
 
-As of 2026-08-24 there are at least 562 repositories on GitHub using
+As of 2026-11-10 there are at least 627 repositories on GitHub using
 **cffr**. [Browse the search
 results](https://github.com/search?q=cffr%20path%3A**%2FCITATION.cff&type=code).
 
@@ -110,9 +108,8 @@ install.packages(
 
 ### Example
 
-Most commonly, from within your package directory, you run
-`cff_write()`. It creates a `cff` object, writes it to a `CITATION.cff`
-file and validates it in a single command:
+Run `cff_write()` from your package directory to create a `cff` object,
+write it to a `CITATION.cff` file and validate it in a single command:
 
 ``` r
 library(cffr)
@@ -153,7 +150,7 @@ test <- cff_create("knitr")
     type: software
     license: GPL-1.0-only
     title: 'knitr: A General-Purpose Package for Dynamic Report Generation in R'
-    version: '1.51'
+    version: '1.52'
     identifiers:
     - type: doi
       value: 10.32614/CRAN.package.knitr
@@ -172,13 +169,13 @@ test <- cff_create("knitr")
         given-names: Yihui
         orcid: https://orcid.org/0000-0003-0645-5666
         email: xie@yihui.name
-      year: '2025'
-      notes: R package version 1.51
+      year: '2026'
+      notes: R package version 1.52
       url: https://yihui.org/knitr/
     repository: https://CRAN.R-project.org/package=knitr
     repository-code: https://github.com/yihui/knitr
     url: https://yihui.org/knitr/
-    date-released: '2025-12-20'
+    date-released: '2026-09-06'
     contact:
     - family-names: Xie
       given-names: Yihui
@@ -238,9 +235,8 @@ test <- cff_create("knitr")
       doi: 10.32614/R.manuals
       version: '>= 3.6.0'
     - type: software
-      title: evaluate
-      abstract: 'evaluate: Parsing and Evaluation Tools that Provide More Details than
-        the Default'
+      title: 'evaluate: Parsing and Evaluation Tools that Provide More Details than the
+        Default'
       notes: Imports
       url: https://evaluate.r-lib.org/
       repository: https://CRAN.R-project.org/package=evaluate
@@ -251,12 +247,11 @@ test <- cff_create("knitr")
       - family-names: Xie
         given-names: Yihui
         orcid: https://orcid.org/0000-0003-0645-5666
-      year: '2026'
+      year: '2025'
       doi: 10.32614/CRAN.package.evaluate
       version: '>= 0.15'
     - type: software
-      title: highr
-      abstract: 'highr: Syntax Highlighting for R Source Code'
+      title: 'highr: Syntax Highlighting for R Source Code'
       notes: Imports
       url: https://github.com/yihui/highr
       repository: https://CRAN.R-project.org/package=highr
@@ -271,8 +266,7 @@ test <- cff_create("knitr")
       doi: 10.32614/CRAN.package.highr
       version: '>= 0.11'
     - type: software
-      title: methods
-      abstract: 'R: A Language and Environment for Statistical Computing'
+      title: 'R: A Language and Environment for Statistical Computing'
       notes: Imports
       authors:
       - name: R Core Team
@@ -284,21 +278,7 @@ test <- cff_create("knitr")
       year: '2026'
       doi: 10.32614/R.manuals
     - type: software
-      title: tools
-      abstract: 'R: A Language and Environment for Statistical Computing'
-      notes: Imports
-      authors:
-      - name: R Core Team
-        website: https://ror.org/02zz1nj61
-      institution:
-        name: R Foundation for Statistical Computing
-        website: https://ror.org/05qewa988
-        address: Vienna, Austria
-      year: '2026'
-      doi: 10.32614/R.manuals
-    - type: software
-      title: xfun
-      abstract: 'xfun: Supporting Functions for Packages Maintained by ''Yihui Xie'''
+      title: 'xfun: Supporting Functions for Packages Maintained by ''Yihui Xie'''
       notes: Imports
       url: https://github.com/yihui/xfun
       repository: https://CRAN.R-project.org/package=xfun
@@ -311,8 +291,7 @@ test <- cff_create("knitr")
       doi: 10.32614/CRAN.package.xfun
       version: '>= 0.52'
     - type: software
-      title: yaml
-      abstract: 'yaml: Methods to Convert R Data to YAML and Back'
+      title: 'yaml: Methods to Convert R Data to YAML and Back'
       notes: Imports
       url: https://yaml.r-lib.org
       repository: https://CRAN.R-project.org/package=yaml
@@ -321,12 +300,11 @@ test <- cff_create("knitr")
         given-names: Jeremy
       - family-names: Simonov
         given-names: Kirill
-      year: '2026'
+      year: '2025'
       doi: 10.32614/CRAN.package.yaml
       version: '>= 2.1.19'
     - type: software
-      title: bslib
-      abstract: 'bslib: Custom ''Bootstrap'' ''Sass'' Themes for ''shiny'' and ''rmarkdown'''
+      title: 'bslib: Custom ''Bootstrap'' ''Sass'' Themes for ''shiny'' and ''rmarkdown'''
       notes: Suggests
       url: https://rstudio.github.io/bslib/
       repository: https://CRAN.R-project.org/package=bslib
@@ -345,8 +323,7 @@ test <- cff_create("knitr")
       year: '2026'
       doi: 10.32614/CRAN.package.bslib
     - type: software
-      title: DBI
-      abstract: 'DBI: R Database Interface'
+      title: 'DBI: R Database Interface'
       notes: Suggests
       url: https://dbi.r-dbi.org
       repository: https://CRAN.R-project.org/package=DBI
@@ -362,8 +339,7 @@ test <- cff_create("knitr")
       doi: 10.32614/CRAN.package.DBI
       version: '>= 0.4-1'
     - type: software
-      title: digest
-      abstract: 'digest: Create Compact Hash Digests of R Objects'
+      title: 'digest: Create Compact Hash Digests of R Objects'
       notes: Suggests
       url: https://eddelbuettel.github.io/digest/
       repository: https://CRAN.R-project.org/package=digest
@@ -372,11 +348,10 @@ test <- cff_create("knitr")
         given-names: Dirk
         email: edd@debian.org
         orcid: https://orcid.org/0000-0001-6419-907X
-      year: '2026'
+      year: '2025'
       doi: 10.32614/CRAN.package.digest
     - type: software
-      title: gifski
-      abstract: 'gifski: Highest Quality GIF Encoder'
+      title: 'gifski: Highest Quality GIF Encoder'
       notes: Suggests
       url: https://r-rust.r-universe.dev/gifski
       repository: https://CRAN.R-project.org/package=gifski
@@ -387,11 +362,10 @@ test <- cff_create("knitr")
         orcid: https://orcid.org/0000-0002-4035-0289
       - name: Kornel Lesiński
       - name: Authors of the dependency Rust crates
-      year: '2026'
+      year: '2025'
       doi: 10.32614/CRAN.package.gifski
     - type: software
-      title: htmlwidgets
-      abstract: 'htmlwidgets: HTML Widgets for R'
+      title: 'htmlwidgets: HTML Widgets for R'
       notes: Suggests
       url: https://github.com/ramnathv/htmlwidgets
       repository: https://CRAN.R-project.org/package=htmlwidgets
@@ -411,12 +385,11 @@ test <- cff_create("knitr")
         orcid: https://orcid.org/0000-0002-4958-2844
       - family-names: Russell
         given-names: Kenton
-      year: '2026'
+      year: '2023'
       doi: 10.32614/CRAN.package.htmlwidgets
       version: '>= 0.7'
     - type: software
-      title: jpeg
-      abstract: 'jpeg: Read and write JPEG images'
+      title: 'jpeg: Read and write JPEG images'
       notes: Suggests
       url: https://www.rforge.net/jpeg/
       repository: https://CRAN.R-project.org/package=jpeg
@@ -425,11 +398,10 @@ test <- cff_create("knitr")
         given-names: Simon
         email: Simon.Urbanek@r-project.org
         orcid: https://orcid.org/0000-0003-2297-1732
-      year: '2026'
+      year: '2025'
       doi: 10.32614/CRAN.package.jpeg
     - type: software
-      title: magick
-      abstract: 'magick: Advanced Graphics and Image-Processing in R'
+      title: 'magick: Advanced Graphics and Image-Processing in R'
       notes: Suggests
       url: https://docs.ropensci.org/magick/
       repository: https://CRAN.R-project.org/package=magick
@@ -441,8 +413,7 @@ test <- cff_create("knitr")
       year: '2026'
       doi: 10.32614/CRAN.package.magick
     - type: software
-      title: litedown
-      abstract: 'litedown: A Lightweight Version of R Markdown'
+      title: 'litedown: A Lightweight Version of R Markdown'
       notes: Suggests
       url: https://github.com/yihui/litedown
       repository: https://CRAN.R-project.org/package=litedown
@@ -453,27 +424,9 @@ test <- cff_create("knitr")
         orcid: https://orcid.org/0000-0003-0645-5666
       year: '2026'
       doi: 10.32614/CRAN.package.litedown
+      version: '>= 0.10'
     - type: software
-      title: markdown
-      abstract: 'markdown: Render Markdown with ''commonmark'''
-      notes: Suggests
-      url: https://github.com/rstudio/markdown
-      repository: https://CRAN.R-project.org/package=markdown
-      authors:
-      - family-names: Xie
-        given-names: Yihui
-        email: xie@yihui.name
-        orcid: https://orcid.org/0000-0003-0645-5666
-      - family-names: Allaire
-        given-names: JJ
-      - family-names: Horner
-        given-names: Jeffrey
-      year: '2026'
-      doi: 10.32614/CRAN.package.markdown
-      version: '>= 1.3'
-    - type: software
-      title: otel
-      abstract: 'otel: OpenTelemetry R API'
+      title: 'otel: OpenTelemetry R API'
       notes: Suggests
       url: https://otel.r-lib.org
       repository: https://CRAN.R-project.org/package=otel
@@ -484,8 +437,7 @@ test <- cff_create("knitr")
       year: '2026'
       doi: 10.32614/CRAN.package.otel
     - type: software
-      title: png
-      abstract: 'png: Read and write PNG images'
+      title: 'png: Read and write PNG images'
       notes: Suggests
       url: https://www.rforge.net/png/
       repository: https://CRAN.R-project.org/package=png
@@ -497,8 +449,7 @@ test <- cff_create("knitr")
       year: '2026'
       doi: 10.32614/CRAN.package.png
     - type: software
-      title: ragg
-      abstract: 'ragg: Graphic Devices Based on AGG'
+      title: 'ragg: Graphic Devices Based on AGG'
       notes: Suggests
       url: https://ragg.r-lib.org
       repository: https://CRAN.R-project.org/package=ragg
@@ -511,9 +462,31 @@ test <- cff_create("knitr")
         given-names: Maxim
       year: '2026'
       doi: 10.32614/CRAN.package.ragg
+      version: '>= 1.5.0'
     - type: software
-      title: rlang
-      abstract: 'rlang: Functions for Base Types and Core R and ''Tidyverse'' Features'
+      title: 'reticulate: Interface to ''Python'''
+      notes: Suggests
+      url: https://rstudio.github.io/reticulate/
+      repository: https://CRAN.R-project.org/package=reticulate
+      authors:
+      - family-names: Kalinowski
+        given-names: Tomasz
+        email: tomasz@posit.co
+      - family-names: Ushey
+        given-names: Kevin
+        email: kevin@posit.co
+      - family-names: Allaire
+        given-names: JJ
+        email: jj@posit.co
+      - family-names: Tang
+        given-names: Yuan
+        email: terrytangyuan@gmail.com
+        orcid: https://orcid.org/0000-0001-5243-233X
+      year: '2026'
+      doi: 10.32614/CRAN.package.reticulate
+      version: '>= 1.4'
+    - type: software
+      title: 'rlang: Functions for Base Types and Core R and ''Tidyverse'' Features'
       notes: Suggests
       url: https://rlang.r-lib.org
       repository: https://CRAN.R-project.org/package=rlang
@@ -527,8 +500,7 @@ test <- cff_create("knitr")
       year: '2026'
       doi: 10.32614/CRAN.package.rlang
     - type: software
-      title: rmarkdown
-      abstract: 'rmarkdown: Dynamic Documents for R'
+      title: 'rmarkdown: Dynamic Documents for R'
       notes: Suggests
       url: https://pkgs.rstudio.com/rmarkdown/
       repository: https://CRAN.R-project.org/package=rmarkdown
@@ -571,8 +543,7 @@ test <- cff_create("knitr")
       year: '2026'
       doi: 10.32614/CRAN.package.rmarkdown
     - type: software
-      title: sass
-      abstract: 'sass: Syntactically Awesome Style Sheets (''Sass'')'
+      title: 'sass: Syntactically Awesome Style Sheets (''Sass'')'
       notes: Suggests
       url: https://rstudio.github.io/sass/
       repository: https://CRAN.R-project.org/package=sass
@@ -595,11 +566,10 @@ test <- cff_create("knitr")
         given-names: Carson
         email: carson@rstudio.com
         orcid: https://orcid.org/0000-0002-4958-2844
-      year: '2026'
+      year: '2025'
       doi: 10.32614/CRAN.package.sass
     - type: software
-      title: showtext
-      abstract: 'showtext: Using Fonts More Easily in R Graphs'
+      title: 'showtext: Using Fonts More Easily in R Graphs'
       notes: Suggests
       url: https://github.com/yixuan/showtext
       repository: https://CRAN.R-project.org/package=showtext
@@ -610,8 +580,7 @@ test <- cff_create("knitr")
       year: '2026'
       doi: 10.32614/CRAN.package.showtext
     - type: software
-      title: styler
-      abstract: 'styler: Non-Invasive Pretty Printing of R Code'
+      title: 'styler: Non-Invasive Pretty Printing of R Code'
       notes: Suggests
       url: https://styler.r-lib.org
       repository: https://CRAN.R-project.org/package=styler
@@ -627,12 +596,11 @@ test <- cff_create("knitr")
         given-names: Indrajeet
         email: patilindrajeet.science@gmail.com
         orcid: https://orcid.org/0000-0003-1995-6531
-      year: '2026'
+      year: '2025'
       doi: 10.32614/CRAN.package.styler
       version: '>= 1.2.0'
     - type: software
-      title: tibble
-      abstract: 'tibble: Simple Data Frames'
+      title: 'tibble: Simple Data Frames'
       notes: Suggests
       url: https://tibble.tidyverse.org/
       repository: https://CRAN.R-project.org/package=tibble
@@ -647,8 +615,7 @@ test <- cff_create("knitr")
       year: '2026'
       doi: 10.32614/CRAN.package.tibble
     - type: software
-      title: tinytex
-      abstract: 'tinytex: Helper Functions to Install and Maintain TeX Live, and Compile
+      title: 'tinytex: Helper Functions to Install and Maintain TeX Live, and Compile
         LaTeX Documents'
       notes: Suggests
       url: https://github.com/rstudio/tinytex
@@ -662,8 +629,18 @@ test <- cff_create("knitr")
       doi: 10.32614/CRAN.package.tinytex
       version: '>= 0.56'
     - type: software
-      title: rstudioapi
-      abstract: 'rstudioapi: Safely Access the RStudio API'
+      title: 'webshot: Take Screenshots of Web Pages'
+      notes: Suggests
+      url: https://wch.github.io/webshot/
+      repository: https://CRAN.R-project.org/package=webshot
+      authors:
+      - family-names: Chang
+        given-names: Winston
+        email: winston@rstudio.com
+      year: '2023'
+      doi: 10.32614/CRAN.package.webshot
+    - type: software
+      title: 'rstudioapi: Safely Access the RStudio API'
       notes: Suggests
       url: https://rstudio.github.io/rstudioapi/
       repository: https://CRAN.R-project.org/package=rstudioapi

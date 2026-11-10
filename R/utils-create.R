@@ -35,6 +35,7 @@ merge_desc_cit <- function(cffobj, citobj) {
     cranid <- as_cff(list(list(type = "doi", value = clean_str(cran_doi))))
     merged_ids <- c(cranid, merged_ids)
   }
+  merged_ids <- unique(merged_ids)
   cffobjend$identifiers <- merged_ids
 
   # Reorder keys.
@@ -52,7 +53,7 @@ merge_desc_cit <- function(cffobj, citobj) {
   cffobjfinal
 }
 
-#' Enhance authors info from preferred-citation using metadata from DESCRIPTION
+#' Enhance author information from `preferred-citation` using `DESCRIPTION`
 #' @noRd
 enhance_pref_authors <- function(cffobjend) {
   # Create an index of authors extracted from DESCRIPTION.
@@ -106,7 +107,7 @@ get_dependencies <- function(
     return(NULL)
   }
 
-  getdeps <- desc::desc(desc_path)
+  getdeps <- cff_read_description_file(desc_path)
 
   deps <- cff_dependency_rows(getdeps$get_deps())
 
@@ -164,7 +165,6 @@ cff_dependency_reference <- function(dep) {
 cff_dependency_citation <- function(package) {
   if (package == "R") {
     mod <- as_cff(cff_citation())[[1]]
-    mod$year <- format(Sys.Date(), "%Y")
     return(mod)
   }
 
@@ -173,10 +173,6 @@ cff_dependency_citation <- function(package) {
   if (inherits(mod, "try-error")) {
     return(NULL)
   }
-
-  # Simplify the `cff` object to avoid cluttering the output.
-  mod$abstract <- mod$title
-  mod$title <- package
 
   if (is_cran_dependency(package)) {
     mod$doi <- paste0("10.32614/CRAN.package.", package)
@@ -190,19 +186,22 @@ cff_citation <- function(...) {
 }
 
 is_cran_dependency <- function(package) {
-  avail <- get_avail_on_init()
   base_packages <- rownames(installed.packages(priority = "base"))
+  repository <- search_on_repos(package)
 
-  all(package %in% avail$Package, !package %in% base_packages)
+  all(
+    !package %in% base_packages,
+    identical(repository, cran_package_url(package))
+  )
 }
 
 cff_dependency_desc_fields <- function(mod, package) {
   # Get URL and repository from package DESCRIPTION.
-  # URLs from citation() vary due to auto = TRUE.
+  # URLs from `citation()` vary due to `auto = TRUE`.
   dfile <- system.file("DESCRIPTION", package = package)
 
   if (file_exist_abort(dfile)) {
-    pkg <- desc::desc(dfile)
+    pkg <- cff_read_description_file(dfile)
     mod$url <- get_desc_urls(pkg)$url
     mod$repository <- get_desc_repository(pkg)
   }
@@ -214,7 +213,7 @@ cff_dependency_year <- function(mod) {
   date_rel <- mod[["date-released"]]
 
   if (is.null(date_rel)) {
-    return(format(Sys.Date(), "%Y"))
+    return(mod[["year"]])
   }
 
   format(as.Date(date_rel), "%Y")

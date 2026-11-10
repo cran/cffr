@@ -22,12 +22,12 @@ as_cff_person(x, ...)
 \item{...}{Ignored by this method.}
 }
 \value{
-\code{as_cff_person()} returns an object of classes
-\code{\link[=cff_pers_lst]{cff_pers_lst, cff}} as defined by \code{definitions.person} or
-\code{definitions.entity} specified in the following guide:
+An object with classes
+\code{\link{cff_pers_lst}} and \code{\link{cff}} representing \code{definitions.person} or
+\code{definitions.entity}, as defined in the following guide:
 \href{https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md}{Citation File Format schema guide}.
 Each element of the \code{cff_pers_lst} object has classes
-\code{\link[=cff_pers]{cff_pers, cff}}.
+\code{\link{cff_pers}} and \code{cff}.
 }
 \description{
 \code{as_cff_person()} turns an existing list-like \R object into a
@@ -53,7 +53,7 @@ with the methods \code{\link[=as.person.cff_pers]{as.person.cff_pers()}} and \co
 CFF reference for \code{definitions.person} or \code{definitions.entity}.
 
 \code{as_cff_person()} uses a custom algorithm that parses names as explained in
-Section 11 of "Tame the BeaST" (Markey, 2009) (see also Decoret, 2007):
+Section 11 of "Tame the BeaST" (Markey, 2009):
 \itemize{
 \item \verb{First von Last}.
 \item \verb{von Last, First}.
@@ -68,7 +68,7 @@ Mapping is performed as follows:
 \item \code{Jr} is mapped to the CFF key \code{name-suffix}.
 }
 
-For entities, the entire \code{character} is mapped to \code{name}.
+For entities, the entire string is mapped to \code{name}.
 We recommend "protecting" entity names with \code{{}}:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{# Avoid unprotected entity names.
@@ -111,7 +111,7 @@ class(cff_person[[1]])
 # Print.
 cff_person
 
-# Back to person object with S3 method.
+# Convert back to a `person` object with the S3 method.
 as.person(cff_person)
 
 # Coerce a string.
@@ -121,7 +121,7 @@ a_str <- paste0(
 )
 as_cff_person(a_str)
 
-# Several persons.
+# Several people.
 persons <- c(
   person("Clark", "Kent", comment = c(affiliation = "Daily Planet")),
   person("Lois", "Lane"), person("Oscorp Inc.")
@@ -149,12 +149,10 @@ toBibtex(as_cff_person("Herbert von Karajan"))
 }
 \references{
 Patashnik O (1988). "BIBTEXing."
-\url{https://osl.ugr.es/CTAN/biblio/bibtex/base/btxdoc.pdf}.
+\url{https://ctan.math.illinois.edu/biblio/bibtex/base/btxdoc.pdf}.
 
 Markey N (2009). \emph{Tame the BeaST: The B to X of BibTeX}.
-\url{https://osl.ugr.es/CTAN/info/bibtex/tamethebeast/ttb_en.pdf}.
-
-Decoret X (2007). "A summary of BibTeX." \url{https://maverick.inria.fr/~Xavier.Decoret/resources/xdkbibtex/bibtex_summary.html#names}.
+\url{https://ctan.math.illinois.edu/info/bibtex/tamethebeast/ttb_en.pdf}.
 }
 \seealso{
 Examples in \code{vignette("cffr", package = "cffr")} and \code{\link[utils:person]{utils::person()}}.

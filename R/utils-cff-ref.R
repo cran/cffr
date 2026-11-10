@@ -1,4 +1,4 @@
-# Utilities for as_cff_reference.
+# Utilities for `as_cff_reference()`.
 
 #' Extract and map BibTeX entries
 #' @noRd
@@ -75,7 +75,7 @@ get_bibtex_fields <- function(cit_list) {
   nm[nm == "address"] <- "location"
   nm[nm == "pages"] <- "bibtex_pages" # This would be removed later
 
-  # Get some fields from BibLaTeX
+  # Get additional fields from BibLaTeX.
   nm[nm == "date"] <- "date-published"
   nm[nm == "file"] <- "filename"
   nm[nm == "issuetitle"] <- "issue-title"
@@ -88,10 +88,11 @@ get_bibtex_fields <- function(cit_list) {
 
   # Keywords may be duplicated, so unify them.
   if ("keywords" %in% nm) {
-    kwords <- unlist(cit_list["keywords" == nm])
+    kwords <- unlist(cit_list[nm == "keywords"])
     kwords <- clean_str(paste(kwords, collapse = ", "))
-    kwords <- trimws(unique(unlist(strsplit(kwords, ",|;"))))
-    cit_list$keywords <- unique(kwords)
+    kwords <- unlist(strsplit(kwords, ",|;"))
+    kwords <- unique(unlist(lapply(kwords, clean_str), use.names = FALSE))
+    cit_list$keywords <- kwords
   }
 
   # Not mapped:
@@ -104,10 +105,9 @@ get_bibtex_fields <- function(cit_list) {
 
   names(cit_list) <- nm
 
-  # Drop keywords when fewer than two values are present to avoid validation
-  # errors.
-  if (length(cit_list$keywords) < 2) {
-    cit_list$keywords <- NULL
+  # Preserve a single keyword as a YAML sequence rather than a scalar.
+  if (length(cit_list$keywords) == 1) {
+    cit_list$keywords <- as.list(cit_list$keywords)
   }
 
   # Treat location ----
@@ -119,11 +119,17 @@ get_bibtex_fields <- function(cit_list) {
   }
 
   # Treat additional dates ----
-  dpub <- clean_str(cit_list$`date-published`)
-  cit_list$`date-published` <- clean_str(as.Date(dpub, optional = TRUE))
+  dpub <- bibtex_date_parts(cit_list$`date-published`, allow_partial = TRUE)
+  cit_list$`date-published` <- dpub$date
+  if (is.null(cit_list$year)) {
+    cit_list$year <- dpub$year
+  }
+  if (is.null(cit_list$month)) {
+    cit_list$month <- dpub$month
+  }
 
-  datacc <- clean_str(cit_list$`date-accessed`)
-  cit_list$`date-accessed` <- clean_str(as.Date(datacc, optional = TRUE))
+  datacc <- bibtex_date_parts(cit_list$`date-accessed`)
+  cit_list$`date-accessed` <- datacc$date
 
   # Treat pages.
 
@@ -137,6 +143,41 @@ get_bibtex_fields <- function(cit_list) {
   }
 
   cit_list
+}
+
+bibtex_date_parts <- function(x, allow_partial = FALSE) {
+  value <- clean_str(x)
+  result <- list(date = NULL, year = NULL, month = NULL)
+
+  if (is.null(value)) {
+    return(result)
+  }
+
+  full_date <- grepl(
+    "^([0-9]{4}-[0-9]{2}-[0-9]{2}|[0-9]{4}/[0-9]{2}/[0-9]{2})$",
+    value
+  )
+  if (full_date) {
+    normalized <- gsub("/", "-", value, fixed = TRUE)
+    parsed <- suppressWarnings(as.Date(normalized, format = "%Y-%m-%d"))
+    if (!is.na(parsed)) {
+      result$date <- as.character(parsed)
+      return(result)
+    }
+  }
+
+  if (allow_partial && grepl("^[0-9]{4}(-[0-9]{2})?$", value)) {
+    parts <- strsplit(value, "-", fixed = TRUE)[[1]]
+    month <- parts[2]
+    if (is.na(month) || as.integer(month) %in% seq_len(12)) {
+      result$year <- parts[1]
+      result$month <- clean_str(month)
+      return(result)
+    }
+  }
+
+  result$date <- value
+  result
 }
 
 #' Modify mapping of some organization fields from BibTeX to CFF
@@ -154,13 +195,17 @@ get_bibtex_inst <- function(field_list) {
     "institution"
   )
 
-  if (to_replace == "institution") {
+  if (
+    to_replace == "institution" ||
+      !to_replace %in% names(field_list) ||
+      is.null(clean_str(field_list[[to_replace]]))
+  ) {
     return(field_list)
   }
 
-  # In the remaining cases, remove the BibTeX institution and rename.
+  # Prefer the entry-specific field over a generic BibTeX institution.
   nms <- names(field_list)
-  field_list <- field_list["institution" != nms]
+  field_list <- field_list[nms != "institution"]
 
   # Rename.
   nms2 <- names(field_list)
@@ -244,8 +289,11 @@ add_bibtex_coltype <- function(field_list) {
   # Create collection-type when collection-title is present.
   bibtex_type <- field_list$bibtex_entry
 
-  # Remove the initial `in` from inbook and incollection.
-  coltype <- clean_str(gsub("^in", "", bibtex_type))
+  coltype <- if (bibtex_type %in% c("book", "inbook")) {
+    "book-series"
+  } else {
+    clean_str(gsub("^in", "", bibtex_type))
+  }
   field_list$`collection-type` <- coltype
 
   # Rearrange fields to keep collection keys together.
@@ -274,20 +322,54 @@ fallback_dates <- function(cit_list) {
   cit_list
 }
 
+is_doi_url <- function(x) {
+  grepl("^https?://(?:dx\\.)?doi\\.org/", x, ignore.case = TRUE, perl = TRUE)
+}
+
+is_cff_doi <- function(x) {
+  grepl(
+    "^10\\.\\d{4,9}(\\.\\d+)?/[A-Za-z0-9:/_;\\-\\.\\(\\)\\[\\]\\\\]+$",
+    x,
+    perl = TRUE
+  )
+}
+
+get_bibtex_url_values <- function(cit_list) {
+  urls <- unlist(cit_list[names(cit_list) == "url"], use.names = FALSE)
+  urls <- unlist(strsplit(
+    as.character(urls),
+    "\\s*,\\s*(?=(?:https?|s?ftp)://)|\\s+(?=(?:https?|s?ftp)://)",
+    perl = TRUE
+  ))
+  unique(as.character(urls[nzchar(urls)]))
+}
+
 #' Build the DOI field list.
 #' @noRd
 get_bibtex_doi <- function(cit_list) {
-  dois <- unlist(cit_list[names(cit_list) == "doi"])
+  dois <- unlist(cit_list[names(cit_list) == "doi"], use.names = FALSE)
 
   # Check URLs as well.
-  url_for_doi <- unlist(cit_list$url)
-  if (all(!is.null(url_for_doi), grepl("doi.org", url_for_doi))) {
-    dois <- c(dois, url_for_doi)
-  }
+  url_for_doi <- get_bibtex_url_values(cit_list)
+  dois <- c(dois, url_for_doi[is_doi_url(url_for_doi)])
 
   dois <- unlist(lapply(dois, function(x) {
-    x <- gsub("^.*doi.org/", "", x)
+    is_resolver <- is_doi_url(x)
+    x <- sub(
+      "^https?://(?:dx\\.)?doi\\.org/",
+      "",
+      x,
+      ignore.case = TRUE,
+      perl = TRUE
+    )
+    if (is_resolver) {
+      x <- sub("[?#].*$", "", x)
+    }
     x <- clean_str(x)
+    if (is_resolver && !isTRUE(is_cff_doi(x))) {
+      return(NULL)
+    }
+    x
   }))
 
   dois <- unique(as.character(dois))
@@ -326,14 +408,7 @@ get_bibtex_month <- function(cit_list) {
 #' Build the URL field list.
 #' @noRd
 get_bibtex_url <- function(cit_list) {
-  ## Get URL: see bug with cff_create("rgeos").
-  if (is.character(cit_list$url)) {
-    allurls <- as.character(cit_list[names(cit_list) == "url"])
-    allurls <- unlist(strsplit(allurls, " |,|\\n"))
-  } else {
-    allurls <- cit_list$url
-  }
-
+  allurls <- get_bibtex_url_values(cit_list)
   allurls <- allurls[is_url(allurls)]
   cff_identifier_fields(allurls, key = "url", type = "url")
 }
@@ -380,11 +455,7 @@ get_bibtex_other_pers <- function(field_list) {
     end
   })
 
-  # Remaining fields.
-
-  rest <- others[!names(others) %in% toent_pers]
-
-  # If any field has multiple persons, paste and collapse them.
+  # If any field has multiple people, paste and collapse them.
   rest <- lapply(others, function(x) {
     if (length(x) > 1) {
       and <- paste(

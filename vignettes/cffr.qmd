@@ -38,14 +38,14 @@ their software.
 This format is increasingly used in the software citation ecosystem.
 [**GitHub**](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-citation-files),
 [**Zenodo**](https://citation-file-format.github.io/#/supported-by-zenodo-) and
-[**Zotero**](https://citation-file-format.github.io/#/supported-by-zotero-) support
-this citation format [@druskat_stephan_making_2021].
+[**Zotero**](https://citation-file-format.github.io/#/supported-by-zotero-)
+support this citation format [@druskat_stephan_making_2021].
 
 **GitHub** support is of special interest:
 
 <figure>
 
-![GitHub citation support announcement](tweet-1.png){.quarto-figure
+![Nat Friedman's announcement that adding a CITATION.cff file to a repository enables GitHub's Cite this repository menu, shown below the post.](tweet-1.png){.quarto-figure
 .quarto-figure-center fig-align="center" width="400"}
 
 ```{=html}
@@ -79,7 +79,9 @@ Under the hood, `cff_write()` performs these tasks:
 - Writes a `CITATION.cff` file.
 - Validates the result using `cff_validate()`.
 
-You now have a complete `CITATION.cff` file for your **R** package.
+You now have a `CITATION.cff` file populated from the available package
+metadata. The validation step reports any values that do not satisfy the CFF
+schema so that they can be corrected in their original metadata source.
 
 ## Modifying your `CITATION.cff` file
 
@@ -227,12 +229,12 @@ The result can be written with `cff_write()`:
 # Create a temporary output file.
 tmp <- tempfile(fileext = ".cff")
 
-see_res <- cff_write(finalobject, outfile = tmp)
+cff_write(finalobject, outfile = tmp)
 
 cat(readLines(tmp), sep = "\n")
 ```
 
-Finally, we can read the created `CITATION.cff` file using `cff_read()`:
+Finally, we can read the resulting CFF file using `cff_read()`:
 
 ```{r}
 #| label: read
@@ -264,7 +266,7 @@ res
 
 ```{r}
 #| include: false
-# Clean temporary files.
+# Remove temporary files.
 unlink(tmp)
 unlink(tmp2)
 ```

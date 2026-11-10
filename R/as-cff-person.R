@@ -21,21 +21,21 @@
 #' @param x Any \R object.
 #' @param ... Ignored by this method.
 #'
-#' @return
-#' `as_cff_person()` returns an object of classes
-#' [`cff_pers_lst, cff`][cff_pers_lst] as defined by `definitions.person` or
-#' `definitions.entity` specified in the following guide:
+#' @returns
+#' An object with classes
+#' [`cff_pers_lst`] and [`cff`] representing `definitions.person` or
+#' `definitions.entity`, as defined in the following guide:
 #' ```{r child = "man/chunks/schema-guide.Rmd"}
 #' ```
 #' Each element of the `cff_pers_lst` object has classes
-#' [`cff_pers, cff`][cff_pers].
+#' [`cff_pers`] and `cff`.
 #'
 #' @details
 #' `as_cff_person()` recognizes whether the input should be converted with the
 #' CFF reference for `definitions.person` or `definitions.entity`.
 #'
 #' `as_cff_person()` uses a custom algorithm that parses names as explained in
-#' Section 11 of "Tame the BeaST" (Markey, 2009) (see also Decoret, 2007):
+#' Section 11 of "Tame the BeaST" (Markey, 2009):
 #'
 #' - `First von Last`.
 #' - `von Last, First`.
@@ -47,7 +47,7 @@
 #' - `Last` is mapped to the CFF key `family-names`.
 #' - `Jr` is mapped to the CFF key `name-suffix`.
 #'
-#' For entities, the entire `character` is mapped to `name`.
+#' For entities, the entire string is mapped to `name`.
 #' We recommend "protecting" entity names with `{}`:
 #'
 #' ```{r child = "man/chunks/person.Rmd"}
@@ -58,16 +58,10 @@
 #'
 #' @references
 #' Patashnik O (1988). "BIBTEXing."
-#' <https://osl.ugr.es/CTAN/biblio/bibtex/base/btxdoc.pdf>.
+#' <https://ctan.math.illinois.edu/biblio/bibtex/base/btxdoc.pdf>.
 #'
 #' Markey N (2009). *Tame the BeaST: The B to X of BibTeX*.
-#' <https://osl.ugr.es/CTAN/info/bibtex/tamethebeast/ttb_en.pdf>.
-#'
-#' Decoret X (2007). "A summary of BibTeX."
-#' ```{r, echo=FALSE, results='asis'}
-#' cat(paste0(" <https://maverick.inria.fr/~Xavier.Decoret/resources/",
-#'   "xdkbibtex/bibtex_summary.html#names>."))
-#' ```
+#' <https://ctan.math.illinois.edu/info/bibtex/tamethebeast/ttb_en.pdf>.
 #'
 #' @seealso
 #' Examples in `vignette("cffr", package = "cffr")` and [utils::person()].
@@ -103,7 +97,7 @@
 #' # Print.
 #' cff_person
 #'
-#' # Back to person object with S3 method.
+#' # Convert back to a `person` object with the S3 method.
 #' as.person(cff_person)
 #'
 #' # Coerce a string.
@@ -113,7 +107,7 @@
 #' )
 #' as_cff_person(a_str)
 #'
-#' # Several persons.
+#' # Several people.
 #' persons <- c(
 #'   person("Clark", "Kent", comment = c(affiliation = "Daily Planet")),
 #'   person("Lois", "Lane"), person("Oscorp Inc.")

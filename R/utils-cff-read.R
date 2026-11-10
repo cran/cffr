@@ -14,9 +14,8 @@ get_desc_abstract <- function(pkg) {
   abstract
 }
 
-#' Map to people with the roles "aut" and "cre".
-#' Uncertain: this approach may need review.
-#' On CRAN, only the first "aut" is used.
+#' Map all people whose roles match `authors_roles`.
+#' By default, include authors ("aut") and maintainers ("cre").
 #' @noRd
 get_desc_authors <- function(pkg, authors_roles = c("aut", "cre")) {
   # Extract all persons.
@@ -87,7 +86,7 @@ get_desc_date_released <- function(pkg) {
   date
 }
 
-#' Mapped to X-schema.org-keywords, as codemeta/codemetar
+#' Map `X-schema.org-keywords`, as in \CRANpkg{codemetar}
 #' @noRd
 get_desc_keywords <- function(pkg) {
   kword <- pkg$get("X-schema.org-keywords")
@@ -99,19 +98,15 @@ get_desc_keywords <- function(pkg) {
     return(kword)
   }
 
-  kword <- unlist(strsplit(kword, ", "))
-  kword <- unlist(strsplit(unique(kword), ","))
+  kword <- unlist(strsplit(kword, ",", fixed = TRUE))
+  kword <- unique(unlist(lapply(kword, clean_str), use.names = FALSE))
 
-  # Hack: the validator does not seem to recognize a single keyword.
-  # Add the new keyword r-package.
-
-  if (length(kword) == 1) {
-    kword <- unique(c(kword, "r-package"))
+  if (length(kword) == 0) {
+    return(NULL)
   }
 
-  # If there is still one keyword, return NULL.
   if (length(kword) == 1) {
-    return(NULL)
+    kword <- as.list(kword)
   }
 
   kword
@@ -122,12 +117,8 @@ get_desc_keywords <- function(pkg) {
 get_desc_license <- function(pkg) {
   licenses <- pkg$get_field("License")
 
-  # The schema accepts at most two licenses.
-
-  licenses <- unlist(strsplit(licenses, "\\| "))[1:2]
-
-  # Clean up and split.
-  split <- unlist(strsplit(licenses, " \\+ |\\+"))
+  # Split alternative licenses and license-file qualifiers.
+  split <- unlist(strsplit(licenses, "\\s*(?:\\||\\+)\\s*", perl = TRUE))
 
   # Clean leading and trailing blanks.
   split <- unique(trimws(split))
@@ -143,7 +134,7 @@ get_desc_license <- function(pkg) {
   licenses_list <- lapply(licenses_df$SPDX, clean_str)
   licenses_list <- drop_null(licenses_list)
 
-  license_char <- unlist(licenses_list)
+  license_char <- unique(unlist(licenses_list))
 
   license_char
 }
@@ -316,9 +307,15 @@ get_gh_topics <- function(x) {
 
 fetch_gh_topics <- function(
   api_url,
-  tmpfile = tempfile(fileext = ".json"),
+  tmpfile = NULL,
   downloader = download.file
 ) {
+  remove_tmpfile <- is.null(tmpfile)
+  if (remove_tmpfile) {
+    tmpfile <- cff_tempfile(fileext = ".json")
+    on.exit(unlink(tmpfile), add = TRUE)
+  }
+
   # Check whether GH_TOKEN is set in Renviron.
   # Tests can quickly reach the GitHub API limit without authentication.
   # Authenticate to increase the limit.
@@ -384,11 +381,15 @@ get_desc_sha <- function(pkg) {
 }
 
 get_desc_doi <- function(pkg) {
-  pkg <- pkg$get("Package")
-  if (is.null(search_on_repos(pkg))) {
+  package <- pkg$get("Package")
+  repository <- clean_str(pkg$get("Repository"))
+  on_cran <- identical(repository, "CRAN") ||
+    identical(search_on_repos(package), cran_package_url(package))
+
+  if (!on_cran) {
     return(NULL)
   }
 
-  doi <- paste0("10.32614/CRAN.package.", pkg)
+  doi <- paste0("10.32614/CRAN.package.", package)
   clean_str(doi)
 }

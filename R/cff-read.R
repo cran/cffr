@@ -17,21 +17,23 @@
 #'
 #' @param path A path to a file.
 #' @param encoding Encoding to be assumed for `path`. See [base::readLines()].
-#' @param meta A list of package metadata as obtained by
+#' @param meta A package metadata object as obtained by
 #'   [utils::packageDescription()] or `NULL` (the default). See **Details**.
 #' @param ... Arguments passed to other functions, for example to
 #'   [yaml::read_yaml()] or [bibtex::read.bib()].
 #'
 #' @inheritParams cff_create
 #'
-#' @return
-#' - `cff_read_cff_citation()` and `cff_read_description()` return an object
-#'   with class `cff`.
-#' - `cff_read_citation()` and `cff_read_bib()` return an object of classes
-#'   [`cff_ref_lst, cff`][cff_ref_lst] as defined by the
-#'   `definitions.reference` specified in the following guide:
+#' @returns
+#' - `cff_read_cff_citation()` and `cff_read_description()` return a
+#'   [`cff`] object.
+#' - `cff_read_bib()` returns an object with classes
+#'   [`cff_ref_lst`] and [`cff`] representing
+#'   `definitions.reference`, as defined in the following guide:
 #' ```{r child = "man/chunks/schema-guide.Rmd"}
 #' ```
+#' - `cff_read_citation()` returns the same classes as `cff_read_bib()` or
+#'   `NULL` when the file cannot be evaluated.
 #'
 #' Learn more about the \CRANpkg{cffr} class system in [cff_class].
 #'
@@ -40,10 +42,15 @@
 #'
 #' ## The `meta` object
 #'
-#' Section 1.9 CITATION files of *Writing R Extensions* (R Core Team 2026)
+#' Section 1.9, "CITATION files", of *Writing R Extensions* (R Core Team 2026)
 #' specifies how to create dynamic `CITATION` files using a `meta` object.
-#' Therefore, the `meta` argument in [cff_read_citation()] may be needed to
-#' read some files correctly.
+#' [cff_read_citation()] makes every field supplied in `meta`, including custom
+#' `DESCRIPTION` fields, available to the `CITATION` file. When `cff_create()`
+#' reads a package `CITATION` file, it constructs `meta` from all fields in that
+#' package's `DESCRIPTION`. With `meta = NULL`, only default encoding metadata
+#' is supplied. If the file cannot be evaluated with those metadata,
+#' `cff_read_citation()` returns `NULL` rather than substituting metadata from
+#' another package.
 #'
 #' @references
 #' R Core Team (2026). *Writing R Extensions*.
@@ -134,15 +141,27 @@ cff_read_cff_citation <- function(path, ...) {
   cffobj <- yaml::read_yaml(
     path,
     ...,
-    # Always read languages as a list (#105).
-    handlers = list(map = function(x) {
-      if (length(x$languages) == 1) {
-        x$languages <- list(x$languages)
-      }
-      x
-    })
+    # Preserve YAML sequences with one element as lists (#105).
+    handlers = list(seq = cff_yaml_sequence)
   )
   new_cff(cffobj)
+}
+
+cff_yaml_sequence <- function(x) {
+  if (length(x) == 1) {
+    return(x)
+  }
+
+  scalar <- vapply(
+    x,
+    \(value) !is.list(value) && length(value) == 1,
+    logical(1)
+  )
+  if (all(scalar)) {
+    return(do.call(c, unname(x)))
+  }
+
+  x
 }
 
 #' @rdname cff_read
@@ -157,7 +176,7 @@ cff_read_description <- function(
 ) {
   file_exist_abort(path, abort = TRUE, call = environment())
 
-  pkg <- desc::desc(path)
+  pkg <- cff_read_description_file(path)
   pkg$coerce_authors_at_r()
 
   msg <- paste0(
@@ -216,20 +235,13 @@ cff_read_citation <- function(path, meta = NULL, ...) {
   new_meta <- clean_package_meta(meta)
   the_cit <- try(cff_read_citation_file(path, meta = new_meta), silent = TRUE)
 
-  # If there is an error, try again.
+  # If there is an error, return no citation.
   if (inherits(the_cit, "try-error")) {
-    cli::cli_alert_warning(paste0(
-      "Could not read {.file {path}} with the provided {.arg meta}. ",
-      'Trying {.code utils::packageDescription("base")}.'
+    cli::cli_alert_danger(paste0(
+      "Cannot read {.file {path}} with the provided {.arg meta}. ",
+      "Returning {.code NULL}."
     ))
-    new_meta <- packageDescription("base")
-    the_cit <- try(cff_read_citation_file(path, meta = new_meta), silent = TRUE)
-    if (inherits(the_cit, "try-error")) {
-      cli::cli_alert_danger(
-        "Cannot read {.file {path}}. Returning {.code NULL}."
-      )
-      return(NULL)
-    }
+    return(NULL)
   }
   tocff <- as_cff(the_cit)
 

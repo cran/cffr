@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.18">
+<meta name="generator" content="quarto-1.10.19">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -271,7 +271,7 @@ text-decoration: underline; }
 </nav>
 <p>This vignette provides an explicit map between the metadata sources used by <strong>cffr</strong> and each valid key in the <a href="https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#valid-keys">Citation File Format schema version 1.2.0</a>.</p>
 <h2 id="summary">Summary</h2>
-<p>This section summarizes the keys that <strong>cffr</strong> can populate and the metadata source for each one. Details for each key are presented in the next section. The assessment is based on the <a href="https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#valid-keys">Guide to Citation File Format schema version 1.2.0</a> <span class="citation" data-cites="druskat_citation_2021">(<a href="#ref-druskat_citation_2021" role="doc-biblioref">Druskat et al. 2021</a>)</span>.</p>
+<p>This section summarizes the keys that <strong>cffr</strong> can populate and the metadata source for each one. Details for each key are presented in the next section. This mapping is based on the <a href="https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#valid-keys">Guide to Citation File Format schema version 1.2.0</a> <span class="citation" data-cites="druskat_citation_2021">(<a href="#ref-druskat_citation_2021" role="doc-biblioref">Druskat et al. 2021</a>)</span>.</p>
 <div class="cell">
 <div id="tbl-summary" class="cell quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-tbl">
@@ -279,8 +279,8 @@ text-decoration: underline; }
 <div class="cell-output-display">
 <table class="cell">
 <colgroup>
-<col style="width: 64%">
-<col style="width: 35%">
+<col style="width: 60%">
+<col style="width: 39%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -315,11 +315,11 @@ text-decoration: underline; }
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a href="#doi">doi</a></td>
-<td style="text-align: left;">inst/CITATION</td>
+<td style="text-align: left;">inst/CITATION or CRAN</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a href="#identifiers">identifiers</a></td>
-<td style="text-align: left;">DESCRIPTION and inst/CITATION</td>
+<td style="text-align: left;">DESCRIPTION, inst/CITATION and CRAN</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a href="#keywords">keywords</a></td>
@@ -564,10 +564,10 @@ Table 1: cffr and R packages: Conversion table
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>pkg <span class="ot">&lt;-</span> desc<span class="sc">::</span><span class="fu">desc</span>(<span class="fu">file.path</span>(<span class="fu">find.package</span>(<span class="st">&quot;rmarkdown&quot;</span>), <span class="st">&quot;DESCRIPTION&quot;</span>))</span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(pkg<span class="sc">$</span><span class="fu">get</span>(<span class="st">&quot;Date/Publication&quot;</span>))</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2026-03-26 16:30:02 UTC</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2026-09-01 13:10:02 UTC</span></span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(cff_obj<span class="sc">$</span><span class="st">`</span><span class="at">date-released</span><span class="st">`</span>)</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2026-03-26</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2026-09-01</span></span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co"># A DESCRIPTION file without a `Date`.</span></span>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>nodate <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;examples/DESCRIPTION_basic&quot;</span>, <span class="at">package =</span> <span class="st">&quot;cffr&quot;</span>)</span>
@@ -622,7 +622,7 @@ Table 1: cffr and R packages: Conversion table
 </div>
 <p>Back to <a href="#tbl-summary" class="quarto-xref">Table 1</a>.</p>
 <h3 id="doi">doi</h3>
-<p>This key is coerced from the <code>&quot;doi&quot;</code> field of the <a href="#preferred-citation">preferred-citation</a> object. If not present and the package is on <strong>CRAN</strong>, it is populated with the DOI provided by <strong>CRAN</strong> (for example, <a href="https://doi.org/10.32614/CRAN.package.cffr" class="uri">https://doi.org/10.32614/CRAN.package.cffr</a>).</p>
+<p>This key is coerced from the <code>&quot;doi&quot;</code> field of the <a href="#preferred-citation">preferred-citation</a> object. If it is not present, <strong>cffr</strong> adds the canonical <strong>CRAN</strong> DOI only when the package metadata identifies <strong>CRAN</strong> as its repository or a repository lookup resolves to the canonical <strong>CRAN</strong> package URL. Finding the package in another configured repository does not produce a <strong>CRAN</strong> DOI. For example, the canonical DOI for <strong>cffr</strong> is <a href="https://doi.org/10.32614/CRAN.package.cffr" class="uri">https://doi.org/10.32614/CRAN.package.cffr</a>.</p>
 <div class="cell">
 <details class="code-fold">
 <summary><strong>Example</strong></summary>
@@ -643,6 +643,7 @@ Table 1: cffr and R packages: Conversion table
 <li>From the <code>CITATION</code> file, it includes all the DOIs not included in <a href="#doi">doi</a> and the identifiers (if any) not included in the <code>&quot;identifiers&quot;</code> key of <a href="#preferred-citation">preferred-citation</a>.</li>
 <li>If the package is on <strong>CRAN</strong> and it has a <code>CITATION</code> file providing a DOI, the DOI provided by <strong>CRAN</strong> is added as well.</li>
 </ul>
+<p><strong>cffr</strong> removes identical entries after merging identifiers from these sources.</p>
 <div class="cell">
 <details class="code-fold">
 <summary><strong>Example</strong></summary>
@@ -673,10 +674,11 @@ Table 1: cffr and R packages: Conversion table
 <p>This key is extracted from the <code>DESCRIPTION</code> file. The keywords should appear in the <code>DESCRIPTION</code> as:</p>
 <pre><code>...
 X-schema.org-keywords: keyword1, keyword2, keyword3</code></pre>
+<p>The comma-separated values are trimmed and empty or duplicate values are removed. A single keyword is preserved as a one-item CFF <code>keywords</code> array.</p>
 <div class="cell">
 <details class="code-fold">
 <summary><strong>Example</strong></summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A DESCRIPTION file without keywords</span></span>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A DESCRIPTION file without keywords.</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>nokeywords <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;examples/DESCRIPTION_basic&quot;</span>, <span class="at">package =</span> <span class="st">&quot;cffr&quot;</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>tmp2 <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="st">&quot;DESCRIPTION&quot;</span>)</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -922,7 +924,7 @@ X-schema.org-keywords: keyword1, keyword2, keyword3</code></pre>
 </div>
 <p>Back to <a href="#tbl-summary" class="quarto-xref">Table 1</a>.</p>
 <h3 id="license">license</h3>
-<p>This key is extracted from the <code>&quot;License&quot;</code> field of the <code>DESCRIPTION</code> file.</p>
+<p>This key is extracted from the <code>&quot;License&quot;</code> field of the <code>DESCRIPTION</code> file. All alternatives recognized by the <code>cran_to_spdx</code> mapping are preserved.</p>
 <div class="cell">
 <details class="code-fold">
 <summary><strong>Example</strong></summary>
@@ -966,7 +968,7 @@ X-schema.org-keywords: keyword1, keyword2, keyword3</code></pre>
 </div>
 <p>Back to <a href="#tbl-summary" class="quarto-xref">Table 1</a>.</p>
 <h3 id="preferred-citation">preferred-citation</h3>
-<p>This key is extracted from <code>inst/CITATION</code>. If multiple references are provided, it selects the first citation as <code>&quot;preferred-citation&quot;</code> and uses the remaining citations as <a href="#references">references</a>.</p>
+<p>This key is extracted from <code>inst/CITATION</code>. When <code>cff_create()</code> reads this file, all fields from <code>DESCRIPTION</code>, including custom fields, are available through the <code>meta</code> object used by the <code>CITATION</code> file. If multiple references are provided, <strong>cffr</strong> selects the first citation as <code>&quot;preferred-citation&quot;</code> and uses the remaining citations as <a href="#references">references</a>. If the file cannot be read with the package metadata, <strong>cffr</strong> does not retry with metadata from another package.</p>
 <div class="cell">
 <details class="code-fold">
 <summary><strong>Example</strong></summary>
@@ -1012,13 +1014,13 @@ X-schema.org-keywords: keyword1, keyword2, keyword3</code></pre>
 <span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   email: rich@posit.co</span></span>
 <span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   orcid: https://orcid.org/0000-0003-3925-190X</span></span>
 <span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; year: &#39;2026&#39;</span></span>
-<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; notes: R package version 2.31</span></span>
+<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; notes: R package version 2.32</span></span>
 <span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; url: https://github.com/rstudio/rmarkdown</span></span>
 <span id="cb16-45"><a href="#cb16-45" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-46"><a href="#cb16-46" aria-hidden="true" tabindex="-1"></a><span class="fu">citation</span>(<span class="st">&quot;rmarkdown&quot;</span>)[<span class="dv">1</span>]</span>
 <span id="cb16-47"><a href="#cb16-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Allaire J, Xie Y, Dervieux C, McPherson J, Luraschi J, Ushey K, Atkins</span></span>
 <span id="cb16-48"><a href="#cb16-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A, Wickham H, Cheng J, Chang W, Iannone R (2026). _rmarkdown: Dynamic</span></span>
-<span id="cb16-49"><a href="#cb16-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Documents for R_. R package version 2.31,</span></span>
+<span id="cb16-49"><a href="#cb16-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Documents for R_. R package version 2.32,</span></span>
 <span id="cb16-50"><a href="#cb16-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;https://github.com/rstudio/rmarkdown&gt;.</span></span>
 <span id="cb16-51"><a href="#cb16-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb16-52"><a href="#cb16-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
@@ -1027,14 +1029,15 @@ X-schema.org-keywords: keyword1, keyword2, keyword3</code></pre>
 <span id="cb16-55"><a href="#cb16-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     title = {rmarkdown: Dynamic Documents for R},</span></span>
 <span id="cb16-56"><a href="#cb16-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     author = {JJ Allaire and Yihui Xie and Christophe Dervieux and Jonathan McPherson and Javier Luraschi and Kevin Ushey and Aron Atkins and Hadley Wickham and Joe Cheng and Winston Chang and Richard Iannone},</span></span>
 <span id="cb16-57"><a href="#cb16-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     year = {2026},</span></span>
-<span id="cb16-58"><a href="#cb16-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     note = {R package version 2.31},</span></span>
+<span id="cb16-58"><a href="#cb16-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     note = {R package version 2.32},</span></span>
 <span id="cb16-59"><a href="#cb16-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     url = {https://github.com/rstudio/rmarkdown},</span></span>
 <span id="cb16-60"><a href="#cb16-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   }</span></span></code></pre></div>
 </details>
 </div>
 <p>Back to <a href="#tbl-summary" class="quarto-xref">Table 1</a>.</p>
 <h3 id="references">references</h3>
-<p>This key is extracted from <code>inst/CITATION</code> if multiple references are provided. The first citation becomes the <a href="#preferred-citation">preferred citation</a> and the remaining citations become <code>&quot;references&quot;</code>. <strong>cffr</strong> can also extract package dependencies and add them to this field by calling <code>citation(auto = TRUE)</code> for each dependency.</p>
+<p>This key is extracted from <code>inst/CITATION</code> if multiple references are provided. The first citation becomes the <a href="#preferred-citation">preferred citation</a> and the remaining citations become <code>&quot;references&quot;</code>.</p>
+<p>When <code>dependencies = TRUE</code>, <strong>cffr</strong> also adds installed package dependencies by calling <code>citation(auto = TRUE)</code> for each one. It preserves the citation metadata, including the title, abstract, authors and year, while adapting the reference to the CFF software type. It adds the dependency scope and version constraint from the source <code>DESCRIPTION</code>, URLs and repository information from the installed dependency’s <code>DESCRIPTION</code> and the canonical <strong>CRAN</strong> DOI only when the dependency is available from <strong>CRAN</strong>. A release date, when available, determines the year, with the year returned by <code>citation()</code> retained otherwise. The year is omitted only when neither source provides one.</p>
 <div class="cell">
 <details class="code-fold">
 <summary><strong>Example</strong></summary>
@@ -1055,7 +1058,7 @@ X-schema.org-keywords: keyword1, keyword2, keyword3</code></pre>
 <span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     address: Boca Raton, Florida</span></span>
 <span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   year: &#39;2018&#39;</span></span>
 <span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   isbn: &#39;9781138359338&#39;</span></span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   url: https://yihui.org/rmarkdown/</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   url: https://pkg.yihui.org/rmarkdown-book/</span></span>
 <span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - type: book</span></span>
 <span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   title: R Markdown Cookbook</span></span>
 <span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   authors:</span></span>
@@ -1070,7 +1073,7 @@ X-schema.org-keywords: keyword1, keyword2, keyword3</code></pre>
 <span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     address: Boca Raton, Florida</span></span>
 <span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   year: &#39;2020&#39;</span></span>
 <span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   isbn: &#39;9780367563837&#39;</span></span>
-<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   url: https://yihui.org/rmarkdown-cookbook</span></span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   url: https://pkg.yihui.org/rmarkdown-cookbook/</span></span>
 <span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - type: software</span></span>
 <span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   title: &#39;R: A Language and Environment for Statistical Computing&#39;</span></span>
 <span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   notes: Depends</span></span>
@@ -1208,7 +1211,7 @@ X-schema.org-keywords: keyword1, keyword2, keyword3</code></pre>
 <span id="cb17-168"><a href="#cb17-168" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     orcid: https://orcid.org/0000-0003-0645-5666</span></span>
 <span id="cb17-169"><a href="#cb17-169" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   year: &#39;2026&#39;</span></span>
 <span id="cb17-170"><a href="#cb17-170" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   doi: 10.32614/CRAN.package.knitr</span></span>
-<span id="cb17-171"><a href="#cb17-171" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   version: &#39;&gt;= 1.43&#39;</span></span>
+<span id="cb17-171"><a href="#cb17-171" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   version: &#39;&gt;= 1.50&#39;</span></span>
 <span id="cb17-172"><a href="#cb17-172" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - type: software</span></span>
 <span id="cb17-173"><a href="#cb17-173" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   title: methods</span></span>
 <span id="cb17-174"><a href="#cb17-174" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   abstract: &#39;R: A Language and Environment for Statistical Computing&#39;</span></span>
@@ -1518,11 +1521,11 @@ X-schema.org-keywords: keyword1, keyword2, keyword3</code></pre>
 <span id="cb17-478"><a href="#cb17-478" aria-hidden="true" tabindex="-1"></a><span class="fu">citation</span>(<span class="st">&quot;rmarkdown&quot;</span>)[<span class="sc">-</span><span class="dv">1</span>]</span>
 <span id="cb17-479"><a href="#cb17-479" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Xie Y, Allaire J, Grolemund G (2018). _R Markdown: The Definitive</span></span>
 <span id="cb17-480"><a href="#cb17-480" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Guide_. Chapman and Hall/CRC, Boca Raton, Florida. ISBN 9781138359338.</span></span>
-<span id="cb17-481"><a href="#cb17-481" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;https://yihui.org/rmarkdown/&gt;.</span></span>
+<span id="cb17-481"><a href="#cb17-481" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;https://pkg.yihui.org/rmarkdown-book/&gt;.</span></span>
 <span id="cb17-482"><a href="#cb17-482" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb17-483"><a href="#cb17-483" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Xie Y, Dervieux C, Riederer E (2020). _R Markdown Cookbook_. Chapman</span></span>
 <span id="cb17-484"><a href="#cb17-484" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; and Hall/CRC, Boca Raton, Florida. ISBN 9780367563837.</span></span>
-<span id="cb17-485"><a href="#cb17-485" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;https://yihui.org/rmarkdown-cookbook&gt;.</span></span>
+<span id="cb17-485"><a href="#cb17-485" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;https://pkg.yihui.org/rmarkdown-cookbook/&gt;.</span></span>
 <span id="cb17-486"><a href="#cb17-486" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb17-487"><a href="#cb17-487" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; To see these entries in BibTeX format, use &#39;print(&lt;citation&gt;,</span></span>
 <span id="cb17-488"><a href="#cb17-488" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; bibtex=TRUE)&#39;, &#39;toBibtex(.)&#39;, or set</span></span>
@@ -1531,7 +1534,7 @@ X-schema.org-keywords: keyword1, keyword2, keyword3</code></pre>
 </div>
 <p>Back to <a href="#tbl-summary" class="quarto-xref">Table 1</a>.</p>
 <h3 id="repository">repository</h3>
-<p>This key is extracted from the <code>&quot;Repository&quot;</code> field of the <code>DESCRIPTION</code> file. This field is usually populated when a package is hosted in a repository such as <strong>CRAN</strong> or <a href="https://r-universe.dev/search"><strong>r-universe</strong></a>. For packages without this field in the <code>DESCRIPTION</code> (which is the typical case for an in-development package), <strong>cffr</strong> tries to find the package in any of the default repositories specified in <code>options(&quot;repos&quot;)</code>.</p>
+<p>This key is extracted from the <code>&quot;Repository&quot;</code> field of the <code>DESCRIPTION</code> file. This field is usually populated when a package is hosted in a repository such as <strong>CRAN</strong> or <a href="https://r-universe.dev/search"><strong>r-universe</strong></a>. For packages without this field in the <code>DESCRIPTION</code> file (typically packages under development), <strong>cffr</strong> tries to find the package in any of the repositories specified in <code>options(&quot;repos&quot;)</code>.</p>
 <p><a href="https://bioconductor.org/"><strong>Bioconductor</strong></a> packages are identified when the <a href="https://contributions.bioconductor.org/description.html#biocviews"><code>&quot;biocViews&quot;</code></a> field is present in the <code>DESCRIPTION</code> file.</p>
 <p>If <strong>cffr</strong> detects that the package is available on <strong>CRAN</strong>, it returns the canonical URL form of the package (that is, <a href="https://CRAN.R-project.org/package=jsonlite" class="uri">https://CRAN.R-project.org/package=jsonlite</a>).</p>
 <div class="cell">
@@ -1544,7 +1547,7 @@ X-schema.org-keywords: keyword1, keyword2, keyword3</code></pre>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(inst<span class="sc">$</span>repository)</span>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; https://CRAN.R-project.org/package=jsonlite</span></span>
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Demo file downloaded from the r-universe.</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Example file downloaded from r-universe.</span></span>
 <span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>runiv <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;examples/DESCRIPTION_r_universe&quot;</span>, <span class="at">package =</span> <span class="st">&quot;cffr&quot;</span>)</span>
 <span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>runiv_cff <span class="ot">&lt;-</span> <span class="fu">cff_create</span>(runiv)</span>
@@ -1619,14 +1622,14 @@ X-schema.org-keywords: keyword1, keyword2, keyword3</code></pre>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">cff_create</span>(<span class="st">&quot;jsonlite&quot;</span>)<span class="sc">$</span><span class="st">`</span><span class="at">repository-code</span><span class="st">`</span>)</span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; https://github.com/jeroen/jsonlite</span></span>
 <span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co"># GitLab</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co"># GitLab.</span></span>
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>gitlab <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;examples/DESCRIPTION_gitlab&quot;</span>, <span class="at">package =</span> <span class="st">&quot;cffr&quot;</span>)</span>
 <span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">cff_create</span>(gitlab)<span class="sc">$</span><span class="st">`</span><span class="at">repository-code</span><span class="st">`</span>)</span>
 <span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; https://gitlab.com/ninijay/methoden</span></span>
 <span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Codeberg</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Codeberg.</span></span>
 <span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>codeberg <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;examples/DESCRIPTION_codeberg&quot;</span>, <span class="at">package =</span> <span class="st">&quot;cffr&quot;</span>)</span>
 <span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">cff_create</span>(codeberg)<span class="sc">$</span><span class="st">`</span><span class="at">repository-code</span><span class="st">`</span>)</span>
